@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for AccountSummary component should render correctly 1`] = `
+<View
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={true}
+    pointerEvents="box-none"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "borderRadius": 5,
+          "elevation": 5,
+          "flex": 1,
+          "justifyContent": "space-evenly",
+          "margin": 10,
+          "padding": 10,
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 5,
+          },
+          "width": 730,
+        }
+      }
+    >
+      <View>
+        <Text
+          style={
+            Object {
+              "color": "gray",
+              "fontSize": 14,
+              "textTransform": "capitalize",
+            }
+          }
+        >
+          total balance
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#333",
+              "fontSize": 30,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          £3100.00
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "height": 40,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "gray",
+                "fontSize": 14,
+                "textTransform": "capitalize",
+              }
+            }
+          >
+            available balance
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#333",
+                "fontSize": 14,
+              }
+            }
+          >
+            £5100.00
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "gray",
+                "fontSize": 14,
+                "textTransform": "capitalize",
+              }
+            }
+          >
+            overdfart
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#333",
+                "fontSize": 14,
+              }
+            }
+          >
+            £2000.00
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
