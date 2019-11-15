@@ -207,18 +207,14 @@ export const Transaction = memo(() => {
   const scrollRef = useRef();
   const snapPoint = cond(
     lessThan(add(translateY, multiply(TOSS_SEC, dragVY)), 0),
-    -250,
+    -260,
     0
   );
 
   const height = interpolate(translateY, {
-    inputRange: [-250, 0],
+    inputRange: [-260, 0],
     outputRange: [
-      0.9 *
-        (screenheight -
-          TabBarHeight -
-          Constants.statusBarHeight -
-          getBottomSpace()),
+      0.85 * (screenheight - TabBarHeight - getBottomSpace()),
       0.5 * (screenheight - TabBarHeight - getBottomSpace())
     ],
     extrapolate: Extrapolate.CLAMP
@@ -264,10 +260,19 @@ export const Transaction = memo(() => {
     <Animated.View
       style={[
         styles.listContainer,
-        { transform: [{ translateY: translateY as any }], height }
+        {
+          transform: [{ translateY: translateY as any }],
+          height,
+          borderTopRightRadius: 10,
+          borderTopLeftRadius: 10
+        }
       ]}
     >
-      <View style={{ height: 30 }}>
+      <View
+        style={{
+          height: 30
+        }}
+      >
         <PanGestureHandler
           onGestureEvent={handlePan}
           onHandlerStateChange={handlePan}
@@ -322,14 +327,18 @@ export const Transaction = memo(() => {
 const styles = StyleSheet.create({
   listContainer: {
     elevation: 5,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    shadowOpacity: 1.0,
+    shadowColor: "#ccc"
   },
   card: {
     marginHorizontal: 0,
     paddingHorizontal: 0,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    flex: 1
+    flex: 1,
+    elevation: 0,
+    shadowOpacity: 0
   },
   txnList: {
     marginTop: 10
