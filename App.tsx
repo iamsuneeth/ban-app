@@ -1,16 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
-import { Home, HomeStack } from "./components/pages/Home";
+import { HomeStack } from "./components/pages/Home";
 import { Payments } from "./components/pages/Payments";
 import { Transfers } from "./components/pages/Transfers";
 import { More } from "./components/pages/More";
-import {
-  Ionicons,
-  MaterialIcons,
-  MaterialCommunityIcons
-} from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { TabBar } from "./components/common/TabBar";
 
 const BottomTabBar = createBottomTabNavigator(
   {
@@ -55,7 +51,8 @@ const BottomTabBar = createBottomTabNavigator(
     tabBarOptions: {
       activeTintColor: "tomato",
       inactiveTintColor: "gray"
-    }
+    },
+    tabBarComponent: props => <TabBar {...props} />
   }
 );
 

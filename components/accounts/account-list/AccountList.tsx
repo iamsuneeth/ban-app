@@ -9,7 +9,10 @@ import {
   TouchableHighlight,
   Platform
 } from "react-native";
-import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import {
+  TouchableNativeFeedback,
+  RectButton
+} from "react-native-gesture-handler";
 import { NavigationStackProp } from "react-navigation-stack";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
@@ -90,31 +93,31 @@ export const AccountList = ({ navigation }: Props) => {
             {section.accounts.map((account, index) => {
               return (
                 <View key={account.id}>
-                  {getTouchableComponent({
-                    child: (
-                      <View style={styles.accountCard}>
-                        <View style={styles.accountPrimary}>
-                          <View>
-                            <Text style={styles.main}>{account.nickName}</Text>
-                            <Text style={styles.secondary}>
-                              {account.code + " " + account.accountNumber}
-                            </Text>
-                          </View>
-                          <View>
-                            <Amount
-                              amount={account.balance.amount}
-                              currency={account.balance.currency}
-                              size={25}
-                            />
-                          </View>
-                        </View>
-                      </View>
-                    ),
-                    onPress: () =>
+                  <RectButton
+                    onPress={() =>
                       navigation.navigate("AccountDetails", {
                         accountId: account.id
                       })
-                  })}
+                    }
+                  >
+                    <View style={styles.accountCard}>
+                      <View style={styles.accountPrimary}>
+                        <View>
+                          <Text style={styles.main}>{account.nickName}</Text>
+                          <Text style={styles.secondary}>
+                            {account.code + " " + account.accountNumber}
+                          </Text>
+                        </View>
+                        <View>
+                          <Amount
+                            amount={account.balance.amount}
+                            currency={account.balance.currency}
+                            size={25}
+                          />
+                        </View>
+                      </View>
+                    </View>
+                  </RectButton>
                   {index !== section.accounts.length - 1 && (
                     <View
                       style={{
@@ -141,8 +144,7 @@ const styles = StyleSheet.create({
   },
   accountCard: {
     marginVertical: 5,
-    minHeight: 80,
-    backgroundColor: "#fff"
+    minHeight: 80
   },
   accountPrimary: {
     flex: 1,

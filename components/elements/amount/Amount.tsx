@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import NumberFormat from "react-number-format";
 
 const CURRENCY_SYMBOL_MAP: { [k: string]: string } = {
@@ -13,8 +13,12 @@ type Props = {
   amount: number;
   currency: string;
   size?: number;
+  style?: {
+    container?: ViewStyle;
+    content?: TextStyle;
+  };
 };
-export const Amount = ({ amount, currency, size = 16 }: Props) => {
+export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
   const amountText = amount.toFixed(2);
   const [integer, decimal] = amountText.split(".");
 
@@ -25,8 +29,8 @@ export const Amount = ({ amount, currency, size = 16 }: Props) => {
       thousandSeparator={true}
       prefix={CURRENCY_SYMBOL_MAP[currency]}
       renderText={value => (
-        <View style={styles.container}>
-          <Text style={{ fontSize: size }}>{value}</Text>
+        <View style={{ ...styles.container, ...style.container }}>
+          <Text style={{ fontSize: size, ...style.content }}>{value}</Text>
           <Text
             testID="decimal"
             style={{

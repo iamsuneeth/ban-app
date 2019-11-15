@@ -48,7 +48,7 @@ export const HomeStack = createStackNavigator(
           <FontAwesome
             name="user-circle"
             size={24}
-            color="dodgerblue"
+            color="tomato"
             style={{ paddingLeft: 10 }}
           />
         ),
@@ -56,7 +56,7 @@ export const HomeStack = createStackNavigator(
           <FontAwesome
             name="user-circle"
             size={24}
-            color="dodgerblue"
+            color="tomato"
             style={{ paddingRight: 10 }}
           />
         )
