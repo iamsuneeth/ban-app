@@ -1,38 +1,14 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import {
-  createStackNavigator,
-  NavigationStackProp
-} from "react-navigation-stack";
-import { AccountDetails } from "../accounts/account-details/AccountDetails";
+
+import { createStackNavigator } from "react-navigation-stack";
 import { FontAwesome } from "@expo/vector-icons";
-import { AccountList } from "../accounts/account-list/AccountList";
-import { AccountSummary } from "../accounts/account-sumary/AccountSummary";
-
-type Props = {
-  navigation: NavigationStackProp<{}>;
-};
-export const Home = ({ navigation }: Props) => {
-  return (
-    <View style={styles.container}>
-      <AccountSummary />
-      <AccountList navigation={navigation} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-    alignItems: "center"
-  }
-});
+import { HomeContainer } from "../../containers/HomeContainer";
+import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
 
 export const HomeStack = createStackNavigator(
   {
     Accounts: {
-      screen: Home,
+      screen: HomeContainer,
       navigationOptions: {
         title: "Home",
         headerStyle: {
@@ -63,7 +39,7 @@ export const HomeStack = createStackNavigator(
       }
     },
     AccountDetails: {
-      screen: AccountDetails,
+      screen: AccountDetailsContainer,
       navigationOptions: {
         title: "Account Details"
       }

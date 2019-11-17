@@ -7,6 +7,7 @@ import { Transfers } from "./components/pages/Transfers";
 import { More } from "./components/pages/More";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { TabBar } from "./components/common/TabBar";
+import { createProvider } from "bank-core";
 
 const BottomTabBar = createBottomTabNavigator(
   {
@@ -56,4 +57,6 @@ const BottomTabBar = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(BottomTabBar);
+const Container = createAppContainer(BottomTabBar);
+
+export default () => createProvider(Container);

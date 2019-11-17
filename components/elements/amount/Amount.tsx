@@ -48,7 +48,6 @@ export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    flex: 1,
     alignItems: "flex-end"
   }
 });

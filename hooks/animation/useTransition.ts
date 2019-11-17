@@ -10,7 +10,7 @@ export const useTransition = ({
 }: {
   expanded: boolean;
   trigger: boolean;
-}): [Animated.Value<0 | 1>, Function] => {
+}): [Animated.Value<0 | 1>, Function, boolean] => {
   const [initial, setinitial] = useState(!trigger);
   const markInitialized = useCallback(() => {
     if (initial) {
@@ -18,7 +18,6 @@ export const useTransition = ({
     }
   }, []);
   const animation = new Value(expanded || initial ? 0 : 1);
-  const clock = new Clock();
   useCode(() => {
     if (initial) {
       return animation;
@@ -28,7 +27,6 @@ export const useTransition = ({
     return set(
       animation,
       spring({
-        clock,
         velocity: new Value(10),
         config: {
           damping: 10
@@ -39,5 +37,5 @@ export const useTransition = ({
     );
   }, [expanded]);
 
-  return [animation, markInitialized];
+  return [animation, markInitialized, initial];
 };

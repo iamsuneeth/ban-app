@@ -197,7 +197,6 @@ export const Transaction = memo(() => {
     groupedTransactions[txn.date].push(txn);
   });
   const [translateY] = useState(new Value(0));
-  const [offsetY] = useState(new Value(0));
   const [dragY] = useState(new Value(0));
   const [prevDragY] = useState(new Value(0));
   const [dragVY] = useState(new Value(0));
@@ -218,6 +217,14 @@ export const Transaction = memo(() => {
       0.5 * (screenheight - TabBarHeight - getBottomSpace())
     ],
     extrapolate: Extrapolate.CLAMP
+  });
+
+  const innerHeight = interpolate(height, {
+    inputRange: [
+      0.5 * (screenheight - TabBarHeight - getBottomSpace()),
+      0.85 * (screenheight - TabBarHeight - getBottomSpace())
+    ],
+    outputRange: [0, 250]
   });
 
   const handlePan = event([
@@ -301,6 +308,9 @@ export const Transaction = memo(() => {
           </Animated.View>
         </PanGestureHandler>
       </View>
+      <Animated.View
+        style={{ backgroundColor: "tomato", height: innerHeight }}
+      ></Animated.View>
       <Card style={styles.card}>
         <SectionList
           scrollEventThrottle={16}

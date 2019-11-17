@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
-  SectionList
+  LayoutChangeEvent
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { NavigationStackProp } from "react-navigation-stack";
@@ -12,21 +12,34 @@ import { Card } from "../../elements/card/Card";
 
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { Divider } from "../../elements/divider/Divider";
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { useState } from "react";
 import { useTransition } from "../../../hooks/animation/useTransition";
 import { Transaction } from "../transactions/Transactions";
 import { getBottomSpace } from "react-native-iphone-x-helper";
+import { IAccount, IAccountDetails } from "bank-core/dist/types";
+import { Amount } from "../../elements/amount/Amount";
+import { NavigationParams } from "react-navigation";
 const AnimatedIcon = Animated.createAnimatedComponent(AntDesign);
 
 type Props = {
-  navigation: NavigationStackProp<{}>;
+  account: IAccount;
+  details: IAccountDetails;
+  fetchDetails: Function;
+  navigate: (string, NavigationParams) => void;
 };
 
-export const AccountDetails = ({ navigation }: Props) => {
+export const AccountDetails = ({
+  account,
+  details,
+  fetchDetails,
+  navigate
+}: Props) => {
   const [expanded, setExpanded] = useState(false);
-
-  const [animation, setInitial] = useTransition({ expanded, trigger: false });
+  const [animation, setInitial, initial] = useTransition({
+    expanded,
+    trigger: false
+  });
 
   const height = animation.interpolate({
     inputRange: [0, 1],
@@ -38,290 +51,128 @@ export const AccountDetails = ({ navigation }: Props) => {
     outputRange: [0, Math.PI * 5]
   });
 
-  useEffect(() => console.log("rendering"));
-
   return (
     <View style={styles.container}>
       <Card style={styles.accountCard}>
         <View style={styles.section}>
           <View>
-            <Text style={styles.main}>{"My Savings Account"}</Text>
+            <Text style={styles.main}>{account.nickName}</Text>
             <Text style={styles.secondary}>
-              {"ADVANCE" + "|" + "SBTR00189" + "|" + "23335522"}
+              {`${account.type}|${account.code}|${account.accountNumber}`}
             </Text>
           </View>
-          <Text
-            style={{
-              fontSize: 25,
-              color: "#333",
-              textAlign: "right"
-            }}
-          >
-            £3100.00
-          </Text>
+          <Amount
+            amount={account.balance.amount}
+            currency={account.balance.currency}
+            style={{ content: styles.totalAmount }}
+            size={25}
+          />
         </View>
         <View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
-          >
-            <Text
-              style={{
-                color: "gray",
-                fontSize: 14,
-                textTransform: "capitalize"
-              }}
-            >
-              available balance
-            </Text>
-
-            <Text style={{ color: "#333", fontSize: 14 }}>£5100.00</Text>
+          <View style={styles.row}>
+            <Text style={styles.label}>available balance</Text>
+            <Amount
+              amount={account.availableBalance.amount}
+              currency={account.availableBalance.currency}
+              style={{ content: styles.amount }}
+              size={14}
+            />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
-          >
-            <Text
-              style={{
-                color: "gray",
-                fontSize: 14,
-                textTransform: "capitalize"
-              }}
-            >
-              available overdraft
-            </Text>
+          <View style={styles.row}>
+            <Text style={styles.label}>available overdraft</Text>
 
-            <Text
-              style={{
-                color: "#333",
-                fontSize: 14
-              }}
-            >
-              £2000.00
-            </Text>
+            <Amount
+              amount={account.availableOverdraft.amount}
+              currency={account.availableOverdraft.currency}
+              style={{ content: styles.amount }}
+              size={14}
+            />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
-          >
-            <Text
-              style={{
-                color: "gray",
-                fontSize: 14,
-                textTransform: "capitalize"
-              }}
-            >
-              used overdraft
-            </Text>
+          <View style={styles.row}>
+            <Text style={styles.label}>used overdraft</Text>
 
-            <Text
-              style={{
-                color: "#333",
-                fontSize: 14
-              }}
-            >
-              £340.00
-            </Text>
+            <Amount
+              amount={account.overdraft.amount}
+              currency={account.overdraft.currency}
+              style={{ content: styles.amount }}
+              size={14}
+            />
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 20
-          }}
-        >
+        <View style={styles.quickLinks}>
           <RectButton
             onPress={() =>
-              navigation.navigate("Payments", {
-                accountId: "f453454"
+              navigate("Payments", {
+                accountId: account.id
               })
             }
-            style={{
-              flex: 1,
-              justifyContent: "flex-start",
-              alignItems: "center",
-              marginHorizontal: 5
-            }}
+            style={styles.quickLinkButton}
           >
             <MaterialIcons name="payment" size={25} />
-            <Text style={{ fontSize: 12, alignSelf: "center" }}>
-              Pay someone
-            </Text>
+            <Text style={styles.quickLinkText}>Pay someone</Text>
           </RectButton>
-          <View style={{ height: "100%" }}></View>
           <RectButton
             onPress={() =>
-              navigation.navigate("Transfers", {
-                accountId: "f453454"
+              navigate("Transfers", {
+                accountId: account.id
               })
             }
-            style={{
-              flex: 1,
-              justifyContent: "flex-start",
-              alignItems: "center",
-              marginHorizontal: 5
-            }}
+            style={styles.quickLinkButton}
           >
             <Ionicons name="ios-cash" size={25} />
-            <Text
-              style={{ fontSize: 12, alignSelf: "center", textAlign: "center" }}
-            >
-              Transfer money
-            </Text>
+            <Text style={styles.quickLinkText}>Transfer money</Text>
           </RectButton>
           <RectButton
             onPress={() =>
-              navigation.navigate("Statements", {
-                accountId: "f453454"
+              navigate("Statements", {
+                accountId: account.id
               })
             }
-            style={{
-              flex: 1,
-              justifyContent: "flex-start",
-              alignItems: "center",
-              marginHorizontal: 5
-            }}
+            style={styles.quickLinkButton}
           >
             <Ionicons name="ios-document" size={25} />
-            <Text
-              style={{ fontSize: 12, alignSelf: "center", textAlign: "center" }}
-            >
-              Statements
-            </Text>
+            <Text style={styles.quickLinkText}>Statements</Text>
           </RectButton>
-          <RectButton
-            onPress={() => {}}
-            style={{
-              flex: 1,
-              justifyContent: "flex-start",
-              alignItems: "center",
-              marginHorizontal: 5
-            }}
-          >
+          <RectButton onPress={() => {}} style={styles.quickLinkButton}>
             <Ionicons name="ios-card" size={25} />
-            <Text
-              style={{ fontSize: 12, alignSelf: "center", textAlign: "center" }}
-            >
-              Debit card
-            </Text>
+            <Text style={styles.quickLinkText}>Debit card</Text>
           </RectButton>
         </View>
-        <Animated.View style={{ height, marginTop: 20, overflow: "hidden" }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 18, marginVertical: 15 }}>
-              Account & branch details
-            </Text>
-            <View style={{ marginBottom: 10 }}>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14
-                }}
-              >
-                SBTR00189
-              </Text>
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 14,
-                  textTransform: "uppercase"
-                }}
-              >
-                ifsc code
-              </Text>
+        <Animated.View style={{ height, ...styles.addnlContainer }}>
+          {details && (
+            <View style={styles.addnlInnerContainer}>
+              <Text style={styles.addnlHeader}>Account & branch details</Text>
+              <View style={styles.addnlSection}>
+                <Text style={styles.addnlValue}>{details.code}</Text>
+                <Text style={styles.addnlLabel}>ifsc code</Text>
+              </View>
+              <View style={styles.addnlSection}>
+                <Text style={styles.addnlValue}>{details.branch.name}</Text>
+                <Text style={styles.addnlLabel}>branch name</Text>
+              </View>
+              <View style={styles.addnlSection}>
+                <Text style={styles.addnlValue}>{details.branch.address}</Text>
+                <Text style={styles.addnlLabel}>branch address</Text>
+              </View>
+              <View style={styles.addnlSection}>
+                <Text style={styles.addnlValue}>{details.branch.bic}</Text>
+                <Text style={styles.addnlLabel}>bic</Text>
+              </View>
+              <View style={styles.addnlSection}>
+                <Text style={styles.addnlValue}>{details.iban}</Text>
+                <Text style={styles.addnlLabel}>iban</Text>
+              </View>
+              <Divider rootStyle={{ marginTop: 30 }} content={<Text>x</Text>} />
             </View>
-            <View style={{ marginBottom: 10 }}>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14
-                }}
-              >
-                branch name of some branch
-              </Text>
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 14,
-                  textTransform: "uppercase"
-                }}
-              >
-                branch name
-              </Text>
-            </View>
-            <View style={{ marginBottom: 10 }}>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14
-                }}
-              >
-                ABC bank, somewhere in India, locality, state, 678 900, India
-              </Text>
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 14,
-                  textTransform: "uppercase"
-                }}
-              >
-                branch address
-              </Text>
-            </View>
-            <View style={{ marginBottom: 10 }}>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14
-                }}
-              >
-                ABCHIJK8901
-              </Text>
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 14,
-                  textTransform: "uppercase"
-                }}
-              >
-                bic
-              </Text>
-            </View>
-            <View style={{ marginBottom: 10 }}>
-              <Text
-                style={{
-                  color: "#333",
-                  fontSize: 14
-                }}
-              >
-                ABCDF3452345343670008
-              </Text>
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 14,
-                  textTransform: "uppercase"
-                }}
-              >
-                iban
-              </Text>
-            </View>
-            <Divider rootStyle={{ marginTop: 30 }} content={<Text>x</Text>} />
-          </View>
+          )}
         </Animated.View>
-        <TouchableHighlight
+        <BorderlessButton
           onPress={() => {
             setInitial();
             setExpanded(state => !state);
           }}
           style={styles.expandButton}
-          underlayColor="#f1f1f1"
+          enabled={details ? true : false}
         >
           <AnimatedIcon
             name="downcircle"
@@ -329,7 +180,7 @@ export const AccountDetails = ({ navigation }: Props) => {
             color="tomato"
             style={{ transform: [{ rotate: rotation }] }}
           />
-        </TouchableHighlight>
+        </BorderlessButton>
       </Card>
       <Transaction />
     </View>
@@ -355,5 +206,48 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "center",
     bottom: -10
+  },
+  totalAmount: {
+    color: "#333",
+    textAlign: "right"
+  },
+  label: {
+    color: "gray",
+    fontSize: 14,
+    textTransform: "capitalize"
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  amount: { color: "#333" },
+  quickLinks: {
+    flexDirection: "row",
+    marginTop: 20
+  },
+  quickLinkButton: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginHorizontal: 5
+  },
+  quickLinkText: { fontSize: 12, alignSelf: "center", textAlign: "center" },
+  addnlContainer: {
+    marginTop: 20,
+    overflow: "hidden"
+  },
+  addnlInnerContainer: {
+    flex: 1
+  },
+  addnlHeader: { fontSize: 18, marginVertical: 15 },
+  addnlSection: { marginBottom: 10 },
+  addnlLabel: {
+    color: "gray",
+    fontSize: 14,
+    textTransform: "uppercase"
+  },
+  addnlValue: {
+    color: "#333",
+    fontSize: 14
   }
 });
