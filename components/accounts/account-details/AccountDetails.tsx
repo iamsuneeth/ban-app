@@ -1,25 +1,24 @@
-import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-  LayoutChangeEvent
-} from "react-native";
+import React, { useRef } from "react";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
-import { NavigationStackProp } from "react-navigation-stack";
 import { Card } from "../../elements/card/Card";
 
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { Divider } from "../../elements/divider/Divider";
-import { RectButton, BorderlessButton } from "react-native-gesture-handler";
+import {
+  RectButton,
+  BorderlessButton,
+  ScrollView
+} from "react-native-gesture-handler";
 import { useState } from "react";
 import { useTransition } from "../../../hooks/animation/useTransition";
-import { Transaction } from "../transactions/Transactions";
+import { Transaction } from "../transactions/TransactionsSheet";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { IAccount, IAccountDetails } from "bank-core/dist/types";
 import { Amount } from "../../elements/amount/Amount";
 import { NavigationParams } from "react-navigation";
+import BottomSheet from "reanimated-bottom-sheet";
+import { getTabBarHeight } from "../../common/TabBar";
 const AnimatedIcon = Animated.createAnimatedComponent(AntDesign);
 
 type Props = {
@@ -36,14 +35,20 @@ export const AccountDetails = ({
   navigate
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
-  const [animation, setInitial, initial] = useTransition({
+  const [animation, setInitial] = useTransition({
     expanded,
     trigger: false
   });
 
+  const sheetRef: React.LegacyRef<BottomSheet> = useRef();
   const height = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 400 - getBottomSpace()]
+    outputRange: [
+      0,
+      0.4 *
+        (Dimensions.get("window").height - getTabBarHeight() - getBottomSpace())
+    ],
+    extrapolate: Animated.Extrapolate.CLAMP
   });
 
   const rotation = animation.interpolate({
@@ -141,34 +146,42 @@ export const AccountDetails = ({
         <Animated.View style={{ height, ...styles.addnlContainer }}>
           {details && (
             <View style={styles.addnlInnerContainer}>
-              <Text style={styles.addnlHeader}>Account & branch details</Text>
-              <View style={styles.addnlSection}>
-                <Text style={styles.addnlValue}>{details.code}</Text>
-                <Text style={styles.addnlLabel}>ifsc code</Text>
-              </View>
-              <View style={styles.addnlSection}>
-                <Text style={styles.addnlValue}>{details.branch.name}</Text>
-                <Text style={styles.addnlLabel}>branch name</Text>
-              </View>
-              <View style={styles.addnlSection}>
-                <Text style={styles.addnlValue}>{details.branch.address}</Text>
-                <Text style={styles.addnlLabel}>branch address</Text>
-              </View>
-              <View style={styles.addnlSection}>
-                <Text style={styles.addnlValue}>{details.branch.bic}</Text>
-                <Text style={styles.addnlLabel}>bic</Text>
-              </View>
-              <View style={styles.addnlSection}>
-                <Text style={styles.addnlValue}>{details.iban}</Text>
-                <Text style={styles.addnlLabel}>iban</Text>
-              </View>
-              <Divider rootStyle={{ marginTop: 30 }} content={<Text>x</Text>} />
+              <ScrollView>
+                <Text style={styles.addnlHeader}>Account & branch details</Text>
+                <View style={styles.addnlSection}>
+                  <Text style={styles.addnlValue}>{details.code}</Text>
+                  <Text style={styles.addnlLabel}>ifsc code</Text>
+                </View>
+                <View style={styles.addnlSection}>
+                  <Text style={styles.addnlValue}>{details.branch.name}</Text>
+                  <Text style={styles.addnlLabel}>branch name</Text>
+                </View>
+                <View style={styles.addnlSection}>
+                  <Text style={styles.addnlValue}>
+                    {details.branch.address}
+                  </Text>
+                  <Text style={styles.addnlLabel}>branch address</Text>
+                </View>
+                <View style={styles.addnlSection}>
+                  <Text style={styles.addnlValue}>{details.branch.bic}</Text>
+                  <Text style={styles.addnlLabel}>bic</Text>
+                </View>
+                <View style={styles.addnlSection}>
+                  <Text style={styles.addnlValue}>{details.iban}</Text>
+                  <Text style={styles.addnlLabel}>iban</Text>
+                </View>
+              </ScrollView>
             </View>
           )}
         </Animated.View>
         <BorderlessButton
           onPress={() => {
             setInitial();
+            if (expanded) {
+              sheetRef.current.snapTo(1);
+            } else {
+              sheetRef.current.snapTo(2);
+            }
             setExpanded(state => !state);
           }}
           style={styles.expandButton}
@@ -182,7 +195,7 @@ export const AccountDetails = ({
           />
         </BorderlessButton>
       </Card>
-      <Transaction />
+      <Transaction sheetRef={sheetRef} />
     </View>
   );
 };
@@ -233,13 +246,13 @@ const styles = StyleSheet.create({
   },
   quickLinkText: { fontSize: 12, alignSelf: "center", textAlign: "center" },
   addnlContainer: {
-    marginTop: 20,
+    marginTop: 10,
     overflow: "hidden"
   },
   addnlInnerContainer: {
     flex: 1
   },
-  addnlHeader: { fontSize: 18, marginVertical: 15 },
+  addnlHeader: { fontSize: 18, marginBottom: 15 },
   addnlSection: { marginBottom: 10 },
   addnlLabel: {
     color: "gray",

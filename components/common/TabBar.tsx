@@ -10,7 +10,7 @@ let tabBarLayout = {
   height: 0
 };
 
-export const TabBarHeight = tabBarLayout.height;
+export const getTabBarHeight = () => tabBarLayout.height;
 
 export const TabBar = (props: BottomTabBarProps) => {
   return (

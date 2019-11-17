@@ -5,9 +5,20 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import BottomSheet from "reanimated-bottom-sheet";
 import { Card } from "../../elements/card/Card";
 import { TxnItem } from "./TxnItem";
-import { LinearGradient } from "expo-linear-gradient";
+import Animated from "react-native-reanimated";
+import { getTabBarHeight } from "../../common/TabBar";
+import {
+  getBottomSpace,
+  getStatusBarHeight
+} from "react-native-iphone-x-helper";
 
 dayjs.extend(advancedFormat);
+
+const availableHeight =
+  Dimensions.get("window").height -
+  getTabBarHeight() -
+  getBottomSpace() -
+  getStatusBarHeight();
 
 const transactions = [
   {
@@ -178,7 +189,7 @@ const renderHeader = () => (
 );
 
 export const Transaction = memo(
-  () => {
+  ({ sheetRef }: { sheetRef: React.LegacyRef<BottomSheet> }) => {
     let groupedTransactions: { [key: string]: any } = {};
     transactions.forEach(txn => {
       if (!(txn.date in groupedTransactions)) {
@@ -188,17 +199,21 @@ export const Transaction = memo(
     });
 
     return (
-      <View style={{ flex: 1, elevation: 2 }}>
+      <Animated.View style={{ flex: 1, elevation: 5 }}>
         <BottomSheet
-          snapPoints={[700, 500, 100]}
+          snapPoints={[
+            0.9 * availableHeight,
+            0.45 * availableHeight,
+            0.1 * availableHeight
+          ]}
           renderContent={renderContent}
           renderHeader={renderHeader}
           initialSnap={1}
+          ref={sheetRef}
         />
-      </View>
+      </Animated.View>
     );
-  },
-  () => true
+  }
 );
 
 const styles = StyleSheet.create({

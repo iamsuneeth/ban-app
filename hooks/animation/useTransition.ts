@@ -18,24 +18,27 @@ export const useTransition = ({
     }
   }, []);
   const animation = new Value(expanded || initial ? 0 : 1);
-  useCode(() => {
-    if (initial) {
-      return animation;
-    }
-    const from = expanded ? 0 : 1;
-    const to = expanded ? 1 : 0;
-    return set(
-      animation,
-      spring({
-        velocity: new Value(10),
-        config: {
-          damping: 10
-        },
-        from,
-        to
-      })
-    );
-  }, [expanded]);
+  useCode(
+    (() => {
+      if (initial) {
+        return animation;
+      }
+      const from = expanded ? 0 : 1;
+      const to = expanded ? 1 : 0;
+      return set(
+        animation,
+        spring({
+          velocity: new Value(10),
+          config: {
+            damping: 10
+          },
+          from,
+          to
+        })
+      );
+    })(),
+    [expanded]
+  );
 
   return [animation, markInitialized, initial];
 };

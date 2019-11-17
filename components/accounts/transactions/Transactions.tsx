@@ -24,7 +24,7 @@ import {
 } from "react-native-gesture-handler";
 import Animated, { Easing } from "react-native-reanimated";
 import { panGestureHandler, onGestureEvent, spring } from "react-native-redash";
-import { TabBarHeight } from "../../common/TabBar";
+import { getTabBarHeight } from "../../common/TabBar";
 import Constants from "expo-constants";
 
 dayjs.extend(advancedFormat);
@@ -213,16 +213,16 @@ export const Transaction = memo(() => {
   const height = interpolate(translateY, {
     inputRange: [-260, 0],
     outputRange: [
-      0.85 * (screenheight - TabBarHeight - getBottomSpace()),
-      0.5 * (screenheight - TabBarHeight - getBottomSpace())
+      0.85 * (screenheight - getTabBarHeight() - getBottomSpace()),
+      0.5 * (screenheight - getTabBarHeight() - getBottomSpace())
     ],
     extrapolate: Extrapolate.CLAMP
   });
 
   const innerHeight = interpolate(height, {
     inputRange: [
-      0.5 * (screenheight - TabBarHeight - getBottomSpace()),
-      0.85 * (screenheight - TabBarHeight - getBottomSpace())
+      0.5 * (screenheight - getTabBarHeight() - getBottomSpace()),
+      0.85 * (screenheight - getTabBarHeight() - getBottomSpace())
     ],
     outputRange: [0, 250]
   });
