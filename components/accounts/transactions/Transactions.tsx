@@ -323,7 +323,6 @@ export const Transaction = memo(() => {
               getSection(key, groupedTransactions[key])
             )
           ]}
-          renderSectionHeader={({ section }) => <TxnHeader data={section} />}
           keyExtractor={item => item.id}
           renderItem={({ item, index }) => (
             <TxnItem data={item} index={index} />

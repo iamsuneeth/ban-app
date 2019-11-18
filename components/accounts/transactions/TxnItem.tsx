@@ -1,9 +1,12 @@
 import React from "react";
-import { View, Text, SectionListData, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
+import { normalize } from "../../../utils/normalize";
+import { Amount } from "../../elements/amount/Amount";
+import { ITransaction } from "bank-core/dist/types";
 type TxnItemProps = {
-  data: any;
+  data: ITransaction;
   index: number;
 };
 
@@ -23,7 +26,15 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
               </Text>
             )}
           </View>
-          <Text style={styles.amount}>{"£" + data.amount.toFixed(2)}</Text>
+          <Amount
+            amount={data.amount}
+            currency={data.currency}
+            size={18}
+            style={{
+              content: styles.amount,
+              container: styles.amountContainer
+            }}
+          />
         </View>
       </RectButton>
     </View>
@@ -41,19 +52,21 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   payee: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
-    fontSize: 12,
+    fontSize: normalize(12),
     color: "#888"
   },
   icon: {
     paddingRight: 10
   },
   amount: {
-    fontSize: 18,
-    flex: 1,
     fontWeight: "400",
     textAlign: "right"
+  },
+  amountContainer: {
+    flex: 1,
+    justifyContent: "flex-end"
   }
 });

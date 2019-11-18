@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Card } from "../../elements/card/Card";
 import { ISummary } from "bank-core/dist/types";
 import { Amount } from "../../elements/amount/Amount";
+import { normalize, normalizeHeight } from "../../../utils/normalize";
 
 type AccountSummaryProps = {
   summary: ISummary;
@@ -52,10 +53,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     width: Dimensions.get("window").width - 20,
     margin: 10,
-    padding: 10
+    padding: 10,
+    minHeight: normalizeHeight(50)
   },
   label: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: "gray",
     textTransform: "capitalize"
   },
@@ -65,13 +67,12 @@ const styles = StyleSheet.create({
   },
   otherAmount: {
     color: "#333",
-    fontSize: 14
+    fontSize: normalize(14)
   },
   additionalInfo: {
-    height: 40
+    minHeight: normalizeHeight(40)
   },
   flexRow: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between"
   }

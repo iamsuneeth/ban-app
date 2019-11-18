@@ -1,14 +1,32 @@
 import React from "react";
-import { View, Text, SectionListData, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import { normalize } from "../../../utils/normalize";
+
+dayjs.extend(advancedFormat);
+
+const getContent = (date: string) => {
+  const currentDate = dayjs(date);
+  const isToday = currentDate.isSame(dayjs().startOf("day"));
+  const format =
+    currentDate.get("year") === dayjs().get("year")
+      ? "dddd, Do MMMM"
+      : "dddd, Do MMMM YYYY";
+  return isToday ? "Today" : currentDate.format(format);
+};
 
 type TxnHeaderProps = {
-  data: SectionListData<any>;
+  data: {
+    name: string;
+    transactions: any[];
+  };
 };
 
 export const TxnHeader = ({ data }: TxnHeaderProps) => {
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.sectionHeader}>{data.title}</Text>
+      <Text style={styles.sectionHeader}>{getContent(data.name)}</Text>
     </View>
   );
 };
@@ -19,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   sectionHeader: {
-    fontSize: 15,
+    fontSize: normalize(15),
     color: "gray",
     fontWeight: "500"
   }

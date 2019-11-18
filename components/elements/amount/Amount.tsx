@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import NumberFormat from "react-number-format";
+import { normalize } from "../../../utils/normalize";
 
 const CURRENCY_SYMBOL_MAP: { [k: string]: string } = {
   GBP: "£",
@@ -30,11 +31,13 @@ export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
       prefix={CURRENCY_SYMBOL_MAP[currency]}
       renderText={value => (
         <View style={{ ...styles.container, ...style.container }}>
-          <Text style={{ fontSize: size, ...style.content }}>{value}</Text>
+          <Text style={{ fontSize: normalize(size), ...style.content }}>
+            {value}
+          </Text>
           <Text
             testID="decimal"
             style={{
-              fontSize: Math.round(size * 0.8)
+              fontSize: normalize(Math.round(size * 0.8))
             }}
           >
             .{decimal}

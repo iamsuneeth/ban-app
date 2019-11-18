@@ -2,9 +2,7 @@ import React, { useRef } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
 import { Card } from "../../elements/card/Card";
-
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { Divider } from "../../elements/divider/Divider";
 import {
   RectButton,
   BorderlessButton,
@@ -12,13 +10,12 @@ import {
 } from "react-native-gesture-handler";
 import { useState } from "react";
 import { useTransition } from "../../../hooks/animation/useTransition";
-import { Transaction } from "../transactions/TransactionsSheet";
-import { getBottomSpace } from "react-native-iphone-x-helper";
 import { IAccount, IAccountDetails } from "bank-core/dist/types";
 import { Amount } from "../../elements/amount/Amount";
 import { NavigationParams } from "react-navigation";
 import BottomSheet from "reanimated-bottom-sheet";
-import { getTabBarHeight } from "../../common/TabBar";
+import { normalize, normalizeHeight } from "../../../utils/normalize";
+import { TransactionContainer } from "../../../containers/TransactionContainer";
 const AnimatedIcon = Animated.createAnimatedComponent(AntDesign);
 
 type Props = {
@@ -43,11 +40,7 @@ export const AccountDetails = ({
   const sheetRef: React.LegacyRef<BottomSheet> = useRef();
   const height = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [
-      0,
-      0.4 *
-        (Dimensions.get("window").height - getTabBarHeight() - getBottomSpace())
-    ],
+    outputRange: [0, normalizeHeight(250)],
     extrapolate: Animated.Extrapolate.CLAMP
   });
 
@@ -144,9 +137,9 @@ export const AccountDetails = ({
           </RectButton>
         </View>
         <Animated.View style={{ height, ...styles.addnlContainer }}>
-          {details && (
-            <View style={styles.addnlInnerContainer}>
-              <ScrollView>
+          <ScrollView style={styles.scrollContainer}>
+            {details && (
+              <View style={styles.addnlInnerContainer}>
                 <Text style={styles.addnlHeader}>Account & branch details</Text>
                 <View style={styles.addnlSection}>
                   <Text style={styles.addnlValue}>{details.code}</Text>
@@ -170,17 +163,19 @@ export const AccountDetails = ({
                   <Text style={styles.addnlValue}>{details.iban}</Text>
                   <Text style={styles.addnlLabel}>iban</Text>
                 </View>
-              </ScrollView>
-            </View>
-          )}
+              </View>
+            )}
+          </ScrollView>
         </Animated.View>
         <BorderlessButton
           onPress={() => {
             setInitial();
-            if (expanded) {
-              sheetRef.current.snapTo(1);
-            } else {
-              sheetRef.current.snapTo(2);
+            if (sheetRef.current) {
+              if (expanded) {
+                sheetRef.current.snapTo(1);
+              } else {
+                sheetRef.current.snapTo(2);
+              }
             }
             setExpanded(state => !state);
           }}
@@ -195,7 +190,7 @@ export const AccountDetails = ({
           />
         </BorderlessButton>
       </Card>
-      <Transaction sheetRef={sheetRef} />
+      <TransactionContainer accountId={account.id} sheetRef={sheetRef} />
     </View>
   );
 };
@@ -209,16 +204,17 @@ const styles = StyleSheet.create({
   accountCard: {
     marginBottom: 20
   },
+  scrollContainer: {},
   section: {
     marginBottom: 10
   },
-  main: { color: "#333", fontSize: 18, fontWeight: "bold" },
-  secondary: { color: "gray", fontSize: 12 },
-  highlight: { color: "#333", fontSize: 18 },
+  main: { color: "#333", fontSize: normalize(18), fontWeight: "bold" },
+  secondary: { color: "gray", fontSize: normalize(12) },
+  highlight: { color: "#333", fontSize: normalize(18) },
   expandButton: {
     position: "absolute",
     alignSelf: "center",
-    bottom: -10
+    bottom: -15
   },
   totalAmount: {
     color: "#333",
@@ -226,7 +222,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "gray",
-    fontSize: 14,
+    fontSize: normalize(14),
     textTransform: "capitalize"
   },
   row: {
@@ -244,23 +240,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 5
   },
-  quickLinkText: { fontSize: 12, alignSelf: "center", textAlign: "center" },
+  quickLinkText: {
+    fontSize: normalize(12),
+    alignSelf: "center",
+    textAlign: "center"
+  },
   addnlContainer: {
-    marginTop: 10,
-    overflow: "hidden"
+    marginTop: 10
   },
   addnlInnerContainer: {
     flex: 1
   },
-  addnlHeader: { fontSize: 18, marginBottom: 15 },
+  addnlHeader: { fontSize: normalize(18), marginBottom: 15 },
   addnlSection: { marginBottom: 10 },
   addnlLabel: {
     color: "gray",
-    fontSize: 14,
+    fontSize: normalize(14),
     textTransform: "uppercase"
   },
   addnlValue: {
     color: "#333",
-    fontSize: 14
+    fontSize: normalize(14)
   }
 });

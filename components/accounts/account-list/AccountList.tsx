@@ -5,6 +5,7 @@ import { NavigationStackProp } from "react-navigation-stack";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
 import { IAccount, AccountClass } from "bank-core/dist/types";
+import { normalize, normalizeHeight } from "../../../utils/normalize";
 
 const NameClassMap: { [key in AccountClass]: string } = {
   CSA: "Savings",
@@ -104,11 +105,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  main: { color: "#333", fontSize: 16 },
-  secondary: { color: "gray", fontSize: 12 },
-  highlight: { color: "#333", fontSize: 18 },
+  main: { color: "#333", fontSize: normalize(16) },
+  secondary: { color: "gray", fontSize: normalize(12) },
+  highlight: { color: "#333", fontSize: normalize(18) },
   sectionHeader: {
-    fontSize: 20,
+    fontSize: normalize(20),
     marginVertical: 10,
     paddingBottom: 5,
     fontWeight: "bold",
