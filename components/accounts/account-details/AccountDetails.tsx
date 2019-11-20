@@ -51,52 +51,53 @@ export const AccountDetails = ({
 
   return (
     <View style={styles.container}>
-      <Card style={styles.accountCard}>
+      <View style={{ height: "40%" }}>
         <View style={styles.section}>
-          <View>
-            <Text style={styles.main}>{account.nickName}</Text>
-            <Text style={styles.secondary}>
-              {`${account.type}|${account.code}|${account.accountNumber}`}
-            </Text>
+          <View style={{ alignItems: "center" }}>
+            <View style={styles.secondary}>
+              <Text style={styles.secondaryText}>{account.code}</Text>
+              <Text style={styles.secondarySeperator}>.</Text>
+              <Text style={styles.secondaryText}>{account.accountNumber}</Text>
+            </View>
+            <Amount
+              amount={account.balance.amount}
+              currency={account.balance.currency}
+              style={{ content: styles.totalAmount }}
+              size={30}
+            />
           </View>
-          <Amount
-            amount={account.balance.amount}
-            currency={account.balance.currency}
-            style={{ content: styles.totalAmount }}
-            size={25}
-          />
         </View>
-        <View>
+        <Card
+          style={{ marginHorizontal: normalize(30), backgroundColor: "tomato" }}
+        >
           <View style={styles.row}>
-            <Text style={styles.label}>available balance</Text>
             <Amount
               amount={account.availableBalance.amount}
               currency={account.availableBalance.currency}
               style={{ content: styles.amount }}
-              size={14}
+              size={18}
             />
+            <Text style={styles.label}>available balance</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>available overdraft</Text>
-
             <Amount
               amount={account.availableOverdraft.amount}
               currency={account.availableOverdraft.currency}
               style={{ content: styles.amount }}
-              size={14}
+              size={18}
             />
+            <Text style={styles.label}>available overdraft</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>used overdraft</Text>
-
             <Amount
               amount={account.overdraft.amount}
               currency={account.overdraft.currency}
               style={{ content: styles.amount }}
-              size={14}
+              size={18}
             />
+            <Text style={styles.label}>used overdraft</Text>
           </View>
-        </View>
+        </Card>
         <View style={styles.quickLinks}>
           <RectButton
             onPress={() =>
@@ -106,7 +107,20 @@ export const AccountDetails = ({
             }
             style={styles.quickLinkButton}
           >
-            <MaterialIcons name="payment" size={25} />
+            <View
+              style={{
+                backgroundColor: "#039be5",
+                padding: 10,
+                height: normalize(40),
+                width: normalize(40),
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 5,
+                borderRadius: 20
+              }}
+            >
+              <MaterialIcons name="payment" size={20} color="#fff" />
+            </View>
             <Text style={styles.quickLinkText}>Pay someone</Text>
           </RectButton>
           <RectButton
@@ -117,7 +131,20 @@ export const AccountDetails = ({
             }
             style={styles.quickLinkButton}
           >
-            <Ionicons name="ios-cash" size={25} />
+            <View
+              style={{
+                backgroundColor: "#039be5",
+                padding: 10,
+                height: normalize(40),
+                width: normalize(40),
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 5,
+                borderRadius: 20
+              }}
+            >
+              <Ionicons name="ios-cash" size={20} color="#fff" />
+            </View>
             <Text style={styles.quickLinkText}>Transfer money</Text>
           </RectButton>
           <RectButton
@@ -128,15 +155,42 @@ export const AccountDetails = ({
             }
             style={styles.quickLinkButton}
           >
-            <Ionicons name="ios-document" size={25} />
+            <View
+              style={{
+                backgroundColor: "#039be5",
+                padding: 10,
+                height: normalize(40),
+                width: normalize(40),
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 5,
+                borderRadius: 20
+              }}
+            >
+              <Ionicons name="ios-document" size={20} color="#fff" />
+            </View>
             <Text style={styles.quickLinkText}>Statements</Text>
           </RectButton>
           <RectButton onPress={() => {}} style={styles.quickLinkButton}>
-            <Ionicons name="ios-card" size={25} />
+            <View
+              style={{
+                backgroundColor: "#039be5",
+                padding: 10,
+                height: normalize(40),
+                width: normalize(40),
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 5,
+                borderRadius: 20
+              }}
+            >
+              <Ionicons name="ios-card" size={20} color="#fff" />
+            </View>
             <Text style={styles.quickLinkText}>Debit card</Text>
           </RectButton>
         </View>
-        <Animated.View style={{ height, ...styles.addnlContainer }}>
+      </View>
+      {/* <Animated.View style={{ height, ...styles.addnlContainer }}>
           <ScrollView style={styles.scrollContainer}>
             {details && (
               <View style={styles.addnlInnerContainer}>
@@ -166,30 +220,7 @@ export const AccountDetails = ({
               </View>
             )}
           </ScrollView>
-        </Animated.View>
-        <BorderlessButton
-          onPress={() => {
-            setInitial();
-            if (sheetRef.current) {
-              if (expanded) {
-                sheetRef.current.snapTo(1);
-              } else {
-                sheetRef.current.snapTo(2);
-              }
-            }
-            setExpanded(state => !state);
-          }}
-          style={styles.expandButton}
-          enabled={details ? true : false}
-        >
-          <AnimatedIcon
-            name="downcircle"
-            size={30}
-            color="tomato"
-            style={{ transform: [{ rotate: rotation }] }}
-          />
-        </BorderlessButton>
-      </Card>
+        </Animated.View> */}
       <TransactionContainer accountId={account.id} sheetRef={sheetRef} />
     </View>
   );
@@ -209,7 +240,26 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   main: { color: "#333", fontSize: normalize(18), fontWeight: "bold" },
-  secondary: { color: "gray", fontSize: normalize(12) },
+  secondaryText: {
+    color: "#fff",
+    fontSize: normalize(12)
+  },
+  secondary: {
+    marginTop: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: "#039be5",
+    borderRadius: 30,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginBottom: 10
+  },
+  secondarySeperator: {
+    paddingHorizontal: 5,
+    color: "#fff",
+    fontSize: normalize(12)
+  },
   highlight: { color: "#333", fontSize: normalize(18) },
   expandButton: {
     position: "absolute",
@@ -217,22 +267,25 @@ const styles = StyleSheet.create({
     bottom: -15
   },
   totalAmount: {
-    color: "#333",
-    textAlign: "right"
+    textAlign: "right",
+    fontWeight: "bold"
   },
   label: {
-    color: "gray",
+    color: "#fff",
     fontSize: normalize(14),
     textTransform: "capitalize"
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    marginBottom: 5
   },
-  amount: { color: "#333" },
+  amount: { color: "#fff" },
   quickLinks: {
     flexDirection: "row",
-    marginTop: 20
+    marginTop: 20,
+    marginHorizontal: 20
   },
   quickLinkButton: {
     flex: 1,
@@ -243,7 +296,8 @@ const styles = StyleSheet.create({
   quickLinkText: {
     fontSize: normalize(12),
     alignSelf: "center",
-    textAlign: "center"
+    textAlign: "center",
+    color: "#039be5"
   },
   addnlContainer: {
     marginTop: 10

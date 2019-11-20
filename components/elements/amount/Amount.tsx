@@ -31,13 +31,21 @@ export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
       prefix={CURRENCY_SYMBOL_MAP[currency]}
       renderText={value => (
         <View style={{ ...styles.container, ...style.container }}>
-          <Text style={{ fontSize: normalize(size), ...style.content }}>
+          <Text
+            style={{
+              fontSize: normalize(size),
+              fontWeight: "bold",
+              ...style.content
+            }}
+          >
             {value}
           </Text>
           <Text
             testID="decimal"
             style={{
-              fontSize: normalize(Math.round(size * 0.8))
+              fontSize: normalize(Math.round(size * 0.8)),
+              paddingBottom: 1,
+              ...style.content
             }}
           >
             .{decimal}

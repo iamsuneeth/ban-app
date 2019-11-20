@@ -55,7 +55,8 @@ export const AccountList = ({ navigation, accounts }: Props) => {
                     <RectButton
                       onPress={() =>
                         navigation.navigate("AccountDetails", {
-                          accountId: account.id
+                          accountId: account.id,
+                          name: account.nickName
                         })
                       }
                     >

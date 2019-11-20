@@ -1,9 +1,12 @@
 import React from "react";
 
-import { createStackNavigator } from "react-navigation-stack";
-import { FontAwesome } from "@expo/vector-icons";
+import { createStackNavigator, HeaderProps } from "react-navigation-stack";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { HomeContainer } from "../../containers/HomeContainer";
 import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
+import { BorderlessButton } from "react-native-gesture-handler";
+import { TransactionContainer } from "../../containers/TransactionContainer";
+import { Text } from "react-native";
 
 export const HomeStack = createStackNavigator(
   {
@@ -40,8 +43,40 @@ export const HomeStack = createStackNavigator(
     },
     AccountDetails: {
       screen: AccountDetailsContainer,
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: () => (
+          <Text
+            style={{
+              fontWeight: "bold",
+              flex: 1,
+              textAlign: "center"
+            }}
+          >
+            {navigation.state.params.name}
+          </Text>
+        ),
+        headerRight: (
+          <BorderlessButton
+            onPress={() =>
+              navigation.navigate("Transactions", {
+                accountId: navigation.state.params.accountId
+              })
+            }
+          >
+            <Ionicons
+              name="ios-search"
+              size={24}
+              color="tomato"
+              style={{ paddingRight: 10 }}
+            />
+          </BorderlessButton>
+        )
+      })
+    },
+    Transactions: {
+      screen: TransactionContainer,
       navigationOptions: {
-        title: "Account Details"
+        title: "Transactions"
       }
     }
   },

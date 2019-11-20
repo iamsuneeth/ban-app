@@ -17,15 +17,3 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
-// const handlePan = event([
-//   {
-//     nativeEvent: ({ translationY: y, state, velocityY }) =>
-//       block([
-//         set(translateY, add(y, offsetY)),
-//         set(stateVar,state),
-//         set(dragY,velocityY),
-//         cond(eq(state, State.END), [set(offsetY, add(offsetY, y))])
-//       ])
-//   }
-// ]);

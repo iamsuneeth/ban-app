@@ -18,7 +18,7 @@ export const normalize = size => {
 };
 
 export const normalizeHeight = size => {
-  const newSize = size * (ratio >= 0.5 ? heightScaleWide : heightScaleNormal);
+  const newSize = size * heightScaleWide; // (ratio >= 0.5 ? heightScaleWide : heightScaleNormal);
   if (Platform.OS === "ios") {
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
   } else {

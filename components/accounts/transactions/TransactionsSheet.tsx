@@ -61,13 +61,10 @@ type Props = {
   loading: boolean;
   transactions: ITransaction[];
   account: IAccount;
-  fetchTransactions: Function;
-  filterTransaction: Function;
-  clearFilters: Function;
   sheetRef?: React.LegacyRef<BottomSheet>;
 };
 
-export const Transaction = memo(
+export const TransactionSheet = memo(
   ({ sheetRef, transactions, loading }: Props) => {
     const sections: {
       [key: string]: {
@@ -91,7 +88,7 @@ export const Transaction = memo(
         <BottomSheet
           snapPoints={[
             normalizeHeight(650),
-            normalizeHeight(300),
+            normalizeHeight(320),
             normalizeHeight(50)
           ]}
           renderContent={() => renderContent(sections, loading)}
