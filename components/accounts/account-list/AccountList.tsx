@@ -47,11 +47,11 @@ export const AccountList = ({ navigation, accounts }: Props) => {
         {Object.keys(groupedAccounts).map(sectionKey => {
           const section = groupedAccounts[sectionKey];
           return (
-            <Card key={section.section}>
+            <View key={section.section}>
               <Text style={styles.sectionHeader}>{section.section}</Text>
               {section.accounts.map((account, index) => {
                 return (
-                  <View key={account.id}>
+                  <Card style={styles.accountCard} key={account.id}>
                     <RectButton
                       onPress={() =>
                         navigation.navigate("AccountDetails", {
@@ -59,32 +59,29 @@ export const AccountList = ({ navigation, accounts }: Props) => {
                           name: account.nickName
                         })
                       }
+                      style={{ flex: 1, padding: 10 }}
                     >
-                      <View style={styles.accountCard}>
-                        <View style={styles.accountPrimary}>
-                          <View>
-                            <Text style={styles.main}>{account.nickName}</Text>
-                            <Text style={styles.secondary}>
-                              {account.code + " " + account.accountNumber}
-                            </Text>
-                          </View>
-                          <View>
-                            <Amount
-                              amount={account.balance.amount}
-                              currency={account.balance.currency}
-                              size={25}
-                            />
-                          </View>
+                      <View style={styles.accountPrimary}>
+                        <View>
+                          <Text style={styles.main}>{account.nickName}</Text>
+                          <Text style={styles.secondary}>
+                            {account.code + " " + account.accountNumber}
+                          </Text>
+                        </View>
+                        <View style={{ alignSelf: "flex-end" }}>
+                          <Amount
+                            amount={account.balance.amount}
+                            currency={account.balance.currency}
+                            style={{ content: { color: "#fff" } }}
+                            size={25}
+                          />
                         </View>
                       </View>
                     </RectButton>
-                    {index !== section.accounts.length - 1 && (
-                      <View style={styles.seperator} />
-                    )}
-                  </View>
+                  </Card>
                 );
               })}
-            </Card>
+            </View>
           );
         })}
       </ScrollView>
@@ -98,27 +95,28 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width
   },
   accountCard: {
+    backgroundColor: "#039be5",
     marginVertical: 5,
-    minHeight: 80
+    minHeight: normalizeHeight(120),
+    padding: 0
   },
   accountPrimary: {
     flex: 1,
-    flexDirection: "row",
     justifyContent: "space-between"
   },
-  main: { color: "#333", fontSize: normalize(16) },
-  secondary: { color: "gray", fontSize: normalize(12) },
-  highlight: { color: "#333", fontSize: normalize(18) },
+  main: { color: "#fff", fontSize: normalize(16) },
+  secondary: { color: "#fff", fontSize: normalize(12) },
+  highlight: { color: "#fff", fontSize: normalize(18) },
   sectionHeader: {
     fontSize: normalize(20),
-    marginVertical: 10,
-    paddingBottom: 5,
+    margin: 15,
     fontWeight: "bold",
-    color: "gray"
+    color: "#555"
   },
   seperator: {
     backgroundColor: "#f5f5f5",
     height: 1,
     marginHorizontal: 10
-  }
+  },
+  section: {}
 });

@@ -32,6 +32,7 @@ export const AccountSummary = ({ summary }: AccountSummaryProps) => {
             amount={summary.availableBalance.amount}
             currency={summary.availableBalance.currency}
             style={{ content: styles.otherAmount }}
+            size={14}
           />
         </View>
         <View style={styles.flexRow}>
@@ -40,6 +41,7 @@ export const AccountSummary = ({ summary }: AccountSummaryProps) => {
             amount={summary.usedOverdraft.amount}
             currency={summary.usedOverdraft.currency}
             style={{ content: styles.otherAmount }}
+            size={14}
           />
         </View>
       </View>
@@ -54,20 +56,20 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 20,
     margin: 10,
     padding: 10,
-    minHeight: normalizeHeight(50)
+    minHeight: normalizeHeight(50),
+    backgroundColor: "tomato"
   },
   label: {
     fontSize: normalize(14),
-    color: "gray",
+    color: "#fff",
     textTransform: "capitalize"
   },
   totalAmount: {
-    color: "#333",
+    color: "#fff",
     fontWeight: "bold"
   },
   otherAmount: {
-    color: "#333",
-    fontSize: normalize(14)
+    color: "#fff"
   },
   additionalInfo: {
     minHeight: normalizeHeight(40)

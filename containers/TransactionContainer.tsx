@@ -8,7 +8,7 @@ import { Transaction } from "../components/accounts/transactions/Transactions";
 
 type TxnProps = {
   accountId: string;
-  sheetRef: React.LegacyRef<BottomSheet>;
+  height: number;
 };
 
 export const TransactionContainer = (
@@ -18,7 +18,7 @@ export const TransactionContainer = (
         navigation: NavigationStackProp<{}>;
       }
 ) => {
-  let { accountId, sheetRef } = props as TxnProps;
+  let { accountId, height } = props as TxnProps;
   let isChild = true;
   if (!accountId) {
     isChild = false;
@@ -47,9 +47,9 @@ export const TransactionContainer = (
     <TransactionSheet
       {...{
         loading: transactions.loading,
-        sheetRef,
         accountId,
         account,
+        height,
         transactions: transactions.items
       }}
     />

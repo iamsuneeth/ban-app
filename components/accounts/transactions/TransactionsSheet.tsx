@@ -13,6 +13,7 @@ import Animated from "react-native-reanimated";
 import { normalizeHeight, normalize } from "../../../utils/normalize";
 import { ITransaction, IAccount } from "bank-core/dist/types";
 import { TxnHeader } from "./TxnHeader";
+import Constants from "expo-constants";
 
 const renderContent = (
   sections: {
@@ -62,10 +63,14 @@ type Props = {
   transactions: ITransaction[];
   account: IAccount;
   sheetRef?: React.LegacyRef<BottomSheet>;
+  height: number;
 };
 
+const topPosition =
+  Dimensions.get("window").height - Constants.statusBarHeight - 100;
+
 export const TransactionSheet = memo(
-  ({ sheetRef, transactions, loading }: Props) => {
+  ({ sheetRef, transactions, loading, height }: Props) => {
     const sections: {
       [key: string]: {
         name: string;
@@ -87,13 +92,13 @@ export const TransactionSheet = memo(
       <Animated.View style={{ flex: 1, elevation: 5 }}>
         <BottomSheet
           snapPoints={[
-            normalizeHeight(650),
-            normalizeHeight(320),
-            normalizeHeight(50)
+            topPosition,
+            topPosition - height / 2,
+            topPosition - height
           ]}
           renderContent={() => renderContent(sections, loading)}
           renderHeader={renderHeader}
-          initialSnap={1}
+          initialSnap={2}
           ref={sheetRef}
         />
       </Animated.View>

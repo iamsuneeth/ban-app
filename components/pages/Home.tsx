@@ -44,17 +44,16 @@ export const HomeStack = createStackNavigator(
     AccountDetails: {
       screen: AccountDetailsContainer,
       navigationOptions: ({ navigation }) => ({
-        headerTitle: () => (
-          <Text
-            style={{
-              fontWeight: "bold",
-              flex: 1,
-              textAlign: "center"
-            }}
-          >
-            {navigation.state.params.name}
-          </Text>
-        ),
+        title: navigation.state.params.name,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          flex: 1,
+          textAlign: "center"
+        },
+        headerStyle: {
+          backgroundColor: "#f5f5f5",
+          elevation: 0
+        },
         headerRight: (
           <BorderlessButton
             onPress={() =>

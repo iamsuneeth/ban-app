@@ -1,19 +1,21 @@
 import React, { useRef } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  LayoutChangeEvent
+} from "react-native";
 import Animated from "react-native-reanimated";
 import { Card } from "../../elements/card/Card";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
-import {
-  RectButton,
-  BorderlessButton,
-  ScrollView
-} from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
 import { useState } from "react";
-import { useTransition } from "../../../hooks/animation/useTransition";
+
 import { IAccount, IAccountDetails } from "bank-core/dist/types";
 import { Amount } from "../../elements/amount/Amount";
 import { NavigationParams } from "react-navigation";
-import BottomSheet from "reanimated-bottom-sheet";
+
 import { normalize, normalizeHeight } from "../../../utils/normalize";
 import { TransactionContainer } from "../../../containers/TransactionContainer";
 const AnimatedIcon = Animated.createAnimatedComponent(AntDesign);
@@ -31,45 +33,37 @@ export const AccountDetails = ({
   fetchDetails,
   navigate
 }: Props) => {
-  const [expanded, setExpanded] = useState(false);
-  const [animation, setInitial] = useTransition({
-    expanded,
-    trigger: false
-  });
+  const [mainHeight, setMainHeight] = useState(0);
 
-  const sheetRef: React.LegacyRef<BottomSheet> = useRef();
-  const height = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, normalizeHeight(250)],
-    extrapolate: Animated.Extrapolate.CLAMP
-  });
-
-  const rotation = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, Math.PI * 5]
-  });
+  const setHeight = (event: LayoutChangeEvent) => {
+    setMainHeight(event.nativeEvent.layout.height);
+  };
 
   return (
     <View style={styles.container}>
-      <View style={{ height: "40%" }}>
-        <View style={styles.section}>
+      <View onLayout={setHeight}>
+        <Card
+          style={{
+            marginHorizontal: normalize(15),
+            marginBottom: 0,
+            backgroundColor: "tomato"
+          }}
+        >
           <View style={{ alignItems: "center" }}>
-            <View style={styles.secondary}>
-              <Text style={styles.secondaryText}>{account.code}</Text>
-              <Text style={styles.secondarySeperator}>.</Text>
-              <Text style={styles.secondaryText}>{account.accountNumber}</Text>
-            </View>
             <Amount
               amount={account.balance.amount}
               currency={account.balance.currency}
               style={{ content: styles.totalAmount }}
               size={30}
             />
+            <View style={styles.secondary}>
+              <Text style={styles.secondaryText}>{account.type}</Text>
+              <Text style={styles.secondarySeperator}>|</Text>
+              <Text style={styles.secondaryText}>{account.code}</Text>
+              <Text style={styles.secondarySeperator}>|</Text>
+              <Text style={styles.secondaryText}>{account.accountNumber}</Text>
+            </View>
           </View>
-        </View>
-        <Card
-          style={{ marginHorizontal: normalize(30), backgroundColor: "tomato" }}
-        >
           <View style={styles.row}>
             <Amount
               amount={account.availableBalance.amount}
@@ -107,20 +101,7 @@ export const AccountDetails = ({
             }
             style={styles.quickLinkButton}
           >
-            <View
-              style={{
-                backgroundColor: "#039be5",
-                padding: 10,
-                height: normalize(40),
-                width: normalize(40),
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 5,
-                borderRadius: 20
-              }}
-            >
-              <MaterialIcons name="payment" size={20} color="#fff" />
-            </View>
+            <MaterialIcons name="payment" size={20} color="#fff" />
             <Text style={styles.quickLinkText}>Pay someone</Text>
           </RectButton>
           <RectButton
@@ -131,20 +112,8 @@ export const AccountDetails = ({
             }
             style={styles.quickLinkButton}
           >
-            <View
-              style={{
-                backgroundColor: "#039be5",
-                padding: 10,
-                height: normalize(40),
-                width: normalize(40),
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 5,
-                borderRadius: 20
-              }}
-            >
-              <Ionicons name="ios-cash" size={20} color="#fff" />
-            </View>
+            <Ionicons name="ios-cash" size={20} color="#fff" />
+
             <Text style={styles.quickLinkText}>Transfer money</Text>
           </RectButton>
           <RectButton
@@ -155,37 +124,13 @@ export const AccountDetails = ({
             }
             style={styles.quickLinkButton}
           >
-            <View
-              style={{
-                backgroundColor: "#039be5",
-                padding: 10,
-                height: normalize(40),
-                width: normalize(40),
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 5,
-                borderRadius: 20
-              }}
-            >
-              <Ionicons name="ios-document" size={20} color="#fff" />
-            </View>
+            <Ionicons name="ios-document" size={20} color="#fff" />
+
             <Text style={styles.quickLinkText}>Statements</Text>
           </RectButton>
           <RectButton onPress={() => {}} style={styles.quickLinkButton}>
-            <View
-              style={{
-                backgroundColor: "#039be5",
-                padding: 10,
-                height: normalize(40),
-                width: normalize(40),
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 5,
-                borderRadius: 20
-              }}
-            >
-              <Ionicons name="ios-card" size={20} color="#fff" />
-            </View>
+            <Ionicons name="ios-card" size={20} color="#fff" />
+
             <Text style={styles.quickLinkText}>Debit card</Text>
           </RectButton>
         </View>
@@ -221,7 +166,9 @@ export const AccountDetails = ({
             )}
           </ScrollView>
         </Animated.View> */}
-      <TransactionContainer accountId={account.id} sheetRef={sheetRef} />
+      {mainHeight > 0 && (
+        <TransactionContainer accountId={account.id} height={mainHeight} />
+      )}
     </View>
   );
 };
@@ -248,8 +195,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: "#039be5",
-    borderRadius: 30,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
@@ -268,7 +213,8 @@ const styles = StyleSheet.create({
   },
   totalAmount: {
     textAlign: "right",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "#fff"
   },
   label: {
     color: "#fff",
@@ -284,20 +230,24 @@ const styles = StyleSheet.create({
   amount: { color: "#fff" },
   quickLinks: {
     flexDirection: "row",
-    marginTop: 20,
-    marginHorizontal: 20
+    marginHorizontal: normalize(25),
+    padding: 5,
+    minHeight: normalizeHeight(50),
+    backgroundColor: "#039be5",
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5
   },
   quickLinkButton: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "center",
-    marginHorizontal: 5
+    alignItems: "center"
+    //marginHorizontal: 5
   },
   quickLinkText: {
     fontSize: normalize(12),
     alignSelf: "center",
     textAlign: "center",
-    color: "#039be5"
+    color: "#fff"
   },
   addnlContainer: {
     marginTop: 10
