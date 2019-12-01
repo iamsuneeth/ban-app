@@ -4,9 +4,9 @@ import { createStackNavigator, HeaderProps } from "react-navigation-stack";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { HomeContainer } from "../../containers/HomeContainer";
 import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
-import { BorderlessButton } from "react-native-gesture-handler";
+import { BorderlessButton, TextInput } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
-import { Text } from "react-native";
+import { Text, View, Platform } from "react-native";
 
 export const HomeStack = createStackNavigator(
   {
@@ -75,7 +75,34 @@ export const HomeStack = createStackNavigator(
     Transactions: {
       screen: TransactionContainer,
       navigationOptions: {
-        title: "Transactions"
+        headerTitle: props => (
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <TextInput
+              placeholder={"Search"}
+              clearButtonMode={"always"}
+              selectionColor={"tomato"}
+              style={{
+                padding: 10,
+                flex: 1
+              }}
+            />
+            {Platform.OS === "android" && (
+              <Ionicons
+                name="ios-close-circle"
+                size={20}
+                style={{ position: "absolute", right: 0, alignSelf: "center" }}
+              />
+            )}
+          </View>
+        ),
+        headerBackTitleStyle: {
+          display: "none"
+        },
+        headerTitleContainerStyle: {
+          right: 0,
+          paddingRight: 5
+        },
+        headerRight: null
       }
     }
   },

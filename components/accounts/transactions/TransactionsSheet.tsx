@@ -12,8 +12,11 @@ import { TxnItem } from "./TxnItem";
 import Animated from "react-native-reanimated";
 import { normalizeHeight, normalize } from "../../../utils/normalize";
 import { ITransaction, IAccount } from "bank-core/dist/types";
+import { Header } from "react-navigation-stack";
 import { TxnHeader } from "./TxnHeader";
 import Constants from "expo-constants";
+import { getBottomSpace } from "react-native-iphone-x-helper";
+import { getTabBarHeight } from "../../common/TabBar";
 
 const renderContent = (
   sections: {
@@ -25,6 +28,23 @@ const renderContent = (
   loading: boolean
 ) => (
   <Card style={styles.card}>
+    <View
+      style={{
+        backgroundColor: "#fff",
+        height: 30,
+        justifyContent: "center"
+      }}
+    >
+      <View
+        style={{
+          width: 50,
+          height: 5,
+          backgroundColor: "#ccc",
+          borderRadius: 50,
+          alignSelf: "center"
+        }}
+      ></View>
+    </View>
     {Object.keys(sections).map(sectionKey => [
       <TxnHeader key={sections[sectionKey].name} data={sections[sectionKey]} />,
       ...sections[sectionKey].transactions.map((item, index) => (
@@ -33,29 +53,6 @@ const renderContent = (
     ])}
     <ActivityIndicator animating={loading} />
   </Card>
-);
-
-const renderHeader = () => (
-  <View
-    style={{
-      backgroundColor: "#fff",
-      height: 30,
-      justifyContent: "center",
-      bottom: -10,
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10
-    }}
-  >
-    <View
-      style={{
-        width: 50,
-        height: 5,
-        backgroundColor: "#ccc",
-        borderRadius: 50,
-        alignSelf: "center"
-      }}
-    ></View>
-  </View>
 );
 
 type Props = {
@@ -67,7 +64,10 @@ type Props = {
 };
 
 const topPosition =
-  Dimensions.get("window").height - Constants.statusBarHeight - 100;
+  Dimensions.get("window").height -
+  Constants.statusBarHeight -
+  Header.HEIGHT -
+  getBottomSpace();
 
 export const TransactionSheet = memo(
   ({ sheetRef, transactions, loading, height }: Props) => {
@@ -87,17 +87,16 @@ export const TransactionSheet = memo(
       }
       sections[txn.date].transactions.push(txn);
     });
-
+    const finalTopPosition = topPosition - getTabBarHeight();
     return (
       <Animated.View style={{ flex: 1, elevation: 5 }}>
         <BottomSheet
           snapPoints={[
-            topPosition,
-            topPosition - height / 2,
-            topPosition - height
+            finalTopPosition,
+            finalTopPosition - height / 2,
+            finalTopPosition - height
           ]}
           renderContent={() => renderContent(sections, loading)}
-          renderHeader={renderHeader}
           initialSnap={2}
           ref={sheetRef}
         />

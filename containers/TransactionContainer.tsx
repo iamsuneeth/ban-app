@@ -28,7 +28,9 @@ export const TransactionContainer = (
   const {
     transactions = {
       loading: false,
-      items: []
+      items: [],
+      allItems: [],
+      lastFetched: undefined
     },
     account,
     fetchTransactions,
@@ -50,7 +52,7 @@ export const TransactionContainer = (
         accountId,
         account,
         height,
-        transactions: transactions.items
+        transactions: transactions.allItems
       }}
     />
   ) : (
@@ -60,6 +62,7 @@ export const TransactionContainer = (
         accountId,
         account,
         transactions: transactions.items,
+        lastFetched: transactions.lastFetched,
         fetchTransactions,
         filterTransaction,
         clearFilters
