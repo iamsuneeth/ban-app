@@ -2029,7 +2029,7 @@ balanced-match@^1.0.0:
 
 "bank-core@ssh://git@bitbucket.org:suneeth_lenin/bank-core.git":
   version "1.0.0"
-  resolved "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#343dd9df91b0a6a5199549d8a098a49a676f0a67"
+  resolved "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#1b47fc44283e412c0cf1dd50bd4dbb03a4ec0915"
   dependencies:
     axios "^0.19.0"
     dayjs "^1.8.17"

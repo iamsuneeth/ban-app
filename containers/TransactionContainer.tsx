@@ -28,6 +28,7 @@ export const TransactionContainer = (
   const {
     transactions = {
       loading: false,
+      refreshing: false,
       items: [],
       allItems: [],
       lastFetched: undefined
@@ -59,6 +60,7 @@ export const TransactionContainer = (
     <Transaction
       {...{
         loading: transactions.loading,
+        refreshing: transactions.refreshing,
         accountId,
         account,
         transactions: transactions.items,

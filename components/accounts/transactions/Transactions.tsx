@@ -17,14 +17,21 @@ import {
   NativeScrollEvent,
   ScrollView,
   GestureResponderEvent,
-  Switch
+  Switch,
+  ActivityIndicator,
+  RefreshControl
 } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { TxnHeader } from "./TxnHeader";
 import { TxnItem } from "./TxnItem";
-import { ITransaction, IAccount, TransactionType } from "bank-core/dist/types";
+import {
+  ITransaction,
+  IAccount,
+  TransactionType,
+  SEARCH_TYPE
+} from "bank-core/dist/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
 
@@ -33,6 +40,7 @@ dayjs.extend(customParseFormat);
 
 type Props = {
   loading: boolean;
+  refreshing: boolean;
   transactions: ITransaction[];
   account: IAccount;
   lastFetched?: string;
@@ -54,7 +62,8 @@ export const Transaction = memo(
     fetchTransactions,
     filterTransaction,
     clearFilters,
-    lastFetched
+    lastFetched,
+    refreshing
   }: Props) => {
     const [state, setState]: [
       ITransactionUIState,
@@ -94,6 +103,24 @@ export const Transaction = memo(
         endDate
       });
     };
+    const handleLoadMore = () => {
+      fetchTransactions({
+        searchType: SEARCH_TYPE.DEFAULT,
+        startDate: dayjs(lastFetched, "DD/MM/YYYY").subtract(1, "month"),
+        endDate: dayjs(lastFetched, "DD/MM/YYYY")
+      });
+    };
+
+    const handleRefresh = () => {
+      fetchTransactions(
+        {
+          searchType: SEARCH_TYPE.DEFAULT,
+          startDate: dayjs(lastFetched, "DD/MM/YYYY"),
+          endDate: dayjs().startOf("day")
+        },
+        false
+      );
+    };
     return (
       <View style={[styles.listContainer]}>
         <View
@@ -126,6 +153,15 @@ export const Transaction = memo(
           renderItem={({ item, index }) => (
             <TxnItem data={item} index={index} />
           )}
+          ListFooterComponent={() => {
+            if (!loading) return null;
+            return <ActivityIndicator color="#000" />;
+          }}
+          onEndReachedThreshold={0.4}
+          onEndReached={handleLoadMore}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          }
         />
         <TransactionFilter
           lastFetched={lastFetched}

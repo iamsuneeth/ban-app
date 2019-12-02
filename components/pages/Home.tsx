@@ -7,6 +7,7 @@ import { AccountDetailsContainer } from "../../containers/AccountDetailsContaine
 import { BorderlessButton, TextInput } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
 import { Text, View, Platform } from "react-native";
+import { SearchContainer } from "../../containers/SearchContainer";
 
 export const HomeStack = createStackNavigator(
   {
@@ -74,27 +75,8 @@ export const HomeStack = createStackNavigator(
     },
     Transactions: {
       screen: TransactionContainer,
-      navigationOptions: {
-        headerTitle: props => (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <TextInput
-              placeholder={"Search"}
-              clearButtonMode={"always"}
-              selectionColor={"tomato"}
-              style={{
-                padding: 10,
-                flex: 1
-              }}
-            />
-            {Platform.OS === "android" && (
-              <Ionicons
-                name="ios-close-circle"
-                size={20}
-                style={{ position: "absolute", right: 0, alignSelf: "center" }}
-              />
-            )}
-          </View>
-        ),
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: props => <SearchContainer navigation={navigation} />,
         headerBackTitleStyle: {
           display: "none"
         },
@@ -103,7 +85,7 @@ export const HomeStack = createStackNavigator(
           paddingRight: 5
         },
         headerRight: null
-      }
+      })
     }
   },
   {
