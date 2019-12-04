@@ -1471,6 +1471,13 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
+"@types/jest@^24.0.23":
+  version "24.0.23"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.23.tgz#046f8e2ade026fe831623e361a36b6fb9a4463e4"
+  integrity sha512-L7MBvwfNpe7yVPTXLn32df/EK+AMBFAFvZrRuArGs7npEWnlziUXK+5GMIUTI4NIuwok3XibsjXCs5HxviYXjg==
+  dependencies:
+    jest-diff "^24.3.0"
+
 "@types/lodash.zipobject@^4.1.4":
   version "4.1.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.zipobject/-/lodash.zipobject-4.1.6.tgz#75e140f44ac7d7682a18d3aae8ee4594fad094d7"
@@ -3026,6 +3033,11 @@ expo-permissions@~7.0.0:
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-7.0.0.tgz#f4135c3cf8e49c673a9a714459a1eb2b40fe2092"
   integrity sha512-C+qyVz+pdZO4YpVR2HSC3gsBZg0Qb8brCFgzmDmWcAtgrOiHClaLPdhI2XtQuGh8ubXcKPUGZp++UCEGiG0Jxg==
 
+expo-secure-store@~7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-7.0.0.tgz#83aee977ef2fe0bb9fa9f2baecdf6d50b26a893a"
+  integrity sha512-7O80jH+JynoO8OlAHSj+F9Rbk1Vaf8309shuyZVW3C0tB1dXN+UiJUrCKAJ38dI8k/eV8+f5orw7x67VTJNUSQ==
+
 expo-sqlite@~7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-sqlite/-/expo-sqlite-7.0.0.tgz#f52585b342278b4034c06caac8384edb2531afa4"
@@ -4197,7 +4209,7 @@ jest-config@^24.9.0:
     pretty-format "^24.9.0"
     realpath-native "^1.1.0"
 
-jest-diff@^24.9.0:
+jest-diff@^24.3.0, jest-diff@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
   integrity sha512-qMfrTs8AdJE2iqrTp0hzh7kTd2PQWrsFyj9tORoKmu32xjPjeE4NyjVRDz8ybYwqS2ik8N4hsIpiVTyFeo2lBQ==

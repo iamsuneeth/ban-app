@@ -99,6 +99,7 @@ export const AccountDetails = ({
                 accountId: account.id
               })
             }
+            testID="quick-link-payments"
             style={styles.quickLinkButton}
           >
             <MaterialIcons name="payment" size={20} color="#fff" />
@@ -110,6 +111,7 @@ export const AccountDetails = ({
                 accountId: account.id
               })
             }
+            testID="quick-link-transfers"
             style={styles.quickLinkButton}
           >
             <Ionicons name="ios-cash" size={20} color="#fff" />
@@ -122,13 +124,18 @@ export const AccountDetails = ({
                 accountId: account.id
               })
             }
+            testID="quick-link-statements"
             style={styles.quickLinkButton}
           >
             <Ionicons name="ios-document" size={20} color="#fff" />
 
             <Text style={styles.quickLinkText}>Statements</Text>
           </RectButton>
-          <RectButton onPress={() => {}} style={styles.quickLinkButton}>
+          <RectButton
+            onPress={() => {}}
+            style={styles.quickLinkButton}
+            testID="quick-link-debitcard"
+          >
             <Ionicons name="ios-card" size={20} color="#fff" />
 
             <Text style={styles.quickLinkText}>Debit card</Text>

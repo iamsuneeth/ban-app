@@ -20,57 +20,91 @@ exports[`tests for AccountSummary component should render correctly 1`] = `
   >
     <View
       style={
-        Object {
-          "backgroundColor": "#fff",
-          "borderRadius": 5,
-          "elevation": 5,
-          "flex": 1,
-          "justifyContent": "space-evenly",
-          "margin": 10,
-          "padding": 10,
-          "shadowOffset": Object {
-            "height": 2,
-            "width": 5,
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 5,
+            "elevation": 2,
+            "marginHorizontal": 10,
+            "marginVertical": 5,
+            "padding": 10,
+            "shadowColor": "#ccc",
+            "shadowOffset": Object {
+              "height": 3,
+              "width": 0,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 5,
           },
-          "width": 730,
-        }
+          Object {
+            "backgroundColor": "tomato",
+            "flex": 1,
+            "justifyContent": "space-evenly",
+            "margin": 10,
+            "minHeight": 82,
+            "padding": 10,
+            "width": 730,
+          },
+        ]
       }
     >
       <View>
         <Text
           style={
             Object {
-              "color": "gray",
-              "fontSize": 14,
+              "color": "#fff",
+              "fontSize": 28,
               "textTransform": "capitalize",
             }
           }
         >
           total balance
         </Text>
-        <Text
+        <View
           style={
             Object {
-              "color": "#333",
-              "fontSize": 30,
-              "fontWeight": "bold",
+              "alignItems": "flex-end",
+              "flexDirection": "row",
             }
           }
         >
-          £3100.00
-        </Text>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 60,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            £32,344
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 48,
+                "fontWeight": "bold",
+                "paddingBottom": 1,
+              }
+            }
+            testID="decimal"
+          >
+            .
+            22
+          </Text>
+        </View>
       </View>
       <View
         style={
           Object {
-            "height": 40,
+            "minHeight": 66,
           }
         }
       >
         <View
           style={
             Object {
-              "flex": 1,
               "flexDirection": "row",
               "justifyContent": "space-between",
             }
@@ -79,29 +113,51 @@ exports[`tests for AccountSummary component should render correctly 1`] = `
           <Text
             style={
               Object {
-                "color": "gray",
-                "fontSize": 14,
+                "color": "#fff",
+                "fontSize": 28,
                 "textTransform": "capitalize",
               }
             }
           >
             available balance
           </Text>
-          <Text
+          <View
             style={
               Object {
-                "color": "#333",
-                "fontSize": 14,
+                "alignItems": "flex-end",
+                "flexDirection": "row",
               }
             }
           >
-            £5100.00
-          </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 28,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              £32,567
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 22,
+                  "paddingBottom": 1,
+                }
+              }
+              testID="decimal"
+            >
+              .
+              55
+            </Text>
+          </View>
         </View>
         <View
           style={
             Object {
-              "flex": 1,
               "flexDirection": "row",
               "justifyContent": "space-between",
             }
@@ -110,24 +166,47 @@ exports[`tests for AccountSummary component should render correctly 1`] = `
           <Text
             style={
               Object {
-                "color": "gray",
-                "fontSize": 14,
+                "color": "#fff",
+                "fontSize": 28,
                 "textTransform": "capitalize",
               }
             }
           >
             overdfart
           </Text>
-          <Text
+          <View
             style={
               Object {
-                "color": "#333",
-                "fontSize": 14,
+                "alignItems": "flex-end",
+                "flexDirection": "row",
               }
             }
           >
-            £2000.00
-          </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 28,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              £400
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 22,
+                  "paddingBottom": 1,
+                }
+              }
+              testID="decimal"
+            >
+              .
+              00
+            </Text>
+          </View>
         </View>
       </View>
     </View>

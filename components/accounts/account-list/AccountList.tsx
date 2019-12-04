@@ -59,6 +59,7 @@ export const AccountList = ({ navigation, accounts }: Props) => {
                           name: account.nickName
                         })
                       }
+                      testID="accountClick"
                       style={{ flex: 1, padding: 10 }}
                     >
                       <View style={styles.accountPrimary}>

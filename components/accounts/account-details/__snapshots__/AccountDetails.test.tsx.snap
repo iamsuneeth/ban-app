@@ -1,0 +1,447 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for AccountDetails component should render correctly 1`] = `
+<View
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={true}
+    pointerEvents="box-none"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#f5f5f5",
+          "flex": 1,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+                "borderRadius": 5,
+                "elevation": 2,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "padding": 10,
+                "shadowColor": "#ccc",
+                "shadowOffset": Object {
+                  "height": 3,
+                  "width": 0,
+                },
+                "shadowOpacity": 1,
+                "shadowRadius": 5,
+              },
+              Object {
+                "backgroundColor": "tomato",
+                "marginBottom": 0,
+                "marginHorizontal": 30,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 60,
+                    "fontWeight": "bold",
+                    "textAlign": "right",
+                  }
+                }
+              >
+                £456
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 48,
+                    "fontWeight": "bold",
+                    "paddingBottom": 1,
+                    "textAlign": "right",
+                  }
+                }
+                testID="decimal"
+              >
+                .
+                22
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-around",
+                  "marginBottom": 10,
+                  "marginTop": 5,
+                  "paddingHorizontal": 10,
+                  "paddingVertical": 5,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 24,
+                  }
+                }
+              >
+                STANDARD
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 24,
+                    "paddingHorizontal": 5,
+                  }
+                }
+              >
+                |
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 24,
+                  }
+                }
+              >
+                ABCTR050000
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 24,
+                    "paddingHorizontal": 5,
+                  }
+                }
+              >
+                |
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 24,
+                  }
+                }
+              >
+                678904455
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 5,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 36,
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                £23
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 28,
+                    "paddingBottom": 1,
+                  }
+                }
+                testID="decimal"
+              >
+                .
+                00
+              </Text>
+            </View>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 28,
+                  "textTransform": "capitalize",
+                }
+              }
+            >
+              available balance
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 5,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 36,
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                £2,000
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 28,
+                    "paddingBottom": 1,
+                  }
+                }
+                testID="decimal"
+              >
+                .
+                00
+              </Text>
+            </View>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 28,
+                  "textTransform": "capitalize",
+                }
+              }
+            >
+              available overdraft
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 5,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 36,
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                £45
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 28,
+                    "paddingBottom": 1,
+                  }
+                }
+                testID="decimal"
+              >
+                .
+                33
+              </Text>
+            </View>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 28,
+                  "textTransform": "capitalize",
+                }
+              }
+            >
+              used overdraft
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "#039be5",
+              "borderBottomLeftRadius": 5,
+              "borderBottomRightRadius": 5,
+              "flexDirection": "row",
+              "marginHorizontal": 50,
+              "minHeight": 82,
+              "padding": 5,
+            }
+          }
+        >
+          <Button
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "flex-start",
+              }
+            }
+            testID="quick-link-payments"
+          >
+            <Text />
+            <Text
+              style={
+                Object {
+                  "alignSelf": "center",
+                  "color": "#fff",
+                  "fontSize": 24,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Pay someone
+            </Text>
+          </Button>
+          <Button
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "flex-start",
+              }
+            }
+            testID="quick-link-transfers"
+          >
+            <Text />
+            <Text
+              style={
+                Object {
+                  "alignSelf": "center",
+                  "color": "#fff",
+                  "fontSize": 24,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Transfer money
+            </Text>
+          </Button>
+          <Button
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "flex-start",
+              }
+            }
+            testID="quick-link-statements"
+          >
+            <Text />
+            <Text
+              style={
+                Object {
+                  "alignSelf": "center",
+                  "color": "#fff",
+                  "fontSize": 24,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Statements
+            </Text>
+          </Button>
+          <Button
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "flex-start",
+              }
+            }
+            testID="quick-link-debitcard"
+          >
+            <Text />
+            <Text
+              style={
+                Object {
+                  "alignSelf": "center",
+                  "color": "#fff",
+                  "fontSize": 24,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Debit card
+            </Text>
+          </Button>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

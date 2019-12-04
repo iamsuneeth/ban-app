@@ -17,6 +17,14 @@ import { TxnHeader } from "./TxnHeader";
 import Constants from "expo-constants";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { getTabBarHeight } from "../../common/TabBar";
+import { RectButton } from "react-native-gesture-handler";
+import {
+  withNavigation,
+  NavigationInjectedProps,
+  NavigationScreenProp,
+  NavigationRoute,
+  NavigationParams
+} from "react-navigation";
 
 const renderContent = (
   sections: {
@@ -25,7 +33,11 @@ const renderContent = (
       transactions: any[];
     };
   },
-  loading: boolean
+  loading: boolean,
+  navigation: NavigationScreenProp<
+    NavigationRoute<NavigationParams>,
+    NavigationParams
+  >
 ) => (
   <Card style={styles.card}>
     <View
@@ -51,6 +63,34 @@ const renderContent = (
         <TxnItem key={item.id} data={item} index={index} />
       ))
     ])}
+    <RectButton
+      style={{
+        borderColor: "#039be5",
+        marginVertical: 10,
+        borderWidth: 1,
+        width: 150,
+        height: 40,
+        alignSelf: "center",
+        justifyContent: "center",
+        borderRadius: 3
+      }}
+      onPress={() => {
+        navigation.navigate("Transactions", {
+          accountId: navigation.state.params.accountId
+        });
+      }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          textAlignVertical: "center",
+          color: "#039be5",
+          fontSize: 16
+        }}
+      >
+        More transactions
+      </Text>
+    </RectButton>
     <ActivityIndicator animating={loading} />
   </Card>
 );
@@ -69,40 +109,49 @@ const topPosition =
   Header.HEIGHT -
   getBottomSpace();
 
-export const TransactionSheet = memo(
-  ({ sheetRef, transactions, loading, height }: Props) => {
-    const sections: {
-      [key: string]: {
-        name: string;
-        transactions: any[];
-      };
-    } = {};
-
-    transactions.forEach(txn => {
-      if (!(txn.date in sections)) {
-        sections[txn.date] = {
-          name: txn.date,
-          transactions: []
+export const TransactionSheet = withNavigation(
+  memo(
+    ({
+      sheetRef,
+      transactions,
+      loading,
+      height,
+      navigation
+    }: Props & NavigationInjectedProps) => {
+      const sections: {
+        [key: string]: {
+          name: string;
+          transactions: any[];
         };
-      }
-      sections[txn.date].transactions.push(txn);
-    });
-    const finalTopPosition = topPosition - getTabBarHeight();
-    return (
-      <Animated.View style={{ flex: 1, elevation: 5 }}>
-        <BottomSheet
-          snapPoints={[
-            finalTopPosition,
-            finalTopPosition - height / 2,
-            finalTopPosition - height
-          ]}
-          renderContent={() => renderContent(sections, loading)}
-          initialSnap={2}
-          ref={sheetRef}
-        />
-      </Animated.View>
-    );
-  }
+      } = {};
+
+      transactions.forEach(txn => {
+        if (!(txn.date in sections)) {
+          sections[txn.date] = {
+            name: txn.date,
+            transactions: []
+          };
+        }
+        sections[txn.date].transactions.push(txn);
+      });
+      const finalTopPosition = topPosition - getTabBarHeight();
+      return (
+        <Animated.View style={{ flex: 1, elevation: 5 }}>
+          <BottomSheet
+            snapPoints={[
+              finalTopPosition,
+              finalTopPosition - height / 2,
+              finalTopPosition - height
+            ]}
+            renderContent={() => renderContent(sections, loading, navigation)}
+            initialSnap={2}
+            ref={sheetRef}
+            enabledContentTapInteraction={false}
+          />
+        </Animated.View>
+      );
+    }
+  )
 );
 
 const styles = StyleSheet.create({

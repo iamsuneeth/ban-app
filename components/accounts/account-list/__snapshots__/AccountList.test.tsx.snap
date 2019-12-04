@@ -27,216 +27,238 @@ exports[`tests for AccountList component should render correctly 1`] = `
       }
     >
       <ScrollView>
-        <View
-          style={
-            Object {
-              "backgroundColor": "#fff",
-              "borderRadius": 5,
-              "elevation": 2,
-              "marginHorizontal": 10,
-              "marginVertical": 5,
-              "shadowOffset": Object {
-                "height": 2,
-                "width": 5,
-              },
-            }
-          }
-        >
+        <View>
           <Text
             style={
               Object {
-                "color": "gray",
-                "fontSize": 20,
+                "color": "#555",
+                "fontSize": 40,
                 "fontWeight": "bold",
-                "margin": 10,
-                "paddingBottom": 5,
+                "margin": 15,
               }
             }
           >
             Savings
           </Text>
-          <View>
-            <View>
-              <TouchableHighlight
-                activeOpacity={0.85}
-                delayPressOut={100}
-                testID="accountClick"
-                underlayColor="black"
-              >
-                <View
-                  style={
-                    Object {
-                      "backgroundColor": "#fff",
-                      "margin": 5,
-                      "marginVertical": 5,
-                      "minHeight": 80,
-                      "padding": 5,
-                    }
-                  }
-                >
-                  <View
-                    style={
-                      Object {
-                        "flex": 1,
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                      }
-                    }
-                  >
-                    <View>
-                      <Text
-                        style={
-                          Object {
-                            "color": "#333",
-                            "fontSize": 16,
-                          }
-                        }
-                      >
-                        Current Account
-                      </Text>
-                      <Text
-                        style={
-                          Object {
-                            "color": "gray",
-                            "fontSize": 12,
-                          }
-                        }
-                      >
-                        ABCTR050000 823232323
-                      </Text>
-                    </View>
-                    <View>
-                      <View
-                        style={
-                          Object {
-                            "alignItems": "flex-end",
-                            "flex": 1,
-                            "flexDirection": "row",
-                          }
-                        }
-                      >
-                        <Text
-                          style={
-                            Object {
-                              "fontSize": 25,
-                            }
-                          }
-                        >
-                          £32,344
-                        </Text>
-                        <Text
-                          style={
-                            Object {
-                              "fontSize": 20,
-                            }
-                          }
-                          testID="decimal"
-                        >
-                          .
-                          22
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
-            <View
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderRadius": 5,
+                  "elevation": 2,
+                  "marginHorizontal": 10,
+                  "marginVertical": 5,
+                  "padding": 10,
+                  "shadowColor": "#ccc",
+                  "shadowOffset": Object {
+                    "height": 3,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 5,
+                },
+                Object {
+                  "backgroundColor": "#039be5",
+                  "marginVertical": 5,
+                  "minHeight": 197,
+                  "padding": 0,
+                },
+              ]
+            }
+          >
+            <Button
               style={
                 Object {
-                  "backgroundColor": "#f5f5f5",
-                  "height": 1,
-                  "marginHorizontal": 10,
+                  "flex": 1,
+                  "padding": 10,
                 }
               }
-            />
-          </View>
-          <View>
-            <View>
-              <TouchableHighlight
-                activeOpacity={0.85}
-                delayPressOut={100}
-                testID="accountClick"
-                underlayColor="black"
+              testID="accountClick"
+            >
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "space-between",
+                  }
+                }
               >
+                <View>
+                  <Text
+                    style={
+                      Object {
+                        "color": "#fff",
+                        "fontSize": 32,
+                      }
+                    }
+                  >
+                    Current Account
+                  </Text>
+                  <Text
+                    style={
+                      Object {
+                        "color": "#fff",
+                        "fontSize": 24,
+                      }
+                    }
+                  >
+                    ABCTR050000 823232323
+                  </Text>
+                </View>
                 <View
                   style={
                     Object {
-                      "backgroundColor": "#fff",
-                      "margin": 5,
-                      "marginVertical": 5,
-                      "minHeight": 80,
-                      "padding": 5,
+                      "alignSelf": "flex-end",
                     }
                   }
                 >
                   <View
                     style={
                       Object {
-                        "flex": 1,
+                        "alignItems": "flex-end",
                         "flexDirection": "row",
-                        "justifyContent": "space-between",
                       }
                     }
                   >
-                    <View>
-                      <Text
-                        style={
-                          Object {
-                            "color": "#333",
-                            "fontSize": 16,
-                          }
+                    <Text
+                      style={
+                        Object {
+                          "color": "#fff",
+                          "fontSize": 50,
+                          "fontWeight": "bold",
                         }
-                      >
-                        Savings Account
-                      </Text>
-                      <Text
-                        style={
-                          Object {
-                            "color": "gray",
-                            "fontSize": 12,
-                          }
+                      }
+                    >
+                      £32,344
+                    </Text>
+                    <Text
+                      style={
+                        Object {
+                          "color": "#fff",
+                          "fontSize": 40,
+                          "paddingBottom": 1,
                         }
-                      >
-                        ABCTR050000 678904455
-                      </Text>
-                    </View>
-                    <View>
-                      <View
-                        style={
-                          Object {
-                            "alignItems": "flex-end",
-                            "flex": 1,
-                            "flexDirection": "row",
-                          }
-                        }
-                      >
-                        <Text
-                          style={
-                            Object {
-                              "fontSize": 25,
-                            }
-                          }
-                        >
-                          £456
-                        </Text>
-                        <Text
-                          style={
-                            Object {
-                              "fontSize": 20,
-                            }
-                          }
-                          testID="decimal"
-                        >
-                          .
-                          50
-                        </Text>
-                      </View>
-                    </View>
+                      }
+                      testID="decimal"
+                    >
+                      .
+                      22
+                    </Text>
                   </View>
                 </View>
-              </TouchableHighlight>
-            </View>
+              </View>
+            </Button>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderRadius": 5,
+                  "elevation": 2,
+                  "marginHorizontal": 10,
+                  "marginVertical": 5,
+                  "padding": 10,
+                  "shadowColor": "#ccc",
+                  "shadowOffset": Object {
+                    "height": 3,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 5,
+                },
+                Object {
+                  "backgroundColor": "#039be5",
+                  "marginVertical": 5,
+                  "minHeight": 197,
+                  "padding": 0,
+                },
+              ]
+            }
+          >
+            <Button
+              style={
+                Object {
+                  "flex": 1,
+                  "padding": 10,
+                }
+              }
+              testID="accountClick"
+            >
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
+                <View>
+                  <Text
+                    style={
+                      Object {
+                        "color": "#fff",
+                        "fontSize": 32,
+                      }
+                    }
+                  >
+                    Savings Account
+                  </Text>
+                  <Text
+                    style={
+                      Object {
+                        "color": "#fff",
+                        "fontSize": 24,
+                      }
+                    }
+                  >
+                    ABCTR050000 678904455
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "alignItems": "flex-end",
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Object {
+                          "color": "#fff",
+                          "fontSize": 50,
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      £456
+                    </Text>
+                    <Text
+                      style={
+                        Object {
+                          "color": "#fff",
+                          "fontSize": 40,
+                          "paddingBottom": 1,
+                        }
+                      }
+                      testID="decimal"
+                    >
+                      .
+                      22
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </Button>
           </View>
         </View>
       </ScrollView>

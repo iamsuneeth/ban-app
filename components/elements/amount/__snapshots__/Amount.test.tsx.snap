@@ -22,7 +22,6 @@ exports[`tests for Amount component should render correctly 1`] = `
       style={
         Object {
           "alignItems": "flex-end",
-          "flex": 1,
           "flexDirection": "row",
         }
       }
@@ -30,7 +29,8 @@ exports[`tests for Amount component should render correctly 1`] = `
       <Text
         style={
           Object {
-            "fontSize": 16,
+            "fontSize": 32,
+            "fontWeight": "bold",
           }
         }
       >
@@ -39,7 +39,8 @@ exports[`tests for Amount component should render correctly 1`] = `
       <Text
         style={
           Object {
-            "fontSize": 13,
+            "fontSize": 26,
+            "paddingBottom": 1,
           }
         }
         testID="decimal"
