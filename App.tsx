@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 import { HomeStack } from "./components/pages/Home";
-import { Payments } from "./components/pages/Payments";
+import { PaymentStack } from "./components/pages/Payments";
 import { Transfers } from "./components/pages/Transfers";
 import { More } from "./components/pages/More";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -21,7 +21,7 @@ const BottomTabBar = createBottomTabNavigator(
       }
     },
     Payments: {
-      screen: Payments,
+      screen: PaymentStack,
       navigationOptions: {
         tabBarLabel: "Payments",
         tabBarIcon: ({ tintColor }) => (

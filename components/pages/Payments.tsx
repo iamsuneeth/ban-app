@@ -1,32 +1,30 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationStackProp } from "react-navigation-stack";
-import * as SecureStore from "expo-secure-store";
+import { StyleSheet } from "react-native";
+import { createStackNavigator } from "react-navigation-stack";
 
-export const Payments = ({
-  navigation
-}: {
-  navigation: NavigationStackProp<{}>;
-}) => {
-  useEffect(() => {
-    console.log("jgg");
-    // SecureStore.setItemAsync("suneeth", "tempValue", {
-    //   keychainService: "iOS"
-    // })
-    //   .then(data => console.log(data))
-    //   .catch(error => console.log(error));
-    SecureStore.getItemAsync("suneeth", {
-      keychainService: "iOS"
-    })
-      .then(data => console.log(data))
-      .catch(error => console.log(error));
-  }, []);
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
-};
+import { createMaterialTopTabNavigator } from "react-navigation-tabs";
+import { PaymentsOverview } from "../payments/paymentsOverview/PaymentsOverview";
+
+export const PaymentStack = createStackNavigator({
+  Overview: createMaterialTopTabNavigator(
+    {
+      dashboard: {
+        screen: PaymentsOverview,
+        navigationOptions: {
+          title: "Payments"
+        }
+      },
+      upcoming: () => null,
+      history: () => null
+    },
+    {
+      navigationOptions: {
+        title: "Payments"
+      }
+    }
+  ),
+  makePayment: () => null,
+  payees: () => null
+});
 
 const styles = StyleSheet.create({
   container: {

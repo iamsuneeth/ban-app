@@ -1,12 +1,11 @@
 import React from "react";
 
-import { createStackNavigator, HeaderProps } from "react-navigation-stack";
+import { createStackNavigator } from "react-navigation-stack";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { HomeContainer } from "../../containers/HomeContainer";
 import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
-import { BorderlessButton, TextInput } from "react-native-gesture-handler";
+import { BorderlessButton } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
-import { Text, View, Platform } from "react-native";
 import { SearchContainer } from "../../containers/SearchContainer";
 
 export const HomeStack = createStackNavigator(
