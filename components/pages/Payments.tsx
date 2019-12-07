@@ -3,6 +3,8 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import { PaymentsOverview } from "../payments/paymentsOverview/PaymentsOverview";
+import { Upcoming } from "../payments/upcoming/Upcoming";
+import { FuturePayments } from "../payments/upcoming/FuturePayments";
 
 export const PaymentStack = createStackNavigator({
   Overview: createMaterialTopTabNavigator(
@@ -13,7 +15,7 @@ export const PaymentStack = createStackNavigator({
           title: "Payments"
         }
       },
-      upcoming: () => null,
+      upcoming: Upcoming,
       history: () => null
     },
     {
@@ -23,7 +25,25 @@ export const PaymentStack = createStackNavigator({
     }
   ),
   makePayment: () => null,
-  payees: () => null
+  payees: () => null,
+  futurePayments: {
+    screen: FuturePayments,
+    navigationOptions: {
+      title: "Future payments"
+    }
+  },
+  standingOrders: {
+    screen: () => null,
+    navigationOptions: {
+      title: "Standing instructions"
+    }
+  },
+  directDebits: {
+    screen: () => null,
+    navigationOptions: {
+      title: "Direct debits"
+    }
+  }
 });
 
 const styles = StyleSheet.create({

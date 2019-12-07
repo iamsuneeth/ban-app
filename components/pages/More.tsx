@@ -1,10 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-
-export const More = () => {
+import { StyleSheet, Text, View, Button } from "react-native";
+import { FirebaseClient as firebase } from "bank-core";
+export const More = ({ navigation }) => {
+  const signOut = async () => {
+    await firebase.auth().signOut();
+    navigation.navigate("login");
+  };
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Button title="logout" onPress={signOut} />
     </View>
   );
 };

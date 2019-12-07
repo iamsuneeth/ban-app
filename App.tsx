@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { HomeStack } from "./components/pages/Home";
 import { PaymentStack } from "./components/pages/Payments";
 import { Transfers } from "./components/pages/Transfers";
@@ -8,6 +8,8 @@ import { More } from "./components/pages/More";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { TabBar } from "./components/common/TabBar";
 import { createProvider } from "bank-core";
+import { createStackNavigator } from "react-navigation-stack";
+import { LoginContainer } from "./containers/LoginContainer";
 
 const BottomTabBar = createBottomTabNavigator(
   {
@@ -57,6 +59,27 @@ const BottomTabBar = createBottomTabNavigator(
   }
 );
 
-const Container = createAppContainer(BottomTabBar);
+const RootNavigator = createSwitchNavigator(
+  {
+    preLogin: createStackNavigator(
+      {
+        login: LoginContainer,
+        signUp: () => null,
+        reset: () => null
+      },
+      {
+        defaultNavigationOptions: {
+          header: null
+        }
+      }
+    ),
+    postLogin: BottomTabBar
+  },
+  {
+    initialRouteName: "preLogin"
+  }
+);
+
+const Container = createAppContainer(RootNavigator);
 
 export default () => createProvider(Container);
