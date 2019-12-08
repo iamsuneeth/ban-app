@@ -8,7 +8,7 @@ import { NavigationTabScreenProps } from "react-navigation-tabs";
 
 export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "rgba(255,255,255,0.8)" }}>
       <Card
         style={{
           marginTop: 0,

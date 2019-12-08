@@ -90,6 +90,15 @@ export const HomeStack = createStackNavigator(
   {
     initialRouteName: "Accounts",
     headerLayoutPreset: "center",
+    transparentCard: true,
+    transitionConfig: (): any => ({
+      containerStyle: {
+        backgroundColor: "transparent"
+      }
+    }),
+    cardStyle: {
+      backgroundColor: "rgba(255,255,255,0.8)"
+    },
     defaultNavigationOptions: {
       headerTitleStyle: {
         fontWeight: "bold",

@@ -19,7 +19,13 @@ import BottomSheetBehavior from "reanimated-bottom-sheet";
 export const PaymentsOverview = () => {
   const sheetRef = useRef<BottomSheetBehavior>();
   return (
-    <View style={{ flex: 1, paddingBottom: 10, backgroundColor: "#f5f5f5" }}>
+    <View
+      style={{
+        flex: 1,
+        paddingBottom: 10,
+        backgroundColor: "rgba(255,255,255,0.8)"
+      }}
+    >
       <ScrollView>
         <Card
           style={{

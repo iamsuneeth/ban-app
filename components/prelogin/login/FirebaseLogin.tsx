@@ -105,150 +105,145 @@ export const FirebaseLogin = ({ navigation }) => {
   };
   return (
     initialized && (
-      <ImageBackground
-        source={require("../../../assets/login.jpg")}
-        style={{ flex: 1 }}
+      <SafeAreaView
+        style={{
+          marginTop: Constants.statusBarHeight,
+          justifyContent: "flex-end",
+          flex: 1,
+          paddingVertical: 100
+        }}
       >
-        <SafeAreaView
-          style={{
-            marginTop: Constants.statusBarHeight,
-            justifyContent: "flex-end",
-            flex: 1,
-            paddingVertical: 100
-          }}
-        >
-          {step === "initial" && (
-            <KeyboardAvoidingView
-              behavior="padding"
-              enabled
+        {step === "initial" && (
+          <KeyboardAvoidingView
+            behavior="padding"
+            enabled
+            style={{
+              paddingHorizontal: 10,
+              marginBottom: 50,
+              alignItems: "center"
+            }}
+            keyboardVerticalOffset={50}
+          >
+            <TextInput
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChangeText={phone => setPhoneNumber(phone)}
               style={{
-                paddingHorizontal: 10,
-                marginBottom: 50,
-                alignItems: "center"
+                padding: 5,
+                height: 40,
+                borderBottomWidth: 1,
+                borderColor: "tomato",
+                color: "#fff",
+                marginBottom: 20,
+                width: buttonWidth
               }}
-              keyboardVerticalOffset={50}
-            >
-              <TextInput
-                placeholder="Phone Number"
-                value={phoneNumber}
-                onChangeText={phone => setPhoneNumber(phone)}
-                style={{
-                  padding: 5,
-                  height: 40,
-                  borderBottomWidth: 1,
-                  borderColor: "tomato",
-                  color: "#fff",
-                  marginBottom: 20,
-                  width: buttonWidth
-                }}
-              />
+            />
 
-              <RectButton
-                onPress={() => setStep("phoneSubmitted")}
-                style={{
-                  backgroundColor: "tomato",
-                  padding: 10,
-                  height: 40,
-                  width: buttonWidth,
-                  justifyContent: "center",
-                  borderRadius: 3
-                }}
-              >
-                <Text style={{ textAlign: "center", color: "#fff" }}>
-                  CONTINUE
-                </Text>
-              </RectButton>
-            </KeyboardAvoidingView>
-          )}
-
-          {step === "phoneSubmitted" && (
-            <View style={{ flex: 1 }}>
-              <Text>{phoneNumber}</Text>
-              <WebView
-                injectedJavaScript={webViewScript(phoneNumber)}
-                source={{ uri: captchaUrl }}
-                onMessage={onGetMessage}
-              />
-            </View>
-          )}
-
-          {step === "promptSmsCode" && (
-            <KeyboardAvoidingView
-              behavior="padding"
-              enabled
+            <RectButton
+              onPress={() => setStep("phoneSubmitted")}
               style={{
-                paddingHorizontal: 10,
-                marginBottom: 50,
-                alignItems: "center"
+                backgroundColor: "tomato",
+                padding: 10,
+                height: 40,
+                width: buttonWidth,
+                justifyContent: "center",
+                borderRadius: 3
               }}
-              keyboardVerticalOffset={50}
             >
-              <Text style={{ color: "#fff" }}>
-                We have sent you a verification code.
+              <Text style={{ textAlign: "center", color: "#fff" }}>
+                CONTINUE
               </Text>
-              <Text style={{ color: "#fff" }}>Please enter it below.</Text>
-              <TextInput
-                placeholder="Verification code"
-                value={smsCode}
-                onChangeText={sms => setSmsCode(sms)}
-                keyboardType="numeric"
-                secureTextEntry
+            </RectButton>
+          </KeyboardAvoidingView>
+        )}
+
+        {step === "phoneSubmitted" && (
+          <View style={{ flex: 1 }}>
+            <Text>{phoneNumber}</Text>
+            <WebView
+              injectedJavaScript={webViewScript(phoneNumber)}
+              source={{ uri: captchaUrl }}
+              onMessage={onGetMessage}
+            />
+          </View>
+        )}
+
+        {step === "promptSmsCode" && (
+          <KeyboardAvoidingView
+            behavior="padding"
+            enabled
+            style={{
+              paddingHorizontal: 10,
+              marginBottom: 50,
+              alignItems: "center"
+            }}
+            keyboardVerticalOffset={50}
+          >
+            <Text style={{ color: "#fff" }}>
+              We have sent you a verification code.
+            </Text>
+            <Text style={{ color: "#fff" }}>Please enter it below.</Text>
+            <TextInput
+              placeholder="Verification code"
+              value={smsCode}
+              onChangeText={sms => setSmsCode(sms)}
+              keyboardType="numeric"
+              secureTextEntry
+              style={{
+                marginTop: 10,
+                padding: 5,
+                height: 40,
+                borderBottomWidth: 1,
+                borderColor: "tomato",
+                color: "#fff",
+                marginBottom: 20,
+                width: buttonWidth
+              }}
+            />
+            <Animated.View
+              style={{
+                width: widthAnimation,
+                borderRadius: borderRadiusAnimation,
+                backgroundColor: "tomato",
+                padding: 10,
+                height: 40,
+                justifyContent: "center",
+                transform: [
+                  {
+                    scale: scaleAnimation as any
+                  }
+                ]
+              }}
+            >
+              <RectButton onPress={onSignIn}>
+                {authState === "notStarted" && (
+                  <Text style={{ textAlign: "center", color: "#fff" }}>
+                    VERIFY
+                  </Text>
+                )}
+                {authState === "inProgress" && (
+                  <ActivityIndicator color="#fff" />
+                )}
+              </RectButton>
+            </Animated.View>
+            {authState === "notStarted" && (
+              <RectButton
                 style={{
                   marginTop: 10,
-                  padding: 5,
-                  height: 40,
-                  borderBottomWidth: 1,
-                  borderColor: "tomato",
-                  color: "#fff",
-                  marginBottom: 20,
-                  width: buttonWidth
-                }}
-              />
-              <Animated.View
-                style={{
-                  width: widthAnimation,
-                  borderRadius: borderRadiusAnimation,
-                  backgroundColor: "tomato",
-                  padding: 10,
                   height: 40,
                   justifyContent: "center",
-                  transform: [
-                    {
-                      scale: scaleAnimation as any
-                    }
-                  ]
+                  width: buttonWidth
                 }}
+                onPress={() => setStep("initial")}
               >
-                <RectButton onPress={onSignIn}>
-                  {authState === "notStarted" && (
-                    <Text style={{ textAlign: "center", color: "#fff" }}>
-                      VERIFY
-                    </Text>
-                  )}
-                  {authState === "inProgress" && (
-                    <ActivityIndicator color="#fff" />
-                  )}
-                </RectButton>
-              </Animated.View>
-              {authState === "notStarted" && (
-                <RectButton
-                  style={{
-                    marginTop: 10,
-                    height: 40,
-                    justifyContent: "center",
-                    width: buttonWidth
-                  }}
-                  onPress={() => setStep("initial")}
-                >
-                  <Text style={{ textAlign: "center", color: "#fff" }}>
-                    CANCEL
-                  </Text>
-                </RectButton>
-              )}
-            </KeyboardAvoidingView>
-          )}
-        </SafeAreaView>
-      </ImageBackground>
+                <Text style={{ textAlign: "center", color: "#fff" }}>
+                  CANCEL
+                </Text>
+              </RectButton>
+            )}
+          </KeyboardAvoidingView>
+        )}
+      </SafeAreaView>
     )
   );
 };

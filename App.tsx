@@ -10,6 +10,7 @@ import { TabBar } from "./components/common/TabBar";
 import { createProvider } from "bank-core";
 import { createStackNavigator } from "react-navigation-stack";
 import { LoginContainer } from "./containers/LoginContainer";
+import { ImageBackground } from "react-native";
 
 const BottomTabBar = createBottomTabNavigator(
   {
@@ -70,7 +71,14 @@ const RootNavigator = createSwitchNavigator(
       {
         defaultNavigationOptions: {
           header: null
-        }
+        },
+        transparentCard: true,
+
+        transitionConfig: (): any => ({
+          containerStyle: {
+            backgroundColor: "transparent"
+          }
+        })
       }
     ),
     postLogin: BottomTabBar
@@ -82,4 +90,8 @@ const RootNavigator = createSwitchNavigator(
 
 const Container = createAppContainer(RootNavigator);
 
-export default () => createProvider(Container);
+export default () => (
+  <ImageBackground source={require("./assets/login.jpg")} style={{ flex: 1 }}>
+    {createProvider(Container)}
+  </ImageBackground>
+);

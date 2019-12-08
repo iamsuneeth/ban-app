@@ -6,50 +6,59 @@ import { PaymentsOverview } from "../payments/paymentsOverview/PaymentsOverview"
 import { Upcoming } from "../payments/upcoming/Upcoming";
 import { FuturePayments } from "../payments/upcoming/FuturePayments";
 
-export const PaymentStack = createStackNavigator({
-  Overview: createMaterialTopTabNavigator(
-    {
-      dashboard: {
-        screen: PaymentsOverview,
+export const PaymentStack = createStackNavigator(
+  {
+    Overview: createMaterialTopTabNavigator(
+      {
+        dashboard: {
+          screen: PaymentsOverview,
+          navigationOptions: {
+            title: "Payments"
+          }
+        },
+        upcoming: Upcoming,
+        history: () => null
+      },
+      {
         navigationOptions: {
           title: "Payments"
         }
-      },
-      upcoming: Upcoming,
-      history: () => null
-    },
-    {
+      }
+    ),
+    makePayment: () => null,
+    payees: () => null,
+    futurePayments: {
+      screen: FuturePayments,
       navigationOptions: {
-        title: "Payments"
+        title: "Future payments"
+      }
+    },
+    standingOrders: {
+      screen: () => null,
+      navigationOptions: {
+        title: "Standing instructions"
+      }
+    },
+    directDebits: {
+      screen: () => null,
+      navigationOptions: {
+        title: "Direct debits"
       }
     }
-  ),
-  makePayment: () => null,
-  payees: () => null,
-  futurePayments: {
-    screen: FuturePayments,
-    navigationOptions: {
-      title: "Future payments"
-    }
   },
-  standingOrders: {
-    screen: () => null,
-    navigationOptions: {
-      title: "Standing instructions"
-    }
-  },
-  directDebits: {
-    screen: () => null,
-    navigationOptions: {
-      title: "Direct debits"
-    }
+  {
+    transparentCard: true,
+    transitionConfig: (): any => ({
+      containerStyle: {
+        backgroundColor: "transparent"
+      }
+    })
   }
-});
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
   }
