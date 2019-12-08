@@ -18,6 +18,8 @@ import * as SecureStore from "expo-secure-store";
 import { User } from "firebase";
 import { useLoginAnimation } from "../../../hooks/animation/useLoginAnimation";
 import Animated from "react-native-reanimated";
+import { normalize } from "../../../utils/normalize";
+import { Ionicons } from "@expo/vector-icons";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
@@ -31,6 +33,7 @@ export const FirebaseLogin = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState();
   const [step, setStep] = useState("initial");
   const [authState, setAuthState] = useState("notStarted");
+  const [error, setError] = useState("");
   const [initialized, setInitialized] = useState(false);
   const [smsCode, setSmsCode] = useState();
   const [verificationId, setVerificationId] = useState();
@@ -44,7 +47,8 @@ export const FirebaseLogin = ({ navigation }) => {
     opacityAnimation,
     scaleAnimation,
     animation1,
-    animation2
+    animation2,
+    reverseAnimation
   ] = useLoginAnimation(navigation, buttonWidth);
 
   const onAuthStateChanged = async (user: User) => {
@@ -95,13 +99,20 @@ export const FirebaseLogin = ({ navigation }) => {
     Keyboard.dismiss();
     startAnimation();
     setAuthState("inProgress");
+    setError("");
     const credential = firebase.auth.PhoneAuthProvider.credential(
       verificationId,
       smsCode
     );
     await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-    await firebase.auth().signInWithCredential(credential);
-    setAuthState("completed");
+    try {
+      await firebase.auth().signInWithCredential(credential);
+      setAuthState("completed");
+    } catch (e) {
+      setAuthState("notStarted");
+      setError("Invalid verification code");
+      reverseAnimation();
+    }
   };
   return (
     initialized && (
@@ -113,6 +124,17 @@ export const FirebaseLogin = ({ navigation }) => {
           paddingVertical: 100
         }}
       >
+        <View
+          style={{
+            position: "absolute",
+            top: "20%",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Ionicons name="ios-unlock" size={200} color="white" />
+        </View>
         {step === "initial" && (
           <KeyboardAvoidingView
             behavior="padding"
@@ -135,8 +157,10 @@ export const FirebaseLogin = ({ navigation }) => {
                 borderColor: "tomato",
                 color: "#fff",
                 marginBottom: 20,
-                width: buttonWidth
+                width: buttonWidth,
+                fontSize: normalize(16)
               }}
+              placeholderTextColor={"#ccc"}
             />
 
             <RectButton
@@ -150,7 +174,13 @@ export const FirebaseLogin = ({ navigation }) => {
                 borderRadius: 3
               }}
             >
-              <Text style={{ textAlign: "center", color: "#fff" }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: "#fff",
+                  fontSize: normalize(16)
+                }}
+              >
                 CONTINUE
               </Text>
             </RectButton>
@@ -158,14 +188,12 @@ export const FirebaseLogin = ({ navigation }) => {
         )}
 
         {step === "phoneSubmitted" && (
-          <View style={{ flex: 1 }}>
-            <Text>{phoneNumber}</Text>
-            <WebView
-              injectedJavaScript={webViewScript(phoneNumber)}
-              source={{ uri: captchaUrl }}
-              onMessage={onGetMessage}
-            />
-          </View>
+          <WebView
+            injectedJavaScript={webViewScript(phoneNumber)}
+            source={{ uri: captchaUrl }}
+            onMessage={onGetMessage}
+            style={{ backgroundColor: "transparent" }}
+          />
         )}
 
         {step === "promptSmsCode" && (
@@ -179,10 +207,19 @@ export const FirebaseLogin = ({ navigation }) => {
             }}
             keyboardVerticalOffset={50}
           >
-            <Text style={{ color: "#fff" }}>
+            {!!error && (
+              <View
+                style={{ backgroundColor: "red", padding: 5, marginBottom: 10 }}
+              >
+                <Text style={{ color: "#fff" }}>{error}</Text>
+              </View>
+            )}
+            <Text style={{ color: "#fff", fontSize: normalize(16) }}>
               We have sent you a verification code.
             </Text>
-            <Text style={{ color: "#fff" }}>Please enter it below.</Text>
+            <Text style={{ color: "#fff", fontSize: normalize(16) }}>
+              Please enter it below.
+            </Text>
             <TextInput
               placeholder="Verification code"
               value={smsCode}
@@ -197,15 +234,16 @@ export const FirebaseLogin = ({ navigation }) => {
                 borderColor: "tomato",
                 color: "#fff",
                 marginBottom: 20,
-                width: buttonWidth
+                width: buttonWidth,
+                fontSize: normalize(16)
               }}
+              placeholderTextColor={"#ccc"}
             />
             <Animated.View
               style={{
                 width: widthAnimation,
                 borderRadius: borderRadiusAnimation,
-                backgroundColor: "tomato",
-                padding: 10,
+                backgroundColor: !!smsCode ? "tomato" : "gray",
                 height: 40,
                 justifyContent: "center",
                 transform: [
@@ -215,9 +253,19 @@ export const FirebaseLogin = ({ navigation }) => {
                 ]
               }}
             >
-              <RectButton onPress={onSignIn}>
+              <RectButton
+                onPress={onSignIn}
+                style={{ flex: 1, padding: 10 }}
+                enabled={!!smsCode}
+              >
                 {authState === "notStarted" && (
-                  <Text style={{ textAlign: "center", color: "#fff" }}>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "#fff",
+                      fontSize: normalize(16)
+                    }}
+                  >
                     VERIFY
                   </Text>
                 )}
@@ -234,9 +282,18 @@ export const FirebaseLogin = ({ navigation }) => {
                   justifyContent: "center",
                   width: buttonWidth
                 }}
-                onPress={() => setStep("initial")}
+                onPress={() => {
+                  setStep("initial");
+                  setSmsCode(null);
+                }}
               >
-                <Text style={{ textAlign: "center", color: "#fff" }}>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "#fff",
+                    fontSize: normalize(16)
+                  }}
+                >
                   CANCEL
                 </Text>
               </RectButton>

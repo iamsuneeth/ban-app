@@ -57,11 +57,13 @@ export const useLoginAnimation = (
   Animated.Node<number>,
   Animated.Node<number>,
   Animated.Value<number>,
-  Animated.Value<number>
+  Animated.Value<number>,
+  Function
 ] => {
   const animation2 = useRef(new Value(0));
   const animation3 = useRef(new Value(0));
   const [play, setPlay] = useState(false);
+  const [reverse, setReverse] = useState(false);
   const [loading, setLoading] = useState(false);
   const [beginNavigation, setBeginNavigation] = useState(false);
 
@@ -84,6 +86,13 @@ export const useLoginAnimation = (
 
   const startAnimation = () => {
     setPlay(true);
+    setReverse(false);
+  };
+
+  const reverseAnimation = () => {
+    setPlay(false);
+    setBeginNavigation(false);
+    setReverse(true);
   };
 
   const callBack = () => {
@@ -108,9 +117,15 @@ export const useLoginAnimation = (
           runTiming(animation3.current, 1, callBack2)
         );
       }
+      if (reverse) {
+        return set(
+          animation2.current,
+          runTiming(animation2.current, 0, () => null)
+        );
+      }
       return animation2.current;
     })(),
-    [play, beginNavigation]
+    [play, beginNavigation, reverse]
   );
 
   const stopAnimation = () => {
@@ -125,6 +140,7 @@ export const useLoginAnimation = (
     opacity,
     scale,
     animation2.current,
-    animation3.current
+    animation3.current,
+    reverseAnimation
   ];
 };

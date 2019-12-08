@@ -2036,7 +2036,7 @@ balanced-match@^1.0.0:
 
 "bank-core@ssh://git@bitbucket.org:suneeth_lenin/bank-core.git":
   version "1.0.0"
-  resolved "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#398edc16b6767ed98eb4c45e66b42a7f09d81237"
+  resolved "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#5330d88d52f4c957a940ce5a97a7db3dea405686"
   dependencies:
     axios "^0.19.0"
     dayjs "^1.8.17"
@@ -6269,6 +6269,13 @@ react-native-animatable@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-autoheight-webview@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-autoheight-webview/-/react-native-autoheight-webview-1.3.4.tgz#3fe1060186ce5c7c81a550cb31890da1a8c3dcdc"
+  integrity sha512-swBeCWi0pMckTtlbwkjZTPGjiJgrWweEoH5sjbafEUKbudVNdO2jfdu5OZuEPXOhSlO4iYrRhY0rfzXFh4aXaw==
   dependencies:
     prop-types "^15.7.2"
 
