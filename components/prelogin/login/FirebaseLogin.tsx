@@ -23,11 +23,8 @@ const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
 const buttonWidth = screenWidth * 0.8;
 
-const webViewScript = `
-  setTimeout(function() { 
-    window.postMessage('height'+document.documentElement.scrollHeight); 
-  }, 500);
-  true; // note: this is required, or you'll sometimes get silent failures
+const webViewScript = phoneNumber => `
+  getToken('${phoneNumber}'); 
 `;
 
 export const FirebaseLogin = ({ navigation }) => {
@@ -37,7 +34,7 @@ export const FirebaseLogin = ({ navigation }) => {
   const [initialized, setInitialized] = useState(false);
   const [smsCode, setSmsCode] = useState();
   const [verificationId, setVerificationId] = useState();
-  const [webHeight, setWebHeight] = useState(100);
+  const [webHeight, setWebHeight] = useState(0);
 
   const [
     startAnimation,
@@ -79,10 +76,6 @@ export const FirebaseLogin = ({ navigation }) => {
   const onGetMessage = async event => {
     const message = event.nativeEvent.data;
 
-    if (String(message).indexOf("height") !== -1) {
-      setWebHeight(parseFloat(String(message).replace("height", "")));
-      return;
-    }
     switch (message) {
       case "DOMLoaded":
         return;
@@ -106,10 +99,10 @@ export const FirebaseLogin = ({ navigation }) => {
       verificationId,
       smsCode
     );
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     await firebase.auth().signInWithCredential(credential);
     setAuthState("completed");
   };
-
   return (
     initialized && (
       <ImageBackground
@@ -169,13 +162,12 @@ export const FirebaseLogin = ({ navigation }) => {
           )}
 
           {step === "phoneSubmitted" && (
-            <View>
+            <View style={{ flex: 1 }}>
               <Text>{phoneNumber}</Text>
               <WebView
-                injectedJavaScript={`getToken('${phoneNumber}');${webViewScript}`}
+                injectedJavaScript={webViewScript(phoneNumber)}
                 source={{ uri: captchaUrl }}
                 onMessage={onGetMessage}
-                style={{ height: webHeight }}
               />
             </View>
           )}
@@ -191,12 +183,18 @@ export const FirebaseLogin = ({ navigation }) => {
               }}
               keyboardVerticalOffset={50}
             >
+              <Text style={{ color: "#fff" }}>
+                We have sent you a verification code.
+              </Text>
+              <Text style={{ color: "#fff" }}>Please enter it below.</Text>
               <TextInput
                 placeholder="Verification code"
                 value={smsCode}
                 onChangeText={sms => setSmsCode(sms)}
                 keyboardType="numeric"
+                secureTextEntry
                 style={{
+                  marginTop: 10,
                   padding: 5,
                   height: 40,
                   borderBottomWidth: 1,
@@ -232,6 +230,21 @@ export const FirebaseLogin = ({ navigation }) => {
                   )}
                 </RectButton>
               </Animated.View>
+              {authState === "notStarted" && (
+                <RectButton
+                  style={{
+                    marginTop: 10,
+                    height: 40,
+                    justifyContent: "center",
+                    width: buttonWidth
+                  }}
+                  onPress={() => setStep("initial")}
+                >
+                  <Text style={{ textAlign: "center", color: "#fff" }}>
+                    CANCEL
+                  </Text>
+                </RectButton>
+              )}
             </KeyboardAvoidingView>
           )}
         </SafeAreaView>
