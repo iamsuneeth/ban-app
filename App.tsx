@@ -4,7 +4,7 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { HomeStack } from "./components/pages/Home";
 import { PaymentStack } from "./components/pages/Payments";
 import { Transfers } from "./components/pages/Transfers";
-import { More } from "./components/pages/More";
+import { MoreStack } from "./components/pages/More";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { TabBar } from "./components/common/TabBar";
 import { createProvider } from "bank-core";
@@ -42,7 +42,7 @@ const BottomTabBar = createBottomTabNavigator(
       }
     },
     More: {
-      screen: More,
+      screen: MoreStack,
       navigationOptions: {
         tabBarLabel: "More",
         tabBarIcon: ({ tintColor }) => (
