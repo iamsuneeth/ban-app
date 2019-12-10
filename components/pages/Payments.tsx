@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import { PaymentsOverview } from "../payments/paymentsOverview/PaymentsOverview";
 import { Upcoming } from "../payments/upcoming/Upcoming";
 import { FuturePayments } from "../payments/upcoming/FuturePayments";
+import { MakePayment } from "../payments/transferMoney/MakePayment";
 
 export const PaymentStack = createStackNavigator(
   {
@@ -25,7 +26,7 @@ export const PaymentStack = createStackNavigator(
         }
       }
     ),
-    makePayment: () => null,
+    makePayment: MakePayment,
     payees: () => null,
     futurePayments: {
       screen: FuturePayments,
@@ -47,12 +48,9 @@ export const PaymentStack = createStackNavigator(
     }
   },
   {
-    transparentCard: true,
-    transitionConfig: (): any => ({
-      containerStyle: {
-        backgroundColor: "transparent"
-      }
-    })
+    cardStyle: {
+      backgroundColor: "#f8f8f8"
+    }
   }
 );
 

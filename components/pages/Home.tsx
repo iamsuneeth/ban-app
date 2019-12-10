@@ -14,10 +14,7 @@ export const HomeStack = createStackNavigator(
       screen: HomeContainer,
       navigationOptions: {
         title: "Home",
-        headerStyle: {
-          backgroundColor: "#f5f5f5",
-          elevation: 0
-        },
+
         headerTitleStyle: {
           fontWeight: "bold",
           flex: 1,
@@ -50,10 +47,6 @@ export const HomeStack = createStackNavigator(
           flex: 1,
           textAlign: "center"
         },
-        headerStyle: {
-          backgroundColor: "#f5f5f5",
-          elevation: 0
-        },
         headerRight: (
           <BorderlessButton
             onPress={() =>
@@ -76,6 +69,9 @@ export const HomeStack = createStackNavigator(
       screen: TransactionContainer,
       navigationOptions: ({ navigation }) => ({
         headerTitle: props => <SearchContainer navigation={navigation} />,
+        headerStyle: {
+          backgroundColor: "#fff"
+        },
         headerBackTitleStyle: {
           display: "none"
         },
@@ -90,15 +86,6 @@ export const HomeStack = createStackNavigator(
   {
     initialRouteName: "Accounts",
     headerLayoutPreset: "center",
-    transparentCard: true,
-    transitionConfig: (): any => ({
-      containerStyle: {
-        backgroundColor: "transparent"
-      }
-    }),
-    cardStyle: {
-      backgroundColor: "rgba(255,255,255,0.8)"
-    },
     defaultNavigationOptions: {
       headerTitleStyle: {
         fontWeight: "bold",

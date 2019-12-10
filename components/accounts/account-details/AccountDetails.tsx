@@ -95,7 +95,7 @@ export const AccountDetails = ({
         <View style={styles.quickLinks}>
           <RectButton
             onPress={() =>
-              navigate("Payments", {
+              navigate("makePayment", {
                 accountId: account.id
               })
             }

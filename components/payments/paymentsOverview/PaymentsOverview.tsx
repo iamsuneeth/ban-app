@@ -22,8 +22,7 @@ export const PaymentsOverview = () => {
     <View
       style={{
         flex: 1,
-        paddingBottom: 10,
-        backgroundColor: "rgba(255,255,255,0.8)"
+        paddingBottom: 10
       }}
     >
       <ScrollView>
