@@ -11,6 +11,7 @@ import { createProvider } from "bank-core";
 import { createStackNavigator } from "react-navigation-stack";
 import { LoginContainer } from "./containers/LoginContainer";
 import { ImageBackground } from "react-native";
+import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 
 const BottomTabBar = createBottomTabNavigator(
   {
@@ -91,7 +92,5 @@ const RootNavigator = createSwitchNavigator(
 const Container = createAppContainer(RootNavigator);
 
 export default () => (
-  <ImageBackground source={require("./assets/login.jpg")} style={{ flex: 1 }}>
-    {createProvider(Container)}
-  </ImageBackground>
+  <AppearanceProvider>{createProvider(Container)}</AppearanceProvider>
 );
