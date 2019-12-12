@@ -5,7 +5,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   SafeAreaView,
-  ImageBackground,
   ActivityIndicator,
   Keyboard,
   Dimensions
@@ -20,6 +19,8 @@ import { useLoginAnimation } from "../../../hooks/animation/useLoginAnimation";
 import Animated from "react-native-reanimated";
 import { normalize } from "../../../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "react-navigation";
+import { ThemeColors } from "../../../theme/constants";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
@@ -38,6 +39,8 @@ export const FirebaseLogin = ({ navigation }) => {
   const [smsCode, setSmsCode] = useState();
   const [verificationId, setVerificationId] = useState();
   const [webHeight, setWebHeight] = useState(0);
+  const theme = useTheme();
+  const themeColors = ThemeColors[theme];
 
   const [
     startAnimation,
@@ -154,19 +157,19 @@ export const FirebaseLogin = ({ navigation }) => {
                 padding: 5,
                 height: 40,
                 borderBottomWidth: 1,
-                borderColor: "tomato",
-                color: "#fff",
+                borderColor: themeColors.primary,
+                color: themeColors.darkGray,
                 marginBottom: 20,
                 width: buttonWidth,
                 fontSize: normalize(16)
               }}
-              placeholderTextColor={"#ccc"}
+              placeholderTextColor={themeColors.gray}
             />
 
             <RectButton
               onPress={() => setStep("phoneSubmitted")}
               style={{
-                backgroundColor: "tomato",
+                backgroundColor: themeColors.primaryDark,
                 padding: 10,
                 height: 40,
                 width: buttonWidth,
@@ -177,7 +180,7 @@ export const FirebaseLogin = ({ navigation }) => {
               <Text
                 style={{
                   textAlign: "center",
-                  color: "#fff",
+                  color: themeColors.white,
                   fontSize: normalize(16)
                 }}
               >
@@ -214,10 +217,10 @@ export const FirebaseLogin = ({ navigation }) => {
                 <Text style={{ color: "#fff" }}>{error}</Text>
               </View>
             )}
-            <Text style={{ color: "#fff", fontSize: normalize(16) }}>
+            <Text style={{ color: themeColors.gray, fontSize: normalize(16) }}>
               We have sent you a verification code.
             </Text>
-            <Text style={{ color: "#fff", fontSize: normalize(16) }}>
+            <Text style={{ color: themeColors.gray, fontSize: normalize(16) }}>
               Please enter it below.
             </Text>
             <TextInput
@@ -231,19 +234,21 @@ export const FirebaseLogin = ({ navigation }) => {
                 padding: 5,
                 height: 40,
                 borderBottomWidth: 1,
-                borderColor: "tomato",
-                color: "#fff",
+                borderColor: themeColors.primary,
+                color: themeColors.darkGray,
                 marginBottom: 20,
                 width: buttonWidth,
                 fontSize: normalize(16)
               }}
-              placeholderTextColor={"#ccc"}
+              placeholderTextColor={themeColors.gray}
             />
             <Animated.View
               style={{
                 width: widthAnimation,
                 borderRadius: borderRadiusAnimation,
-                backgroundColor: !!smsCode ? "tomato" : "gray",
+                backgroundColor: !!smsCode
+                  ? themeColors.primaryDark
+                  : themeColors.gray,
                 height: 40,
                 justifyContent: "center",
                 transform: [
@@ -262,7 +267,7 @@ export const FirebaseLogin = ({ navigation }) => {
                   <Text
                     style={{
                       textAlign: "center",
-                      color: "#fff",
+                      color: themeColors.white,
                       fontSize: normalize(16)
                     }}
                   >
@@ -270,7 +275,7 @@ export const FirebaseLogin = ({ navigation }) => {
                   </Text>
                 )}
                 {authState === "inProgress" && (
-                  <ActivityIndicator color="#fff" />
+                  <ActivityIndicator color={themeColors.white} />
                 )}
               </RectButton>
             </Animated.View>
@@ -290,7 +295,7 @@ export const FirebaseLogin = ({ navigation }) => {
                 <Text
                   style={{
                     textAlign: "center",
-                    color: "#fff",
+                    color: themeColors.white,
                     fontSize: normalize(16)
                   }}
                 >

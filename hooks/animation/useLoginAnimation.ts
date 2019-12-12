@@ -104,29 +104,26 @@ export const useLoginAnimation = (
     navigation.navigate("Home");
   };
 
-  useCode(
-    (() => {
-      if (play) {
-        return block([
-          set(animation2.current, runTiming(animation2.current, 1, callBack))
-        ]);
-      }
-      if (beginNavigation) {
-        return set(
-          animation3.current,
-          runTiming(animation3.current, 1, callBack2)
-        );
-      }
-      if (reverse) {
-        return set(
-          animation2.current,
-          runTiming(animation2.current, 0, () => null)
-        );
-      }
-      return animation2.current;
-    })(),
-    [play, beginNavigation, reverse]
-  );
+  useCode(() => {
+    if (play) {
+      return block([
+        set(animation2.current, runTiming(animation2.current, 1, callBack))
+      ]);
+    }
+    if (beginNavigation) {
+      return set(
+        animation3.current,
+        runTiming(animation3.current, 1, callBack2)
+      );
+    }
+    if (reverse) {
+      return set(
+        animation2.current,
+        runTiming(animation2.current, 0, () => null)
+      );
+    }
+    return animation2.current;
+  }, [play, beginNavigation, reverse]);
 
   const stopAnimation = () => {
     setBeginNavigation(true);

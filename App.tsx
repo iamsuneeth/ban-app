@@ -10,7 +10,6 @@ import { TabBar } from "./components/common/TabBar";
 import { createProvider } from "bank-core";
 import { createStackNavigator } from "react-navigation-stack";
 import { LoginContainer } from "./containers/LoginContainer";
-import { ImageBackground } from "react-native";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 
 const BottomTabBar = createBottomTabNavigator(
@@ -91,6 +90,11 @@ const RootNavigator = createSwitchNavigator(
 
 const Container = createAppContainer(RootNavigator);
 
-export default () => (
-  <AppearanceProvider>{createProvider(Container)}</AppearanceProvider>
-);
+export default () => {
+  const theme = useColorScheme();
+  return (
+    <AppearanceProvider>
+      {createProvider(Container, { theme })}
+    </AppearanceProvider>
+  );
+};

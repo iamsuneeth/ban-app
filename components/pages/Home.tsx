@@ -1,41 +1,62 @@
 import React from "react";
 
 import { createStackNavigator } from "react-navigation-stack";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { HomeContainer } from "../../containers/HomeContainer";
 import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
 import { SearchContainer } from "../../containers/SearchContainer";
+import { View, Text } from "react-native";
+import { normalize } from "../../utils/normalize";
 
 export const HomeStack = createStackNavigator(
   {
     Accounts: {
       screen: HomeContainer,
       navigationOptions: {
-        title: "Home",
-
-        headerTitleStyle: {
-          fontWeight: "bold",
-          flex: 1,
-          textAlign: "center"
-        },
         headerLeft: (
-          <FontAwesome
-            name="user-circle"
-            size={24}
-            color="tomato"
-            style={{ paddingLeft: 10 }}
-          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Ionicons
+              name="logo-bitcoin"
+              size={30}
+              style={{ paddingLeft: 10 }}
+            />
+            <Text
+              style={{
+                fontSize: normalize(30),
+                marginLeft: 5,
+                fontWeight: "bold"
+              }}
+            >
+              BitBank
+            </Text>
+          </View>
         ),
         headerRight: (
-          <FontAwesome
-            name="user-circle"
-            size={24}
-            color="tomato"
-            style={{ paddingRight: 10 }}
-          />
-        )
+          <View style={{ flexDirection: "row" }}>
+            <FontAwesome name="bell-o" size={23} style={{ paddingRight: 10 }} />
+            <MaterialIcons
+              name="settings"
+              size={25}
+              style={{ paddingRight: 10 }}
+            />
+            <FontAwesome
+              name="user-circle"
+              size={25}
+              style={{ paddingRight: 10 }}
+            />
+          </View>
+        ),
+        headerStyle: {
+          borderBottomWidth: 0
+        }
       }
     },
     AccountDetails: {

@@ -6,9 +6,12 @@ import { SEARCH_TYPE } from "bank-core/dist/types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { Transaction } from "../components/accounts/transactions/Transactions";
 
+type TxnComponentType = "mini" | "sheet" | "full";
+
 type TxnProps = {
   accountId: string;
-  height: number;
+  height?: number;
+  type?: TxnComponentType;
 };
 
 export const TransactionContainer = (
@@ -18,7 +21,7 @@ export const TransactionContainer = (
         navigation: NavigationStackProp<{}>;
       }
 ) => {
-  let { accountId, height } = props as TxnProps;
+  let { accountId, height, type } = props as TxnProps;
   let isChild = true;
   if (!accountId) {
     isChild = false;
@@ -41,34 +44,43 @@ export const TransactionContainer = (
 
   useEffect(() => {
     fetchTransactions({
-      type: SEARCH_TYPE.DEFAULT,
-      accountOpenDate: account.openingDate
+      type: SEARCH_TYPE.DEFAULT
     });
-  }, []);
+  }, [account]);
+  let ComponentToRender = null;
+  switch (type) {
+    case "sheet":
+      ComponentToRender = (
+        <TransactionSheet
+          {...{
+            loading: transactions.loading,
+            accountId,
+            account,
+            height,
+            transactions: transactions.allItems
+          }}
+        />
+      );
+      break;
+    case "mini":
+    default:
+      ComponentToRender = (
+        <Transaction
+          {...{
+            loading: transactions.loading,
+            refreshing: transactions.refreshing,
+            accountId,
+            account,
+            transactions: transactions.items,
+            lastFetched: transactions.lastFetched,
+            fetchTransactions,
+            filterTransaction,
+            clearFilters,
+            type
+          }}
+        />
+      );
+  }
 
-  return isChild ? (
-    <TransactionSheet
-      {...{
-        loading: transactions.loading,
-        accountId,
-        account,
-        height,
-        transactions: transactions.allItems
-      }}
-    />
-  ) : (
-    <Transaction
-      {...{
-        loading: transactions.loading,
-        refreshing: transactions.refreshing,
-        accountId,
-        account,
-        transactions: transactions.items,
-        lastFetched: transactions.lastFetched,
-        fetchTransactions,
-        filterTransaction,
-        clearFilters
-      }}
-    />
-  );
+  return ComponentToRender;
 };

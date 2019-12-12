@@ -30,7 +30,8 @@ import {
   ITransaction,
   IAccount,
   TransactionType,
-  SEARCH_TYPE
+  SEARCH_TYPE,
+  IFetchTransactionActionPayload
 } from "bank-core/dist/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
@@ -44,9 +45,13 @@ type Props = {
   transactions: ITransaction[];
   account: IAccount;
   lastFetched?: string;
-  fetchTransactions: Function;
+  fetchTransactions: (
+    filters: IFetchTransactionActionPayload,
+    useCache?: boolean
+  ) => void;
   filterTransaction: Function;
   clearFilters: Function;
+  type?: "mini" | "full" | "sheet";
 };
 
 interface ITransactionUIState {
@@ -63,7 +68,8 @@ export const Transaction = memo(
     filterTransaction,
     clearFilters,
     lastFetched,
-    refreshing
+    refreshing,
+    type = "full"
   }: Props) => {
     const [state, setState]: [
       ITransactionUIState,
@@ -104,17 +110,22 @@ export const Transaction = memo(
       });
     };
     const handleLoadMore = () => {
+      const startDate = dayjs(lastFetched, "DD/MM/YYYY").subtract(1, "month");
+      const endDate = dayjs(lastFetched, "DD/MM/YYYY");
+      if (account.openingDate.isBefore(startDate)) {
+        return;
+      }
       fetchTransactions({
-        searchType: SEARCH_TYPE.DEFAULT,
-        startDate: dayjs(lastFetched, "DD/MM/YYYY").subtract(1, "month"),
-        endDate: dayjs(lastFetched, "DD/MM/YYYY")
+        type: SEARCH_TYPE.DEFAULT,
+        startDate,
+        endDate
       });
     };
 
     const handleRefresh = () => {
       fetchTransactions(
         {
-          searchType: SEARCH_TYPE.DEFAULT,
+          type: SEARCH_TYPE.DEFAULT,
           startDate: dayjs(lastFetched, "DD/MM/YYYY"),
           endDate: dayjs().startOf("day")
         },
@@ -123,18 +134,20 @@ export const Transaction = memo(
     };
     return (
       <View style={[styles.listContainer]}>
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: "#039be5",
-            paddingVertical: 5
-          }}
-        >
-          <Text style={{ color: "#fff" }}>Showing transactions from</Text>
-          <Text
-            style={{ color: "#fff" }}
-          >{`${state.startDate} - ${state.endDate}`}</Text>
-        </View>
+        {type === "full" && (
+          <View
+            style={{
+              alignItems: "center",
+              backgroundColor: "#039be5",
+              paddingVertical: 5
+            }}
+          >
+            <Text style={{ color: "#fff" }}>Showing transactions from</Text>
+            <Text
+              style={{ color: "#fff" }}
+            >{`${state.startDate} - ${state.endDate}`}</Text>
+          </View>
+        )}
         <SectionList
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
@@ -163,12 +176,14 @@ export const Transaction = memo(
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
         />
-        <TransactionFilter
-          lastFetched={lastFetched}
-          clearFilters={clearFilters}
-          applyFilter={handleApplyFilter}
-          openDate={account.openingDate}
-        />
+        {type === "full" && (
+          <TransactionFilter
+            lastFetched={lastFetched}
+            clearFilters={clearFilters}
+            applyFilter={handleApplyFilter}
+            openDate={account.openingDate}
+          />
+        )}
       </View>
     );
   }
@@ -176,7 +191,6 @@ export const Transaction = memo(
 
 const styles = StyleSheet.create({
   listContainer: {
-    backgroundColor: "#fff",
     flex: 1
   },
   card: {

@@ -5,23 +5,33 @@ import { RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/dist/types";
+import { ThemeColors } from "../../../theme/constants";
+import { useTheme } from "react-navigation";
 type TxnItemProps = {
   data: ITransaction;
   index: number;
 };
 
 export const TxnItem = ({ data, index }: TxnItemProps) => {
+  const themecolors = ThemeColors[useTheme()];
   return (
     <View>
       <RectButton>
         <View style={[styles.itemContainer]}>
           <View style={styles.icon}>
-            <Icons name="bank-transfer" size={28} color="tomato" />
+            <Icons
+              name="bank-transfer"
+              size={40}
+              color={themecolors.primaryDark}
+            />
           </View>
           <View style={styles.main}>
             <Text style={styles.payee}>{data.merchant}</Text>
             {data.description && (
-              <Text numberOfLines={2} style={styles.description}>
+              <Text
+                numberOfLines={2}
+                style={[styles.description, { color: themecolors.gray }]}
+              >
                 {data.description}
               </Text>
             )}
@@ -55,8 +65,7 @@ const styles = StyleSheet.create({
     fontSize: normalize(16)
   },
   description: {
-    fontSize: normalize(12),
-    color: "#888"
+    fontSize: normalize(12)
   },
   icon: {
     paddingRight: 10

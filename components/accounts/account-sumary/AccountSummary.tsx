@@ -4,78 +4,93 @@ import { Card } from "../../elements/card/Card";
 import { ISummary } from "bank-core/dist/types";
 import { Amount } from "../../elements/amount/Amount";
 import { normalize, normalizeHeight } from "../../../utils/normalize";
+import { useTheme } from "react-navigation";
+import { ThemeColors } from "../../../theme/constants";
 
 type AccountSummaryProps = {
   summary: ISummary;
 };
 
 export const AccountSummary = ({ summary }: AccountSummaryProps) => {
+  const theme = useTheme();
+  const themeColors = ThemeColors[theme];
   return (
-    <Card style={styles.summary}>
+    <View style={styles.summary}>
       <View>
-        <Text style={styles.label}>total balance</Text>
+        <Text style={[styles.label, { color: themeColors.darkGray }]}>
+          available balance
+        </Text>
 
         <Amount
           style={{
             content: styles.totalAmount
           }}
-          amount={summary.balance.amount}
-          currency={summary.balance.currency}
+          amount={summary.availableBalance.amount}
+          currency={summary.availableBalance.currency}
           size={30}
         />
       </View>
       <View style={styles.additionalInfo}>
         <View style={styles.flexRow}>
-          <Text style={styles.label}>available balance</Text>
-
+          <Text style={[styles.label, { color: themeColors.gray }]}>
+            current
+          </Text>
+          <Text style={[styles.label, { color: themeColors.gray }]}>
+            overdraft
+          </Text>
+        </View>
+        <View style={styles.seperator} />
+        <View style={styles.flexRow}>
           <Amount
-            amount={summary.availableBalance.amount}
-            currency={summary.availableBalance.currency}
-            style={{ content: styles.otherAmount }}
+            amount={summary.balance.amount}
+            currency={summary.balance.currency}
+            style={{
+              content: { ...styles.otherAmount, color: themeColors.darkGray }
+            }}
             size={14}
           />
-        </View>
-        <View style={styles.flexRow}>
-          <Text style={styles.label}>overdfart</Text>
           <Amount
             amount={summary.usedOverdraft.amount}
             currency={summary.usedOverdraft.currency}
-            style={{ content: styles.otherAmount }}
+            style={{
+              content: { ...styles.otherAmount, color: themeColors.darkGray }
+            }}
             size={14}
           />
         </View>
       </View>
-    </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   summary: {
-    flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "center",
+    alignItems: "center",
     width: Dimensions.get("window").width - 20,
     margin: 10,
-    padding: 10,
-    minHeight: normalizeHeight(50),
-    backgroundColor: "tomato"
+    padding: 10
   },
   label: {
     fontSize: normalize(14),
-    color: "#fff",
+    textAlign: "center",
     textTransform: "capitalize"
   },
   totalAmount: {
-    color: "#fff",
     fontWeight: "bold"
   },
-  otherAmount: {
-    color: "#fff"
-  },
+  otherAmount: {},
   additionalInfo: {
-    minHeight: normalizeHeight(40)
+    width: "80%"
   },
   flexRow: {
     flexDirection: "row",
+    marginVertical: 5,
     justifyContent: "space-between"
+  },
+  seperator: {
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: "green"
   }
 });
