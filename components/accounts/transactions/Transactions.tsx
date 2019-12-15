@@ -35,6 +35,10 @@ import {
 } from "bank-core/dist/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
+import { SharedElement } from "react-navigation-shared-element";
+import { Card } from "../../elements/card/Card";
+import { ThemeColors } from "../../../theme/constants";
+import { useTheme } from "react-navigation";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
@@ -82,6 +86,7 @@ export const Transaction = memo(
             .subtract(1, "month")
             .format("DD/MM/YYYY")
     });
+    const themeColors = ThemeColors[useTheme()];
     let groupedTransactions: { [key: string]: any } = {};
     transactions.forEach(txn => {
       if (!(txn.date in groupedTransactions)) {
@@ -138,7 +143,7 @@ export const Transaction = memo(
           <View
             style={{
               alignItems: "center",
-              backgroundColor: "#039be5",
+              backgroundColor: themeColors.secondaryDark,
               paddingVertical: 5
             }}
           >

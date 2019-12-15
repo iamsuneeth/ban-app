@@ -19,3 +19,17 @@ export const AccountDetailsContainer = ({ navigation }: Props) => {
   }, []);
   return <AccountDetails {...accountState} navigate={navigate} />;
 };
+
+AccountDetailsContainer.sharedElements = (
+  navigation: NavigationStackProp<{}>,
+  otherNavigation,
+  showing
+) => {
+  return [
+    {
+      id: navigation.state.params.accountId,
+      resize: "clip",
+      align: "top-left"
+    }
+  ];
+};

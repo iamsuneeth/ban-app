@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Card } from "../../elements/card/Card";
 import { ISummary } from "bank-core/dist/types";
@@ -6,14 +6,31 @@ import { Amount } from "../../elements/amount/Amount";
 import { normalize, normalizeHeight } from "../../../utils/normalize";
 import { useTheme } from "react-navigation";
 import { ThemeColors } from "../../../theme/constants";
+import Animated from "react-native-reanimated";
+import { timing } from "react-native-redash";
+import { duration } from "moment";
 
 type AccountSummaryProps = {
   summary: ISummary;
 };
 
-export const AccountSummary = ({ summary }: AccountSummaryProps) => {
+export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
   const theme = useTheme();
   const themeColors = ThemeColors[theme];
+  const progressAnimation = new Animated.Value(0);
+  const progressPercent =
+    (summary.balance.amount / summary.availableBalance.amount) * 100;
+  Animated.useCode(() => {
+    return Animated.set(
+      progressAnimation,
+      timing({
+        from: 0,
+        to: progressPercent,
+        duration: 1000
+      })
+    );
+  }, [progressAnimation]);
+
   return (
     <View style={styles.summary}>
       <View>
@@ -39,7 +56,17 @@ export const AccountSummary = ({ summary }: AccountSummaryProps) => {
             overdraft
           </Text>
         </View>
-        <View style={styles.seperator} />
+        <View
+          style={[styles.seperator, { backgroundColor: themeColors.primary }]}
+        >
+          <Animated.View
+            style={{
+              height: "100%",
+              width: Animated.concat(progressAnimation, "%"),
+              backgroundColor: "#3cb44b"
+            }}
+          />
+        </View>
         <View style={styles.flexRow}>
           <Amount
             amount={summary.balance.amount}
@@ -61,7 +88,7 @@ export const AccountSummary = ({ summary }: AccountSummaryProps) => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   summary: {
@@ -91,6 +118,6 @@ const styles = StyleSheet.create({
   seperator: {
     height: 5,
     borderRadius: 2.5,
-    backgroundColor: "green"
+    overflow: "hidden"
   }
 });

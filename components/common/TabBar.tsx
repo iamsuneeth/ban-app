@@ -2,6 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import { BottomTabBar } from "react-navigation-tabs";
 import { BottomTabBarProps } from "react-navigation-tabs/lib/typescript/src/types";
+import { ThemeColors } from "../../theme/constants";
+import { useTheme } from "react-navigation";
 
 let tabBarLayout = {
   x: 0,
@@ -13,6 +15,7 @@ let tabBarLayout = {
 export const getTabBarHeight = () => tabBarLayout.height;
 
 export const TabBar = (props: BottomTabBarProps) => {
+  const themeColors = ThemeColors[useTheme()];
   return (
     <View
       collapsable={false}
@@ -20,7 +23,11 @@ export const TabBar = (props: BottomTabBarProps) => {
         tabBarLayout = event.nativeEvent.layout;
       }}
     >
-      <BottomTabBar {...props} />
+      <BottomTabBar
+        {...props}
+        activeTintColor={themeColors.primary}
+        inactiveTintColor={themeColors.gray}
+      />
     </View>
   );
 };

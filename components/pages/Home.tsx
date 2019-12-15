@@ -1,16 +1,43 @@
 import React from "react";
 
-import { createStackNavigator } from "react-navigation-stack";
+import {
+  createStackNavigator,
+  StackViewTransitionConfigs
+} from "react-navigation-stack";
 import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { HomeContainer } from "../../containers/HomeContainer";
 import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
 import { SearchContainer } from "../../containers/SearchContainer";
-import { View, Text } from "react-native";
+import { View, Text, Animated } from "react-native";
 import { normalize } from "../../utils/normalize";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-export const HomeStack = createStackNavigator(
+function springyFadeIn() {
+  const transitionSpec = {
+    timing: Animated.spring,
+    tension: 10,
+    useNativeDriver: true
+  };
+
+  return {
+    transitionSpec,
+    screenInterpolator: ({ position, scene }) => {
+      const { index } = scene;
+
+      const opacity = position.interpolate({
+        inputRange: [index - 1, index],
+        outputRange: [0, 1]
+      });
+
+      return { opacity };
+    }
+  };
+}
+
+export const HomeStack = createSharedElementStackNavigator(
+  createStackNavigator,
   {
     Accounts: {
       screen: HomeContainer,
@@ -23,15 +50,10 @@ export const HomeStack = createStackNavigator(
               alignItems: "center"
             }}
           >
-            <Ionicons
-              name="logo-bitcoin"
-              size={30}
-              style={{ paddingLeft: 10 }}
-            />
             <Text
               style={{
                 fontSize: normalize(30),
-                marginLeft: 5,
+                marginLeft: 10,
                 fontWeight: "bold"
               }}
             >
@@ -67,23 +89,7 @@ export const HomeStack = createStackNavigator(
           fontWeight: "bold",
           flex: 1,
           textAlign: "center"
-        },
-        headerRight: (
-          <BorderlessButton
-            onPress={() =>
-              navigation.navigate("Transactions", {
-                accountId: navigation.state.params.accountId
-              })
-            }
-          >
-            <Ionicons
-              name="ios-search"
-              size={24}
-              color="tomato"
-              style={{ paddingRight: 10 }}
-            />
-          </BorderlessButton>
-        )
+        }
       })
     },
     Transactions: {
@@ -105,6 +111,9 @@ export const HomeStack = createStackNavigator(
     }
   },
   {
+    cardStyle: {
+      backgroundColor: "#ffffff"
+    },
     initialRouteName: "Accounts",
     headerLayoutPreset: "center",
     defaultNavigationOptions: {
@@ -113,6 +122,8 @@ export const HomeStack = createStackNavigator(
         flex: 1,
         textAlign: "center"
       }
-    }
+    },
+    // transitionConfig: () => springyFadeIn()
+    transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS
   }
 );

@@ -7,6 +7,7 @@ export const ThemeColors = {
     darkGray: "#333333",
     gray: "#555555",
     lightGray: "#cccccc",
+    seperatorColor: "#eeeeee",
     white: "#fff"
   },
   dark: {
@@ -17,6 +18,7 @@ export const ThemeColors = {
     darkGray: "#333333",
     gray: "#555555",
     lightGray: "#cccccc",
+    seperatorColor: "#eeeeee",
     white: "#fff"
   }
 };

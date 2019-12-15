@@ -6,6 +6,7 @@ import { PaymentsOverview } from "../payments/paymentsOverview/PaymentsOverview"
 import { Upcoming } from "../payments/upcoming/Upcoming";
 import { FuturePayments } from "../payments/upcoming/FuturePayments";
 import { MakePayment } from "../payments/transferMoney/MakePayment";
+import { ThemeColors } from "../../theme/constants";
 
 export const PaymentStack = createStackNavigator(
   {
@@ -23,6 +24,17 @@ export const PaymentStack = createStackNavigator(
       {
         navigationOptions: {
           title: "Payments"
+        },
+        tabBarOptions: {
+          style: {
+            backgroundColor: "#212121"
+          },
+          indicatorStyle: {
+            backgroundColor: "#fff"
+          },
+          labelStyle: {
+            fontWeight: "bold"
+          }
         }
       }
     ),
@@ -49,15 +61,16 @@ export const PaymentStack = createStackNavigator(
   },
   {
     cardStyle: {
-      backgroundColor: "#f8f8f8"
-    }
+      backgroundColor: "#ffffff"
+    },
+    defaultNavigationOptions: ({ theme }) => ({
+      headerStyle: {
+        backgroundColor: "#212121",
+        borderBottomWidth: 0
+      },
+      headerTitleStyle: {
+        color: ThemeColors[theme].white
+      }
+    })
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

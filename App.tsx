@@ -52,10 +52,6 @@ const BottomTabBar = createBottomTabNavigator(
     }
   },
   {
-    tabBarOptions: {
-      activeTintColor: "tomato",
-      inactiveTintColor: "gray"
-    },
     tabBarComponent: props => <TabBar {...props} />
   }
 );

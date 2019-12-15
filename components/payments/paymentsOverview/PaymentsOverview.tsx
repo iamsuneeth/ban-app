@@ -16,16 +16,56 @@ import {
   FontAwesome
 } from "@expo/vector-icons";
 import BottomSheetBehavior from "reanimated-bottom-sheet";
+import { ThemeColors } from "../../../theme/constants";
+import { useTheme } from "react-navigation";
+import { getTabBarHeight } from "../../common/TabBar";
+import Animated from "react-native-reanimated";
+
+const colorList = [
+  {
+    text: "#e6194B",
+    background: "#fabebe"
+  },
+  {
+    text: "#f58231",
+    background: "#ffd8b1"
+  },
+  {
+    text: "#ffe119",
+    background: "#fffac8"
+  },
+  {
+    text: "#3cb44b",
+    background: "#aaffc3"
+  },
+  {
+    text: "#911eb4",
+    background: "#e6beff"
+  }
+];
+
 export const PaymentsOverview = () => {
   const sheetRef = useRef<BottomSheetBehavior>();
+  const sheetPositionRef = useRef(new Animated.Value(1));
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const opacity = sheetPositionRef.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0]
+  });
+  const themeColors = ThemeColors[useTheme()];
+
+  const onDeletePress = () => {
+    setSheetOpen(true);
+    sheetRef.current.snapTo(0);
+  };
+
   return (
     <View
       style={{
-        flex: 1,
-        paddingBottom: 10
+        flex: 1
       }}
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Card
           style={{
             marginTop: 0,
@@ -36,7 +76,11 @@ export const PaymentsOverview = () => {
           <RectButton>
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
-                <Icons name="bank-transfer-out" size={40} color="tomato" />
+                <Icons
+                  name="bank-transfer-out"
+                  size={40}
+                  color={themeColors.primaryDark}
+                />
               </View>
               <View style={styles.main}>
                 <Text style={styles.header}>Transfer money</Text>
@@ -51,7 +95,11 @@ export const PaymentsOverview = () => {
             <RectButton>
               <View style={[styles.itemContainer]}>
                 <View style={styles.icon}>
-                  <Ionicons name="ios-people" size={40} color="tomato" />
+                  <Ionicons
+                    name="ios-people"
+                    size={40}
+                    color={themeColors.primaryDark}
+                  />
                 </View>
                 <View style={styles.main}>
                   <Text style={styles.header}>Payees</Text>
@@ -75,7 +123,15 @@ export const PaymentsOverview = () => {
                   margin: 10
                 }}
               >
-                <LetterAvatar text={`payee name`} />
+                <LetterAvatar
+                  text={`payee name`}
+                  viewStyle={{
+                    backgroundColor: colorList[index % 5].background
+                  }}
+                  textStyle={{
+                    color: colorList[index % 5].text
+                  }}
+                />
                 <Text style={{ color: "#333" }}>payee name</Text>
               </BorderlessButton>
             ))}
@@ -83,7 +139,7 @@ export const PaymentsOverview = () => {
         </View>
         <View style={{ marginVertical: 10 }}>
           <Text style={styles.sectionHeader}>Favorites</Text>
-          <Card style={{ paddingHorizontal: 0 }}>
+          <View>
             {new Array(10).fill(0).map((_, index) => (
               <View key={index}>
                 <View style={{ flexDirection: "row", paddingVertical: 10 }}>
@@ -94,8 +150,10 @@ export const PaymentsOverview = () => {
                           text={`payee name`}
                           size={50}
                           viewStyle={{
-                            backgroundColor:
-                              index % 2 == 0 ? "tomato" : "#039be5"
+                            backgroundColor: colorList[index % 5].background
+                          }}
+                          textStyle={{
+                            color: colorList[index % 5].text
                           }}
                         />
                       </View>
@@ -110,10 +168,22 @@ export const PaymentsOverview = () => {
                     </View>
                   </RectButton>
                   <BorderlessButton
-                    style={{ justifyContent: "flex-end", paddingRight: 5 }}
+                    style={{ justifyContent: "flex-end", paddingRight: 10 }}
                     onPress={() => sheetRef.current.snapTo(1)}
                   >
-                    <Icons name="delete-forever" color="#555" size={25} />
+                    {/* <Icons
+                      name="delete-forever"
+                      color={themeColors.gray}
+                      size={25}
+                    /> */}
+                    <Text
+                      style={{
+                        color: themeColors.primaryDark,
+                        fontSize: normalize(14)
+                      }}
+                    >
+                      Delete
+                    </Text>
                   </BorderlessButton>
                 </View>
                 {index !== new Array(10).length - 1 && (
@@ -121,33 +191,36 @@ export const PaymentsOverview = () => {
                 )}
               </View>
             ))}
-          </Card>
+          </View>
         </View>
       </ScrollView>
 
       <BottomSheet
-        snapPoints={[0, "40%"]}
+        snapPoints={[0, 200]}
+        callbackNode={sheetPositionRef.current}
         ref={sheetRef}
         enabledContentTapInteraction={false}
         enabledGestureInteraction={false}
         enabledContentGestureInteraction={false}
+        onOpenEnd={() => setSheetOpen(true)}
+        onCloseEnd={() => setSheetOpen(false)}
         renderContent={() => (
           <View>
             <Card
               style={{
                 shadowOpacity: 0,
+                marginHorizontal: 0,
                 height: "100%",
                 justifyContent: "space-around"
               }}
             >
-              <Text style={{ textAlign: "center" }}>
+              <Text style={{ textAlign: "center", fontSize: normalize(16) }}>
                 Do you want to delete this favorite!?
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <RectButton
                   style={{
-                    borderColor: "#039be5",
-                    borderWidth: 1,
+                    backgroundColor: themeColors.primaryDark,
                     height: 40,
                     margin: 10,
                     flex: 1,
@@ -161,7 +234,7 @@ export const PaymentsOverview = () => {
                     style={{
                       textAlign: "center",
                       textAlignVertical: "center",
-                      color: "#039be5",
+                      color: themeColors.white,
                       fontSize: 16
                     }}
                   >
@@ -170,7 +243,7 @@ export const PaymentsOverview = () => {
                 </RectButton>
                 <RectButton
                   style={{
-                    borderColor: "#039be5",
+                    borderColor: themeColors.primaryDark,
                     borderWidth: 1,
                     margin: 10,
                     flex: 1,
@@ -185,7 +258,7 @@ export const PaymentsOverview = () => {
                     style={{
                       textAlign: "center",
                       textAlignVertical: "center",
-                      color: "#039be5",
+                      color: themeColors.primaryDark,
                       fontSize: 16
                     }}
                   >
@@ -196,6 +269,14 @@ export const PaymentsOverview = () => {
             </Card>
           </View>
         )}
+      />
+      <Animated.View
+        {...(StyleSheet.absoluteFill as any)}
+        style={{
+          backgroundColor: "rgba(0,0,0,0.8)",
+          opacity
+        }}
+        pointerEvents={sheetOpen ? "auto" : "none"}
       />
     </View>
   );

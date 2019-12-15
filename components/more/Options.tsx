@@ -6,12 +6,15 @@ import { RectButton } from "react-native-gesture-handler";
 import { Ionicons, MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { normalize } from "../../utils/normalize";
 import { FirebaseClient as firebase } from "bank-core";
+import { ThemeColors } from "../../theme/constants";
+import { useTheme } from "react-navigation";
 
 export const Options = ({ navigation }) => {
   const signOut = async () => {
     await firebase.auth().signOut();
     navigation.navigate("login");
   };
+  const themeColors = ThemeColors[useTheme()];
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -25,7 +28,11 @@ export const Options = ({ navigation }) => {
           <RectButton onPress={() => navigation.navigate("manageBiometry")}>
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
-                <Icons name="bank-transfer-out" size={40} color="tomato" />
+                <Icons
+                  name="bank-transfer-out"
+                  size={40}
+                  color={themeColors.primaryDark}
+                />
               </View>
               <View style={styles.main}>
                 <Text style={styles.header}>Manage biometry</Text>
@@ -40,7 +47,11 @@ export const Options = ({ navigation }) => {
             <RectButton>
               <View style={[styles.itemContainer]}>
                 <View style={styles.icon}>
-                  <Ionicons name="ios-people" size={40} color="tomato" />
+                  <Ionicons
+                    name="ios-people"
+                    size={40}
+                    color={themeColors.primaryDark}
+                  />
                 </View>
                 <View style={styles.main}>
                   <Text style={styles.header}>Payees</Text>
@@ -53,7 +64,7 @@ export const Options = ({ navigation }) => {
           </View>
         </Card>
         <View>
-          <Button title="logout" onPress={signOut} />
+          <Button title="Log out" onPress={signOut} />
         </View>
       </ScrollView>
     </View>

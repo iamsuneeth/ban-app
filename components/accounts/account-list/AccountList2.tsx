@@ -1,6 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Dimensions, StyleSheet } from "react-native";
-import { RectButton, FlatList } from "react-native-gesture-handler";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  Alert,
+  Platform
+} from "react-native";
+import {
+  RectButton,
+  TouchableHighlight,
+  BorderlessButton
+} from "react-native-gesture-handler";
 import { NavigationStackProp } from "react-navigation-stack";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
@@ -11,7 +23,10 @@ import { ThemeColors } from "../../../theme/constants";
 import Carousel from "react-native-snap-carousel";
 import { TransactionContainer } from "../../../containers/TransactionContainer";
 import { Ionicons } from "@expo/vector-icons";
-
+import { AccountDetails } from "../account-details/AccountDetails2";
+import Animated from "react-native-reanimated";
+import Constants from "expo-constants";
+import { SharedElement } from "react-navigation-shared-element";
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
 const NameClassMap: { [key in AccountClass]: string } = {
@@ -40,69 +55,111 @@ const classifyAccounts = (accounts: IAccount[]) => {
   });
   return sections;
 };
+const offset = (v: number) =>
+  Platform.OS === "android" ? v + Constants.statusBarHeight : v;
+const measure = async (ref: View | Text | ScrollView): Promise<Position> =>
+  new Promise(resolve =>
+    ref.measureInWindow((x, y, width, height) =>
+      resolve({
+        x,
+        y: offset(y),
+        width,
+        height
+      })
+    )
+  );
 
 type Props = {
   navigation: NavigationStackProp<{}>;
   accounts: IAccount[];
+  account: IAccount;
+  setAccount: (account: IAccount) => void;
+  showDetails: boolean;
+  setShowDetails: (Position) => void;
 };
 
-export const AccountList = ({ navigation, accounts }: Props) => {
-  const theme = useTheme();
-  const themeColors = ThemeColors[theme];
-  const [account, setAccount] = useState();
-  useEffect(() => {
-    if (!account) {
-      setAccount(accounts[0]);
-    }
-  }, [accounts]);
+const Account = ({ account, themeColors, setShowDetails, navigation }) => {
+  const accountRef = useRef<Animated.View>();
+  const openDetails = async () => {
+    const position = await measure(accountRef.current.getNode());
+    setShowDetails(position);
+  };
+  return (
+    <SharedElement key={account.id} id={account.id} style={{ flex: 1 }}>
+      <Card
+        style={[
+          styles.accountCard,
+          {
+            backgroundColor: themeColors.primary
+          }
+        ]}
+      >
+        <RectButton
+          onPress={() =>
+            navigation.navigate("AccountDetails", {
+              accountId: account.id,
+              name: account.nickName
+            })
+          }
+          testID="accountClick"
+          style={{ flex: 1, padding: 10 }}
+        >
+          <View style={styles.accountPrimary}>
+            <View style={{ position: "absolute", right: 0 }}>
+              <Ionicons
+                name="ios-arrow-dropright"
+                size={25}
+                color={themeColors.lightGray}
+              />
+            </View>
+
+            <View>
+              <Text style={styles.main}>{account.nickName}</Text>
+              <Text style={styles.secondary}>
+                {account.code + " " + account.accountNumber}
+              </Text>
+              <Text style={styles.secondary}>{account.type}</Text>
+            </View>
+            <View style={{ alignSelf: "flex-end" }}>
+              <Amount
+                amount={account.balance.amount}
+                currency={account.balance.currency}
+                style={{ content: { color: "#fff" } }}
+                size={25}
+              />
+            </View>
+          </View>
+        </RectButton>
+      </Card>
+    </SharedElement>
+  );
+};
+
+export const AccountList = ({
+  navigation,
+  accounts,
+  setAccount,
+  account,
+  setShowDetails
+}: Props) => {
+  const themeColors = ThemeColors[useTheme()];
+
   return (
     <View>
       <View style={styles.account}>
         <Carousel
           data={accounts}
           onSnapToItem={index => setAccount(accounts[index])}
-          itemWidth={0.85 * screenWidth}
+          itemWidth={0.8 * screenWidth}
           sliderWidth={screenWidth}
           layout={"default"}
           renderItem={({ item: account }) => (
-            <Card
-              style={[
-                styles.accountCard,
-                {
-                  backgroundColor: themeColors.primary
-                }
-              ]}
-              key={account.id}
-            >
-              <RectButton
-                onPress={() =>
-                  navigation.navigate("AccountDetails", {
-                    accountId: account.id,
-                    name: account.nickName
-                  })
-                }
-                testID="accountClick"
-                style={{ flex: 1, padding: 10 }}
-              >
-                <View style={styles.accountPrimary}>
-                  <View>
-                    <Text style={styles.main}>{account.nickName}</Text>
-                    <Text style={styles.secondary}>
-                      {account.code + " " + account.accountNumber}
-                    </Text>
-                    <Text style={styles.secondary}>{account.type}</Text>
-                  </View>
-                  <View style={{ alignSelf: "flex-end" }}>
-                    <Amount
-                      amount={account.balance.amount}
-                      currency={account.balance.currency}
-                      style={{ content: { color: "#fff" } }}
-                      size={25}
-                    />
-                  </View>
-                </View>
-              </RectButton>
-            </Card>
+            <Account
+              account={account}
+              themeColors={themeColors}
+              setShowDetails={setShowDetails}
+              navigation={navigation}
+            />
           )}
         />
       </View>
@@ -111,7 +168,8 @@ export const AccountList = ({ navigation, accounts }: Props) => {
           style={{
             flexDirection: "row",
             paddingHorizontal: 10,
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            alignItems: "center"
           }}
         >
           <Text
@@ -123,11 +181,22 @@ export const AccountList = ({ navigation, accounts }: Props) => {
           >
             Recent Transactions
           </Text>
-          <Ionicons
-            name="ios-search"
-            size={28}
-            color={themeColors.primaryDark}
-          />
+          <BorderlessButton
+            onPress={() =>
+              navigation.navigate("Transactions", {
+                accountId: account.id
+              })
+            }
+          >
+            <Text
+              style={{
+                fontSize: normalize(14),
+                color: themeColors.primaryDark
+              }}
+            >
+              See all
+            </Text>
+          </BorderlessButton>
         </View>
         {account && <TransactionContainer accountId={account.id} type="mini" />}
       </View>

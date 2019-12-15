@@ -5,10 +5,13 @@ import { Card } from "../../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
 import { NavigationTabScreenProps } from "react-navigation-tabs";
+import { ThemeColors } from "../../../theme/constants";
+import { useTheme } from "react-navigation";
 
 export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
+  const themeColors = ThemeColors[useTheme()];
   return (
-    <View style={{ flex: 1, backgroundColor: "rgba(255,255,255,0.8)" }}>
+    <View style={{ flex: 1 }}>
       <Card
         style={{
           marginTop: 0,
@@ -19,7 +22,11 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
         <RectButton onPress={() => navigation.navigate("futurePayments")}>
           <View style={[styles.itemContainer]}>
             <View style={styles.icon}>
-              <Icons name="bank-transfer-out" size={40} color="tomato" />
+              <Icons
+                name="bank-transfer-out"
+                size={40}
+                color={themeColors.primaryDark}
+              />
             </View>
             <View style={styles.main}>
               <Text style={styles.header}>Future payments</Text>
@@ -34,7 +41,11 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
           <RectButton onPress={() => navigation.navigate("standingOrders")}>
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
-                <Ionicons name="ios-people" size={40} color="tomato" />
+                <Ionicons
+                  name="ios-people"
+                  size={40}
+                  color={themeColors.primaryDark}
+                />
               </View>
               <View style={styles.main}>
                 <Text style={styles.header}>Standing instructions</Text>
@@ -49,7 +60,11 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
           <RectButton onPress={() => navigation.navigate("directDebits")}>
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
-                <Ionicons name="ios-people" size={40} color="tomato" />
+                <Ionicons
+                  name="ios-people"
+                  size={40}
+                  color={themeColors.primaryDark}
+                />
               </View>
               <View style={styles.main}>
                 <Text style={styles.header}>Direct debits</Text>
