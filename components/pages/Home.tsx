@@ -10,7 +10,7 @@ import { AccountDetailsContainer } from "../../containers/AccountDetailsContaine
 import { BorderlessButton } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
 import { SearchContainer } from "../../containers/SearchContainer";
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, Platform } from "react-native";
 import { normalize } from "../../utils/normalize";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
@@ -123,7 +123,10 @@ export const HomeStack = createSharedElementStackNavigator(
         textAlign: "center"
       }
     },
-    // transitionConfig: () => springyFadeIn()
-    transitionConfig: () => StackViewTransitionConfigs.SlideFromRightIOS
+    transitionConfig: () =>
+      Platform.select({
+        ios: springyFadeIn(),
+        android: StackViewTransitionConfigs.SlideFromRightIOS as any
+      })
   }
 );

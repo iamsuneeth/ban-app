@@ -1,13 +1,15 @@
 import React from "react";
+import "./config/firebase";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { initExtConfig } from "bank-core";
+import { ExtInterfaceType } from "bank-core/src/types";
 import { HomeStack } from "./components/pages/Home";
 import { PaymentStack } from "./components/pages/Payments";
 import { Transfers } from "./components/pages/Transfers";
 import { MoreStack } from "./components/pages/More";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { TabBar } from "./components/common/TabBar";
-import { createProvider } from "bank-core";
 import { createStackNavigator } from "react-navigation-stack";
 import { LoginContainer } from "./containers/LoginContainer";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
@@ -86,11 +88,16 @@ const RootNavigator = createSwitchNavigator(
 
 const Container = createAppContainer(RootNavigator);
 
+const provider = initExtConfig({
+  API_URL: "",
+  interfaceId: ExtInterfaceType.FIREBASE
+});
+
 export default () => {
   const theme = useColorScheme();
   return (
     <AppearanceProvider>
-      {createProvider(Container, { theme })}
+      {provider.createProvider(Container, { theme })}
     </AppearanceProvider>
   );
 };

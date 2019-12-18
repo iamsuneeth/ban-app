@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Card } from "../../elements/card/Card";
-import { ISummary } from "bank-core/dist/types";
+import { ISummary } from "bank-core/src/types";
 import { Amount } from "../../elements/amount/Amount";
 import { normalize, normalizeHeight } from "../../../utils/normalize";
 import { useTheme } from "react-navigation";

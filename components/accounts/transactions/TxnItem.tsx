@@ -4,7 +4,7 @@ import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
-import { ITransaction } from "bank-core/dist/types";
+import { ITransaction } from "bank-core/src/types";
 import { ThemeColors } from "../../../theme/constants";
 import { useTheme } from "react-navigation";
 type TxnItemProps = {
@@ -26,7 +26,7 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
             />
           </View>
           <View style={styles.main}>
-            <Text style={styles.payee}>{data.merchant}</Text>
+            <Text style={styles.payee}>{data.recepient}</Text>
             {data.description && (
               <Text
                 numberOfLines={2}
@@ -37,8 +37,8 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
             )}
           </View>
           <Amount
-            amount={data.amount}
-            currency={data.currency}
+            amount={data.amount.amount}
+            currency={data.amount.currency}
             size={18}
             style={{
               content: styles.amount,

@@ -16,14 +16,13 @@ import {
 import { NavigationStackProp } from "react-navigation-stack";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
-import { IAccount, AccountClass } from "bank-core/dist/types";
+import { IAccount, AccountClass } from "bank-core/src/types";
 import { normalize, normalizeHeight } from "../../../utils/normalize";
 import { useTheme } from "react-navigation";
 import { ThemeColors } from "../../../theme/constants";
 import Carousel from "react-native-snap-carousel";
 import { TransactionContainer } from "../../../containers/TransactionContainer";
 import { Ionicons } from "@expo/vector-icons";
-import { AccountDetails } from "../account-details/AccountDetails2";
 import Animated from "react-native-reanimated";
 import Constants from "expo-constants";
 import { SharedElement } from "react-navigation-shared-element";
@@ -74,16 +73,9 @@ type Props = {
   accounts: IAccount[];
   account: IAccount;
   setAccount: (account: IAccount) => void;
-  showDetails: boolean;
-  setShowDetails: (Position) => void;
 };
 
-const Account = ({ account, themeColors, setShowDetails, navigation }) => {
-  const accountRef = useRef<Animated.View>();
-  const openDetails = async () => {
-    const position = await measure(accountRef.current.getNode());
-    setShowDetails(position);
-  };
+const Account = ({ account, themeColors, navigation }) => {
   return (
     <SharedElement key={account.id} id={account.id} style={{ flex: 1 }}>
       <Card
@@ -139,8 +131,7 @@ export const AccountList = ({
   navigation,
   accounts,
   setAccount,
-  account,
-  setShowDetails
+  account
 }: Props) => {
   const themeColors = ThemeColors[useTheme()];
 
@@ -157,7 +148,6 @@ export const AccountList = ({
             <Account
               account={account}
               themeColors={themeColors}
-              setShowDetails={setShowDetails}
               navigation={navigation}
             />
           )}

@@ -11,7 +11,7 @@ import { Card } from "../../elements/card/Card";
 import { TxnItem } from "./TxnItem";
 import Animated from "react-native-reanimated";
 import { normalizeHeight, normalize } from "../../../utils/normalize";
-import { ITransaction, IAccount } from "bank-core/dist/types";
+import { ITransaction, IAccount } from "bank-core/src/types";
 import { Header } from "react-navigation-stack";
 import { TxnHeader } from "./TxnHeader";
 import Constants from "expo-constants";

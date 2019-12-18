@@ -4,7 +4,7 @@ import { RectButton } from "react-native-gesture-handler";
 import { NavigationStackProp } from "react-navigation-stack";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
-import { IAccount, AccountClass } from "bank-core/dist/types";
+import { IAccount, AccountClass } from "bank-core/src/types";
 import { normalize, normalizeHeight } from "../../../utils/normalize";
 
 const NameClassMap: { [key in AccountClass]: string } = {

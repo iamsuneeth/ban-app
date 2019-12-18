@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { AccountClass } from "bank-core/dist/types";
+import { AccountClass } from "bank-core/src/types";
 dayjs.extend(customParseFormat);
 
 const accounts = [

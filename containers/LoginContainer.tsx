@@ -68,7 +68,8 @@ export const LoginContainer = ({ navigation }) => {
     }
   };
   useEffect(() => {
-    fetchToken();
+    //fetchToken();
+    setState({ initialized: true });
   }, [state.failedCount]);
 
   return state.initialized ? <FirebaseLogin navigation={navigation} /> : null;

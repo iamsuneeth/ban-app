@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import { WebView } from "react-native-webview";
-import { FirebaseClient as firebase } from "bank-core";
+import * as firebase from "firebase";
 import { RectButton } from "react-native-gesture-handler";
 import * as SecureStore from "expo-secure-store";
 import { User } from "firebase";

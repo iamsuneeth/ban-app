@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useTransactionState } from "bank-core";
 import { TransactionSheet } from "../components/accounts/transactions/TransactionsSheet";
 import BottomSheet from "reanimated-bottom-sheet";
-import { SEARCH_TYPE } from "bank-core/dist/types";
+import { SEARCH_TYPE } from "bank-core/src/types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { Transaction } from "../components/accounts/transactions/Transactions";
 

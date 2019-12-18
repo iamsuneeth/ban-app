@@ -17,7 +17,6 @@ import {
 } from "react-native-gesture-handler";
 import { useState } from "react";
 
-import { IAccount, IAccountDetails } from "bank-core/dist/types";
 import { Amount } from "../../elements/amount/Amount";
 import {
   NavigationParams,
@@ -32,6 +31,7 @@ import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 import { ThemeColors } from "../../../theme/constants";
 import { useTransition } from "../../../hooks/animation/useTransition";
+import { IAccount } from "bank-core/src/types";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");

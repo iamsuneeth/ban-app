@@ -9,7 +9,7 @@ import {
 import DatePicker from "react-native-datepicker";
 import { RectButton } from "react-native-gesture-handler";
 import BottomSheet from "reanimated-bottom-sheet";
-import { TransactionType } from "bank-core/dist/types";
+import { TransactionType } from "bank-core/src/types";
 import dayjs from "dayjs";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { ThemeColors } from "../../../theme/constants";

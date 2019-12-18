@@ -32,7 +32,7 @@ import {
   TransactionType,
   SEARCH_TYPE,
   IFetchTransactionActionPayload
-} from "bank-core/dist/types";
+} from "bank-core/src/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
 import { SharedElement } from "react-navigation-shared-element";
@@ -89,10 +89,11 @@ export const Transaction = memo(
     const themeColors = ThemeColors[useTheme()];
     let groupedTransactions: { [key: string]: any } = {};
     transactions.forEach(txn => {
-      if (!(txn.date in groupedTransactions)) {
-        groupedTransactions[txn.date] = [];
+      const key = txn.date.toString();
+      if (!(key in groupedTransactions)) {
+        groupedTransactions[key] = [];
       }
-      groupedTransactions[txn.date].push(txn);
+      groupedTransactions[key].push(txn);
     });
 
     const handleApplyFilter = ({
