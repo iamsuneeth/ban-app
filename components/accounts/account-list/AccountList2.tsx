@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import {
   View,
   Text,
   ScrollView,
   Dimensions,
   StyleSheet,
-  Alert,
   Platform
 } from "react-native";
-import {
-  RectButton,
-  TouchableHighlight,
-  BorderlessButton
-} from "react-native-gesture-handler";
+import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { NavigationStackProp } from "react-navigation-stack";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
@@ -23,7 +18,6 @@ import { ThemeColors } from "../../../theme/constants";
 import Carousel from "react-native-snap-carousel";
 import { TransactionContainer } from "../../../containers/TransactionContainer";
 import { Ionicons } from "@expo/vector-icons";
-import Animated from "react-native-reanimated";
 import Constants from "expo-constants";
 import { SharedElement } from "react-navigation-shared-element";
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");

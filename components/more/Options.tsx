@@ -5,7 +5,7 @@ import { Card } from "../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { Ionicons, MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { normalize } from "../../utils/normalize";
-import { FirebaseClient as firebase } from "bank-core";
+import * as firebase from "firebase";
 import { ThemeColors } from "../../theme/constants";
 import { useTheme } from "react-navigation";
 

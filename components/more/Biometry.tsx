@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, Switch, Alert } from "react-native";
-import { FirebaseClient as firebase } from "bank-core";
+import * as firebase from "firebase";
 import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 

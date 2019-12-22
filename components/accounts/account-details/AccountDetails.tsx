@@ -31,7 +31,7 @@ import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 import { ThemeColors } from "../../../theme/constants";
 import { useTransition } from "../../../hooks/animation/useTransition";
-import { IAccount } from "bank-core/src/types";
+import { IAccount, IAccountDetails } from "bank-core/src/types";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
@@ -52,19 +52,10 @@ export const AccountDetails = ({
   const [open, setOpen] = useState(false);
   const themeColors = ThemeColors[useTheme()];
 
-  // const height = new Value(60);
-
   const onPress = () => {
     markInitialized();
     setOpen(!open);
   };
-
-  // useCode(() => {
-  //   if (open === "open" || open === "close") {
-  //     return runSpring(height, SpringUtils.makeDefaultConfig());
-  //   }
-  //   return height;
-  // }, [open]);
 
   const [animation, markInitialized, initial] = useTransition({
     expanded: open,
@@ -274,8 +265,8 @@ export const AccountDetails = ({
                     Available balance
                   </Text>
                   <Amount
-                    amount={details.availableBalance.amount}
-                    currency={details.availableBalance.currency}
+                    amount={account.availableBalance.amount}
+                    currency={account.availableBalance.currency}
                     size={16}
                   />
                 </View>
@@ -293,8 +284,8 @@ export const AccountDetails = ({
                     Actual balance
                   </Text>
                   <Amount
-                    amount={details.balance.amount}
-                    currency={details.balance.currency}
+                    amount={account.balance.amount}
+                    currency={account.balance.currency}
                     size={16}
                   />
                 </View>
@@ -312,8 +303,8 @@ export const AccountDetails = ({
                     Overdraft
                   </Text>
                   <Amount
-                    amount={details.overdraft.amount}
-                    currency={details.overdraft.currency}
+                    amount={account.overdraft.amount}
+                    currency={account.overdraft.currency}
                     size={16}
                   />
                 </View>
@@ -331,8 +322,8 @@ export const AccountDetails = ({
                     Available overdraft
                   </Text>
                   <Amount
-                    amount={details.availableOverdraft.amount}
-                    currency={details.availableOverdraft.currency}
+                    amount={account.availableOverdraft.amount}
+                    currency={account.availableOverdraft.currency}
                     size={16}
                   />
                 </View>
@@ -357,7 +348,7 @@ export const AccountDetails = ({
                 <Text
                   style={[styles.addnlValue, { color: themeColors.darkGray }]}
                 >
-                  {details.accountNumber}
+                  {account.accountNumber}
                 </Text>
                 <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
                   Account number
@@ -374,10 +365,10 @@ export const AccountDetails = ({
                 <Text
                   style={[styles.addnlValue, { color: themeColors.darkGray }]}
                 >
-                  {details.code}
+                  {details.branch.code}
                 </Text>
                 <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
-                  Ifsc code
+                  Branch code
                 </Text>
               </View>
               <View

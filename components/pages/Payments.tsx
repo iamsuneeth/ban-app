@@ -7,6 +7,7 @@ import { Upcoming } from "../payments/upcoming/Upcoming";
 import { FuturePayments } from "../payments/upcoming/FuturePayments";
 import { MakePayment } from "../payments/transferMoney/MakePayment";
 import { ThemeColors } from "../../theme/constants";
+import { PayeeContainer } from "../../containers/PayeeContainer";
 
 export const PaymentStack = createStackNavigator(
   {
@@ -39,7 +40,7 @@ export const PaymentStack = createStackNavigator(
       }
     ),
     makePayment: MakePayment,
-    payees: () => null,
+    payees: PayeeContainer,
     futurePayments: {
       screen: FuturePayments,
       navigationOptions: {

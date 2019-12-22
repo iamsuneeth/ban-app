@@ -13,6 +13,30 @@ import { TabBar } from "./components/common/TabBar";
 import { createStackNavigator } from "react-navigation-stack";
 import { LoginContainer } from "./containers/LoginContainer";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
+import { View, Text, Animated, Easing } from "react-native";
+import { Modal } from "./components/modal/Modal";
+
+function springyFadeIn() {
+  const transitionSpec = {
+    timing: Animated.spring,
+    tension: 10,
+    useNativeDriver: true
+  };
+
+  return {
+    transitionSpec,
+    screenInterpolator: ({ position, scene }) => {
+      const { index } = scene;
+
+      const opacity = position.interpolate({
+        inputRange: [index - 1, index],
+        outputRange: [0, 1]
+      });
+
+      return { opacity };
+    }
+  };
+}
 
 const BottomTabBar = createBottomTabNavigator(
   {
@@ -79,7 +103,23 @@ const RootNavigator = createSwitchNavigator(
         })
       }
     ),
-    postLogin: BottomTabBar
+    postLogin: createStackNavigator(
+      {
+        main: BottomTabBar,
+        modal: Modal
+      },
+      {
+        headerMode: "none",
+        mode: "modal",
+        cardStyle: {
+          backgroundColor: "rgba(0,0,0,0.6)"
+        },
+        transitionConfig: springyFadeIn,
+        defaultNavigationOptions: {
+          gesturesEnabled: false
+        }
+      }
+    )
   },
   {
     initialRouteName: "preLogin"
@@ -95,9 +135,6 @@ const provider = initExtConfig({
 
 export default () => {
   const theme = useColorScheme();
-  return (
-    <AppearanceProvider>
-      {provider.createProvider(Container, { theme })}
-    </AppearanceProvider>
-  );
+  const RootToRender = provider.createProvider(Container, { theme });
+  return RootToRender;
 };

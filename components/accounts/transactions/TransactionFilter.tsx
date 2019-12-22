@@ -6,19 +6,23 @@ import {
   Switch,
   BorderlessButton
 } from "react-native-gesture-handler";
-import DatePicker from "react-native-datepicker";
 import { RectButton } from "react-native-gesture-handler";
+
 import BottomSheet from "reanimated-bottom-sheet";
-import { TransactionType } from "bank-core/src/types";
+import {
+  TransactionType,
+  IFilterTransactionPayload
+} from "bank-core/src/types";
 import dayjs from "dayjs";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { ThemeColors } from "../../../theme/constants";
 import { useTheme } from "react-navigation";
+import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
 
 type FilterProps = {
   lastFetched?: string;
   clearFilters: Function;
-  applyFilter: Function;
+  applyFilter: (props: IFilterTransactionPayload) => void;
   openDate: dayjs.Dayjs;
 };
 
@@ -33,18 +37,16 @@ const filters = [
     key: "yesterday",
     text: "Yesterday",
     start: dayjs()
-      .startOf("day")
-      .add(-1, "day"),
-    end: dayjs()
-      .startOf("day")
       .add(-1, "day")
+      .startOf("day"),
+    end: dayjs()
+      .add(-1, "day")
+      .startOf("day")
   },
   {
     key: "week",
     text: "This week",
-    start: dayjs()
-      .startOf("day")
-      .startOf("week"),
+    start: dayjs().startOf("week"),
     end: dayjs().startOf("day")
   },
   {
@@ -53,7 +55,7 @@ const filters = [
     start: dayjs()
       .startOf("day")
       .startOf("month"),
-    end: dayjs().startOf("day")
+    end: dayjs().startOf("date")
   },
   {
     key: "prevMonth",
@@ -75,7 +77,8 @@ const FilterContent = ({
   handleClearFilter,
   handleApplyFilter,
   openDate,
-  themeColors
+  themeColors,
+  stateRef
 }) => (
   <Card style={styles.card}>
     <ScrollView
@@ -94,34 +97,20 @@ const FilterContent = ({
           >
             <View>
               <Text>Start</Text>
-              <DatePicker
+              <DateTimePicker
                 date={state.startDate}
-                mode="date"
-                placeholder="select date"
-                format="DD/MM/YYYY"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                onDateChange={date => {
-                  setState({ startDate: date });
-                }}
-                minDate={openDate.format("DD/MM/YYYY")}
-                maxDate={dayjs().format("DD/MM/YYYY")}
+                minimumDate={openDate.toDate()}
+                maximumDate={dayjs().toDate()}
+                onConfirm={date => setState({ startDate: date })}
               />
             </View>
             <View>
               <Text>End</Text>
-              <DatePicker
+              <DateTimePicker
                 date={state.endDate}
-                mode="date"
-                placeholder="select date"
-                format="DD/MM/YYYY"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                onDateChange={date => {
-                  setState({ endDate: date });
-                }}
-                minDate={openDate.format("DD/MM/YYYY")}
-                maxDate={dayjs().format("DD/MM/YYYY")}
+                minimumDate={openDate.toDate()}
+                maximumDate={dayjs().toDate()}
+                onConfirm={date => setState({ endDate: date })}
               />
             </View>
           </View>
@@ -134,8 +123,8 @@ const FilterContent = ({
           >
             {filters.map(filter => {
               const isSelected =
-                filter.start.isSame(dayjs(state.startDate, "DD/MM/YYYY")) &&
-                filter.end.isSame(dayjs(state.endDate, "DD/MM/YYYY"));
+                filter.start.isSame(dayjs(state.startDate)) &&
+                filter.end.isSame(dayjs(state.endDate));
               return (
                 <RectButton
                   key={filter.key}
@@ -150,8 +139,8 @@ const FilterContent = ({
                   }}
                   onPress={() =>
                     setState({
-                      startDate: filter.start.format("DD/MM/YYYY"),
-                      endDate: filter.end.format("DD/MM/YYYY")
+                      startDate: filter.start.toDate(),
+                      endDate: filter.end.toDate()
                     })
                   }
                 >
@@ -256,11 +245,11 @@ const FilterContent = ({
 interface ITransactionFilterState {
   filterOpen: boolean;
   dateSet: boolean;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   txnTypes: Array<TransactionType>;
-  fromAmount: string;
-  toAmount: string;
+  fromAmount: number;
+  toAmount: number;
   filterSet: boolean;
 }
 
@@ -271,6 +260,7 @@ export const TransactionFilter = ({
   openDate
 }: FilterProps) => {
   const filterRef: React.LegacyRef<BottomSheet> = useRef();
+  const stateRef = useRef("initial");
   const themeColors = ThemeColors[useTheme()];
   const [state, setState]: [
     ITransactionFilterState,
@@ -279,18 +269,24 @@ export const TransactionFilter = ({
     dateFilterOpen: false,
     filterOpen: false,
     dateSet: false,
-    endDate: dayjs().format("DD/MM/YYYY"),
+    endDate: dayjs()
+      .startOf("date")
+      .toDate(),
     startDate: lastFetched
-      ? lastFetched
+      ? dayjs(lastFetched).toDate()
       : dayjs()
+          .startOf("date")
           .subtract(1, "month")
-          .format("DD/MM/YYYY"),
-    filterStartDate: dayjs().format("DD/MM/YYYY"),
-    filterEndDate: lastFetched
-      ? lastFetched
+          .toDate(),
+    filterEndDate: dayjs()
+      .startOf("date")
+      .toDate(),
+    filterStartDate: lastFetched
+      ? dayjs(lastFetched).toDate()
       : dayjs()
+          .startOf("date")
           .subtract(1, "month")
-          .format("DD/MM/YYYY"),
+          .toDate(),
     txnTypes: [],
     fromAmount: "",
     toAmount: "",
@@ -313,40 +309,51 @@ export const TransactionFilter = ({
     });
   };
 
+  const onClose = () => {
+    setState({ filterOpen: false });
+    if (stateRef.current === "filter") {
+      applyFilter({
+        txnTypes: state.txnTypes,
+        fromAmount: state.fromAmount,
+        toAmount: state.toAmount,
+        startDate: dayjs(state.startDate),
+        endDate: dayjs(state.endDate)
+      });
+    } else {
+      const restFilters = {
+        txnTypes: [],
+        formatAmount: "",
+        toAmount: "",
+        endDate: dayjs()
+          .startOf("date")
+          .toDate(),
+        startDate: lastFetched
+          ? dayjs(lastFetched).toDate()
+          : dayjs()
+              .startOf("date")
+              .subtract(1, "month")
+              .toDate(),
+        filterEndDate: dayjs()
+          .startOf("date")
+          .toDate(),
+        filterStartDate: lastFetched
+          ? dayjs(lastFetched).toDate()
+          : dayjs()
+              .startOf("date")
+              .subtract(1, "month")
+              .toDate()
+      };
+      setState({ ...restFilters, filterSet: false });
+      clearFilters();
+    }
+  };
   const handleApplyFilter = () => {
-    applyFilter({
-      txnTypes: state.txnTypes,
-      fromAmount: state.fromAmount,
-      toAmount: state.toAmount,
-      startDate: state.startDate,
-      endDate: state.endDate
-    });
-    setState({
-      filterOpen: false
-    });
+    stateRef.current = "filter";
     filterRef.current.snapTo(0);
   };
 
   const handleClearFilter = () => {
-    const restFilters = {
-      txnTypes: [],
-      formatAmount: "",
-      toAmount: "",
-      endDate: dayjs().format("DD/MM/YYYY"),
-      startDate: lastFetched
-        ? lastFetched
-        : dayjs()
-            .subtract(1, "month")
-            .format("DD/MM/YYYY"),
-      filterEndDate: dayjs().format("DD/MM/YYYY"),
-      filterStartDate: lastFetched
-        ? lastFetched
-        : dayjs()
-            .subtract(1, "month")
-            .format("DD/MM/YYYY")
-    };
-    setState({ ...restFilters, filterSet: false });
-    clearFilters();
+    stateRef.current = "clear";
     filterRef.current.snapTo(0);
   };
 
@@ -397,7 +404,8 @@ export const TransactionFilter = ({
             handleClearFilter,
             handleApplyFilter,
             openDate,
-            themeColors
+            themeColors,
+            stateRef
           }}
         />
       )}
@@ -406,7 +414,7 @@ export const TransactionFilter = ({
       enabledGestureInteraction={false}
       enabledContentGestureInteraction={false}
       onOpenStart={() => setState({ filterOpen: true })}
-      onCloseStart={() => setState({ filterOpen: false })}
+      onCloseStart={onClose}
     />
   );
 };

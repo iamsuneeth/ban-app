@@ -22,7 +22,7 @@ import {
   RefreshControl
 } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { TxnHeader } from "./TxnHeader";
 import { TxnItem } from "./TxnItem";
@@ -31,7 +31,8 @@ import {
   IAccount,
   TransactionType,
   SEARCH_TYPE,
-  IFetchTransactionActionPayload
+  IFetchTransactionActionPayload,
+  IFilterTransactionPayload
 } from "bank-core/src/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
@@ -53,14 +54,14 @@ type Props = {
     filters: IFetchTransactionActionPayload,
     useCache?: boolean
   ) => void;
-  filterTransaction: Function;
+  filterTransaction: (props: IFilterTransactionPayload) => void;
   clearFilters: Function;
   type?: "mini" | "full" | "sheet";
 };
 
 interface ITransactionUIState {
-  startDate: string;
-  endDate: string;
+  startDate: Dayjs;
+  endDate: Dayjs;
 }
 
 export const Transaction = memo(
@@ -79,12 +80,12 @@ export const Transaction = memo(
       ITransactionUIState,
       React.Dispatch<any>
     ] = useReducer((oldState, newState) => ({ ...oldState, ...newState }), {
-      endDate: dayjs().format("DD/MM/YYYY"),
+      endDate: dayjs().startOf("date"),
       startDate: lastFetched
-        ? lastFetched
+        ? dayjs(lastFetched).startOf("day")
         : dayjs()
             .subtract(1, "month")
-            .format("DD/MM/YYYY")
+            .startOf("date")
     });
     const themeColors = ThemeColors[useTheme()];
     let groupedTransactions: { [key: string]: any } = {};
@@ -102,7 +103,7 @@ export const Transaction = memo(
       toAmount,
       startDate,
       endDate
-    }) => {
+    }: IFilterTransactionPayload) => {
       filterTransaction({
         txnTypes,
         fromAmount,
@@ -116,8 +117,8 @@ export const Transaction = memo(
       });
     };
     const handleLoadMore = () => {
-      const startDate = dayjs(lastFetched, "DD/MM/YYYY").subtract(1, "month");
-      const endDate = dayjs(lastFetched, "DD/MM/YYYY");
+      const startDate = dayjs(lastFetched).subtract(1, "month");
+      const endDate = dayjs(lastFetched);
       if (account.openingDate.isBefore(startDate)) {
         return;
       }
@@ -132,7 +133,7 @@ export const Transaction = memo(
       fetchTransactions(
         {
           type: SEARCH_TYPE.DEFAULT,
-          startDate: dayjs(lastFetched, "DD/MM/YYYY"),
+          startDate: dayjs(lastFetched),
           endDate: dayjs().startOf("day")
         },
         false
@@ -149,9 +150,9 @@ export const Transaction = memo(
             }}
           >
             <Text style={{ color: "#fff" }}>Showing transactions from</Text>
-            <Text
-              style={{ color: "#fff" }}
-            >{`${state.startDate} - ${state.endDate}`}</Text>
+            <Text style={{ color: "#fff" }}>{`${state.startDate.format(
+              "DD/MM/YYYY"
+            )} - ${state.endDate.format("DD/MM/YYYY")}`}</Text>
           </View>
         )}
         <SectionList
