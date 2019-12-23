@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator
+} from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { normalize } from "../../../utils/normalize";
@@ -61,6 +67,7 @@ export const RecentPayees = ({ payees }: props) => {
           </BorderlessButton>
         ))}
       </ScrollView>
+      <ActivityIndicator animating={payees.loading} />
     </View>
   );
 };

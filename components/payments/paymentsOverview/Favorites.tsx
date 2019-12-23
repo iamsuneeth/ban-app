@@ -1,5 +1,11 @@
 import React, { useState, useRef } from "react";
-import { View, Text, StyleSheet, ViewStyle } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  ActivityIndicator
+} from "react-native";
 import { normalize } from "../../../utils/normalize";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
@@ -101,6 +107,7 @@ export const Favorites = withNavigation(
                 )}
               </View>
             ))}
+            <ActivityIndicator animating={favorites.loading} />
           </View>
         </View>
       </>

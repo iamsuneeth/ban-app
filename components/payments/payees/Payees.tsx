@@ -1,15 +1,26 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { IPayeeState } from "bank-core/typescript/types";
+import AnimatedList from "../../elements/animated-list/AnimatedList";
+import { IPayeeFilter, IPayee } from "bank-core/src/types";
 
 type props = {
-  payees: IPayeeState;
+  payees: IPayee[];
+  loading: boolean;
+  filterPayees: (filter: IPayeeFilter) => void;
 };
 
-export const Payees = ({ payees }: props) => {
+export const Payees = ({ payees, loading }: props) => {
   return (
-    <View>
-      <Text></Text>
+    <View style={{ flex: 1 }}>
+      <AnimatedList
+        data={payees}
+        keyExtractor={(item, index) => item.id}
+        renderItem={({ item }) => (
+          <View style={{ height: 100 }}>
+            <Text>{item.name}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 };

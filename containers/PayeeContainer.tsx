@@ -9,10 +9,14 @@ type props = {
 };
 
 export const PayeeContainer = ({ type }: props) => {
-  const { payees } = usePayeeState();
+  const { payees, filterPayees, filteredPayees } = usePayeeState();
   return type === "recent" ? (
     <RecentPayees payees={payees} />
   ) : (
-    <Payees payees={payees} />
+    <Payees
+      payees={filteredPayees}
+      loading={payees.loading}
+      filterPayees={filterPayees}
+    />
   );
 };

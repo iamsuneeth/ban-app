@@ -136,7 +136,16 @@ export const FirebaseLogin = ({ navigation }) => {
             justifyContent: "center"
           }}
         >
-          <Ionicons name="ios-unlock" size={200} color="white" />
+          <Ionicons name="ios-unlock" size={200} color={themeColors.primary} />
+          <Text
+            style={{
+              fontSize: normalize(30),
+              marginLeft: 10,
+              fontWeight: "bold"
+            }}
+          >
+            BitBank
+          </Text>
         </View>
         {step === "initial" && (
           <KeyboardAvoidingView
@@ -214,7 +223,7 @@ export const FirebaseLogin = ({ navigation }) => {
               <View
                 style={{ backgroundColor: "red", padding: 5, marginBottom: 10 }}
               >
-                <Text style={{ color: "#fff" }}>{error}</Text>
+                <Text style={{ color: themeColors.darkGray }}>{error}</Text>
               </View>
             )}
             <Text style={{ color: themeColors.gray, fontSize: normalize(16) }}>
@@ -285,7 +294,8 @@ export const FirebaseLogin = ({ navigation }) => {
                   marginTop: 10,
                   height: 40,
                   justifyContent: "center",
-                  width: buttonWidth
+                  width: buttonWidth,
+                  backgroundColor: themeColors.gray
                 }}
                 onPress={() => {
                   setStep("initial");

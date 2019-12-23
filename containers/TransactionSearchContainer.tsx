@@ -4,7 +4,7 @@ import { useTransactionState } from "bank-core";
 import { NavigationStackProp } from "react-navigation-stack";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
-export const SearchContainer = ({
+export const TransactionSearchContainer = ({
   navigation
 }: {
   navigation: NavigationStackProp<{}>;

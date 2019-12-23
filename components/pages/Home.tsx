@@ -7,9 +7,8 @@ import {
 import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { HomeContainer } from "../../containers/HomeContainer";
 import { AccountDetailsContainer } from "../../containers/AccountDetailsContainer";
-import { BorderlessButton } from "react-native-gesture-handler";
 import { TransactionContainer } from "../../containers/TransactionContainer";
-import { SearchContainer } from "../../containers/SearchContainer";
+import { TransactionSearchContainer } from "../../containers/TransactionSearchContainer";
 import { View, Text, Animated, Platform } from "react-native";
 import { normalize } from "../../utils/normalize";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
@@ -95,7 +94,9 @@ export const HomeStack = createSharedElementStackNavigator(
     Transactions: {
       screen: TransactionContainer,
       navigationOptions: ({ navigation }) => ({
-        headerTitle: props => <SearchContainer navigation={navigation} />,
+        headerTitle: props => (
+          <TransactionSearchContainer navigation={navigation} />
+        ),
         headerStyle: {
           backgroundColor: "#fff"
         },

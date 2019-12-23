@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
@@ -8,6 +8,7 @@ import { FuturePayments } from "../payments/upcoming/FuturePayments";
 import { MakePayment } from "../payments/transferMoney/MakePayment";
 import { ThemeColors } from "../../theme/constants";
 import { PayeeContainer } from "../../containers/PayeeContainer";
+import { PayeeSearchContainer } from "../../containers/PayeesSearchContainer";
 
 export const PaymentStack = createStackNavigator(
   {
@@ -40,7 +41,23 @@ export const PaymentStack = createStackNavigator(
       }
     ),
     makePayment: MakePayment,
-    payees: PayeeContainer,
+    payees: {
+      screen: PayeeContainer,
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: props => <PayeeSearchContainer navigation={navigation} />,
+        headerStyle: {
+          backgroundColor: "#fff"
+        },
+        headerBackTitleStyle: {
+          display: "none"
+        },
+        headerTitleContainerStyle: {
+          right: 0,
+          paddingRight: 5
+        },
+        headerRight: null
+      })
+    },
     futurePayments: {
       screen: FuturePayments,
       navigationOptions: {
