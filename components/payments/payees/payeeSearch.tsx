@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,12 +10,17 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
-  handleSearch: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  handleSearch: (text: string) => void;
   searchString: string;
 };
 
 export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
   const inputRef = useRef<TextInput>(null);
+  const [text, setText] = useState(searchString);
+  const setSearchString = event => {
+    setText(event.nativeEvent.text);
+    handleSearch(event.nativeEvent.text);
+  };
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -32,8 +37,8 @@ export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
           padding: 10,
           flex: 1
         }}
-        value={searchString}
-        onChange={handleSearch}
+        value={text}
+        onChange={setSearchString}
       />
       {Platform.OS === "android" && (
         <Ionicons

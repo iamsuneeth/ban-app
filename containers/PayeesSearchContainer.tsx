@@ -10,13 +10,14 @@ export const PayeeSearchContainer = ({
   navigation: NavigationStackProp<{}>;
 }) => {
   const { filterPayees, payees } = usePayeeState();
-
-  const handleSearch = (
-    event: NativeSyntheticEvent<TextInputChangeEventData>
-  ) => {
-    filterPayees({
-      searchString: event.nativeEvent.text
+  const debouncedSearch = useCallback(debounce(filterPayees, 500), []);
+  const handleSearch = (text: string) => {
+    debouncedSearch({
+      searchString: text
     });
+    // filterPayees({
+    //   searchString: text
+    // });
   };
 
   return (

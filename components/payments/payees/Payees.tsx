@@ -14,6 +14,7 @@ export const Payees = ({ payees, loading }: props) => {
     <View style={{ flex: 1 }}>
       <AnimatedList
         data={payees}
+        listItemHeight={200}
         keyExtractor={(item, index) => item.id}
         renderItem={({ item }) => (
           <View style={{ height: 100 }}>
