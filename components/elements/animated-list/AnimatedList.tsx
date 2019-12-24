@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useReducer, useRef } from "react";
-import { View, Text, FlatListProps, FlatList } from "react-native";
+import React, { useEffect, useReducer, useRef } from "react";
+import { FlatListProps, FlatList } from "react-native";
 import { NativeViewGestureHandlerProperties } from "react-native-gesture-handler";
 import { AnimatedListItem } from "./AnimatedListItem";
 import { isEmpty, differenceBy, unionBy } from "lodash";
@@ -19,16 +19,13 @@ const {
   startClock,
   clockRunning,
   timing,
-  debug,
   stopClock,
   block,
   useCode,
-  call,
-  eq
+  call
 } = Animated;
 
 function runTiming(clock, value, dest, callBack = ([]) => {}) {
-  //const newClock = new Clock();
   const state = {
     finished: new Value(0),
     position: new Value(0),
@@ -73,6 +70,23 @@ type Props<T> = NativeViewGestureHandlerProperties &
     listItemHeight?: number;
   };
 
+const cloneArray = (listArray, keyExtractor) => {
+  return listArray.map((item, index) => {
+    return {
+      key: keyExtractor(item, index),
+      item,
+      deleted: false
+    };
+  });
+};
+const getKeys = (array: readonly any[], keyExtractor) => {
+  const keys = {};
+  array.forEach(
+    (element, index) => (keys[keyExtractor(element, index)] = true)
+  );
+  return keys;
+};
+
 const AnimatedList = <T extends { key?: string; id?: string | number }>(
   props: Props<T>
 ) => {
@@ -84,29 +98,13 @@ const AnimatedList = <T extends { key?: string; id?: string | number }>(
   const deleteAnimation = useRef<Animated.Value<number>>(new Value(1));
   const clockInRef = useRef(new Clock());
   const clockOutRef = useRef(new Clock());
-  const cloneArray = listArray => {
-    return listArray.map((item, index) => {
-      return {
-        key: props.keyExtractor(item, index),
-        item,
-        deleted: false
-      };
-    });
-  };
-  const getKeys = (array: readonly T[]) => {
-    const keys = {};
-    array.forEach(
-      (element, index) => (keys[props.keyExtractor(element, index)] = true)
-    );
-    return keys;
-  };
 
   const [state, setState] = useReducer(
     (oldState, newState) => ({ ...oldState, ...newState }),
     {
-      data: cloneArray(props.data),
+      data: cloneArray(props.data, props.keyExtractor),
       exactData: props.data.slice(),
-      addedMap: getKeys(props.data),
+      addedMap: getKeys(props.data, props.keyExtractor),
       deletedMap: {}
     }
   );
@@ -172,7 +170,7 @@ const AnimatedList = <T extends { key?: string; id?: string | number }>(
     if (latest) {
       setState({
         exactData: props.data.slice(),
-        data: cloneArray(props.data),
+        data: cloneArray(props.data, props.keyExtractor),
         deleteMap: {}
       });
       deleteAnimation.current.setValue(1);
