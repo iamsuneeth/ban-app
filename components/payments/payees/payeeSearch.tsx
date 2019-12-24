@@ -10,17 +10,12 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
-  handleSearch: (text: string) => void;
+  handleSearch: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   searchString: string;
 };
 
 export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
   const inputRef = useRef<TextInput>(null);
-  const [text, setText] = useState(searchString);
-  const setSearchString = event => {
-    setText(event.nativeEvent.text);
-    handleSearch(event.nativeEvent.text);
-  };
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -37,8 +32,8 @@ export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
           padding: 10,
           flex: 1
         }}
-        value={text}
-        onChange={setSearchString}
+        value={searchString}
+        onChange={handleSearch}
       />
       {Platform.OS === "android" && (
         <Ionicons
