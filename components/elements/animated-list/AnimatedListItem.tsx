@@ -18,8 +18,7 @@ export const AnimatedListItem = React.memo((props: Props) => {
       style={{
         flex: 1,
         height: props.height ? height : "auto",
-        opacity: props.animation,
-        borderWidth: 1
+        opacity: props.animation
       }}
     >
       {props.component}
