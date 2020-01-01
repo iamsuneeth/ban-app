@@ -130,7 +130,7 @@ export const AccountList = ({
   const themeColors = ThemeColors[useTheme()];
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={styles.account}>
         <Carousel
           data={accounts}
@@ -147,7 +147,7 @@ export const AccountList = ({
           )}
         />
       </View>
-      <View style={{ paddingTop: 10 }}>
+      <View style={{ paddingTop: 10, flex: 1 }}>
         <View
           style={{
             flexDirection: "row",

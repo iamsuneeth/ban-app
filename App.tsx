@@ -15,6 +15,7 @@ import { LoginContainer } from "./containers/LoginContainer";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { View, Text, Animated, Easing } from "react-native";
 import { Modal } from "./components/modal/Modal";
+import BiometryModal from "./components/modal/BiometryModal";
 
 function springyFadeIn() {
   const transitionSpec = {

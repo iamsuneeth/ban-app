@@ -4,8 +4,7 @@ import { useEffect, useReducer } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
 import { Platform } from "react-native";
 import { FirebaseLogin } from "../components/prelogin/login/FirebaseLogin";
-import { Request, FirebaseClient as firebase } from "bank-core";
-import Axios from "axios";
+import * as firebase from "firebase/app";
 
 export const LoginContainer = ({ navigation }) => {
   const [state, setState] = useReducer(
@@ -15,8 +14,7 @@ export const LoginContainer = ({ navigation }) => {
       modalVisible: false,
       failedCount: 0,
       biometryAvailable: false,
-      biometryEnabled: false,
-      initialized: false
+      biometryEnabled: false
     }
   );
 
@@ -24,9 +22,6 @@ export const LoginContainer = ({ navigation }) => {
     try {
       const isBiometryAvailable = await LocalAuthentication.hasHardwareAsync();
       if (!isBiometryAvailable) {
-        setState({
-          initialized: true
-        });
         return;
       }
       const enabled = await SecureStore.getItemAsync("biometryEnabled");
@@ -37,7 +32,7 @@ export const LoginContainer = ({ navigation }) => {
         if (state.failedCount >= 3) {
           await firebase.auth().signOut();
           setState({
-            initialized: true
+            modalVisible: false
           });
           return;
         }
@@ -47,30 +42,41 @@ export const LoginContainer = ({ navigation }) => {
           });
         }
         const results = await LocalAuthentication.authenticateAsync();
+        console.log(results);
         if (results.success) {
           setState({
             modalVisible: false,
             authenticated: true,
             initialized: true
           });
+        } else if ((results as any).error === "user_cancel") {
+          await firebase.auth().signOut();
+          setState({
+            modalVisible: false
+          });
         } else {
           setState({
             failedCount: state.failedCount + 1
           });
         }
-      } else {
-        setState({
-          initialized: true
-        });
       }
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
-    //fetchToken();
-    setState({ initialized: true });
+    fetchToken();
   }, [state.failedCount]);
 
-  return state.initialized ? <FirebaseLogin navigation={navigation} /> : null;
+  const cancelAuthentication = () => {
+    LocalAuthentication.cancelAuthenticate();
+  };
+  return (
+    <FirebaseLogin
+      navigation={navigation}
+      modalVisible={state.modalVisible}
+      authenticated={state.authenticated}
+      cancelAuthentication={cancelAuthentication}
+    />
+  );
 };

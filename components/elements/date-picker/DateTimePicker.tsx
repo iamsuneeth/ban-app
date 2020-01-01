@@ -1,19 +1,28 @@
-import React, { useState } from "react";
-import { View, Text, Platform, StyleSheet, Dimensions } from "react-native";
+import React, { useState, ReactNode } from "react";
+import { View, Text, TextStyle, ViewStyle } from "react-native";
 import DateTimePickerModal, {
   DateTimePickerProps
 } from "react-native-modal-datetime-picker";
-import { BorderlessButton } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
 import { useTheme } from "react-navigation";
+import dayjs from "dayjs";
 
 type Props = Omit<DateTimePickerProps, "onCancel"> & {
   onCancel?: (date: Date) => void;
+  displayTextStyle?: TextStyle;
+  displayTextContainerStyle?: ViewStyle;
+  displayComponent?: ReactNode;
 };
 
 export const DateTimePicker = ({
-  date,
+  date = dayjs()
+    .add(1, "day")
+    .toDate(),
   onConfirm,
   onCancel,
+  displayTextContainerStyle,
+  displayTextStyle,
+  displayComponent,
   ...rest
 }: Props) => {
   const [visible, setVisible] = useState(false);
@@ -28,9 +37,15 @@ export const DateTimePicker = ({
   };
   return (
     <>
-      <BorderlessButton onPress={() => setVisible(true)}>
-        <Text>{date && date.toDateString()}</Text>
-      </BorderlessButton>
+      <RectButton onPress={() => setVisible(true)}>
+        {displayComponent ? (
+          displayComponent
+        ) : (
+          <View style={displayTextContainerStyle}>
+            <Text style={displayTextStyle}>{date && date.toDateString()}</Text>
+          </View>
+        )}
+      </RectButton>
       <DateTimePickerModal
         {...rest}
         isDarkModeEnabled={theme === "dark"}

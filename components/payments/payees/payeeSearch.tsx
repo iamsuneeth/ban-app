@@ -5,29 +5,36 @@ import {
   Platform,
   NativeSyntheticEvent,
   TextInputChangeEventData,
-  TextInput
+  TextInput,
+  StyleSheet
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { ThemeColors } from "../../../theme/constants";
+import { useTheme } from "react-navigation";
+import { NavigationStackProp } from "react-navigation-stack";
+import { RectButton } from "react-native-gesture-handler";
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   handleSearch: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   searchString: string;
+  navigation: NavigationStackProp;
 };
 
-export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
-  const inputRef = useRef<TextInput>(null);
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+export const PayeeSearch = ({
+  handleSearch,
+  searchString,
+  navigation
+}: Props) => {
+  const themeColors = ThemeColors[useTheme()];
   return (
-    <View style={{ flex: 1, flexDirection: "row" }}>
+    <View style={{ flex: 1 }}>
       <TextInput
-        ref={inputRef}
         placeholder={"Search"}
         clearButtonMode={"always"}
-        selectionColor={"tomato"}
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoFocus
         style={{
           padding: 10,
           flex: 1
@@ -35,13 +42,6 @@ export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
         value={searchString}
         onChange={handleSearch}
       />
-      {Platform.OS === "android" && (
-        <Ionicons
-          name="ios-close-circle"
-          size={20}
-          style={{ position: "absolute", right: 0, alignSelf: "center" }}
-        />
-      )}
     </View>
   );
 };

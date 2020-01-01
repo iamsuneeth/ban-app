@@ -1,79 +1,173 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import AnimatedList from "../../elements/animated-list/AnimatedList";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { IPayeeFilter, IPayee } from "bank-core/src/types";
 import { RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { LetterAvatar } from "../../common/LetterAvatar";
-
+import { AnimatedList } from "react-native-reanimated-list";
+import { NavigationStackProp } from "react-navigation-stack";
+import { withNavigation, useTheme } from "react-navigation";
+import { SharedElement } from "react-navigation-shared-element";
+import { ThemeColors } from "../../../theme/constants";
+import { Ionicons } from "@expo/vector-icons";
+import { Card } from "../../elements/card/Card";
 type props = {
   payees: IPayee[];
   loading: boolean;
+  useFlatList: boolean;
+  navigation: NavigationStackProp;
   filterPayees: (filter: IPayeeFilter) => void;
+  onPress?: (payee: IPayee) => void;
 };
 
-const colorList = [
-  {
-    text: "#e6194B",
-    background: "#fabebe"
-  },
-  {
-    text: "#f58231",
-    background: "#ffd8b1"
-  },
-  {
-    text: "#ffe119",
-    background: "#fffac8"
-  },
-  {
-    text: "#3cb44b",
-    background: "#aaffc3"
-  },
-  {
-    text: "#911eb4",
-    background: "#e6beff"
-  }
-];
-
-export const Payees = ({ payees, loading }: props) => {
-  return (
-    <View style={{ flex: 1 }}>
-      <AnimatedList
-        data={payees}
-        listItemHeight={100}
-        keyExtractor={(item, index) => item.id}
-        ItemSeparatorComponent={() => <View style={styles.seperator} />}
-        renderItem={({ item, index }) => (
-          <View key={item.id} style={{ flex: 1 }}>
-            <RectButton style={{ flex: 1 }}>
-              <View style={[styles.itemContainer]}>
-                <View style={styles.icon}>
-                  <LetterAvatar
-                    text={item.name}
-                    size={50}
-                    viewStyle={{
-                      backgroundColor: colorList[index % 5].background
-                    }}
-                    textStyle={{
-                      color: colorList[index % 5].text
-                    }}
-                  />
-                </View>
-                <View style={styles.main}>
-                  <Text style={styles.header}>{item.name}</Text>
-                  <Text style={styles.description}>
-                    Account Number: {item.accountNumber}
-                  </Text>
-                  <Text style={styles.description}>{item.code}</Text>
-                </View>
+export const Payees = withNavigation(
+  ({ payees, loading, navigation, useFlatList, onPress }: props) => {
+    const themeColors = ThemeColors[useTheme()];
+    return (
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between"
+          }}
+        >
+          <Text style={styles.sectionHeader}>All payees</Text>
+          <RectButton
+            onPress={() => navigation.navigate("addPayee")}
+            style={[styles.actionButton]}
+          >
+            <Ionicons
+              name="md-person-add"
+              color={themeColors.primaryDark}
+              size={25}
+            />
+            <Text
+              style={[
+                styles.actionButtontext,
+                { color: themeColors.primaryDark }
+              ]}
+            >
+              Add payee
+            </Text>
+          </RectButton>
+        </View>
+        {useFlatList && (
+          <AnimatedList
+            data={payees}
+            listItemHeight={80}
+            keyExtractor={(item, index) => item.id}
+            renderItem={({ item, index }) => (
+              <View
+                key={item.id}
+                style={{
+                  flex: 1
+                }}
+              >
+                <RectButton
+                  style={{ flex: 1, paddingHorizontal: 10 }}
+                  onPress={
+                    onPress
+                      ? () => onPress(item)
+                      : () =>
+                          navigation.navigate("payeeDetails", {
+                            payee: item
+                          })
+                  }
+                >
+                  <View style={[styles.itemContainer]}>
+                    <View style={styles.icon}>
+                      <SharedElement
+                        id={item.id}
+                        style={{ width: 50, height: 50, borderRadius: 25 }}
+                      >
+                        <LetterAvatar text={item.name} size={50} />
+                      </SharedElement>
+                    </View>
+                    <View style={styles.main}>
+                      <SharedElement
+                        id={`${item.id}payeeName`}
+                        style={{ alignSelf: "flex-start" }}
+                      >
+                        <Text style={styles.header}>{item.name}</Text>
+                      </SharedElement>
+                      <View style={{ flexDirection: "row" }}>
+                        <SharedElement
+                          id={`${item.id}code`}
+                          style={{ marginRight: 10 }}
+                        >
+                          <Text style={styles.description}>{item.code}</Text>
+                        </SharedElement>
+                        <SharedElement id={`${item.id}accountNumber`}>
+                          <Text style={styles.description}>
+                            {item.accountNumber}
+                          </Text>
+                        </SharedElement>
+                      </View>
+                    </View>
+                  </View>
+                </RectButton>
               </View>
-            </RectButton>
-          </View>
+            )}
+          />
         )}
-      />
-    </View>
-  );
-};
+        {!useFlatList &&
+          payees.map(item => (
+            <View
+              key={item.id}
+              style={{
+                flex: 1,
+                marginVertical: 10
+              }}
+            >
+              <RectButton
+                style={{ flex: 1, paddingHorizontal: 10 }}
+                onPress={
+                  onPress
+                    ? () => onPress(item)
+                    : () =>
+                        navigation.navigate("payeeDetails", {
+                          payee: item
+                        })
+                }
+              >
+                <View style={[styles.itemContainer]}>
+                  <View style={styles.icon}>
+                    <SharedElement
+                      id={item.id}
+                      style={{ width: 50, height: 50, borderRadius: 25 }}
+                    >
+                      <LetterAvatar text={item.name} size={50} />
+                    </SharedElement>
+                  </View>
+                  <View style={styles.main}>
+                    <SharedElement
+                      id={`${item.id}payeeName`}
+                      style={{ alignSelf: "flex-start" }}
+                    >
+                      <Text style={styles.header}>{item.name}</Text>
+                    </SharedElement>
+                    <View style={{ flexDirection: "row" }}>
+                      <SharedElement
+                        id={`${item.id}code`}
+                        style={{ marginRight: 10 }}
+                      >
+                        <Text style={styles.description}>{item.code}</Text>
+                      </SharedElement>
+                      <SharedElement id={`${item.id}accountNumber`}>
+                        <Text style={styles.description}>
+                          {item.accountNumber}
+                        </Text>
+                      </SharedElement>
+                    </View>
+                  </View>
+                </View>
+              </RectButton>
+            </View>
+          ))}
+      </View>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   itemContainer: {
@@ -108,5 +202,20 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingRight: 10
+  },
+  actionButton: {
+    paddingVertical: 5,
+    margin: 5,
+    paddingHorizontal: 10,
+    minHeight: 40,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 3
+  },
+  actionButtontext: {
+    textAlign: "center",
+    marginLeft: 5,
+    fontSize: normalize(14)
   }
 });

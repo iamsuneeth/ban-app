@@ -6,7 +6,7 @@ import { PayeeSearch } from "../components/payments/payees/payeeSearch";
 export const PayeeSearchContainer = ({
   navigation
 }: {
-  navigation: NavigationStackProp<{}>;
+  navigation: NavigationStackProp;
 }) => {
   const { filterPayees, payees } = usePayeeState();
   const handleSearch = (
@@ -19,6 +19,7 @@ export const PayeeSearchContainer = ({
 
   return (
     <PayeeSearch
+      navigation={navigation}
       handleSearch={handleSearch}
       searchString={payees.filters.searchString}
     />

@@ -12,30 +12,6 @@ import { normalize } from "../../../utils/normalize";
 import { IPayee } from "bank-core/typescript/types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { withNavigation } from "react-navigation";
-import { SharedElement } from "react-navigation-shared-element";
-
-const colorList = [
-  {
-    text: "#e6194B",
-    background: "#fabebe"
-  },
-  {
-    text: "#f58231",
-    background: "#ffd8b1"
-  },
-  {
-    text: "#ffe119",
-    background: "#fffac8"
-  },
-  {
-    text: "#3cb44b",
-    background: "#aaffc3"
-  },
-  {
-    text: "#911eb4",
-    background: "#e6beff"
-  }
-];
 
 type props = {
   payees: IPayee[];
@@ -43,11 +19,11 @@ type props = {
   onPress?: (payee: IPayee) => void;
   navigation: NavigationStackProp;
 };
-export const RecentPayees = withNavigation(
+export const FrequentPayees = withNavigation(
   ({ payees, loading, onPress, navigation }: props) => {
     return (
       <View>
-        <Text style={styles.sectionHeader}>Recent payees</Text>
+        <Text style={styles.sectionHeader}>Frequent payees</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {payees.map((elem, index) => (
             <BorderlessButton
@@ -67,9 +43,7 @@ export const RecentPayees = withNavigation(
                       })
               }
             >
-              <SharedElement id={elem.id}>
-                <LetterAvatar text={elem.name} />
-              </SharedElement>
+              <LetterAvatar text={elem.name} />
               <Text numberOfLines={1} style={{ color: "#333" }}>
                 {elem.name.split(" ")[0]}
               </Text>

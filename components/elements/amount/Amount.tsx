@@ -28,9 +28,17 @@ export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
       value={integer}
       displayType={"text"}
       thousandSeparator={true}
-      prefix={CURRENCY_SYMBOL_MAP[currency]}
       renderText={value => (
         <View style={{ ...styles.container, ...style.container }}>
+          <Text
+            style={{
+              fontSize: normalize(Math.round(size * 0.8)),
+              paddingBottom: 1,
+              ...style.content
+            }}
+          >
+            {CURRENCY_SYMBOL_MAP[currency]}
+          </Text>
           <Text
             style={{
               fontSize: normalize(size),

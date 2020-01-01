@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ViewStyle,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from "react-native";
 import { normalize } from "../../../utils/normalize";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
@@ -58,8 +59,8 @@ export const Favorites = withNavigation(
           <View>
             {favoritePayments.map((favorite, index) => (
               <View key={favorite.id}>
-                <View style={{ flexDirection: "row", paddingVertical: 10 }}>
-                  <RectButton style={{ flex: 1 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <RectButton style={{ flex: 1, paddingVertical: 10 }}>
                     <View style={[styles.itemContainer]}>
                       <View style={styles.icon}>
                         <LetterAvatar
@@ -86,21 +87,27 @@ export const Favorites = withNavigation(
                           {favorite.paymentType}
                         </Text>
                       </View>
+                      <BorderlessButton
+                        style={{ justifyContent: "flex-end", paddingRight: 10 }}
+                        onPress={() =>
+                          navigation.navigate("modal", {
+                            message: `Do you want to delete this favorite ?`,
+                            onSelection: value =>
+                              Alert.alert("selected " + value)
+                          })
+                        }
+                      >
+                        <Text
+                          style={{
+                            color: themeColors.primaryDark,
+                            fontSize: normalize(14)
+                          }}
+                        >
+                          Delete
+                        </Text>
+                      </BorderlessButton>
                     </View>
                   </RectButton>
-                  <BorderlessButton
-                    style={{ justifyContent: "flex-end", paddingRight: 10 }}
-                    onPress={() => navigation.navigate("modal")}
-                  >
-                    <Text
-                      style={{
-                        color: themeColors.primaryDark,
-                        fontSize: normalize(14)
-                      }}
-                    >
-                      Delete
-                    </Text>
-                  </BorderlessButton>
                 </View>
                 {index !== new Array(10).length - 1 && (
                   <View style={styles.seperator} />

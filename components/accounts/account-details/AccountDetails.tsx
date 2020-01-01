@@ -118,8 +118,8 @@ export const AccountDetails = ({
         <View style={styles.quickLinks}>
           <BorderlessButton
             onPress={() =>
-              navigate("makePayment", {
-                accountId: account.id
+              navigate("payeeSelectionScreen", {
+                account
               })
             }
             testID="quick-link-payments"

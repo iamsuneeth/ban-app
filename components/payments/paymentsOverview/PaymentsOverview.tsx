@@ -9,7 +9,6 @@ import { useTheme } from "react-navigation";
 import { FavoriteContainer } from "../../../containers/FavoriteContainer";
 import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { NavigationStackProp } from "react-navigation-stack";
-import { IFavoriteState } from "bank-core/src/types";
 
 type Props = {
   navigation: NavigationStackProp;
@@ -31,7 +30,9 @@ export const PaymentsOverview = ({ navigation }: Props) => {
             shadowOpacity: 0.2
           }}
         >
-          <RectButton onPress={() => navigation.navigate("makePayment")}>
+          <RectButton
+            onPress={() => navigation.navigate("payeeSelectionScreen")}
+          >
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
                 <Icons

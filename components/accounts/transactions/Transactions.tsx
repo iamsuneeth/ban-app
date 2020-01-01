@@ -200,13 +200,6 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1
   },
-  card: {
-    marginHorizontal: 0,
-    alignItems: "center",
-    height: "100%",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
-  },
   txnList: {
     marginTop: 10
   },

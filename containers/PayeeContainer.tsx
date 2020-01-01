@@ -3,23 +3,56 @@ import { View, Text } from "react-native";
 import { usePayeeState } from "bank-core";
 import { RecentPayees } from "../components/payments/payees/RecentPayees";
 import { Payees } from "../components/payments/payees/Payees";
+import { FrequentPayees } from "../components/payments/payees/FrequentPayees";
+import { IPayee } from "bank-core/src/types";
 
 type props = {
-  type: "recent" | "all";
+  type: "recent" | "frequent" | "all";
+  complyFilter?: boolean;
+  useFlatList?: boolean;
+  onPress?: (payee: IPayee) => void;
 };
 
-export const PayeeContainer = ({ type }: props) => {
+export const PayeeContainer = ({
+  type,
+  complyFilter = false,
+  useFlatList = true,
+  onPress
+}: props) => {
   const { payees, filterPayees, filteredPayees, fetchPayees } = usePayeeState();
   useEffect(() => {
     fetchPayees();
   }, []);
-  return type === "recent" ? (
-    <RecentPayees payees={payees} />
-  ) : (
-    <Payees
-      payees={filteredPayees}
-      loading={payees.loading}
-      filterPayees={filterPayees}
-    />
-  );
+  let ComponentToRender = null;
+  switch (type) {
+    case "recent":
+      ComponentToRender = (
+        <RecentPayees
+          payees={complyFilter ? filteredPayees : payees.payees}
+          loading={payees.loading}
+          onPress={onPress}
+        />
+      );
+      break;
+    case "frequent":
+      ComponentToRender = (
+        <FrequentPayees
+          payees={complyFilter ? filteredPayees : payees.payees}
+          loading={payees.loading}
+          onPress={onPress}
+        />
+      );
+      break;
+    default:
+      ComponentToRender = (
+        <Payees
+          payees={filteredPayees}
+          loading={payees.loading}
+          filterPayees={filterPayees}
+          useFlatList={useFlatList}
+          onPress={onPress}
+        />
+      );
+  }
+  return ComponentToRender;
 };
