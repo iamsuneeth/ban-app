@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(20),
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold",
     color: "#555"

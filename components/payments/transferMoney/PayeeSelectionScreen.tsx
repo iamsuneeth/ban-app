@@ -62,11 +62,6 @@ export const PayeeSelectionScreen = ({
           </SharedElement>
         </View>
         <PayeeContainer
-          type="frequent"
-          complyFilter={true}
-          onPress={onPressCallBack}
-        />
-        <PayeeContainer
           type="recent"
           complyFilter={true}
           onPress={onPressCallBack}

@@ -145,14 +145,16 @@ export const Transaction = memo(
           <View
             style={{
               alignItems: "center",
-              backgroundColor: themeColors.secondaryDark,
+              backgroundColor: themeColors.primaryDark,
               paddingVertical: 5
             }}
           >
-            <Text style={{ color: "#fff" }}>Showing transactions from</Text>
-            <Text style={{ color: "#fff" }}>{`${state.startDate.format(
-              "DD/MM/YYYY"
-            )} - ${state.endDate.format("DD/MM/YYYY")}`}</Text>
+            <Text style={{ color: themeColors.white }}>
+              Showing transactions from{" "}
+              {`${state.startDate.format(
+                "DD/MM/YYYY"
+              )} - ${state.endDate.format("DD/MM/YYYY")}`}
+            </Text>
           </View>
         )}
         <SectionList

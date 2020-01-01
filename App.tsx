@@ -6,16 +6,15 @@ import { initExtConfig } from "bank-core";
 import { ExtInterfaceType } from "bank-core/src/types";
 import { HomeStack } from "./components/pages/Home";
 import { PaymentStack } from "./components/pages/Payments";
-import { Transfers } from "./components/pages/Transfers";
+import { Statistics } from "./components/pages/Statistics";
 import { MoreStack } from "./components/pages/More";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, Foundation } from "@expo/vector-icons";
 import { TabBar } from "./components/common/TabBar";
 import { createStackNavigator } from "react-navigation-stack";
 import { LoginContainer } from "./containers/LoginContainer";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { View, Text, Animated, Easing } from "react-native";
 import { Modal } from "./components/modal/Modal";
-import BiometryModal from "./components/modal/BiometryModal";
 
 function springyFadeIn() {
   const transitionSpec = {
@@ -59,12 +58,12 @@ const BottomTabBar = createBottomTabNavigator(
         )
       }
     },
-    Transfers: {
-      screen: Transfers,
+    Stats: {
+      screen: Statistics,
       navigationOptions: {
-        tabBarLabel: "Transfers",
+        tabBarLabel: "Statistics",
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="ios-cash" color={tintColor} size={24} />
+          <Foundation name="graph-bar" color={tintColor} size={24} />
         )
       }
     },

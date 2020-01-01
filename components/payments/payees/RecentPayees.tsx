@@ -47,7 +47,7 @@ export const RecentPayees = withNavigation(
   ({ payees, loading, onPress, navigation }: props) => {
     return (
       <View>
-        <Text style={styles.sectionHeader}>Recent payees</Text>
+        <Text style={styles.sectionHeader}>Recent</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {payees.map((elem, index) => (
             <BorderlessButton
@@ -55,7 +55,7 @@ export const RecentPayees = withNavigation(
               style={{
                 justifyContent: "flex-start",
                 alignItems: "center",
-                margin: 10,
+                margin: 5,
                 width: 80
               }}
               onPress={
@@ -84,7 +84,7 @@ export const RecentPayees = withNavigation(
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    fontSize: normalize(20),
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold",
     color: "#555"

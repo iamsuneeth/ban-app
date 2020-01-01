@@ -43,25 +43,6 @@ export const Options = ({ navigation }) => {
             </View>
           </RectButton>
           <View style={styles.seperator}></View>
-          <View>
-            <RectButton>
-              <View style={[styles.itemContainer]}>
-                <View style={styles.icon}>
-                  <Ionicons
-                    name="ios-people"
-                    size={40}
-                    color={themeColors.primaryDark}
-                  />
-                </View>
-                <View style={styles.main}>
-                  <Text style={styles.header}>Payees</Text>
-                  <Text numberOfLines={2} style={styles.description}>
-                    View and manage payees
-                  </Text>
-                </View>
-              </View>
-            </RectButton>
-          </View>
         </Card>
         <View>
           <Button title="Log out" onPress={signOut} />

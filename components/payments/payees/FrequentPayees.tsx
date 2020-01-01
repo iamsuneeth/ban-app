@@ -23,7 +23,7 @@ export const FrequentPayees = withNavigation(
   ({ payees, loading, onPress, navigation }: props) => {
     return (
       <View>
-        <Text style={styles.sectionHeader}>Frequent payees</Text>
+        <Text style={styles.sectionHeader}>Frequent</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {payees.map((elem, index) => (
             <BorderlessButton
@@ -58,7 +58,7 @@ export const FrequentPayees = withNavigation(
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    fontSize: normalize(20),
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold",
     color: "#555"

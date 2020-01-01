@@ -86,7 +86,10 @@ export const ConfirmScreen = ({ navigation }: props) => {
           marginBottom: 20
         }}
       >
-        <RectButton style={{ width: "80%", height: 40, marginVertical: 5 }}>
+        <RectButton
+          style={{ width: "80%", height: 40, marginVertical: 5 }}
+          onPress={() => navigation.popToTop()}
+        >
           <View
             style={{
               backgroundColor: themeColors.primary,
@@ -108,7 +111,10 @@ export const ConfirmScreen = ({ navigation }: props) => {
             </Text>
           </View>
         </RectButton>
-        <RectButton style={{ width: "80%", height: 40, marginVertical: 5 }}>
+        <RectButton
+          style={{ width: "80%", height: 40, marginVertical: 5 }}
+          onPress={() => navigation.replace("payeeSelectionScreen")}
+        >
           <View
             style={{
               borderColor: themeColors.primary,

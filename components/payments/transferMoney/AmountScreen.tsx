@@ -171,7 +171,7 @@ export const AmountScreen = ({
               fontSize: normalize(14),
               color: themeColors.gray,
               fontWeight: "600",
-              marginBottom: 5
+              marginBottom: 10
             }}
           >
             Account
@@ -208,7 +208,7 @@ export const AmountScreen = ({
                 style={{
                   flex: 1,
                   flexDirection: "row",
-                  borderColor: themeColors.primaryDark
+                  alignItems: "center"
                 }}
               >
                 <Ionicons

@@ -17,6 +17,7 @@ import { Animated } from "react-native";
 import { MakePaymentContainer } from "../../containers/MakePaymentContainer";
 import { PaymentReviewContainer } from "../../containers/PaymentReviewContainer";
 import { ConfirmScreen } from "../payments/transferMoney/ConfirmScreen";
+import { TopBar } from "../common/TopBar";
 
 function springyFadeIn(transitionProps, prevTransitionProps) {
   const transitionSpec = {
@@ -63,34 +64,31 @@ function springyFadeIn(transitionProps, prevTransitionProps) {
 export const PaymentStack = createSharedElementStackNavigator(
   createStackNavigator,
   {
-    Overview: createMaterialTopTabNavigator(
-      {
-        dashboard: {
-          screen: PaymentsOverview,
+    Overview: {
+      screen: createMaterialTopTabNavigator(
+        {
+          dashboard: {
+            screen: PaymentsOverview,
+            navigationOptions: {
+              title: "Payments"
+            }
+          },
+          upcoming: Upcoming,
+          history: () => null
+        },
+        {
           navigationOptions: {
             title: "Payments"
-          }
-        },
-        upcoming: Upcoming,
-        history: () => null
-      },
-      {
-        navigationOptions: {
-          title: "Payments"
-        },
-        tabBarOptions: {
-          style: {
-            backgroundColor: "#212121"
           },
-          indicatorStyle: {
-            backgroundColor: "#fff"
-          },
-          labelStyle: {
-            fontWeight: "bold"
-          }
+          tabBarComponent: TopBar
+        }
+      ),
+      navigationOptions: {
+        headerStyle: {
+          borderBottomWidth: 0
         }
       }
-    ),
+    },
     payeeSelectionScreen: {
       screen: MakePaymentContainer,
       navigationOptions: {
@@ -168,15 +166,6 @@ export const PaymentStack = createSharedElementStackNavigator(
     cardStyle: {
       backgroundColor: "#ffffff"
     },
-    defaultNavigationOptions: ({ theme }) => ({
-      headerStyle: {
-        backgroundColor: "#212121",
-        borderBottomWidth: 0
-      },
-      headerTitleStyle: {
-        color: ThemeColors[theme].white
-      }
-    }),
     transitionConfig: springyFadeIn
   }
 );

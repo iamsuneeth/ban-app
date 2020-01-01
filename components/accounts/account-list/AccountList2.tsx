@@ -147,11 +147,12 @@ export const AccountList = ({
           )}
         />
       </View>
-      <View style={{ paddingTop: 10, flex: 1 }}>
+      <View style={{ paddingTop: 10, paddingHorizontal: 10, flex: 1 }}>
         <View
           style={{
             flexDirection: "row",
             paddingHorizontal: 10,
+            marginBottom: 10,
             justifyContent: "space-between",
             alignItems: "center"
           }}
@@ -160,7 +161,7 @@ export const AccountList = ({
             style={{
               fontSize: normalize(20),
               fontWeight: "bold",
-              color: themeColors.darkGray
+              color: themeColors.gray
             }}
           >
             Recent Transactions
@@ -182,6 +183,7 @@ export const AccountList = ({
             </Text>
           </BorderlessButton>
         </View>
+
         {account && <TransactionContainer accountId={account.id} type="mini" />}
       </View>
     </View>

@@ -25,7 +25,7 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
               <Icons
                 name="bank-transfer-out"
                 size={40}
-                color={themeColors.primaryDark}
+                color={themeColors.primary}
               />
             </View>
             <View style={styles.main}>
@@ -44,7 +44,7 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
                 <Ionicons
                   name="ios-people"
                   size={40}
-                  color={themeColors.primaryDark}
+                  color={themeColors.primary}
                 />
               </View>
               <View style={styles.main}>
@@ -63,7 +63,7 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
                 <Ionicons
                   name="ios-people"
                   size={40}
-                  color={themeColors.primaryDark}
+                  color={themeColors.primary}
                 />
               </View>
               <View style={styles.main}>
