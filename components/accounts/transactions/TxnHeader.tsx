@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   sectionHeader: {
-    fontSize: normalize(12),
+    fontSize: normalize(14),
     fontWeight: "500"
   }
 });

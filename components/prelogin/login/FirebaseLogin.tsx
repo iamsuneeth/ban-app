@@ -37,10 +37,12 @@ export const FirebaseLogin = ({
   navigation,
   modalVisible,
   authenticated,
-  cancelAuthentication
+  cancelAuthentication,
+  sheetRef,
+  biometryAvailable,
+  authPrompt
 }) => {
   const [phoneNumber, setPhoneNumber] = useState();
-  const sheetRef = useRef<BottomSheet>();
   const animationRef = useRef<LottieView>();
   const [step, setStep] = useState("initial");
   const [authState, setAuthState] = useState("notStarted");
@@ -222,6 +224,27 @@ export const FirebaseLogin = ({
                   CONTINUE
                 </Text>
               </RectButton>
+              {biometryAvailable && (
+                <RectButton
+                  onPress={authPrompt}
+                  style={{
+                    padding: 10,
+                    height: 40,
+                    width: buttonWidth,
+                    justifyContent: "center"
+                  }}
+                >
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: themeColors.primaryDark,
+                      fontSize: normalize(16)
+                    }}
+                  >
+                    Login using fingerprint
+                  </Text>
+                </RectButton>
+              )}
             </KeyboardAvoidingView>
           )}
 

@@ -42,10 +42,23 @@ export const Options = ({ navigation }) => {
               </View>
             </View>
           </RectButton>
-          <View style={styles.seperator}></View>
         </Card>
-        <View>
-          <Button title="Log out" onPress={signOut} />
+        <View style={{ alignItems: "center" }}>
+          <RectButton style={{ height: 40, width: 200 }} onPress={signOut}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: themeColors.primary,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 5
+              }}
+            >
+              <Text style={{ fontSize: 14, color: themeColors.white }}>
+                Sign out
+              </Text>
+            </View>
+          </RectButton>
         </View>
       </ScrollView>
     </View>

@@ -119,7 +119,11 @@ export const MakePaymentHeader = ({
                 onPress={() => setVisible(true)}
                 style={{ marginRight: 10 }}
               >
-                <Ionicons color="white" name="ios-search" size={30} />
+                <Ionicons
+                  color={themeColors.gray}
+                  name="ios-search"
+                  size={30}
+                />
               </BorderlessButton>
             )}
           </View>
