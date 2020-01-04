@@ -19,8 +19,7 @@ import { useLoginAnimation } from "../../../hooks/animation/useLoginAnimation";
 import Animated from "react-native-reanimated";
 import { normalize } from "../../../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "react-navigation";
-import { ThemeColors } from "../../../theme/constants";
+import { useTheme } from "@react-navigation/native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { Card } from "../../elements/card/Card";
 import LottieView from "lottie-react-native";
@@ -51,9 +50,8 @@ export const FirebaseLogin = ({
   const [smsCode, setSmsCode] = useState();
   const [verificationId, setVerificationId] = useState();
   const [webHeight, setWebHeight] = useState(0);
-  const theme = useTheme();
-  const themeColors = ThemeColors[theme];
-
+  const { colors } = useTheme();
+  const setAuthenticationState = () => {};
   const [
     startAnimation,
     stopAnimation,
@@ -64,7 +62,7 @@ export const FirebaseLogin = ({
     animation1,
     animation2,
     reverseAnimation
-  ] = useLoginAnimation(navigation, buttonWidth);
+  ] = useLoginAnimation(setAuthenticationState, buttonWidth);
 
   const onAuthStateChanged = async (user: User) => {
     if (user) {
@@ -160,11 +158,7 @@ export const FirebaseLogin = ({
               justifyContent: "center"
             }}
           >
-            <Ionicons
-              name="ios-unlock"
-              size={200}
-              color={themeColors.primary}
-            />
+            <Ionicons name="ios-unlock" size={200} color={colors.primary} />
             <Text
               style={{
                 fontSize: normalize(30),
@@ -194,19 +188,19 @@ export const FirebaseLogin = ({
                   padding: 5,
                   height: 40,
                   borderBottomWidth: 1,
-                  borderColor: themeColors.primary,
-                  color: themeColors.darkGray,
+                  borderColor: colors.primary,
+                  color: colors.text,
                   marginBottom: 20,
                   width: buttonWidth,
                   fontSize: normalize(16)
                 }}
-                placeholderTextColor={themeColors.gray}
+                placeholderTextColor={colors.text}
               />
 
               <RectButton
                 onPress={() => setStep("phoneSubmitted")}
                 style={{
-                  backgroundColor: themeColors.primaryDark,
+                  backgroundColor: colors.primary,
                   padding: 10,
                   height: 40,
                   width: buttonWidth,
@@ -217,7 +211,7 @@ export const FirebaseLogin = ({
                 <Text
                   style={{
                     textAlign: "center",
-                    color: themeColors.white,
+                    color: "#fff",
                     fontSize: normalize(16)
                   }}
                 >
@@ -237,7 +231,7 @@ export const FirebaseLogin = ({
                   <Text
                     style={{
                       textAlign: "center",
-                      color: themeColors.primaryDark,
+                      color: colors.primary,
                       fontSize: normalize(16)
                     }}
                   >
@@ -276,17 +270,13 @@ export const FirebaseLogin = ({
                     marginBottom: 10
                   }}
                 >
-                  <Text style={{ color: themeColors.darkGray }}>{error}</Text>
+                  <Text style={{ color: colors.text }}>{error}</Text>
                 </View>
               )}
-              <Text
-                style={{ color: themeColors.gray, fontSize: normalize(16) }}
-              >
+              <Text style={{ color: colors.text, fontSize: normalize(16) }}>
                 We have sent you a verification code.
               </Text>
-              <Text
-                style={{ color: themeColors.gray, fontSize: normalize(16) }}
-              >
+              <Text style={{ color: colors.text, fontSize: normalize(16) }}>
                 Please enter it below.
               </Text>
               <TextInput
@@ -300,21 +290,19 @@ export const FirebaseLogin = ({
                   padding: 5,
                   height: 40,
                   borderBottomWidth: 1,
-                  borderColor: themeColors.primary,
-                  color: themeColors.darkGray,
+                  borderColor: colors.primary,
+                  color: colors.text,
                   marginBottom: 20,
                   width: buttonWidth,
                   fontSize: normalize(16)
                 }}
-                placeholderTextColor={themeColors.gray}
+                placeholderTextColor={colors.text}
               />
               <Animated.View
                 style={{
                   width: widthAnimation,
                   borderRadius: borderRadiusAnimation,
-                  backgroundColor: !!smsCode
-                    ? themeColors.primaryDark
-                    : themeColors.gray,
+                  backgroundColor: !!smsCode ? colors.primary : colors.text,
                   height: 40,
                   justifyContent: "center",
                   transform: [
@@ -333,7 +321,7 @@ export const FirebaseLogin = ({
                     <Text
                       style={{
                         textAlign: "center",
-                        color: themeColors.white,
+                        color: "#fff",
                         fontSize: normalize(16)
                       }}
                     >
@@ -341,7 +329,7 @@ export const FirebaseLogin = ({
                     </Text>
                   )}
                   {authState === "inProgress" && (
-                    <ActivityIndicator color={themeColors.white} />
+                    <ActivityIndicator color={"#fff"} />
                   )}
                 </RectButton>
               </Animated.View>
@@ -352,7 +340,7 @@ export const FirebaseLogin = ({
                     height: 40,
                     justifyContent: "center",
                     width: buttonWidth,
-                    backgroundColor: themeColors.gray
+                    backgroundColor: colors.text
                   }}
                   onPress={() => {
                     setStep("initial");
@@ -362,7 +350,7 @@ export const FirebaseLogin = ({
                   <Text
                     style={{
                       textAlign: "center",
-                      color: themeColors.white,
+                      color: "#fff",
                       fontSize: normalize(16)
                     }}
                   >
@@ -397,7 +385,7 @@ export const FirebaseLogin = ({
                 style={{
                   fontSize: normalize(20),
                   fontWeight: "bold",
-                  color: themeColors.gray
+                  color: colors.text
                 }}
               >
                 Fingerprint authentication
@@ -414,7 +402,7 @@ export const FirebaseLogin = ({
                         style={{
                           fontSize: normalize(16),
                           fontWeight: "bold",
-                          color: themeColors.primaryDark,
+                          color: colors.primary,
                           textAlign: "center"
                         }}
                       >

@@ -1,15 +1,26 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Switch } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { normalize } from "../../../utils/normalize";
 import { Card } from "../../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
-import { NavigationTabScreenProps } from "react-navigation-tabs";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
+import { PaymentTopBarParamList } from "../../../tabs/PaymentTopBar";
+import { MaterialTopTabNavigationProp } from "@react-navigation/material-top-tabs";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
 
-export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
-  const themeColors = ThemeColors[useTheme()];
+type UpcomingNaviagtionProp = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<PaymentTopBarParamList, "Upcoming">,
+  StackNavigationProp<PaymentParamList>
+>;
+
+export const Upcoming = ({
+  navigation
+}: {
+  navigation: UpcomingNaviagtionProp;
+}) => {
+  const { colors } = useTheme();
   return (
     <View style={{ flex: 1 }}>
       <Card
@@ -19,13 +30,13 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
           shadowOpacity: 0.2
         }}
       >
-        <RectButton onPress={() => navigation.navigate("futurePayments")}>
+        <RectButton onPress={() => navigation.navigate("FuturePayments")}>
           <View style={[styles.itemContainer]}>
             <View style={styles.icon}>
               <Icons
                 name="bank-transfer-out"
                 size={40}
-                color={themeColors.primary}
+                color={colors.primary}
               />
             </View>
             <View style={styles.main}>
@@ -38,14 +49,10 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
         </RectButton>
         <View style={styles.seperator}></View>
         <View>
-          <RectButton onPress={() => navigation.navigate("standingOrders")}>
+          <RectButton onPress={() => navigation.navigate("StandingOrders")}>
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
-                <Ionicons
-                  name="ios-people"
-                  size={40}
-                  color={themeColors.primary}
-                />
+                <Ionicons name="ios-people" size={40} color={colors.primary} />
               </View>
               <View style={styles.main}>
                 <Text style={styles.header}>Standing instructions</Text>
@@ -57,14 +64,10 @@ export const Upcoming = ({ navigation }: NavigationTabScreenProps) => {
           </RectButton>
         </View>
         <View>
-          <RectButton onPress={() => navigation.navigate("directDebits")}>
+          <RectButton onPress={() => navigation.navigate("DirectDebits")}>
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
-                <Ionicons
-                  name="ios-people"
-                  size={40}
-                  color={themeColors.primary}
-                />
+                <Ionicons name="ios-people" size={40} color={colors.primary} />
               </View>
               <View style={styles.main}>
                 <Text style={styles.header}>Direct debits</Text>

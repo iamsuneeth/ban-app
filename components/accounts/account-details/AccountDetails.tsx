@@ -1,57 +1,49 @@
 import React, { useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  LayoutChangeEvent
-} from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
 import { Card } from "../../elements/card/Card";
-import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import {
-  RectButton,
   BorderlessButton,
-  State,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ScrollView
 } from "react-native-gesture-handler";
 import { useState } from "react";
 
 import { Amount } from "../../elements/amount/Amount";
-import {
-  NavigationParams,
-  NavigationProp,
-  useTheme,
-  ScrollView
-} from "react-navigation";
 
-import { normalize, normalizeHeight } from "../../../utils/normalize";
-import { TransactionContainer } from "../../../containers/TransactionContainer";
-import { SharedElement } from "react-navigation-shared-element";
-import { NavigationStackProp } from "react-navigation-stack";
-import { ThemeColors } from "../../../theme/constants";
+import { normalize } from "../../../utils/normalize";
+
 import { useTransition } from "../../../hooks/animation/useTransition";
 import { IAccount, IAccountDetails } from "bank-core/src/types";
+import {
+  useTheme,
+  useNavigation,
+  CompositeNavigationProp
+} from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeParamList } from "../../../stacks/HomeStack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
-const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
+const { width: screenWidth } = Dimensions.get("window");
 
 type Props = {
   account: IAccount;
   details: IAccountDetails;
   fetchDetails: Function;
-  navigate: (string, NavigationParams) => void;
 };
 
-export const AccountDetails = ({
-  account,
-  details,
-  fetchDetails,
-  navigate
-}: Props) => {
-  const [open, setOpen] = useState(false);
-  const themeColors = ThemeColors[useTheme()];
+type AccountDetailsNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeParamList, "AccountDetails">,
+  BottomTabNavigationProp<BottomTabParamList>
+>;
 
+export const AccountDetails = ({ account, details }: Props) => {
+  const [open, setOpen] = useState(false);
+  const { colors } = useTheme();
+  const navigation = useNavigation<AccountDetailsNavigationProp>();
   const onPress = () => {
     markInitialized();
     setOpen(!open);
@@ -80,45 +72,45 @@ export const AccountDetails = ({
         showsVerticalScrollIndicator={false}
       >
         <View style={{ alignItems: "center", paddingTop: 10 }}>
-          <SharedElement
+          {/* <SharedElement
             id={account.id}
             style={{
               height: screenHeight * 0.2,
               width: screenWidth * 0.8
             }}
+          > */}
+          <Card
+            style={[
+              styles.accountCard,
+              {
+                backgroundColor: colors.primary
+              }
+            ]}
           >
-            <Card
-              style={[
-                styles.accountCard,
-                {
-                  backgroundColor: themeColors.primary
-                }
-              ]}
-            >
-              <View style={styles.accountPrimary}>
-                <View>
-                  <Text style={styles.main}>{account.nickName}</Text>
-                  <Text style={styles.secondary}>
-                    {account.code + " " + account.accountNumber}
-                  </Text>
-                  <Text style={styles.secondary}>{account.type}</Text>
-                </View>
-                <View style={{ alignSelf: "flex-end" }}>
-                  <Amount
-                    amount={account.balance.amount}
-                    currency={account.balance.currency}
-                    style={{ content: { color: "#fff" } }}
-                    size={25}
-                  />
-                </View>
+            <View style={styles.accountPrimary}>
+              <View>
+                <Text style={styles.main}>{account.nickName}</Text>
+                <Text style={styles.secondary}>
+                  {account.code + " " + account.accountNumber}
+                </Text>
+                <Text style={styles.secondary}>{account.type}</Text>
               </View>
-            </Card>
-          </SharedElement>
+              <View style={{ alignSelf: "flex-end" }}>
+                <Amount
+                  amount={account.balance.amount}
+                  currency={account.balance.currency}
+                  style={{ content: { color: "#fff" } }}
+                  size={25}
+                />
+              </View>
+            </View>
+          </Card>
+          {/* </SharedElement> */}
         </View>
         <View style={styles.quickLinks}>
           <BorderlessButton
             onPress={() =>
-              navigate("payeeSelectionScreen", {
+              navigation.navigate("payeeSelectionScreen", {
                 account
               })
             }
@@ -127,7 +119,7 @@ export const AccountDetails = ({
           >
             <View
               style={{
-                backgroundColor: themeColors.primary,
+                backgroundColor: colors.primary,
                 borderRadius: 20,
                 height: 40,
                 width: 40,
@@ -150,7 +142,7 @@ export const AccountDetails = ({
           </BorderlessButton>
           <BorderlessButton
             onPress={() =>
-              navigate("Statements", {
+              navigation.navigate("Statements", {
                 accountId: account.id
               })
             }
@@ -159,7 +151,7 @@ export const AccountDetails = ({
           >
             <View
               style={{
-                backgroundColor: themeColors.white,
+                backgroundColor: "#fff",
                 borderRadius: 20,
                 height: 40,
                 width: 40,
@@ -176,11 +168,7 @@ export const AccountDetails = ({
                 shadowColor: "#ccc"
               }}
             >
-              <Ionicons
-                name="ios-document"
-                size={20}
-                color={themeColors.gray}
-              />
+              <Ionicons name="ios-document" size={20} color={colors.text} />
             </View>
             <Text style={styles.quickLinkText}>Statements</Text>
           </BorderlessButton>
@@ -191,7 +179,7 @@ export const AccountDetails = ({
           >
             <View
               style={{
-                backgroundColor: themeColors.white,
+                backgroundColor: "#fff",
                 borderRadius: 20,
                 height: 40,
                 width: 40,
@@ -208,7 +196,7 @@ export const AccountDetails = ({
                 shadowColor: "#ccc"
               }}
             >
-              <Ionicons name="ios-card" size={20} color={themeColors.gray} />
+              <Ionicons name="ios-card" size={20} color={colors.text} />
             </View>
 
             <Text style={styles.quickLinkText}>Debit card</Text>
@@ -229,7 +217,7 @@ export const AccountDetails = ({
                     style={[
                       styles.amountDetailsHeader,
                       {
-                        color: themeColors.darkGray,
+                        color: colors.text,
                         textAlignVertical: "center"
                       }
                     ]}
@@ -259,9 +247,7 @@ export const AccountDetails = ({
                     marginVertical: 10
                   }}
                 >
-                  <Text
-                    style={[styles.addnlLabel, { color: themeColors.gray }]}
-                  >
+                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
                     Available balance
                   </Text>
                   <Amount
@@ -278,9 +264,7 @@ export const AccountDetails = ({
                     marginVertical: 10
                   }}
                 >
-                  <Text
-                    style={[styles.addnlLabel, { color: themeColors.gray }]}
-                  >
+                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
                     Actual balance
                   </Text>
                   <Amount
@@ -297,9 +281,7 @@ export const AccountDetails = ({
                     marginVertical: 10
                   }}
                 >
-                  <Text
-                    style={[styles.addnlLabel, { color: themeColors.gray }]}
-                  >
+                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
                     Overdraft
                   </Text>
                   <Amount
@@ -316,9 +298,7 @@ export const AccountDetails = ({
                     marginVertical: 10
                   }}
                 >
-                  <Text
-                    style={[styles.addnlLabel, { color: themeColors.gray }]}
-                  >
+                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
                     Available overdraft
                   </Text>
                   <Amount
@@ -338,104 +318,92 @@ export const AccountDetails = ({
                 style={[
                   styles.addnlHeader,
                   {
-                    color: themeColors.darkGray
+                    color: colors.text
                   }
                 ]}
               >
                 Details
               </Text>
               <View style={styles.addnlSection}>
-                <Text
-                  style={[styles.addnlValue, { color: themeColors.darkGray }]}
-                >
+                <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {account.accountNumber}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
+                <Text style={[styles.addnlLabel, { color: colors.text }]}>
                   Account number
                 </Text>
               </View>
               <View
                 style={{
-                  backgroundColor: themeColors.seperatorColor,
+                  backgroundColor: "#ccc",
                   height: 1,
                   marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
-                <Text
-                  style={[styles.addnlValue, { color: themeColors.darkGray }]}
-                >
+                <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.code}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
+                <Text style={[styles.addnlLabel, { color: colors.text }]}>
                   Branch code
                 </Text>
               </View>
               <View
                 style={{
-                  backgroundColor: themeColors.seperatorColor,
+                  backgroundColor: "#ccc",
                   height: 1,
                   marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
-                <Text
-                  style={[styles.addnlValue, { color: themeColors.darkGray }]}
-                >
+                <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.name}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
+                <Text style={[styles.addnlLabel, { color: colors.text }]}>
                   Branch name
                 </Text>
               </View>
               <View
                 style={{
-                  backgroundColor: themeColors.seperatorColor,
+                  backgroundColor: "#ccc",
                   height: 1,
                   marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
-                <Text
-                  style={[styles.addnlValue, { color: themeColors.darkGray }]}
-                >
+                <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.address}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
+                <Text style={[styles.addnlLabel, { color: colors.text }]}>
                   Branch address
                 </Text>
               </View>
               <View
                 style={{
-                  backgroundColor: themeColors.seperatorColor,
+                  backgroundColor: "#ccc",
                   height: 1,
                   marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
-                <Text
-                  style={[styles.addnlValue, { color: themeColors.darkGray }]}
-                >
+                <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.bic}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
+                <Text style={[styles.addnlLabel, { color: colors.text }]}>
                   BIC
                 </Text>
               </View>
               <View
                 style={{
-                  backgroundColor: themeColors.seperatorColor,
+                  backgroundColor: "#ccc",
                   height: 1,
                   marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
-                <Text
-                  style={[styles.addnlValue, { color: themeColors.darkGray }]}
-                >
+                <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.iban}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: themeColors.gray }]}>
+                <Text style={[styles.addnlLabel, { color: colors.text }]}>
                   IBAN
                 </Text>
               </View>

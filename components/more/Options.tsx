@@ -1,20 +1,20 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { ScrollView } from "react-native";
 import { Card } from "../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
-import { Ionicons, MaterialCommunityIcons as Icons } from "@expo/vector-icons";
+import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { normalize } from "../../utils/normalize";
 import * as firebase from "firebase";
-import { ThemeColors } from "../../theme/constants";
-import { useTheme } from "react-navigation";
+
+import { useTheme } from "@react-navigation/native";
 
 export const Options = ({ navigation }) => {
   const signOut = async () => {
     await firebase.auth().signOut();
     navigation.navigate("login");
   };
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -31,7 +31,7 @@ export const Options = ({ navigation }) => {
                 <Icons
                   name="bank-transfer-out"
                   size={40}
-                  color={themeColors.primaryDark}
+                  color={colors.primary}
                 />
               </View>
               <View style={styles.main}>
@@ -48,15 +48,13 @@ export const Options = ({ navigation }) => {
             <View
               style={{
                 flex: 1,
-                backgroundColor: themeColors.primary,
+                backgroundColor: colors.primary,
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 5
               }}
             >
-              <Text style={{ fontSize: 14, color: themeColors.white }}>
-                Sign out
-              </Text>
+              <Text style={{ fontSize: 14, color: "#fff" }}>Sign out</Text>
             </View>
           </RectButton>
         </View>

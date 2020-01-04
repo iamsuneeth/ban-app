@@ -3,8 +3,9 @@ import { useTransactionState } from "bank-core";
 import { TransactionSheet } from "../components/accounts/transactions/TransactionsSheet";
 import BottomSheet from "reanimated-bottom-sheet";
 import { SEARCH_TYPE } from "bank-core/src/types";
-import { NavigationStackProp } from "react-navigation-stack";
 import { Transaction } from "../components/accounts/transactions/Transactions";
+import { RouteProp } from "@react-navigation/native";
+import { HomeParamList } from "../stacks/HomeStack";
 
 type TxnComponentType = "mini" | "sheet" | "full";
 
@@ -14,19 +15,21 @@ type TxnProps = {
   type?: TxnComponentType;
 };
 
+type TransactionRouteProp = RouteProp<HomeParamList, "Transactions">;
+
 export const TransactionContainer = (
   props:
     | TxnProps
     | {
-        navigation: NavigationStackProp<{}>;
+        route: TransactionRouteProp;
       }
 ) => {
   let { accountId, height, type } = props as TxnProps;
   let isChild = true;
   if (!accountId) {
     isChild = false;
-    const { navigation } = props as { navigation: NavigationStackProp<{}> };
-    accountId = navigation.state.params.accountId;
+    const { route } = props as { route: TransactionRouteProp };
+    accountId = route.params?.accountId;
   }
   const {
     transactions = {

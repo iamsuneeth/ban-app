@@ -1,32 +1,39 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { LetterAvatar } from "../../common/LetterAvatar";
-import { NavigationStackProp } from "react-navigation-stack";
 import { IPayee } from "bank-core/src/types";
-import { SharedElement } from "react-navigation-shared-element";
 import { normalize } from "../../../utils/normalize";
 import { Card } from "../../elements/card/Card";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme, RouteProp } from "@react-navigation/native";
 import {
   TouchableWithoutFeedback,
   RectButton
 } from "react-native-gesture-handler";
 import { Linking } from "expo";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { CompositeNavigationProp } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 
 export const PayeeDetails = ({
-  navigation
+  navigation,
+  route
 }: {
-  navigation: NavigationStackProp;
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<PaymentParamList, "PayeeDetails">,
+    BottomTabNavigationProp<BottomTabParamList>
+  >;
+  route: RouteProp<PaymentParamList, "PayeeDetails">;
 }) => {
-  const payee: IPayee = navigation.getParam("payee");
-  const themeColors = ThemeColors[useTheme()];
+  const payee: IPayee = route.params.payee;
+  const { colors } = useTheme();
   const openClearbit = () => {
     Linking.openURL("https://clearbit.com");
   };
   return (
     <View style={styles.container}>
-      <SharedElement
+      {/* <SharedElement
         id={payee.id}
         style={{
           width: 100,
@@ -39,58 +46,79 @@ export const PayeeDetails = ({
         }}
       >
         <LetterAvatar text={payee.name} size={100} />
-      </SharedElement>
+      </SharedElement> */}
+      <View
+        style={{
+          width: 100,
+          height: 100,
+          elevation: 3,
+          zIndex: 3,
+          top: 10,
+          left: 20,
+          position: "absolute"
+        }}
+      >
+        <LetterAvatar text={payee.name} size={100} />
+      </View>
       <Card style={{ marginTop: 50, elevation: 0, marginHorizontal: 0 }}>
         <View style={{ margin: 5 }}>
-          <SharedElement
+          {/* <SharedElement
             id={`${payee.id}payeeName`}
             style={{ alignSelf: "flex-end", width: 250 }}
           >
-            <Text style={[styles.header, { color: themeColors.gray }]}>
+            <Text style={[styles.header, { color: colors.gray }]}>
               {payee.name}
             </Text>
-          </SharedElement>
+          </SharedElement> */}
+          <View style={{ alignSelf: "flex-end", width: 250 }}>
+            <Text style={[styles.header, { color: colors.text }]}>
+              {payee.name}
+            </Text>
+          </View>
           <View style={{ marginTop: 20 }}>
             <View style={styles.section}>
-              <Text style={[styles.label, { color: themeColors.gray }]}>
+              <Text style={[styles.label, { color: colors.text }]}>
                 Account number
               </Text>
-              <SharedElement id={`${payee.id}accountNumber`}>
-                <Text style={[styles.value, { color: themeColors.darkGray }]}>
+              {/* <SharedElement id={`${payee.id}accountNumber`}>
+                <Text style={[styles.value, { color: colors.darkGray }]}>
                   {payee.accountNumber}
                 </Text>
-              </SharedElement>
+              </SharedElement> */}
+              <Text style={[styles.value, { color: colors.text }]}>
+                {payee.accountNumber}
+              </Text>
             </View>
             <View style={styles.section}>
-              <Text style={[styles.label, { color: themeColors.gray }]}>
-                Code
-              </Text>
-              <SharedElement id={`${payee.id}code`}>
-                <Text style={[styles.value, { color: themeColors.darkGray }]}>
+              <Text style={[styles.label, { color: colors.text }]}>Code</Text>
+              {/* <SharedElement id={`${payee.id}code`}>
+                <Text style={[styles.value, { color: colors.darkGray }]}>
                   {payee.code}
                 </Text>
-              </SharedElement>
+              </SharedElement> */}
+
+              <Text style={[styles.value, { color: colors.text }]}>
+                {payee.code}
+              </Text>
             </View>
             <View style={styles.section}>
-              <Text style={[styles.label, { color: themeColors.gray }]}>
-                Bank
-              </Text>
+              <Text style={[styles.label, { color: colors.text }]}>Bank</Text>
               <View style={{ flexDirection: "row" }}>
                 <Image
                   source={{ uri: payee.bankLogo }}
                   style={{ width: 20, height: 20, marginRight: 5 }}
                 />
-                <Text style={[styles.value, { color: themeColors.darkGray }]}>
+                <Text style={[styles.value, { color: colors.text }]}>
                   {payee.bankName}
                 </Text>
               </View>
             </View>
             <View style={styles.section}>
-              <Text style={[styles.label, { color: themeColors.gray }]}>
+              <Text style={[styles.label, { color: colors.text }]}>
                 Payee type
               </Text>
 
-              <Text style={[styles.value, { color: themeColors.darkGray }]}>
+              <Text style={[styles.value, { color: colors.text }]}>
                 {payee.type}
               </Text>
             </View>
@@ -105,14 +133,9 @@ export const PayeeDetails = ({
             }
           >
             <View
-              style={[
-                styles.actionButton,
-                { backgroundColor: themeColors.primaryDark }
-              ]}
+              style={[styles.actionButton, { backgroundColor: colors.primary }]}
             >
-              <Text
-                style={[styles.actionButtontext, { color: themeColors.white }]}
-              >
+              <Text style={[styles.actionButtontext, { color: "#fff" }]}>
                 Pay
               </Text>
             </View>
@@ -121,14 +144,11 @@ export const PayeeDetails = ({
             <View
               style={[
                 styles.actionButton,
-                { borderColor: themeColors.primaryDark, borderWidth: 1 }
+                { borderColor: colors.primary, borderWidth: 1 }
               ]}
             >
               <Text
-                style={[
-                  styles.actionButtontext,
-                  { color: themeColors.primaryDark }
-                ]}
+                style={[styles.actionButtontext, { color: colors.primary }]}
               >
                 Edit
               </Text>
@@ -144,14 +164,11 @@ export const PayeeDetails = ({
             <View
               style={[
                 styles.actionButton,
-                { borderColor: themeColors.primaryDark, borderWidth: 1 }
+                { borderColor: colors.primary, borderWidth: 1 }
               ]}
             >
               <Text
-                style={[
-                  styles.actionButtontext,
-                  { color: themeColors.primaryDark }
-                ]}
+                style={[styles.actionButtontext, { color: colors.primary }]}
               >
                 Delete
               </Text>
@@ -173,7 +190,7 @@ export const PayeeDetails = ({
             style={{ width: 14, height: 14, marginRight: 5 }}
             source={{ uri: "https://logo.clearbit.com/clearbit.com" }}
           />
-          <Text style={{ fontSize: normalize(14), color: themeColors.gray }}>
+          <Text style={{ fontSize: normalize(14), color: colors.text }}>
             Logos provided by Clearbit
           </Text>
         </TouchableWithoutFeedback>
@@ -182,31 +199,31 @@ export const PayeeDetails = ({
   );
 };
 
-PayeeDetails.sharedElements = (
-  navigation: NavigationStackProp<{}>,
-  otherNavigation,
-  showing
-) => {
-  const id = navigation.getParam("payee").id;
-  return [
-    {
-      id,
-      animation: "fade"
-    },
-    {
-      id: `${id}payeeName`,
-      animation: "fade"
-    },
-    {
-      id: `${id}code`,
-      animation: "fade"
-    },
-    {
-      id: `${id}accountNumber`,
-      animation: "fade"
-    }
-  ];
-};
+// PayeeDetails.sharedElements = (
+//   navigation: NavigationStackProp<{}>,
+//   otherNavigation,
+//   showing
+// ) => {
+//   const id = navigation.getParam("payee").id;
+//   return [
+//     {
+//       id,
+//       animation: "fade"
+//     },
+//     {
+//       id: `${id}payeeName`,
+//       animation: "fade"
+//     },
+//     {
+//       id: `${id}code`,
+//       animation: "fade"
+//     },
+//     {
+//       id: `${id}accountNumber`,
+//       animation: "fade"
+//     }
+//   ];
+// };
 
 const styles = StyleSheet.create({
   container: {

@@ -4,7 +4,7 @@ import DateTimePickerModal, {
   DateTimePickerProps
 } from "react-native-modal-datetime-picker";
 import { RectButton } from "react-native-gesture-handler";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/native";
 import dayjs from "dayjs";
 
 type Props = Omit<DateTimePickerProps, "onCancel"> & {
@@ -26,7 +26,7 @@ export const DateTimePicker = ({
   ...rest
 }: Props) => {
   const [visible, setVisible] = useState(false);
-  const theme = useTheme();
+  const { dark } = useTheme();
   const handleConfirm = date => {
     setVisible(false);
     onConfirm(date);
@@ -48,7 +48,7 @@ export const DateTimePicker = ({
       </RectButton>
       <DateTimePickerModal
         {...rest}
-        isDarkModeEnabled={theme === "dark"}
+        isDarkModeEnabled={dark}
         isVisible={visible}
         date={date}
         onConfirm={handleConfirm}

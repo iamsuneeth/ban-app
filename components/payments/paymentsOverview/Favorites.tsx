@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -11,18 +11,20 @@ import { normalize } from "../../../utils/normalize";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { IFavoriteState } from "bank-core/src/types";
-import { useTheme, withNavigation } from "react-navigation";
-import { ThemeColors } from "../../../theme/constants";
 import { Amount } from "../../elements/amount/Amount";
-import BottomSheet from "reanimated-bottom-sheet";
-import Animated from "react-native-reanimated";
-import { Card } from "../../elements/card/Card";
-import { NavigationStackProp } from "react-navigation-stack";
+import {
+  useTheme,
+  useNavigation,
+  CompositeNavigationProp
+} from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 
 type Props = {
   favorites: IFavoriteState;
   style?: ViewStyle;
-  navigation: NavigationStackProp;
 };
 
 const colorList = [
@@ -48,79 +50,82 @@ const colorList = [
   }
 ];
 
-export const Favorites = withNavigation(
-  ({ favorites, style, navigation }: Props) => {
-    const { loading, favorites: favoritePayments, error } = favorites;
-    const themeColors = ThemeColors[useTheme()];
-    return (
-      <>
-        <View style={[{ marginVertical: 10 }, style]}>
-          <Text style={styles.sectionHeader}>Favorites</Text>
-          <View>
-            {favoritePayments.map((favorite, index) => (
-              <View key={favorite.id}>
-                <View style={{ flexDirection: "row" }}>
-                  <RectButton style={{ flex: 1, paddingVertical: 10 }}>
-                    <View style={[styles.itemContainer]}>
-                      <View style={styles.icon}>
-                        <LetterAvatar
-                          text={favorite.payeeName}
-                          size={50}
-                          viewStyle={{
-                            backgroundColor: colorList[index % 5].background
-                          }}
-                          textStyle={{
-                            color: colorList[index % 5].text
-                          }}
-                        />
-                      </View>
-                      <View style={styles.main}>
-                        <Text style={styles.header}>{favorite.payeeName}</Text>
-                        <Text style={styles.description}>
-                          Account Number: {favorite.accountNumber}
-                        </Text>
-                        <Amount
-                          amount={favorite.amount.amount}
-                          currency={favorite.amount.currency}
-                        />
-                        <Text style={styles.description}>
-                          {favorite.paymentType}
-                        </Text>
-                      </View>
-                      <BorderlessButton
-                        style={{ justifyContent: "flex-end", paddingRight: 10 }}
-                        onPress={() =>
-                          navigation.navigate("modal", {
-                            message: `Do you want to delete this favorite ?`,
-                            onSelection: value =>
-                              Alert.alert("selected " + value)
-                          })
-                        }
-                      >
-                        <Text
-                          style={{
-                            color: themeColors.primaryDark,
-                            fontSize: normalize(14)
-                          }}
-                        >
-                          Delete
-                        </Text>
-                      </BorderlessButton>
+type FavoriteNavigationProps = CompositeNavigationProp<
+  StackNavigationProp<PaymentParamList, "PaymentsOverview">,
+  BottomTabNavigationProp<BottomTabParamList>
+>;
+
+export const Favorites = ({ favorites, style }: Props) => {
+  const { loading, favorites: favoritePayments, error } = favorites;
+  const { colors } = useTheme();
+  const navigation = useNavigation<FavoriteNavigationProps>();
+  return (
+    <>
+      <View style={[{ marginVertical: 10 }, style]}>
+        <Text style={styles.sectionHeader}>Favorites</Text>
+        <View>
+          {favoritePayments.map((favorite, index) => (
+            <View key={favorite.id}>
+              <View style={{ flexDirection: "row" }}>
+                <RectButton style={{ flex: 1, paddingVertical: 10 }}>
+                  <View style={[styles.itemContainer]}>
+                    <View style={styles.icon}>
+                      <LetterAvatar
+                        text={favorite.payeeName}
+                        size={50}
+                        viewStyle={{
+                          backgroundColor: colorList[index % 5].background
+                        }}
+                        textStyle={{
+                          color: colorList[index % 5].text
+                        }}
+                      />
                     </View>
-                  </RectButton>
-                </View>
-                {index !== new Array(10).length - 1 && (
-                  <View style={styles.seperator} />
-                )}
+                    <View style={styles.main}>
+                      <Text style={styles.header}>{favorite.payeeName}</Text>
+                      <Text style={styles.description}>
+                        Account Number: {favorite.accountNumber}
+                      </Text>
+                      <Amount
+                        amount={favorite.amount.amount}
+                        currency={favorite.amount.currency}
+                      />
+                      <Text style={styles.description}>
+                        {favorite.paymentType}
+                      </Text>
+                    </View>
+                    <BorderlessButton
+                      style={{ justifyContent: "flex-end", paddingRight: 10 }}
+                      onPress={() =>
+                        navigation.navigate("Modal", {
+                          message: `Do you want to delete this favorite ?`,
+                          onSelection: value => Alert.alert("selected " + value)
+                        })
+                      }
+                    >
+                      <Text
+                        style={{
+                          color: colors.primary,
+                          fontSize: normalize(14)
+                        }}
+                      >
+                        Delete
+                      </Text>
+                    </BorderlessButton>
+                  </View>
+                </RectButton>
               </View>
-            ))}
-            <ActivityIndicator animating={favorites.loading} />
-          </View>
+              {index !== new Array(10).length - 1 && (
+                <View style={styles.seperator} />
+              )}
+            </View>
+          ))}
+          <ActivityIndicator animating={favorites.loading} />
         </View>
-      </>
-    );
-  }
-);
+      </View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   itemContainer: {

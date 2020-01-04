@@ -4,18 +4,23 @@ import { Card } from "../../elements/card/Card";
 import { ScrollView, RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/native";
 import { FavoriteContainer } from "../../../containers/FavoriteContainer";
 import { PayeeContainer } from "../../../containers/PayeeContainer";
-import { NavigationStackProp } from "react-navigation-stack";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+
+type PaymentsNavigationProps = StackNavigationProp<
+  PaymentParamList,
+  "PaymentsOverview"
+>;
 
 type Props = {
-  navigation: NavigationStackProp;
+  navigation: PaymentsNavigationProps;
 };
 
 export const PaymentsOverview = ({ navigation }: Props) => {
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View
       style={{
@@ -31,14 +36,14 @@ export const PaymentsOverview = ({ navigation }: Props) => {
           }}
         >
           <RectButton
-            onPress={() => navigation.navigate("payeeSelectionScreen")}
+            onPress={() => navigation.navigate("PayeeSelectionScreen")}
           >
             <View style={[styles.itemContainer]}>
               <View style={styles.icon}>
                 <Icons
                   name="bank-transfer-out"
                   size={40}
-                  color={themeColors.primary}
+                  color={colors.primary}
                 />
               </View>
               <View style={styles.main}>
@@ -51,13 +56,13 @@ export const PaymentsOverview = ({ navigation }: Props) => {
           </RectButton>
           <View style={styles.seperator}></View>
           <View>
-            <RectButton onPress={() => navigation.navigate("payees")}>
+            <RectButton onPress={() => navigation.navigate("Payees")}>
               <View style={[styles.itemContainer]}>
                 <View style={styles.icon}>
                   <Ionicons
                     name="ios-people"
                     size={40}
-                    color={themeColors.primary}
+                    color={colors.primary}
                   />
                 </View>
                 <View style={styles.main}>

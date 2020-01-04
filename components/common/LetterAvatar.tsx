@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
-import { ThemeColors } from "../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/stack/lib/typescript/native/src";
 
 type props = {
   text: string;
@@ -59,7 +58,7 @@ export const LetterAvatar = ({
 
     colorIndex = (content.charCodeAt(0) + strings[0].length) % 5;
   }
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View
       style={[

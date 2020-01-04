@@ -1,21 +1,22 @@
 import React from "react";
 import { View } from "react-native";
-import { ThemeColors } from "../../theme/constants";
-import { useTheme, ThemeColors as RNThemeColors } from "react-navigation";
-import { MaterialTabBarProps } from "react-navigation-tabs/lib/typescript/src/types";
-import { MaterialTopTabBar } from "react-navigation-tabs";
+import { useTheme } from "@react-navigation/native";
+import {
+  MaterialTopTabBar,
+  MaterialTopTabBarProps
+} from "@react-navigation/material-top-tabs";
 
-export const TopBar = (props: MaterialTabBarProps) => {
-  const themeColors = ThemeColors[useTheme()];
+export const TopBar = (props: MaterialTopTabBarProps) => {
+  const { colors } = useTheme();
   return (
     <View collapsable={false}>
       <MaterialTopTabBar
         {...props}
-        style={{ backgroundColor: RNThemeColors[useTheme()].header }}
-        activeTintColor={themeColors.primary}
-        inactiveTintColor={themeColors.gray}
+        style={{ backgroundColor: colors.background }}
+        activeTintColor={colors.primary}
+        inactiveTintColor={colors.text}
         indicatorStyle={{
-          backgroundColor: themeColors.primary
+          backgroundColor: colors.primary
         }}
         labelStyle={{
           fontWeight: "bold"

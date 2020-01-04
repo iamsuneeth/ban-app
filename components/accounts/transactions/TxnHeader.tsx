@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { normalize } from "../../../utils/normalize";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { colors } from "../../../theme/constants";
+import { useTheme } from "@react-navigation/native";
 
 dayjs.extend(advancedFormat);
 
@@ -26,10 +26,10 @@ type TxnHeaderProps = {
 };
 
 export const TxnHeader = ({ data }: TxnHeaderProps) => {
-  const themecolors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View style={styles.headerContainer}>
-      <Text style={[styles.sectionHeader, { color: themecolors.gray }]}>
+      <Text style={[styles.sectionHeader, { color: colors.text }]}>
         {getContent(data.name)}
       </Text>
     </View>

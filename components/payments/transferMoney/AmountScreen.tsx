@@ -1,18 +1,19 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import { View, Text, KeyboardAvoidingView, Switch, Alert } from "react-native";
 import { normalize } from "../../../utils/normalize";
-import { useTheme, ThemeColors as RNThemeColors } from "react-navigation";
-import { ThemeColors } from "../../../theme/constants";
-import { SharedElement } from "react-navigation-shared-element";
-import { Input } from "react-native-elements";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
-import { NavigationStackProp } from "react-navigation-stack";
 import dayjs from "dayjs";
 import { Ionicons } from "@expo/vector-icons";
 import { IPaymentDetails } from "bank-core/typescript/types";
 import { IPaymentState } from "bank-core/src/types";
 import { Amount } from "../../elements/amount/Amount";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { useTheme } from "@react-navigation/native";
+import { CompositeNavigationProp } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 
 const frequencies = [
   {
@@ -58,7 +59,10 @@ const frequencies = [
 ];
 
 type Props = {
-  navigation: NavigationStackProp;
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<PaymentParamList, "AmountScreen">,
+    BottomTabNavigationProp<BottomTabParamList>
+  >;
   updatePaymentState: (details: IPaymentDetails) => void;
   paymentState: IPaymentState;
   onAccountSelection: any;
@@ -70,7 +74,7 @@ export const AmountScreen = ({
   paymentState,
   onAccountSelection
 }: Props) => {
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   const [state, setState] = useReducer(
     (oldState, newState) => ({ ...oldState, ...newState }),
     {
@@ -99,11 +103,11 @@ export const AmountScreen = ({
       ...(state.repeat && { frequency: state.repeat }),
       ...(state.repeat && state.endDate && { txnEndDate: dayjs(state.endDate) })
     });
-    navigation.navigate("reviewScreen");
+    navigation.navigate("ReviewScreen");
   };
 
   const openAccountSelection = () => {
-    navigation.navigate("modal", {
+    navigation.navigate("Modal", {
       type: "account",
       onAccountSelection,
       snapPoints: [0, "60%"]
@@ -118,7 +122,7 @@ export const AmountScreen = ({
         <View style={{ flex: 1 }}>
           <Text
             style={{
-              color: themeColors.gray,
+              color: colors.text,
               marginVertical: 10,
               fontSize: normalize(16)
             }}
@@ -141,11 +145,7 @@ export const AmountScreen = ({
                     paddingHorizontal: 10
                   }}
                 >
-                  <Ionicons
-                    name="md-time"
-                    size={25}
-                    color={themeColors.primaryDark}
-                  />
+                  <Ionicons name="md-time" size={25} color={colors.primary} />
                   <Text style={{ fontSize: normalize(16), marginLeft: 10 }}>
                     {item.text}
                   </Text>
@@ -169,7 +169,7 @@ export const AmountScreen = ({
           <Text
             style={{
               fontSize: normalize(14),
-              color: themeColors.gray,
+              color: colors.text,
               fontWeight: "600",
               marginBottom: 10
             }}
@@ -181,7 +181,7 @@ export const AmountScreen = ({
               <View>
                 <Text
                   style={{
-                    color: themeColors.primaryDark,
+                    color: colors.primary,
                     fontWeight: "bold",
                     fontSize: normalize(18)
                   }}
@@ -194,7 +194,7 @@ export const AmountScreen = ({
                   size={12}
                   style={{
                     content: {
-                      color: themeColors.primaryDark
+                      color: colors.primary
                     }
                   }}
                   currency={
@@ -211,15 +211,11 @@ export const AmountScreen = ({
                   alignItems: "center"
                 }}
               >
-                <Ionicons
-                  name="ios-add"
-                  size={24}
-                  color={themeColors.primaryDark}
-                />
+                <Ionicons name="ios-add" size={24} color={colors.primary} />
                 <Text
                   style={{
                     marginLeft: 5,
-                    color: themeColors.primaryDark,
+                    color: colors.primary,
                     fontSize: normalize(18)
                   }}
                 >
@@ -230,7 +226,7 @@ export const AmountScreen = ({
           </RectButton>
         </View>
         <View>
-          <Input
+          {/* <Input
             placeholder="0.00"
             keyboardType="numeric"
             value={state.amount}
@@ -248,7 +244,7 @@ export const AmountScreen = ({
             inputContainerStyle={{ marginTop: 5 }}
             label="Reference"
             containerStyle={{ marginVertical: 10 }}
-          />
+          /> */}
         </View>
         <View style={{ margin: 10 }}>
           <View
@@ -262,8 +258,8 @@ export const AmountScreen = ({
             <Text style={{ fontSize: normalize(14) }}>Schedule Payment</Text>
             <Switch
               trackColor={{
-                true: themeColors.primary,
-                false: themeColors.lightGray
+                true: colors.primary,
+                false: colors.text
               }}
               value={state.schedule}
               onValueChange={value => setState({ schedule: value })}
@@ -288,7 +284,7 @@ export const AmountScreen = ({
                       style={{
                         textTransform: "uppercase",
                         fontSize: normalize(14),
-                        color: themeColors.primaryDark,
+                        color: colors.primary,
                         fontWeight: "500"
                       }}
                     >
@@ -317,7 +313,7 @@ export const AmountScreen = ({
                     style={{
                       textTransform: "uppercase",
                       fontSize: normalize(14),
-                      color: themeColors.primaryDark,
+                      color: colors.primary,
                       fontWeight: "500"
                     }}
                   >
@@ -343,7 +339,7 @@ export const AmountScreen = ({
                         style={{
                           textTransform: "uppercase",
                           fontSize: normalize(14),
-                          color: themeColors.primaryDark,
+                          color: colors.primary,
                           fontWeight: "500"
                         }}
                       >
@@ -386,14 +382,12 @@ export const AmountScreen = ({
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 2,
-              backgroundColor: !!state.amount
-                ? themeColors.primary
-                : themeColors.gray
+              backgroundColor: !!state.amount ? colors.primary : colors.text
             }}
           >
             <Text
               style={{
-                color: themeColors.white,
+                color: "#fff",
                 textTransform: "uppercase",
                 fontWeight: "bold"
               }}

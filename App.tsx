@@ -1,20 +1,15 @@
 import React from "react";
 import "./config/firebase";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import {
+  NavigationNativeContainer,
+  DefaultTheme,
+  DarkTheme
+} from "@react-navigation/native";
 import { initExtConfig } from "bank-core";
 import { ExtInterfaceType } from "bank-core/src/types";
-import { HomeStack } from "./components/pages/Home";
-import { PaymentStack } from "./components/pages/Payments";
-import { Statistics } from "./components/pages/Statistics";
-import { MoreStack } from "./components/pages/More";
-import { Ionicons, MaterialIcons, Foundation } from "@expo/vector-icons";
-import { TabBar } from "./components/common/TabBar";
-import { createStackNavigator } from "react-navigation-stack";
-import { LoginContainer } from "./containers/LoginContainer";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
+import { useColorScheme } from "react-native-appearance";
 import { View, Text, Animated, Easing } from "react-native";
-import { Modal } from "./components/modal/Modal";
+import { RootStack } from "./stacks/RootStack";
 
 function springyFadeIn() {
   const transitionSpec = {
@@ -38,95 +33,93 @@ function springyFadeIn() {
   };
 }
 
-const BottomTabBar = createBottomTabNavigator(
-  {
-    Home: {
-      screen: HomeStack,
-      navigationOptions: {
-        tabBarLabel: "Home",
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="ios-home" color={tintColor} size={24} />
-        )
-      }
-    },
-    Payments: {
-      screen: PaymentStack,
-      navigationOptions: {
-        tabBarLabel: "Payments",
-        tabBarIcon: ({ tintColor }) => (
-          <MaterialIcons name="payment" color={tintColor} size={24} />
-        )
-      }
-    },
-    Stats: {
-      screen: Statistics,
-      navigationOptions: {
-        tabBarLabel: "Statistics",
-        tabBarIcon: ({ tintColor }) => (
-          <Foundation name="graph-bar" color={tintColor} size={24} />
-        )
-      }
-    },
-    More: {
-      screen: MoreStack,
-      navigationOptions: {
-        tabBarLabel: "More",
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="ios-more" color={tintColor} size={24} />
-        )
-      }
-    }
-  },
-  {
-    tabBarComponent: props => <TabBar {...props} />
-  }
-);
+// const BottomTabBar = createBottomTabNavigator(
+//   {
+//     Home: {
+//       screen: HomeStack,
+//       navigationOptions: {
+//         tabBarLabel: "Home",
+//         tabBarIcon: ({ tintColor }) => (
+//           <Ionicons name="ios-home" color={tintColor} size={24} />
+//         )
+//       }
+//     },
+//     Payments: {
+//       screen: PaymentStack,
+//       navigationOptions: {
+//         tabBarLabel: "Payments",
+//         tabBarIcon: ({ tintColor }) => (
+//           <MaterialIcons name="payment" color={tintColor} size={24} />
+//         )
+//       }
+//     },
+//     Stats: {
+//       screen: Statistics,
+//       navigationOptions: {
+//         tabBarLabel: "Statistics",
+//         tabBarIcon: ({ tintColor }) => (
+//           <Foundation name="graph-bar" color={tintColor} size={24} />
+//         )
+//       }
+//     },
+//     More: {
+//       screen: MoreStack,
+//       navigationOptions: {
+//         tabBarLabel: "More",
+//         tabBarIcon: ({ tintColor }) => (
+//           <Ionicons name="ios-more" color={tintColor} size={24} />
+//         )
+//       }
+//     }
+//   },
+//   {
+//     tabBarComponent: props => <TabBar {...props} />
+//   }
+// );
 
-const RootNavigator = createSwitchNavigator(
-  {
-    preLogin: createStackNavigator(
-      {
-        login: LoginContainer,
-        signUp: () => null,
-        reset: () => null
-      },
-      {
-        defaultNavigationOptions: {
-          header: null
-        },
-        transparentCard: true,
+// const RootNavigator = createSwitchNavigator(
+//   {
+//     preLogin: createStackNavigator(
+//       {
+//         login: LoginContainer,
+//         signUp: () => null,
+//         reset: () => null
+//       },
+//       {
+//         defaultNavigationOptions: {
+//           header: null
+//         },
+//         transparentCard: true,
 
-        transitionConfig: (): any => ({
-          containerStyle: {
-            backgroundColor: "transparent"
-          }
-        })
-      }
-    ),
-    postLogin: createStackNavigator(
-      {
-        main: BottomTabBar,
-        modal: Modal
-      },
-      {
-        headerMode: "none",
-        mode: "modal",
-        cardStyle: {
-          backgroundColor: "rgba(0,0,0,0.6)"
-        },
-        transitionConfig: springyFadeIn,
-        defaultNavigationOptions: {
-          gesturesEnabled: false
-        }
-      }
-    )
-  },
-  {
-    initialRouteName: "preLogin"
-  }
-);
-
-const Container = createAppContainer(RootNavigator);
+//         transitionConfig: (): any => ({
+//           containerStyle: {
+//             backgroundColor: "transparent"
+//           }
+//         })
+//       }
+//     ),
+//     postLogin: createStackNavigator(
+//       {
+//         main: BottomTabBar,
+//         modal: Modal
+//       },
+//       {
+//         headerMode: "none",
+//         mode: "modal",
+//         cardStyle: {
+//           backgroundColor: "rgba(0,0,0,0.6)"
+//         },
+//         transitionConfig: springyFadeIn,
+//         defaultNavigationOptions: {
+//           gesturesEnabled: false
+//         }
+//       }
+//     )
+//   },
+//   {
+//     initialRouteName: "preLogin"
+//   }
+// );
 
 const provider = initExtConfig({
   API_URL: "",
@@ -134,7 +127,12 @@ const provider = initExtConfig({
 });
 
 export default () => {
-  const theme = useColorScheme();
-  const RootToRender = provider.createProvider(Container, { theme });
-  return RootToRender;
+  const scheme = useColorScheme();
+  return provider.createProvider(
+    <NavigationNativeContainer
+      theme={scheme === "dark" ? DarkTheme : DefaultTheme}
+    >
+      <RootStack />
+    </NavigationNativeContainer>
+  );
 };

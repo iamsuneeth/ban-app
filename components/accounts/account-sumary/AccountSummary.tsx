@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { Card } from "../../elements/card/Card";
+
 import { ISummary } from "bank-core/src/types";
 import { Amount } from "../../elements/amount/Amount";
-import { normalize, normalizeHeight } from "../../../utils/normalize";
-import { useTheme } from "react-navigation";
-import { ThemeColors } from "../../../theme/constants";
+import { normalize } from "../../../utils/normalize";
 import Animated from "react-native-reanimated";
 import { timing } from "react-native-redash";
-import { duration } from "moment";
+import { useTheme } from "@react-navigation/material-top-tabs/lib/typescript/native/src";
 
 type AccountSummaryProps = {
   summary: ISummary;
 };
 
 export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
-  const theme = useTheme();
-  const themeColors = ThemeColors[theme];
+  const { colors } = useTheme();
   const progressAnimation = new Animated.Value(0);
   const progressPercent =
     (summary.balance.amount / summary.availableBalance.amount) * 100;
@@ -34,7 +31,7 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
   return (
     <View style={styles.summary}>
       <View>
-        <Text style={[styles.label, { color: themeColors.darkGray }]}>
+        <Text style={[styles.label, { color: colors.text }]}>
           available balance
         </Text>
 
@@ -49,16 +46,10 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
       </View>
       <View style={styles.additionalInfo}>
         <View style={styles.flexRow}>
-          <Text style={[styles.label, { color: themeColors.gray }]}>
-            current
-          </Text>
-          <Text style={[styles.label, { color: themeColors.gray }]}>
-            overdraft
-          </Text>
+          <Text style={[styles.label, { color: colors.text }]}>current</Text>
+          <Text style={[styles.label, { color: colors.text }]}>overdraft</Text>
         </View>
-        <View
-          style={[styles.seperator, { backgroundColor: themeColors.primary }]}
-        >
+        <View style={[styles.seperator, { backgroundColor: colors.primary }]}>
           <Animated.View
             style={{
               height: "100%",
@@ -72,7 +63,7 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
             amount={summary.balance.amount}
             currency={summary.balance.currency}
             style={{
-              content: { ...styles.otherAmount, color: themeColors.darkGray }
+              content: { ...styles.otherAmount, color: colors.text }
             }}
             size={14}
           />
@@ -80,7 +71,7 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
             amount={summary.usedOverdraft.amount}
             currency={summary.usedOverdraft.currency}
             style={{
-              content: { ...styles.otherAmount, color: themeColors.darkGray }
+              content: { ...styles.otherAmount, color: colors.text }
             }}
             size={14}
           />

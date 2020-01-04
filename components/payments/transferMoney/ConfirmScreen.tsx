@@ -1,16 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, StyleSheet, Dimensions, BackHandler } from "react-native";
+import { View, Text, StyleSheet, BackHandler } from "react-native";
 import { usePaymentState } from "bank-core";
 import LottieView from "lottie-react-native";
-import { normalize } from "react-native-elements";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
-import { NavigationStackProp } from "react-navigation-stack";
-const { width } = Dimensions.get("window");
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { normalize } from "../../../utils/normalize";
 
 type props = {
-  navigation: NavigationStackProp;
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<PaymentParamList, "ConfirmScreen">,
+    BottomTabNavigationProp<BottomTabParamList>
+  >;
 };
 export const ConfirmScreen = ({ navigation }: props) => {
   const { paymentState, clearPaymentState } = usePaymentState();
@@ -29,14 +33,14 @@ export const ConfirmScreen = ({ navigation }: props) => {
       return navigation.isFocused() ? true : false;
     });
   }, []);
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View style={styles.animationContainer}>
       <Text
         style={{
           fontSize: normalize(20),
           marginTop: 10,
-          color: themeColors.gray,
+          color: colors.text,
           fontWeight: "bold",
           alignSelf: "center"
         }}
@@ -60,7 +64,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
           style={{
             fontSize: normalize(14),
             marginRight: 5,
-            color: themeColors.gray
+            color: colors.text
           }}
         >
           Ref:
@@ -70,7 +74,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
             fontSize: normalize(14),
             textTransform: "uppercase",
             fontWeight: "bold",
-            color: themeColors.darkGray
+            color: colors.text
           }}
         >
           {state.reference}
@@ -92,7 +96,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
         >
           <View
             style={{
-              backgroundColor: themeColors.primary,
+              backgroundColor: colors.primary,
               borderRadius: 3,
               flex: 1,
               justifyContent: "center"
@@ -102,7 +106,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
               style={{
                 fontSize: normalize(14),
                 fontWeight: "bold",
-                color: themeColors.white,
+                color: "#fff",
                 textAlign: "center",
                 textTransform: "uppercase"
               }}
@@ -113,11 +117,11 @@ export const ConfirmScreen = ({ navigation }: props) => {
         </RectButton>
         <RectButton
           style={{ width: "80%", height: 40, marginVertical: 5 }}
-          onPress={() => navigation.replace("payeeSelectionScreen")}
+          onPress={() => navigation.replace("PayeeSelectionScreen", {})}
         >
           <View
             style={{
-              borderColor: themeColors.primary,
+              borderColor: colors.primary,
               borderWidth: 1,
               borderRadius: 3,
               flex: 1,
@@ -128,7 +132,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
               style={{
                 fontSize: normalize(14),
                 fontWeight: "bold",
-                color: themeColors.primary,
+                color: colors.primary,
                 textAlign: "center",
                 textTransform: "uppercase"
               }}

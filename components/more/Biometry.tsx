@@ -4,8 +4,7 @@ import * as firebase from "firebase";
 import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { normalize } from "../../utils/normalize";
-import { useTheme } from "react-navigation";
-import { ThemeColors } from "../../theme/constants";
+import { useTheme } from "@react-navigation/native";
 
 export const Biometry = () => {
   const [biometryEnabled, setBiometryEnabled] = useState(false);
@@ -34,7 +33,7 @@ export const Biometry = () => {
       Alert.alert("Biomerty Disabled");
     }
   };
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return initialized ? (
     <View style={{ flex: 1 }}>
       <View
@@ -50,8 +49,8 @@ export const Biometry = () => {
           onValueChange={handleBiometry}
           value={biometryEnabled}
           trackColor={{
-            false: themeColors.gray,
-            true: themeColors.primary
+            false: colors.text,
+            true: colors.primary
           }}
         />
       </View>

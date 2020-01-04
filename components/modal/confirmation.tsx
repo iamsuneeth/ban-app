@@ -2,11 +2,10 @@ import React from "react";
 import { View, Text } from "react-native";
 import { normalize } from "../../utils/normalize";
 import { RectButton } from "react-native-gesture-handler";
-import { ThemeColors } from "../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/native";
 
 export const confirmation = ({ sheetRef, message, onSelection }) => {
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <>
       <Text style={{ textAlign: "center", fontSize: normalize(16) }}>
@@ -15,7 +14,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
       <View style={{ flexDirection: "row" }}>
         <RectButton
           style={{
-            backgroundColor: themeColors.primaryDark,
+            backgroundColor: colors.primary,
             height: 40,
             margin: 10,
             flex: 1,
@@ -32,7 +31,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
             style={{
               textAlign: "center",
               textAlignVertical: "center",
-              color: themeColors.white,
+              color: "#fff",
               fontSize: 16
             }}
           >
@@ -41,7 +40,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
         </RectButton>
         <RectButton
           style={{
-            borderColor: themeColors.primaryDark,
+            borderColor: colors.primary,
             borderWidth: 1,
             margin: 10,
             flex: 1,
@@ -59,7 +58,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
             style={{
               textAlign: "center",
               textAlignVertical: "center",
-              color: themeColors.primaryDark,
+              color: colors.primary,
               fontSize: 16
             }}
           >

@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import {
   View,
-  Text,
   Platform,
   NativeSyntheticEvent,
   TextInputChangeEventData,

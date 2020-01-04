@@ -1,18 +1,27 @@
 import React, { useEffect } from "react";
 import { usePayeeState, usePaymentState } from "bank-core";
 import { PayeeSelectionScreen } from "../components/payments/transferMoney/PayeeSelectionScreen";
-import { NavigationStackProp } from "react-navigation-stack";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp, CompositeNavigationProp } from "@react-navigation/native";
 import { AmountScreen } from "../components/payments/transferMoney/AmountScreen";
 import { MakePaymentHeader } from "../components/payments/transferMoney/MakePaymentHeader";
 import { IAccount } from "bank-core/typescript/types";
+import { PaymentParamList } from "../stacks/PaymentStack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../tabs/BottomTabBar";
 
 type Props = {
-  navigation: NavigationStackProp;
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<
+      PaymentParamList,
+      "PayeeSelectionScreen" | "AmountScreen"
+    >,
+    BottomTabNavigationProp<BottomTabParamList>
+  >;
+  route: RouteProp<PaymentParamList, "PayeeSelectionScreen" | "AmountScreen">;
 };
 
-export const MakePaymentContainer = ({ navigation }: Props) => {
-  const screen = navigation.state.routeName;
-
+export const MakePaymentContainer = ({ navigation, route }: Props) => {
   let ComponentToRender = null;
   const { filterPayees, payees } = usePayeeState();
   const {
@@ -26,18 +35,18 @@ export const MakePaymentContainer = ({ navigation }: Props) => {
     });
   };
   useEffect(() => {
-    if (navigation.state.routeName === "payeeSelectionScreen") {
+    if (route.name === "PayeeSelectionScreen") {
       clearPaymentState();
     }
-    const account = navigation.getParam("account");
+    const account = route.params?.account;
     if (account) {
       updatePaymentState({
         account
       });
     }
   }, []);
-  switch (screen) {
-    case "payeeSelectionScreen":
+  switch (route.name) {
+    case "PayeeSelectionScreen":
       ComponentToRender = (
         <PayeeSelectionScreen
           navigation={navigation}
@@ -45,7 +54,7 @@ export const MakePaymentContainer = ({ navigation }: Props) => {
         />
       );
       break;
-    case "amountScreen":
+    case "AmountScreen":
       ComponentToRender = (
         <AmountScreen
           navigation={navigation}
@@ -72,22 +81,22 @@ export const MakePaymentContainer = ({ navigation }: Props) => {
   );
 };
 
-MakePaymentContainer.sharedElements = (
-  navigation: NavigationStackProp<{}>,
-  otherNavigation,
-  showing
-) => {
-  return navigation.state.params &&
-    otherNavigation.state.routeName !== "reviewScreen"
-    ? [
-        {
-          id: navigation.state.params.payeeId,
-          animation: "fade"
-        },
-        {
-          id: "title",
-          animation: "fade"
-        }
-      ]
-    : [];
-};
+// MakePaymentContainer.sharedElements = (
+//   navigation: NavigationStackProp<{}>,
+//   otherNavigation,
+//   showing
+// ) => {
+//   return navigation.state.params &&
+//     otherNavigation.state.routeName !== "reviewScreen"
+//     ? [
+//         {
+//           id: navigation.state.params.payeeId,
+//           animation: "fade"
+//         },
+//         {
+//           id: "title",
+//           animation: "fade"
+//         }
+//       ]
+//     : [];
+// };

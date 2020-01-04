@@ -47,7 +47,7 @@ function runTiming(value, dest, callBack) {
 }
 
 export const useLoginAnimation = (
-  navigation,
+  finalCall,
   buttonWidth
 ): [
   Function,
@@ -100,10 +100,6 @@ export const useLoginAnimation = (
     setLoading(true);
   };
 
-  const callBack2 = () => {
-    navigation.navigate("Home");
-  };
-
   useCode(() => {
     if (play) {
       return block([
@@ -113,7 +109,7 @@ export const useLoginAnimation = (
     if (beginNavigation) {
       return set(
         animation3.current,
-        runTiming(animation3.current, 1, callBack2)
+        runTiming(animation3.current, 1, finalCall)
       );
     }
     if (reverse) {

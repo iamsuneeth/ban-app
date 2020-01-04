@@ -1,13 +1,11 @@
 import React, { useCallback } from "react";
 import { usePayeeState } from "bank-core";
-import { NavigationStackProp } from "react-navigation-stack";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import { PayeeSearch } from "../components/payments/payees/payeeSearch";
-export const PayeeSearchContainer = ({
-  navigation
-}: {
-  navigation: NavigationStackProp;
-}) => {
+import { PaymentParamList } from "../stacks/PaymentStack";
+
+export const PayeeSearchContainer = () => {
   const { filterPayees, payees } = usePayeeState();
   const handleSearch = (
     event: NativeSyntheticEvent<TextInputChangeEventData>
@@ -19,7 +17,6 @@ export const PayeeSearchContainer = ({
 
   return (
     <PayeeSearch
-      navigation={navigation}
       handleSearch={handleSearch}
       searchString={payees.filters.searchString}
     />

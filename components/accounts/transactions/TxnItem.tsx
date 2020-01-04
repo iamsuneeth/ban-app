@@ -1,32 +1,31 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/src/types";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/bottom-tabs/lib/typescript/native/src";
 type TxnItemProps = {
   data: ITransaction;
   index: number;
 };
 
 export const TxnItem = ({ data, index }: TxnItemProps) => {
-  const themecolors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View>
       <RectButton>
         <View style={[styles.itemContainer]}>
           <View style={styles.icon}>
-            <Icons name="bank-transfer" size={40} color={themecolors.primary} />
+            <Icons name="bank-transfer" size={40} color={colors.primary} />
           </View>
           <View style={styles.main}>
             <Text style={styles.payee}>{data.recepient}</Text>
             {data.description && (
               <Text
                 numberOfLines={2}
-                style={[styles.description, { color: themecolors.gray }]}
+                style={[styles.description, { color: colors.text }]}
               >
                 {data.description}
               </Text>

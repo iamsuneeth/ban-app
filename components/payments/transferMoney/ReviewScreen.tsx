@@ -1,11 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/native";
 import { normalize } from "../../../utils/normalize";
 import { IPaymentState } from "bank-core/typescript/types";
 import { Amount } from "../../elements/amount/Amount";
-import { SharedElement } from "react-navigation-shared-element";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { Ionicons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
@@ -16,7 +14,7 @@ type Props = {
 };
 
 export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
       <View>
@@ -42,7 +40,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
           <View style={{ marginVertical: 10 }}>
             <Text
               style={{
-                color: themeColors.darkGray,
+                color: colors.text,
                 textAlign: "center",
                 fontSize: normalize(14)
               }}
@@ -51,7 +49,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
             </Text>
             <Text
               style={{
-                color: themeColors.gray,
+                color: colors.text,
                 fontSize: normalize(12),
                 marginTop: 5
               }}
@@ -60,11 +58,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
             </Text>
           </View>
           <View style={{ marginVertical: 10 }}>
-            <Ionicons
-              name="md-arrow-down"
-              size={40}
-              color={themeColors.lightGray}
-            />
+            <Ionicons name="md-arrow-down" size={40} color={colors.text} />
           </View>
           <View style={{ alignItems: "center" }}>
             <LetterAvatar
@@ -74,7 +68,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
             />
             <Text
               style={{
-                color: themeColors.darkGray,
+                color: colors.text,
                 fontSize: normalize(14),
                 marginTop: 10,
                 marginBottom: 5
@@ -82,7 +76,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
             >
               {paymentState.details.payee.name}
             </Text>
-            <Text style={{ color: themeColors.gray, fontSize: normalize(12) }}>
+            <Text style={{ color: colors.text, fontSize: normalize(12) }}>
               {`${paymentState.details.payee.code} - ${paymentState.details.payee.accountNumber}`}
             </Text>
           </View>
@@ -92,7 +86,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
           <View style={{ padding: 10 }}>
             <Text
               style={{
-                color: themeColors.gray,
+                color: colors.text,
                 fontSize: normalize(18),
                 marginBottom: 10
               }}
@@ -107,14 +101,10 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                 marginVertical: 10
               }}
             >
-              <Text
-                style={{ fontSize: normalize(14), color: themeColors.darkGray }}
-              >
+              <Text style={{ fontSize: normalize(14), color: colors.text }}>
                 Reference
               </Text>
-              <Text
-                style={{ fontSize: normalize(14), color: themeColors.gray }}
-              >
+              <Text style={{ fontSize: normalize(14), color: colors.text }}>
                 {paymentState.details.reference}
               </Text>
             </View>
@@ -122,7 +112,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               <>
                 <View
                   style={{
-                    backgroundColor: themeColors.lightGray,
+                    backgroundColor: colors.text,
                     height: 1,
                     marginVertical: 10
                   }}
@@ -138,14 +128,12 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   <Text
                     style={{
                       fontSize: normalize(14),
-                      color: themeColors.darkGray
+                      color: colors.text
                     }}
                   >
                     Date
                   </Text>
-                  <Text
-                    style={{ fontSize: normalize(14), color: themeColors.gray }}
-                  >
+                  <Text style={{ fontSize: normalize(14), color: colors.text }}>
                     {paymentState.details.txnStartDate.format(
                       "ddd MMM DD YYYY"
                     )}
@@ -157,7 +145,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               <>
                 <View
                   style={{
-                    backgroundColor: themeColors.lightGray,
+                    backgroundColor: colors.text,
                     height: 1,
                     marginVertical: 10
                   }}
@@ -173,14 +161,12 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   <Text
                     style={{
                       fontSize: normalize(14),
-                      color: themeColors.darkGray
+                      color: colors.text
                     }}
                   >
                     Repeats
                   </Text>
-                  <Text
-                    style={{ fontSize: normalize(14), color: themeColors.gray }}
-                  >
+                  <Text style={{ fontSize: normalize(14), color: colors.text }}>
                     {paymentState.details.frequency.text}
                   </Text>
                 </View>
@@ -190,7 +176,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               <>
                 <View
                   style={{
-                    backgroundColor: themeColors.lightGray,
+                    backgroundColor: colors.text,
                     height: 1,
                     marginVertical: 10
                   }}
@@ -206,14 +192,12 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   <Text
                     style={{
                       fontSize: normalize(14),
-                      color: themeColors.darkGray
+                      color: colors.text
                     }}
                   >
                     Stop repeating
                   </Text>
-                  <Text
-                    style={{ fontSize: normalize(14), color: themeColors.gray }}
-                  >
+                  <Text style={{ fontSize: normalize(14), color: colors.text }}>
                     {paymentState.details.txnEndDate.format("ddd MMM DD YYYY")}
                   </Text>
                 </View>
@@ -232,12 +216,12 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 2,
-            backgroundColor: themeColors.primary
+            backgroundColor: colors.primary
           }}
         >
           <Text
             style={{
-              color: themeColors.white,
+              color: "#fff",
               textTransform: "uppercase",
               fontWeight: "bold"
             }}

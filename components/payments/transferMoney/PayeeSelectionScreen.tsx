@@ -1,17 +1,20 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { MakePaymentHeader } from "./MakePaymentHeader";
 import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { ScrollView } from "react-native-gesture-handler";
-import { NavigationStackProp } from "react-navigation-stack";
 import { IPaymentDetails, IPayee } from "bank-core/src/types";
 import { normalize } from "../../../utils/normalize";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
-import { SharedElement } from "react-navigation-shared-element";
+import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 
 type Props = {
-  navigation: NavigationStackProp;
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<PaymentParamList, "PayeeSelectionScreen">,
+    BottomTabNavigationProp<BottomTabParamList>
+  >;
   updatePaymentState: (details: IPaymentDetails) => void;
 };
 
@@ -27,7 +30,7 @@ export const PayeeSelectionScreen = ({
       payeeId: payee.id
     });
   };
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View style={{ flex: 1 }}>
       <ScrollView scrollEventThrottle={1}>
@@ -37,7 +40,7 @@ export const PayeeSelectionScreen = ({
             marginHorizontal: 10,
             borderRadius: 3,
             top: 35,
-            backgroundColor: themeColors.primaryDark
+            backgroundColor: colors.primary
           }}
         />
         <View
@@ -47,19 +50,17 @@ export const PayeeSelectionScreen = ({
             paddingVertical: 10
           }}
         >
-          <SharedElement id="title">
-            <Text
-              style={{
-                fontSize: normalize(25),
-                paddingHorizontal: 5,
-                marginLeft: 20,
-                color: themeColors.gray,
-                backgroundColor: "#fff"
-              }}
-            >
-              Select payee
-            </Text>
-          </SharedElement>
+          <Text
+            style={{
+              fontSize: normalize(25),
+              paddingHorizontal: 5,
+              marginLeft: 20,
+              color: colors.text,
+              backgroundColor: "#fff"
+            }}
+          >
+            Select payee
+          </Text>
         </View>
         <PayeeContainer
           type="recent"

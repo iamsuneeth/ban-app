@@ -11,8 +11,8 @@ import { normalize } from "../../../utils/normalize";
 import { IPayeeFilter, IPaymentState, IAccount } from "bank-core/src/types";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { Amount } from "../../elements/amount/Amount";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme, ThemeColors as RNThemeColors } from "react-navigation";
+import { colors } from "../../../theme/constants";
+import { useTheme, colors as RNcolors } from "react-navigation";
 import { SharedElement } from "react-navigation-shared-element";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
@@ -44,11 +44,11 @@ export const MakePaymentHeader = ({
   };
 
   const payeeVisible = navigation.state.routeName !== "payeeSelectionScreen";
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   return (
     <View
       style={{
-        backgroundColor: RNThemeColors[useTheme()].header,
+        backgroundColor: RNcolors[useTheme()].header,
         paddingTop: getStatusBarHeight() + 20
       }}
     >
@@ -69,13 +69,13 @@ export const MakePaymentHeader = ({
           <BorderlessButton onPress={goBack}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Ionicons
-                color={RNThemeColors[useTheme()].label}
+                color={RNcolors[useTheme()].label}
                 name="ios-arrow-back"
                 size={30}
               />
               <Text
                 style={{
-                  color: RNThemeColors[useTheme()].label,
+                  color: RNcolors[useTheme()].label,
                   fontSize: normalize(16),
                   marginLeft: 5,
                   fontWeight: "700"
@@ -97,7 +97,7 @@ export const MakePaymentHeader = ({
             {visible && (
               <TextInput
                 placeholder={"Search..."}
-                placeholderTextColor={RNThemeColors[useTheme()].label}
+                placeholderTextColor={RNcolors[useTheme()].label}
                 clearButtonMode={"always"}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -108,7 +108,7 @@ export const MakePaymentHeader = ({
                 style={{
                   padding: 5,
                   flex: 1,
-                  color: RNThemeColors[useTheme()].label,
+                  color: RNcolors[useTheme()].label,
                   height: "100%",
                   alignSelf: "stretch"
                 }}
@@ -119,11 +119,7 @@ export const MakePaymentHeader = ({
                 onPress={() => setVisible(true)}
                 style={{ marginRight: 10 }}
               >
-                <Ionicons
-                  color={themeColors.gray}
-                  name="ios-search"
-                  size={30}
-                />
+                <Ionicons color={colors.gray} name="ios-search" size={30} />
               </BorderlessButton>
             )}
           </View>
@@ -139,7 +135,7 @@ export const MakePaymentHeader = ({
             </SharedElement>
             <Text
               style={{
-                color: RNThemeColors[useTheme()].label,
+                color: RNcolors[useTheme()].label,
                 fontSize: normalize(14)
               }}
             >
@@ -147,7 +143,7 @@ export const MakePaymentHeader = ({
             </Text>
             <Text
               style={{
-                color: RNThemeColors[useTheme()].label,
+                color: RNcolors[useTheme()].label,
                 fontSize: normalize(12)
               }}
             >

@@ -5,12 +5,15 @@ import { RecentPayees } from "../components/payments/payees/RecentPayees";
 import { Payees } from "../components/payments/payees/Payees";
 import { FrequentPayees } from "../components/payments/payees/FrequentPayees";
 import { IPayee } from "bank-core/src/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../stacks/PaymentStack";
 
 type props = {
-  type: "recent" | "frequent" | "all";
+  type?: "recent" | "frequent" | "all";
   complyFilter?: boolean;
   useFlatList?: boolean;
   onPress?: (payee: IPayee) => void;
+  navigation?: StackNavigationProp<PaymentParamList, "Payees">;
 };
 
 export const PayeeContainer = ({

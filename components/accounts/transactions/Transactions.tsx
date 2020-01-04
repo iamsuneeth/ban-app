@@ -1,27 +1,12 @@
-import React, {
-  memo,
-  useMemo,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useReducer
-} from "react";
+import React, { memo, useReducer } from "react";
 import {
   SectionList,
   View,
   Text,
   StyleSheet,
-  Dimensions,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  ScrollView,
-  GestureResponderEvent,
-  Switch,
   ActivityIndicator,
   RefreshControl
 } from "react-native";
-import BottomSheet from "reanimated-bottom-sheet";
 import dayjs, { Dayjs } from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { TxnHeader } from "./TxnHeader";
@@ -29,17 +14,13 @@ import { TxnItem } from "./TxnItem";
 import {
   ITransaction,
   IAccount,
-  TransactionType,
   SEARCH_TYPE,
   IFetchTransactionActionPayload,
   IFilterTransactionPayload
 } from "bank-core/src/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
-import { SharedElement } from "react-navigation-shared-element";
-import { Card } from "../../elements/card/Card";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
+import { useTheme } from "@react-navigation/material-top-tabs/lib/typescript/native/src";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
@@ -87,7 +68,7 @@ export const Transaction = memo(
             .subtract(1, "month")
             .startOf("date")
     });
-    const themeColors = ThemeColors[useTheme()];
+    const { colors } = useTheme();
     let groupedTransactions: { [key: string]: any } = {};
     transactions.forEach(txn => {
       const key = txn.date.toString();
@@ -145,11 +126,11 @@ export const Transaction = memo(
           <View
             style={{
               alignItems: "center",
-              backgroundColor: themeColors.primaryDark,
+              backgroundColor: colors.primary,
               paddingVertical: 5
             }}
           >
-            <Text style={{ color: themeColors.white }}>
+            <Text style={{ color: "#fff" }}>
               Showing transactions from{" "}
               {`${state.startDate.format(
                 "DD/MM/YYYY"

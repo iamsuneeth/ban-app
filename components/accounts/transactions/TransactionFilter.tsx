@@ -15,9 +15,8 @@ import {
 } from "bank-core/src/types";
 import dayjs from "dayjs";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { ThemeColors } from "../../../theme/constants";
-import { useTheme } from "react-navigation";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
+import { useTheme } from "@react-navigation/native";
 
 type FilterProps = {
   lastFetched?: string;
@@ -77,7 +76,7 @@ const FilterContent = ({
   handleClearFilter,
   handleApplyFilter,
   openDate,
-  themeColors,
+  colors,
   stateRef
 }) => (
   <Card style={styles.card}>
@@ -129,13 +128,13 @@ const FilterContent = ({
                 <RectButton
                   key={filter.key}
                   style={{
-                    borderColor: themeColors.primary,
+                    borderColor: colors.primary,
                     margin: 5,
                     borderWidth: 1,
                     padding: 10,
                     minWidth: 100,
                     borderRadius: 3,
-                    ...(isSelected && { backgroundColor: themeColors.primary })
+                    ...(isSelected && { backgroundColor: colors.primary })
                   }}
                   onPress={() =>
                     setState({
@@ -146,7 +145,7 @@ const FilterContent = ({
                 >
                   <Text
                     style={[
-                      { color: themeColors.primary, textAlign: "center" },
+                      { color: colors.primary, textAlign: "center" },
                       isSelected && { color: "#fff" }
                     ]}
                   >
@@ -169,8 +168,8 @@ const FilterContent = ({
               value={state.txnTypes.length === 0}
               onValueChange={value => onTxnTypeSelected("all", value)}
               trackColor={{
-                false: themeColors.gray,
-                true: themeColors.primary
+                false: colors.gray,
+                true: colors.primary
               }}
             />
             <Text style={{ marginLeft: 10, marginVertical: 10 }}>All</Text>
@@ -183,8 +182,8 @@ const FilterContent = ({
               <Switch
                 value={state.txnTypes.includes(value)}
                 trackColor={{
-                  false: themeColors.gray,
-                  true: themeColors.primary
+                  false: colors.gray,
+                  true: colors.primary
                 }}
                 onValueChange={boolValue => onTxnTypeSelected(value, boolValue)}
               />
@@ -207,7 +206,7 @@ const FilterContent = ({
     >
       <RectButton
         style={{
-          backgroundColor: themeColors.primary,
+          backgroundColor: colors.primary,
           paddingHorizontal: 5,
           paddingVertical: 10,
           flex: 2,
@@ -223,7 +222,7 @@ const FilterContent = ({
       </RectButton>
       <RectButton
         style={{
-          borderColor: themeColors.primary,
+          borderColor: colors.primary,
           borderWidth: 1,
           paddingHorizontal: 5,
           paddingVertical: 10,
@@ -234,7 +233,7 @@ const FilterContent = ({
         }}
         onPress={handleClearFilter}
       >
-        <Text style={{ textAlign: "center", color: themeColors.primary }}>
+        <Text style={{ textAlign: "center", color: colors.primary }}>
           Clear
         </Text>
       </RectButton>
@@ -261,7 +260,7 @@ export const TransactionFilter = ({
 }: FilterProps) => {
   const filterRef: React.LegacyRef<BottomSheet> = useRef();
   const stateRef = useRef("initial");
-  const themeColors = ThemeColors[useTheme()];
+  const { colors } = useTheme();
   const [state, setState]: [
     ITransactionFilterState,
     React.Dispatch<any>
@@ -365,8 +364,8 @@ export const TransactionFilter = ({
           <BorderlessButton
             style={{
               backgroundColor: state.filterOpen
-                ? themeColors.secondary
-                : themeColors.primary,
+                ? colors.primary
+                : colors.primary,
               position: "absolute",
               height: 40,
               width: 40,
@@ -387,10 +386,10 @@ export const TransactionFilter = ({
             onPress={() => filterRef.current.snapTo(state.filterOpen ? 0 : 1)}
           >
             {!state.filterOpen && (
-              <FontAwesome name="filter" size={25} color={themeColors.white} />
+              <FontAwesome name="filter" size={25} color={"#fff"} />
             )}
             {state.filterOpen && (
-              <Ionicons name="ios-close" size={25} color={themeColors.white} />
+              <Ionicons name="ios-close" size={25} color={"#fff"} />
             )}
           </BorderlessButton>
         </View>
@@ -404,7 +403,7 @@ export const TransactionFilter = ({
             handleClearFilter,
             handleApplyFilter,
             openDate,
-            themeColors,
+            colors,
             stateRef
           }}
         />
