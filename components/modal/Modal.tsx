@@ -62,10 +62,6 @@ export const Modal = ({ navigation, route }: ModalProps) => {
         />
       );
       break;
-    case "auth":
-      renderData = <MFAContainer sheetRef={sheetRef} />;
-      break;
-    //extraStyles = { backgroundColor: "transparent" };
     case "custom":
       renderData = route.params?.renderProp(() => sheetRef.current.snapTo(0));
       break;

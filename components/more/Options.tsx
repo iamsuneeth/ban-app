@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { ScrollView } from "react-native";
+import * as SecureStore from "expo-secure-store";
 import { Card } from "../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
@@ -13,7 +13,6 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../tabs/BottomTabBar";
 import { useAuthState } from "bank-core";
 import { ThemeType } from "../../App";
-import * as SecureStore from "expo-secure-store";
 
 type OptionsProps = {
   navigation: CompositeNavigationProp<
@@ -25,10 +24,8 @@ type OptionsProps = {
 export const Options = ({ navigation }: OptionsProps) => {
   const { signOutSuccess } = useAuthState();
   const signOut = async () => {
-    const enabled = await SecureStore.getItemAsync("biometryEnabled");
-    if (!enabled) {
-      await firebase.auth().signOut();
-    }
+    await SecureStore.deleteItemAsync("biometryEnabled");
+    await firebase.auth().signOut();
     signOutSuccess();
   };
   const { colors } = useTheme() as ThemeType;

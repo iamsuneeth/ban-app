@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useReducer } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
@@ -7,111 +7,34 @@ import { FirebaseLogin } from "../components/prelogin/login/FirebaseLogin";
 import * as firebase from "firebase/app";
 import BottomSheet from "reanimated-bottom-sheet";
 import { useAuthState } from "bank-core";
+import { CommonActions } from "@react-navigation/native";
 
-export const LoginContainer = () => {
-  const [state, setState] = useReducer(
-    (oldState, newState) => ({ ...oldState, ...newState }),
-    {
-      checkComplete: false,
-      authenticated: false,
-      modalVisible: false,
-      failedCount: 0,
-      biometryAvailable: false,
-      biometryEnabled: false,
-      userCancelled: false
-    }
-  );
-
-  const sheetRef = useRef<BottomSheet>();
-
+export const LoginContainer = ({ navigation }) => {
   const { signInSuccess } = useAuthState();
-
-  const authPrompt = async () => {
-    if (state.failedCount >= 3) {
-      await firebase.auth().signOut();
-      setState({
-        modalVisible: false
-      });
-      return;
-    }
-    if (Platform.OS === "android") {
-      setState({
-        modalVisible: true
-      });
-    }
-    const results = await LocalAuthentication.authenticateAsync();
-    if (results.success) {
-      setState({
-        modalVisible: false,
-        authenticated: true
-      });
-    } else if ((results as any).error === "user_cancel") {
-      await firebase.auth().signOut();
-      setState({
-        modalVisible: false,
-        userCancelled: true
-      });
-    } else {
-      setState({
-        failedCount: state.failedCount + 1
-      });
-    }
-  };
-  const fetchToken = async () => {
-    try {
-      const isBiometryAvailable = await LocalAuthentication.hasHardwareAsync();
-      if (!isBiometryAvailable) {
-        setState({
-          checkComplete: true
-        });
-        return;
-      }
-      const enabled = await SecureStore.getItemAsync("biometryEnabled");
-      if (enabled) {
-        setState({
-          biometryAvailable: true,
-          biometryEnabled: true,
-          checkComplete: true
-        });
+  const listenerRef = useRef<firebase.Unsubscribe>();
+  const [initialized, setInitialized] = useState();
+  const initialize = async user => {
+    const isBiometrysupported = await LocalAuthentication.isEnrolledAsync();
+    const isBiometryEnabled = await SecureStore.getItemAsync("biometryEnabled");
+    listenerRef.current();
+    if (user) {
+      if (isBiometrysupported && isBiometryEnabled) {
+        signInSuccess(user);
+        navigation.dispatch(CommonActions.navigate("AuthModal"));
       } else {
-        setState({
-          checkComplete: true
-        });
+        await firebase.auth().signOut();
+        setInitialized(true);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      setInitialized(true);
     }
   };
-  useEffect(() => {
-    fetchToken();
-  }, [state.failedCount]);
-
-  const handleStateChange = appState => {
-    if (appState === "active") {
-      sheetRef.current.snapTo(0);
-    }
-  };
-  useEffect(() => {
-    AppState.addEventListener("change", handleStateChange);
-    return () => {
-      AppState.removeEventListener("change", handleStateChange);
-    };
-  }, []);
-
-  const cancelAuthentication = () => {
-    LocalAuthentication.cancelAuthenticate();
-  };
-  return (
-    <FirebaseLogin
-      onSuccess={signInSuccess}
-      modalVisible={state.modalVisible}
-      biometryAvailable={state.biometryAvailable}
-      authenticated={state.authenticated}
-      cancelAuthentication={cancelAuthentication}
-      sheetRef={sheetRef}
-      authPrompt={authPrompt}
-      checkComplete={state.checkComplete}
-      userCancelled={state.userCancelled}
-    />
+  useEffect(
+    React.useCallback(() => {
+      listenerRef.current = firebase.auth().onAuthStateChanged(initialize);
+      return listenerRef.current;
+    }, []),
+    []
   );
+  return initialized ? <FirebaseLogin onSuccess={signInSuccess} /> : null;
 };

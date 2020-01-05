@@ -21,8 +21,6 @@ import { normalize } from "../../../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import BottomSheet from "reanimated-bottom-sheet";
-import { Card } from "../../elements/card/Card";
-import LottieView from "lottie-react-native";
 import { ThemeType } from "../../../App";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
@@ -34,30 +32,11 @@ const webViewScript = phoneNumber => `
 `;
 
 type LoginProps = {
-  modalVisible: boolean;
-  authenticated: boolean;
-  cancelAuthentication: () => void;
-  sheetRef: React.MutableRefObject<BottomSheet>;
-  biometryAvailable: boolean;
-  authPrompt: () => void;
   onSuccess: (user: User) => void;
-  checkComplete: boolean;
-  userCancelled: boolean;
 };
 
-export const FirebaseLogin = ({
-  modalVisible,
-  authenticated,
-  cancelAuthentication,
-  sheetRef,
-  biometryAvailable,
-  authPrompt,
-  onSuccess,
-  checkComplete,
-  userCancelled
-}: LoginProps) => {
+export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
   const [phoneNumber, setPhoneNumber] = useState();
-  const animationRef = useRef<LottieView>();
   const [step, setStep] = useState("initial");
   const [authState, setAuthState] = useState("notStarted");
   const [error, setError] = useState("");
@@ -83,15 +62,11 @@ export const FirebaseLogin = ({
     if (user) {
       const token = await firebase.auth().currentUser.getIdToken();
       if (token) {
-        if (biometryAvailable && !userCancelled) {
-          authPrompt();
-        } else {
-          await SecureStore.setItemAsync(
-            "userId",
-            firebase.auth().currentUser.phoneNumber
-          );
-          stopAnimation();
-        }
+        await SecureStore.setItemAsync(
+          "userId",
+          firebase.auth().currentUser.phoneNumber
+        );
+        stopAnimation();
       }
     }
   };
@@ -99,31 +74,14 @@ export const FirebaseLogin = ({
   const fetchStoredUserId = async () => {
     const userId = await SecureStore.getItemAsync("userId");
     setPhoneNumber(userId);
-  };
-
-  const onClose = () => {
-    cancelAuthentication();
+    setInitialized(true);
   };
 
   useEffect(() => {
-    if (checkComplete) {
-      const subscribed = firebase.auth().onAuthStateChanged(onAuthStateChanged);
-      return subscribed;
-    }
-  }, [checkComplete, userCancelled]);
-
-  useEffect(() => {
-    if (!modalVisible) {
-      fetchStoredUserId();
-      if (authenticated) {
-        animationRef.current.play();
-      } else {
-        setInitialized(true);
-      }
-    } else {
-      sheetRef.current.snapTo(1);
-    }
-  }, [modalVisible]);
+    const subscribed = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    fetchStoredUserId();
+    return subscribed;
+  }, []);
 
   const onGetMessage = async event => {
     const message = event.nativeEvent.data;
@@ -243,27 +201,6 @@ export const FirebaseLogin = ({
                   CONTINUE
                 </Text>
               </RectButton>
-              {biometryAvailable && firebase.auth().currentUser && (
-                <RectButton
-                  onPress={authPrompt}
-                  style={{
-                    padding: 10,
-                    height: 40,
-                    width: buttonWidth,
-                    justifyContent: "center"
-                  }}
-                >
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      color: colors.primary,
-                      fontSize: normalize(16)
-                    }}
-                  >
-                    Login using fingerprint
-                  </Text>
-                </RectButton>
-              )}
             </KeyboardAvoidingView>
           )}
 
@@ -387,68 +324,6 @@ export const FirebaseLogin = ({
           )}
         </SafeAreaView>
       )}
-      <BottomSheet
-        snapPoints={[0, "40%"]}
-        ref={sheetRef}
-        onOpenStart={() => setInitialized(true)}
-        enabledContentTapInteraction={false}
-        enabledGestureInteraction={false}
-        enabledContentGestureInteraction={false}
-        enabledBottomClamp
-        onCloseStart={onClose}
-        renderContent={() => (
-          <View>
-            <Card
-              style={{
-                marginHorizontal: 0,
-                paddingBottom: 40,
-                alignItems: "center",
-                height: "100%",
-                backgroundColor: colors.surface
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: normalize(20),
-                  fontWeight: "bold",
-                  color: colors.text
-                }}
-              >
-                Fingerprint authentication
-              </Text>
-              {modalVisible && (
-                <View style={{ marginTop: 40, alignItems: "center" }}>
-                  <Ionicons name="ios-finger-print" size={100} />
-                  <RectButton
-                    style={{ width: 100, height: 40 }}
-                    onPress={() => sheetRef.current.snapTo(0)}
-                  >
-                    <View style={{ flex: 1, justifyContent: "center" }}>
-                      <Text
-                        style={{
-                          fontSize: normalize(16),
-                          fontWeight: "bold",
-                          color: colors.primary,
-                          textAlign: "center"
-                        }}
-                      >
-                        Cancel
-                      </Text>
-                    </View>
-                  </RectButton>
-                </View>
-              )}
-              <LottieView
-                ref={animationRef}
-                loop={false}
-                onAnimationFinish={setAuthenticationState}
-                autoSize
-                source={require("../../../assets/fingerprint.json")}
-              />
-            </Card>
-          </View>
-        )}
-      />
     </>
   );
 };
