@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { normalize } from "../../../utils/normalize";
-import { colors } from "../../../theme/constants";
 import { useTheme } from "@react-navigation/native";
+import { colors } from "../../../theme/constants";
 
 dayjs.extend(advancedFormat);
 
@@ -28,7 +28,9 @@ type TxnHeaderProps = {
 export const TxnHeader = ({ data }: TxnHeaderProps) => {
   const { colors } = useTheme();
   return (
-    <View style={styles.headerContainer}>
+    <View
+      style={[styles.headerContainer, { backgroundColor: colors.background }]}
+    >
       <Text style={[styles.sectionHeader, { color: colors.text }]}>
         {getContent(data.name)}
       </Text>
@@ -38,8 +40,7 @@ export const TxnHeader = ({ data }: TxnHeaderProps) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: 10,
-    backgroundColor: "#fff"
+    paddingHorizontal: 10
   },
   sectionHeader: {
     fontSize: normalize(14),

@@ -3,7 +3,10 @@ import { usePaymentState, useAuthState } from "bank-core";
 import { ReviewScreen } from "../components/payments/transferMoney/ReviewScreen";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { CompositeNavigationProp } from "@react-navigation/native";
+import {
+  CompositeNavigationProp,
+  CommonActions
+} from "@react-navigation/native";
 import { PaymentParamList } from "../stacks/PaymentStack";
 import { BottomTabParamList } from "../tabs/BottomTabBar";
 
@@ -27,7 +30,7 @@ export const PaymentReviewContainer = ({ navigation }: props) => {
   }, [authState.authRequired]);
   useEffect(() => {
     if (paymentState.completed) {
-      navigation.replace("confirmationScreen", {});
+      navigation.dispatch(CommonActions.replace("ConfirmScreen"));
     }
   }, [paymentState.completed]);
   return (

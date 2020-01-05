@@ -6,7 +6,7 @@ import { Amount } from "../../elements/amount/Amount";
 import { normalize } from "../../../utils/normalize";
 import Animated from "react-native-reanimated";
 import { timing } from "react-native-redash";
-import { useTheme } from "@react-navigation/material-top-tabs/lib/typescript/native/src";
+import { useTheme } from "@react-navigation/native";
 
 type AccountSummaryProps = {
   summary: ISummary;
@@ -37,7 +37,7 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
 
         <Amount
           style={{
-            content: styles.totalAmount
+            content: { ...styles.totalAmount, color: colors.text }
           }}
           amount={summary.availableBalance.amount}
           currency={summary.availableBalance.currency}

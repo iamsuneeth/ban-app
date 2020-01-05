@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  BorderlessButton,
-  TextInput,
-  RectButton
-} from "react-native-gesture-handler";
-import { NavigationStackProp } from "react-navigation-stack";
+import { BorderlessButton, TextInput } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { IPayeeFilter, IPaymentState, IAccount } from "bank-core/src/types";
 import { LetterAvatar } from "../../common/LetterAvatar";
-import { Amount } from "../../elements/amount/Amount";
-import { colors } from "../../../theme/constants";
-import { useTheme, colors as RNcolors } from "react-navigation";
-import { SharedElement } from "react-navigation-shared-element";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { RouteProp, useTheme } from "@react-navigation/native";
 
 type Props = {
   filterPayees: (filter: IPayeeFilter) => void;
   filters: { searchString: string };
-  navigation: NavigationStackProp;
+  navigation: StackNavigationProp<
+    PaymentParamList,
+    "PayeeSelectionScreen" | "AmountScreen"
+  >;
+  route: RouteProp<PaymentParamList, "PayeeSelectionScreen" | "AmountScreen">;
   paymentState: IPaymentState;
   clearPaymentState: () => void;
   onAccountSelection: (account: IAccount) => void;
@@ -30,8 +28,7 @@ export const MakePaymentHeader = ({
   filterPayees,
   filters,
   paymentState,
-  clearPaymentState,
-  onAccountSelection
+  route
 }: Props) => {
   const [visible, setVisible] = useState(false);
   const handleSearch = text => {
@@ -43,12 +40,12 @@ export const MakePaymentHeader = ({
     navigation.pop();
   };
 
-  const payeeVisible = navigation.state.routeName !== "payeeSelectionScreen";
+  const payeeVisible = route.name !== "PayeeSelectionScreen";
   const { colors } = useTheme();
   return (
     <View
       style={{
-        backgroundColor: RNcolors[useTheme()].header,
+        backgroundColor: colors.background,
         paddingTop: getStatusBarHeight() + 20
       }}
     >
@@ -68,14 +65,10 @@ export const MakePaymentHeader = ({
         >
           <BorderlessButton onPress={goBack}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Ionicons
-                color={RNcolors[useTheme()].label}
-                name="ios-arrow-back"
-                size={30}
-              />
+              <Ionicons color={colors.text} name="ios-arrow-back" size={30} />
               <Text
                 style={{
-                  color: RNcolors[useTheme()].label,
+                  color: colors.text,
                   fontSize: normalize(16),
                   marginLeft: 5,
                   fontWeight: "700"
@@ -97,7 +90,7 @@ export const MakePaymentHeader = ({
             {visible && (
               <TextInput
                 placeholder={"Search..."}
-                placeholderTextColor={RNcolors[useTheme()].label}
+                placeholderTextColor={colors.text}
                 clearButtonMode={"always"}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -108,7 +101,7 @@ export const MakePaymentHeader = ({
                 style={{
                   padding: 5,
                   flex: 1,
-                  color: RNcolors[useTheme()].label,
+                  color: colors.text,
                   height: "100%",
                   alignSelf: "stretch"
                 }}
@@ -119,23 +112,28 @@ export const MakePaymentHeader = ({
                 onPress={() => setVisible(true)}
                 style={{ marginRight: 10 }}
               >
-                <Ionicons color={colors.gray} name="ios-search" size={30} />
+                <Ionicons color={colors.text} name="ios-search" size={30} />
               </BorderlessButton>
             )}
           </View>
         )}
         {payeeVisible && paymentState.details.payee && (
           <View style={{ alignItems: "flex-end", marginRight: 10 }}>
-            <SharedElement id={paymentState.details.payee.id}>
+            {/* <SharedElement id={paymentState.details.payee.id}>
               <LetterAvatar
                 text={paymentState.details.payee.name}
                 size={40}
                 viewStyle={{ marginBottom: 0 }}
               />
-            </SharedElement>
+            </SharedElement> */}
+            <LetterAvatar
+              text={paymentState.details.payee.name}
+              size={40}
+              viewStyle={{ marginBottom: 0 }}
+            />
             <Text
               style={{
-                color: RNcolors[useTheme()].label,
+                color: colors.text,
                 fontSize: normalize(14)
               }}
             >
@@ -143,7 +141,7 @@ export const MakePaymentHeader = ({
             </Text>
             <Text
               style={{
-                color: RNcolors[useTheme()].label,
+                color: colors.text,
                 fontSize: normalize(12)
               }}
             >

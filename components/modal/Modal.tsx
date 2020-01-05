@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Card } from "../elements/card/Card";
 import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
@@ -8,7 +8,8 @@ import { AccountSelection } from "../../containers/AccountSelection";
 import MFAContainer from "../../containers/MFAContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootParamsList } from "../../stacks/RootStack";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../App";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "Modal">;
@@ -26,6 +27,11 @@ const defaultSnapPoints = [0, 300];
 export const Modal = ({ navigation, route }: ModalProps) => {
   const sheetRef = useRef<BottomSheet>();
   const allowOnClose = useRef<boolean>();
+  const animationRef = useRef(new Animated.Value(1));
+  const opacity = animationRef.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0]
+  });
   const type = route.params?.type ?? "confirmation";
   const onClose = () => {
     // hack due to issue https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/136
@@ -69,11 +75,13 @@ export const Modal = ({ navigation, route }: ModalProps) => {
   useEffect(() => {
     sheetRef.current.snapTo(1);
   }, []);
+  const { colors } = useTheme() as ThemeType;
   return (
     <View style={{ flex: 1 }}>
       <BottomSheet
         snapPoints={snapPoints}
         ref={sheetRef}
+        callbackNode={animationRef.current}
         enabledContentTapInteraction={false}
         enabledGestureInteraction={false}
         enabledContentGestureInteraction={false}
@@ -88,6 +96,7 @@ export const Modal = ({ navigation, route }: ModalProps) => {
                 marginHorizontal: 0,
                 paddingBottom: 40,
                 height: "100%",
+                backgroundColor: colors.surface,
                 ...extraStyles
               }}
             >
@@ -96,6 +105,10 @@ export const Modal = ({ navigation, route }: ModalProps) => {
           </View>
         )}
       />
+      <Animated.View
+        {...StyleSheet.absoluteFill}
+        style={{ backgroundColor: "rgba(0,0,0,0.6)", opacity }}
+      ></Animated.View>
     </View>
   );
 };

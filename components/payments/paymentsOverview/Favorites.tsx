@@ -21,6 +21,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { ThemeType } from "../../../App";
 
 type Props = {
   favorites: IFavoriteState;
@@ -57,7 +58,7 @@ type FavoriteNavigationProps = CompositeNavigationProp<
 
 export const Favorites = ({ favorites, style }: Props) => {
   const { loading, favorites: favoritePayments, error } = favorites;
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   const navigation = useNavigation<FavoriteNavigationProps>();
   return (
     <>
@@ -70,24 +71,22 @@ export const Favorites = ({ favorites, style }: Props) => {
                 <RectButton style={{ flex: 1, paddingVertical: 10 }}>
                   <View style={[styles.itemContainer]}>
                     <View style={styles.icon}>
-                      <LetterAvatar
-                        text={favorite.payeeName}
-                        size={50}
-                        viewStyle={{
-                          backgroundColor: colorList[index % 5].background
-                        }}
-                        textStyle={{
-                          color: colorList[index % 5].text
-                        }}
-                      />
+                      <LetterAvatar text={favorite.payeeName} size={50} />
                     </View>
                     <View style={styles.main}>
-                      <Text style={styles.header}>{favorite.payeeName}</Text>
+                      <Text style={[styles.header, { color: colors.text }]}>
+                        {favorite.payeeName}
+                      </Text>
                       <Text style={styles.description}>
                         Account Number: {favorite.accountNumber}
                       </Text>
                       <Amount
                         amount={favorite.amount.amount}
+                        style={{
+                          content: {
+                            color: colors.text
+                          }
+                        }}
                         currency={favorite.amount.currency}
                       />
                       <Text style={styles.description}>
@@ -115,8 +114,13 @@ export const Favorites = ({ favorites, style }: Props) => {
                   </View>
                 </RectButton>
               </View>
-              {index !== new Array(10).length - 1 && (
-                <View style={styles.seperator} />
+              {index !== favoritePayments.length - 1 && (
+                <View
+                  style={[
+                    styles.seperator,
+                    { backgroundColor: colors.seperator }
+                  ]}
+                />
               )}
             </View>
           ))}
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(20),
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold",
     color: "#555"
@@ -145,7 +149,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   seperator: {
-    backgroundColor: "#eee",
     height: 1,
     width: "90%",
     alignSelf: "center"

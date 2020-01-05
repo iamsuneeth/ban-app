@@ -26,8 +26,8 @@ export const PayeeSelectionScreen = ({
     updatePaymentState({
       payee
     });
-    navigation.navigate("amountScreen", {
-      payeeId: payee.id
+    navigation.navigate("AmountScreen", {
+      payee
     });
   };
   const { colors } = useTheme();
@@ -56,7 +56,7 @@ export const PayeeSelectionScreen = ({
               paddingHorizontal: 5,
               marginLeft: 20,
               color: colors.text,
-              backgroundColor: "#fff"
+              backgroundColor: colors.background
             }}
           >
             Select payee

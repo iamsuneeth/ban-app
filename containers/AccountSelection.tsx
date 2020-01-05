@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { Amount } from "../components/elements/amount/Amount";
 import { useDashboardState } from "bank-core";
+import { ThemeType } from "../App";
 
 type Props = {
   sheetRef: React.MutableRefObject<BottomSheet>;
@@ -18,7 +19,7 @@ type Props = {
 export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
   const { accounts } = useDashboardState();
   const navigation = useNavigation();
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => {
       sheetRef.current.snapTo(0);
@@ -49,7 +50,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
             paddingHorizontal: 5,
             marginLeft: 20,
             color: colors.text,
-            backgroundColor: "#fff"
+            backgroundColor: colors.surface
           }}
         >
           Select account
@@ -62,7 +63,8 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
             style={[
               styles.accountCard,
               {
-                backgroundColor: colors.primary
+                backgroundColor: colors.primaryDark,
+                shadowColor: colors.shadowColor
               }
             ]}
           >

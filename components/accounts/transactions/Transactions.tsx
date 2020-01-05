@@ -20,7 +20,7 @@ import {
 } from "bank-core/src/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
-import { useTheme } from "@react-navigation/material-top-tabs/lib/typescript/native/src";
+import { useTheme } from "@react-navigation/native";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);

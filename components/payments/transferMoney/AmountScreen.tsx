@@ -14,6 +14,8 @@ import { useTheme } from "@react-navigation/native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { TextInput } from "react-native-paper";
+import { TrackingState } from "expo/build/AR";
 
 const frequencies = [
   {
@@ -115,7 +117,7 @@ export const AmountScreen = ({
   };
 
   const renderFrequencyList = () => {
-    navigation.navigate("modal", {
+    navigation.navigate("Modal", {
       type: "custom",
       snapPoints: [0, "60%"],
       renderProp: close => (
@@ -146,7 +148,13 @@ export const AmountScreen = ({
                   }}
                 >
                   <Ionicons name="md-time" size={25} color={colors.primary} />
-                  <Text style={{ fontSize: normalize(16), marginLeft: 10 }}>
+                  <Text
+                    style={{
+                      fontSize: normalize(16),
+                      marginLeft: 10,
+                      color: colors.text
+                    }}
+                  >
                     {item.text}
                   </Text>
                 </View>
@@ -226,25 +234,32 @@ export const AmountScreen = ({
           </RectButton>
         </View>
         <View>
-          {/* <Input
-            placeholder="0.00"
-            keyboardType="numeric"
+          <TextInput
+            label="Amount (£)"
+            style={{ margin: 5 }}
+            theme={{
+              colors: {
+                background: "transparent"
+              }
+            }}
+            autoCapitalize="none"
+            autoCorrect={false}
             value={state.amount}
             onChangeText={text => setState({ amount: text })}
-            inputStyle={{ fontSize: 40, padding: 5 }}
-            inputContainerStyle={{ marginTop: 5 }}
-            containerStyle={{ marginVertical: 10 }}
-            label="Amount (£)"
           />
-          <Input
-            autoCapitalize="none"
-            value={state.reference}
-            autoCorrect={false}
-            onChangeText={text => setState({ reference: text })}
-            inputContainerStyle={{ marginTop: 5 }}
+          <TextInput
             label="Reference"
-            containerStyle={{ marginVertical: 10 }}
-          /> */}
+            style={{ margin: 5 }}
+            autoCapitalize="none"
+            autoCorrect={false}
+            theme={{
+              colors: {
+                background: "transparent"
+              }
+            }}
+            value={state.reference}
+            onChangeText={text => setState({ reference: text })}
+          />
         </View>
         <View style={{ margin: 10 }}>
           <View
@@ -255,7 +270,9 @@ export const AmountScreen = ({
               marginVertical: 10
             }}
           >
-            <Text style={{ fontSize: normalize(14) }}>Schedule Payment</Text>
+            <Text style={{ fontSize: normalize(14), color: colors.text }}>
+              Schedule Payment
+            </Text>
             <Switch
               trackColor={{
                 true: colors.primary,
@@ -277,7 +294,9 @@ export const AmountScreen = ({
                       marginVertical: 10
                     }}
                   >
-                    <Text style={{ fontSize: normalize(14) }}>
+                    <Text
+                      style={{ fontSize: normalize(14), color: colors.text }}
+                    >
                       Payment date
                     </Text>
                     <Text
@@ -307,7 +326,9 @@ export const AmountScreen = ({
                     marginVertical: 10
                   }}
                 >
-                  <Text style={{ fontSize: normalize(14) }}>Repeat</Text>
+                  <Text style={{ fontSize: normalize(14), color: colors.text }}>
+                    Repeat
+                  </Text>
 
                   <Text
                     style={{
@@ -332,7 +353,9 @@ export const AmountScreen = ({
                         marginVertical: 10
                       }}
                     >
-                      <Text style={{ fontSize: normalize(14) }}>
+                      <Text
+                        style={{ fontSize: normalize(14), color: colors.text }}
+                      >
                         Stop repeating
                       </Text>
                       <Text
@@ -359,17 +382,12 @@ export const AmountScreen = ({
           )}
         </View>
       </View>
-      <KeyboardAvoidingView
+      <View
         style={{
           flex: 1,
           paddingTop: 20,
-          justifyContent: "flex-end",
-          paddingBottom: 20,
-          backgroundColor: "#fff"
+          marginBottom: 40
         }}
-        enabled
-        behavior="position"
-        keyboardVerticalOffset={120}
       >
         <RectButton
           style={{ height: 40, marginHorizontal: 10 }}
@@ -396,7 +414,7 @@ export const AmountScreen = ({
             </Text>
           </View>
         </RectButton>
-      </KeyboardAvoidingView>
+      </View>
     </ScrollView>
   );
 };

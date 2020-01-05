@@ -9,6 +9,7 @@ import { FavoriteContainer } from "../../../containers/FavoriteContainer";
 import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { ThemeType } from "../../../App";
 
 type PaymentsNavigationProps = StackNavigationProp<
   PaymentParamList,
@@ -20,7 +21,7 @@ type Props = {
 };
 
 export const PaymentsOverview = ({ navigation }: Props) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   return (
     <View
       style={{
@@ -32,7 +33,11 @@ export const PaymentsOverview = ({ navigation }: Props) => {
           style={{
             marginTop: 0,
             marginHorizontal: 0,
-            shadowOpacity: 0.2
+            shadowOpacity: 0.2,
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+            shadowColor: colors.shadowColor,
+            backgroundColor: colors.surface
           }}
         >
           <RectButton
@@ -47,14 +52,18 @@ export const PaymentsOverview = ({ navigation }: Props) => {
                 />
               </View>
               <View style={styles.main}>
-                <Text style={styles.header}>Transfer money</Text>
+                <Text style={[styles.header, { color: colors.text }]}>
+                  Transfer money
+                </Text>
                 <Text numberOfLines={2} style={styles.description}>
                   Transfer money to anywhere
                 </Text>
               </View>
             </View>
           </RectButton>
-          <View style={styles.seperator}></View>
+          <View
+            style={[styles.seperator, { backgroundColor: colors.seperator }]}
+          ></View>
           <View>
             <RectButton onPress={() => navigation.navigate("Payees")}>
               <View style={[styles.itemContainer]}>
@@ -66,7 +75,9 @@ export const PaymentsOverview = ({ navigation }: Props) => {
                   />
                 </View>
                 <View style={styles.main}>
-                  <Text style={styles.header}>Payees</Text>
+                  <Text style={[styles.header, { color: colors.text }]}>
+                    Payees
+                  </Text>
                   <Text numberOfLines={2} style={styles.description}>
                     View and manage payees
                   </Text>
@@ -94,7 +105,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   seperator: {
-    backgroundColor: "#eee",
     height: 1,
     width: "90%",
     alignSelf: "center"

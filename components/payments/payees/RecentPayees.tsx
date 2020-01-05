@@ -13,6 +13,7 @@ import { IPayee } from "bank-core/typescript/types";
 import { useNavigation } from "@react-navigation/native/";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { useTheme } from "@react-navigation/native";
 
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 
@@ -23,6 +24,7 @@ type props = {
 };
 export const RecentPayees = ({ payees, loading, onPress }: props) => {
   const navigation = useNavigation<PayeeNavigationProps>();
+  const { colors } = useTheme();
   return (
     <View>
       <Text style={styles.sectionHeader}>Recent</Text>
@@ -49,7 +51,7 @@ export const RecentPayees = ({ payees, loading, onPress }: props) => {
               <LetterAvatar text={elem.name} />
             </SharedElement> */}
             <LetterAvatar text={elem.name} />
-            <Text numberOfLines={1} style={{ color: "#333" }}>
+            <Text numberOfLines={1} style={{ color: colors.text }}>
               {elem.name.split(" ")[0]}
             </Text>
           </BorderlessButton>

@@ -19,15 +19,17 @@ import { IAccount, IAccountDetails } from "bank-core/src/types";
 import {
   useTheme,
   useNavigation,
-  CompositeNavigationProp
+  CompositeNavigationProp,
+  CommonActions
 } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeParamList } from "../../../stacks/HomeStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { ThemeType } from "../../../App";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
-const { width: screenWidth } = Dimensions.get("window");
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 type Props = {
   account: IAccount;
@@ -42,7 +44,7 @@ type AccountDetailsNavigationProp = CompositeNavigationProp<
 
 export const AccountDetails = ({ account, details }: Props) => {
   const [open, setOpen] = useState(false);
-  const { colors } = useTheme();
+  const { colors, dark } = useTheme() as ThemeType;
   const navigation = useNavigation<AccountDetailsNavigationProp>();
   const onPress = () => {
     markInitialized();
@@ -83,8 +85,11 @@ export const AccountDetails = ({ account, details }: Props) => {
             style={[
               styles.accountCard,
               {
-                backgroundColor: colors.primary
-              }
+                backgroundColor: colors.primaryDark,
+                height: screenHeight * 0.2,
+                width: screenWidth * 0.8
+              },
+              dark && { shadowColor: colors.shadowColor }
             ]}
           >
             <View style={styles.accountPrimary}>
@@ -110,9 +115,11 @@ export const AccountDetails = ({ account, details }: Props) => {
         <View style={styles.quickLinks}>
           <BorderlessButton
             onPress={() =>
-              navigation.navigate("payeeSelectionScreen", {
-                account
-              })
+              navigation.dispatch(
+                CommonActions.navigate("PayeeSelectionScreen", {
+                  account
+                })
+              )
             }
             testID="quick-link-payments"
             style={styles.quickLinkButton}
@@ -133,12 +140,14 @@ export const AccountDetails = ({ account, details }: Props) => {
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
-                shadowColor: "#ccc"
+                shadowColor: colors.shadowColor
               }}
             >
               <MaterialIcons name="payment" size={20} color="#fff" />
             </View>
-            <Text style={styles.quickLinkText}>Pay</Text>
+            <Text style={[styles.quickLinkText, { color: colors.text }]}>
+              Pay
+            </Text>
           </BorderlessButton>
           <BorderlessButton
             onPress={() =>
@@ -151,7 +160,8 @@ export const AccountDetails = ({ account, details }: Props) => {
           >
             <View
               style={{
-                backgroundColor: "#fff",
+                borderWidth: 1,
+                borderColor: colors.primary,
                 borderRadius: 20,
                 height: 40,
                 width: 40,
@@ -165,12 +175,14 @@ export const AccountDetails = ({ account, details }: Props) => {
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
-                shadowColor: "#ccc"
+                shadowColor: colors.shadowColor
               }}
             >
-              <Ionicons name="ios-document" size={20} color={colors.text} />
+              <Ionicons name="ios-document" size={20} color={colors.primary} />
             </View>
-            <Text style={styles.quickLinkText}>Statements</Text>
+            <Text style={[styles.quickLinkText, { color: colors.text }]}>
+              Statements
+            </Text>
           </BorderlessButton>
           <BorderlessButton
             onPress={() => {}}
@@ -179,7 +191,8 @@ export const AccountDetails = ({ account, details }: Props) => {
           >
             <View
               style={{
-                backgroundColor: "#fff",
+                borderWidth: 1,
+                borderColor: colors.primary,
                 borderRadius: 20,
                 height: 40,
                 width: 40,
@@ -193,18 +206,26 @@ export const AccountDetails = ({ account, details }: Props) => {
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
-                shadowColor: "#ccc"
+                shadowColor: colors.shadowColor
               }}
             >
-              <Ionicons name="ios-card" size={20} color={colors.text} />
+              <Ionicons name="ios-card" size={20} color={colors.primary} />
             </View>
 
-            <Text style={styles.quickLinkText}>Debit card</Text>
+            <Text style={[styles.quickLinkText, { color: colors.text }]}>
+              Debit card
+            </Text>
           </BorderlessButton>
         </View>
         <Animated.View>
           {details && (
-            <Card style={{ flex: 1 }}>
+            <Card
+              style={{
+                flex: 1,
+                shadowColor: colors.shadowColor,
+                backgroundColor: colors.surface
+              }}
+            >
               <TouchableWithoutFeedback onPress={onPress}>
                 <View
                   style={{
@@ -227,6 +248,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                   <AnimatedIcon
                     name="ios-arrow-forward"
                     size={25}
+                    color={colors.text}
                     style={{
                       marginRight: 5,
                       transform: [
@@ -253,6 +275,9 @@ export const AccountDetails = ({ account, details }: Props) => {
                   <Amount
                     amount={account.availableBalance.amount}
                     currency={account.availableBalance.currency}
+                    style={{
+                      content: { color: colors.text }
+                    }}
                     size={16}
                   />
                 </View>
@@ -270,6 +295,9 @@ export const AccountDetails = ({ account, details }: Props) => {
                   <Amount
                     amount={account.balance.amount}
                     currency={account.balance.currency}
+                    style={{
+                      content: { color: colors.text }
+                    }}
                     size={16}
                   />
                 </View>
@@ -287,6 +315,9 @@ export const AccountDetails = ({ account, details }: Props) => {
                   <Amount
                     amount={account.overdraft.amount}
                     currency={account.overdraft.currency}
+                    style={{
+                      content: { color: colors.text }
+                    }}
                     size={16}
                   />
                 </View>
@@ -304,6 +335,9 @@ export const AccountDetails = ({ account, details }: Props) => {
                   <Amount
                     amount={account.availableOverdraft.amount}
                     currency={account.availableOverdraft.currency}
+                    style={{
+                      content: { color: colors.text }
+                    }}
                     size={16}
                   />
                 </View>
@@ -313,7 +347,13 @@ export const AccountDetails = ({ account, details }: Props) => {
         </Animated.View>
         <Animated.View style={{ ...styles.addnlContainer }}>
           {details && (
-            <Card style={{ borderRadius: 3 }}>
+            <Card
+              style={{
+                borderRadius: 3,
+                backgroundColor: colors.surface,
+                shadowColor: colors.shadowColor
+              }}
+            >
               <Text
                 style={[
                   styles.addnlHeader,
@@ -334,7 +374,7 @@ export const AccountDetails = ({ account, details }: Props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: "#ccc",
+                  backgroundColor: colors.seperator,
                   height: 1,
                   marginBottom: 10
                 }}
@@ -349,7 +389,7 @@ export const AccountDetails = ({ account, details }: Props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: "#ccc",
+                  backgroundColor: colors.seperator,
                   height: 1,
                   marginBottom: 10
                 }}
@@ -364,7 +404,7 @@ export const AccountDetails = ({ account, details }: Props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: "#ccc",
+                  backgroundColor: colors.seperator,
                   height: 1,
                   marginBottom: 10
                 }}
@@ -379,7 +419,7 @@ export const AccountDetails = ({ account, details }: Props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: "#ccc",
+                  backgroundColor: colors.seperator,
                   height: 1,
                   marginBottom: 10
                 }}
@@ -394,7 +434,7 @@ export const AccountDetails = ({ account, details }: Props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: "#ccc",
+                  backgroundColor: colors.seperator,
                   height: 1,
                   marginBottom: 10
                 }}
@@ -417,8 +457,7 @@ export const AccountDetails = ({ account, details }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5"
+    flex: 1
   },
   accountCard: {
     padding: 0,

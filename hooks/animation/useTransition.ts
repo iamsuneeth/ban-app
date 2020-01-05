@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useRef } from "react";
-import Animated from "react-native-reanimated";
+import { useCallback, useRef } from "react";
+import Animated, { Easing } from "react-native-reanimated";
 import { useState } from "react";
-import { spring } from "react-native-redash";
+import { timing } from "react-native-redash";
 const { Value, useCode, set, Clock } = Animated;
 
 export const useTransition = ({
@@ -26,11 +26,8 @@ export const useTransition = ({
     const to = expanded ? 1 : 0;
     return set(
       animation.current,
-      spring({
-        velocity: new Value(10),
-        config: {
-          damping: 10
-        },
+      timing({
+        easing: Easing.ease,
         from,
         to
       })

@@ -23,6 +23,7 @@ import { useTheme } from "@react-navigation/native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { Card } from "../../elements/card/Card";
 import LottieView from "lottie-react-native";
+import { ThemeType } from "../../../App";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
@@ -32,15 +33,29 @@ const webViewScript = phoneNumber => `
   getToken('${phoneNumber}'); 
 `;
 
+type LoginProps = {
+  modalVisible: boolean;
+  authenticated: boolean;
+  cancelAuthentication: () => void;
+  sheetRef: React.MutableRefObject<BottomSheet>;
+  biometryAvailable: boolean;
+  authPrompt: () => void;
+  onSuccess: (user: User) => void;
+  checkComplete: boolean;
+  userCancelled: boolean;
+};
+
 export const FirebaseLogin = ({
-  navigation,
   modalVisible,
   authenticated,
   cancelAuthentication,
   sheetRef,
   biometryAvailable,
-  authPrompt
-}) => {
+  authPrompt,
+  onSuccess,
+  checkComplete,
+  userCancelled
+}: LoginProps) => {
   const [phoneNumber, setPhoneNumber] = useState();
   const animationRef = useRef<LottieView>();
   const [step, setStep] = useState("initial");
@@ -49,9 +64,9 @@ export const FirebaseLogin = ({
   const [initialized, setInitialized] = useState(false);
   const [smsCode, setSmsCode] = useState();
   const [verificationId, setVerificationId] = useState();
-  const [webHeight, setWebHeight] = useState(0);
-  const { colors } = useTheme();
-  const setAuthenticationState = () => {};
+  const setAuthenticationState = () => {
+    onSuccess(firebase.auth().currentUser);
+  };
   const [
     startAnimation,
     stopAnimation,
@@ -68,11 +83,15 @@ export const FirebaseLogin = ({
     if (user) {
       const token = await firebase.auth().currentUser.getIdToken();
       if (token) {
-        await SecureStore.setItemAsync(
-          "userId",
-          firebase.auth().currentUser.phoneNumber
-        );
-        stopAnimation();
+        if (biometryAvailable && !userCancelled) {
+          authPrompt();
+        } else {
+          await SecureStore.setItemAsync(
+            "userId",
+            firebase.auth().currentUser.phoneNumber
+          );
+          stopAnimation();
+        }
       }
     }
   };
@@ -87,15 +106,20 @@ export const FirebaseLogin = ({
   };
 
   useEffect(() => {
-    if (!modalVisible) {
+    if (checkComplete) {
       const subscribed = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+      return subscribed;
+    }
+  }, [checkComplete, userCancelled]);
+
+  useEffect(() => {
+    if (!modalVisible) {
       fetchStoredUserId();
       if (authenticated) {
         animationRef.current.play();
       } else {
         setInitialized(true);
       }
-      return subscribed;
     } else {
       sheetRef.current.snapTo(1);
     }
@@ -128,7 +152,6 @@ export const FirebaseLogin = ({
       verificationId,
       smsCode
     );
-    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     try {
       await firebase.auth().signInWithCredential(credential);
       setAuthState("completed");
@@ -138,6 +161,7 @@ export const FirebaseLogin = ({
       reverseAnimation();
     }
   };
+  const { colors } = useTheme() as ThemeType;
   return (
     <>
       {initialized && (
@@ -163,7 +187,8 @@ export const FirebaseLogin = ({
               style={{
                 fontSize: normalize(30),
                 marginLeft: 10,
-                fontWeight: "bold"
+                fontWeight: "bold",
+                color: colors.text
               }}
             >
               BitBank
@@ -218,7 +243,7 @@ export const FirebaseLogin = ({
                   CONTINUE
                 </Text>
               </RectButton>
-              {biometryAvailable && (
+              {biometryAvailable && firebase.auth().currentUser && (
                 <RectButton
                   onPress={authPrompt}
                   style={{
@@ -378,7 +403,8 @@ export const FirebaseLogin = ({
                 marginHorizontal: 0,
                 paddingBottom: 40,
                 alignItems: "center",
-                height: "100%"
+                height: "100%",
+                backgroundColor: colors.surface
               }}
             >
               <Text
@@ -415,7 +441,7 @@ export const FirebaseLogin = ({
               <LottieView
                 ref={animationRef}
                 loop={false}
-                onAnimationFinish={() => navigation.navigate("Home")}
+                onAnimationFinish={setAuthenticationState}
                 autoSize
                 source={require("../../../assets/fingerprint.json")}
               />

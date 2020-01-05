@@ -5,7 +5,7 @@ import { RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/src/types";
-import { useTheme } from "@react-navigation/bottom-tabs/lib/typescript/native/src";
+import { useTheme } from "@react-navigation/native";
 type TxnItemProps = {
   data: ITransaction;
   index: number;
@@ -21,7 +21,9 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
             <Icons name="bank-transfer" size={40} color={colors.primary} />
           </View>
           <View style={styles.main}>
-            <Text style={styles.payee}>{data.recepient}</Text>
+            <Text style={[styles.recepient, { color: colors.text }]}>
+              {data.recepient}
+            </Text>
             {data.description && (
               <Text
                 numberOfLines={2}
@@ -36,7 +38,7 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
             currency={data.amount.currency}
             size={18}
             style={{
-              content: styles.amount,
+              content: { ...styles.amount, color: colors.text },
               container: styles.amountContainer
             }}
           />
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   main: {
     justifyContent: "center"
   },
-  payee: {
+  recepient: {
     fontSize: normalize(16)
   },
   description: {

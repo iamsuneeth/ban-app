@@ -9,6 +9,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TransactionSearchContainer } from "../containers/TransactionSearchContainer";
 import { IAccount } from "bank-core/src/types";
+import { useTheme } from "@react-navigation/native";
 
 export type HomeParamList = {
   Accounts: undefined;
@@ -18,12 +19,14 @@ export type HomeParamList = {
 
 const Stack = createStackNavigator<HomeParamList>();
 export const HomeStack = () => {
+  const { colors } = useTheme();
   return (
     <Stack.Navigator initialRouteName="Accounts">
       <Stack.Screen
         name="Accounts"
         component={HomeContainer}
         options={{
+          headerTitle: null,
           headerLeft: () => (
             <View
               style={{
@@ -36,6 +39,7 @@ export const HomeStack = () => {
                 style={{
                   fontSize: normalize(30),
                   marginLeft: 10,
+                  color: colors.text,
                   fontWeight: "bold"
                 }}
               >
@@ -48,16 +52,19 @@ export const HomeStack = () => {
               <FontAwesome
                 name="bell-o"
                 size={23}
+                color={colors.text}
                 style={{ paddingRight: 10 }}
               />
               <MaterialIcons
                 name="settings"
                 size={25}
+                color={colors.text}
                 style={{ paddingRight: 10 }}
               />
               <FontAwesome
                 name="user-circle"
                 size={25}
+                color={colors.text}
                 style={{ paddingRight: 10 }}
               />
             </View>
@@ -82,13 +89,8 @@ export const HomeStack = () => {
       <Stack.Screen
         name="Transactions"
         component={TransactionContainer}
-        options={({ navigation }) => ({
-          headerTitle: props => (
-            <TransactionSearchContainer navigation={navigation} />
-          ),
-          headerStyle: {
-            backgroundColor: "#fff"
-          },
+        options={({ route }) => ({
+          headerTitle: props => <TransactionSearchContainer route={route} />,
           headerBackTitleStyle: {
             display: "none"
           },

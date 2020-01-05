@@ -1,7 +1,5 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
-import { Card } from "../../elements/card/Card";
-import { FlatList, SectionList } from "react-navigation";
+import { View, TextInput, SectionList } from "react-native";
 import { PaymentItem } from "./PaymentItem";
 import { PaymentHeader } from "./PaymentHeader";
 
@@ -19,7 +17,6 @@ export const FuturePayments = () => {
     <View style={{ flex: 1 }}>
       <View
         style={{
-          backgroundColor: "#fff",
           flex: 1
         }}
       >

@@ -13,7 +13,7 @@ import { IAccount, IPayee } from "bank-core/src/types";
 export type PaymentParamList = {
   PaymentsOverview: undefined;
   PayeeSelectionScreen: { account: IAccount } | undefined;
-  AmountScreen: undefined;
+  AmountScreen: { payee: IPayee } | undefined;
   ReviewScreen: undefined;
   ConfirmScreen: undefined;
   Payees: undefined;
@@ -35,21 +35,22 @@ export const PaymentStack = () => {
         options={{
           headerStyle: {
             borderBottomWidth: 0
-          }
+          },
+          title: "Payments overview"
         }}
       />
       <Stack.Screen
         name="PayeeSelectionScreen"
         component={MakePaymentContainer}
         options={{
-          header: null
+          header: () => null
         }}
       />
       <Stack.Screen
         name="AmountScreen"
         component={MakePaymentContainer}
         options={{
-          header: null
+          header: () => null
         }}
       />
       <Stack.Screen
@@ -61,7 +62,7 @@ export const PaymentStack = () => {
         name="ConfirmScreen"
         component={ConfirmScreen}
         options={{
-          headerLeft: null,
+          headerLeft: () => null,
           gestureEnabled: false
         }}
       />
@@ -74,10 +75,8 @@ export const PaymentStack = () => {
             display: "none"
           },
           headerTitleContainerStyle: {
-            right: 0,
-            paddingRight: 5
-          },
-          headerRight: null
+            width: "80%"
+          }
         })}
       />
       <Stack.Screen

@@ -1,26 +1,20 @@
 export const colors = {
   light: {
     primary: "#CC0607",
-    primaryDark: "#9F0101",
-    secondary: "#110a5c",
-    secondaryDark: "#0f0e4f",
-    darkGray: "#333333",
-    gray: "#555555",
-    lightGray: "#cccccc",
-    seperatorColor: "#eeeeee",
-    white: "#fff",
-    text: "#333"
+    primaryDark: "#930000",
+    primaryLight: "#ff5135",
+    surface: "#fff",
+    seperator: "#ccc",
+    shadowColor: "#ccc"
   },
   dark: {
-    primary: "#CC0607",
-    primaryDark: "#9F0101",
-    secondary: "#110a5c",
-    secondaryDark: "#0f0e4f",
-    darkGray: "#333333",
-    gray: "#555555",
-    lightGray: "#cccccc",
-    seperatorColor: "#eeeeee",
-    white: "#fff",
-    text: "#fff"
+    primary: "#06cccc",
+    primaryDark: "#00a7ad",
+    primaryLight: "#dcf7f5",
+    background: "#171F24",
+    seperator: "#ccc",
+    card: "#171F24",
+    surface: "#374045",
+    shadowColor: "#121212"
   }
 };

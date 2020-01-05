@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
-import { useTheme } from "@react-navigation/stack/lib/typescript/native/src";
+import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../App";
 
 type props = {
   text: string;
@@ -58,7 +59,7 @@ export const LetterAvatar = ({
 
     colorIndex = (content.charCodeAt(0) + strings[0].length) % 5;
   }
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   return (
     <View
       style={[
@@ -67,7 +68,7 @@ export const LetterAvatar = ({
           height: size,
           borderRadius: size / 2,
           marginBottom: 10,
-          backgroundColor: "#eee",
+          backgroundColor: colors.surface,
           justifyContent: "center",
           alignContent: "center"
         },
@@ -81,7 +82,7 @@ export const LetterAvatar = ({
             textAlignVertical: "center",
             fontSize: size / 2,
             fontWeight: "bold",
-            color: "#888"
+            color: colors.background
           },
           textStyle
         ]}

@@ -22,6 +22,57 @@ type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
   const { colors } = useTheme();
   const navigation = useNavigation<PayeeNavigationProps>();
+  const renderItem = (item, index) => (
+    <RectButton
+      style={{ flex: 1, paddingHorizontal: 10 }}
+      onPress={
+        onPress
+          ? () => onPress(item)
+          : () =>
+              navigation.navigate("PayeeDetails", {
+                payee: item
+              })
+      }
+    >
+      <View style={[styles.itemContainer]}>
+        <View style={styles.icon}>
+          {/* <SharedElement
+        id={item.id}
+        style={{ width: 50, height: 50, borderRadius: 25 }}
+      >
+        <LetterAvatar text={item.name} size={50} />
+      </SharedElement> */}
+          <LetterAvatar text={item.name} size={50} />
+        </View>
+        <View style={styles.main}>
+          {/* <SharedElement
+        id={`${item.id}payeeName`}
+        style={{ alignSelf: "flex-start" }}
+      >
+        <Text style={styles.header}>{item.name}</Text>
+      </SharedElement> */}
+          <Text style={[styles.header, { color: colors.text }]}>
+            {item.name}
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            {/* <SharedElement
+          id={`${item.id}code`}
+          style={{ marginRight: 10 }}
+        >
+          <Text style={styles.description}>{item.code}</Text>
+        </SharedElement> */}
+            <Text style={styles.description}>{item.code}</Text>
+            {/* <SharedElement id={`${item.id}accountNumber`}>
+          <Text style={styles.description}>
+            {item.accountNumber}
+          </Text>
+        </SharedElement> */}
+            <Text style={styles.description}>{item.accountNumber}</Text>
+          </View>
+        </View>
+      </View>
+    </RectButton>
+  );
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -53,115 +104,21 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
                 flex: 1
               }}
             >
-              <RectButton
-                style={{ flex: 1, paddingHorizontal: 10 }}
-                onPress={
-                  onPress
-                    ? () => onPress(item)
-                    : () =>
-                        navigation.navigate("PayeeDetails", {
-                          payee: item
-                        })
-                }
-              >
-                <View style={[styles.itemContainer]}>
-                  <View style={styles.icon}>
-                    {/* <SharedElement
-                      id={item.id}
-                      style={{ width: 50, height: 50, borderRadius: 25 }}
-                    >
-                      <LetterAvatar text={item.name} size={50} />
-                    </SharedElement> */}
-                    <LetterAvatar text={item.name} size={50} />
-                  </View>
-                  <View style={styles.main}>
-                    {/* <SharedElement
-                      id={`${item.id}payeeName`}
-                      style={{ alignSelf: "flex-start" }}
-                    >
-                      <Text style={styles.header}>{item.name}</Text>
-                    </SharedElement> */}
-                    <Text style={styles.header}>{item.name}</Text>
-                    <View style={{ flexDirection: "row" }}>
-                      {/* <SharedElement
-                        id={`${item.id}code`}
-                        style={{ marginRight: 10 }}
-                      >
-                        <Text style={styles.description}>{item.code}</Text>
-                      </SharedElement> */}
-                      <Text style={styles.description}>{item.code}</Text>
-                      {/* <SharedElement id={`${item.id}accountNumber`}>
-                        <Text style={styles.description}>
-                          {item.accountNumber}
-                        </Text>
-                      </SharedElement> */}
-                      <Text style={styles.description}>
-                        {item.accountNumber}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </RectButton>
+              {renderItem(item, index)}
             </View>
           )}
         />
       )}
       {!useFlatList &&
-        payees.map(item => (
+        payees.map((item, index) => (
           <View
             key={item.id}
             style={{
               flex: 1,
-              marginVertical: 10
+              paddingVertical: 10
             }}
           >
-            <RectButton
-              style={{ flex: 1, paddingHorizontal: 10 }}
-              onPress={
-                onPress
-                  ? () => onPress(item)
-                  : () =>
-                      navigation.navigate("PayeeDetails", {
-                        payee: item
-                      })
-              }
-            >
-              <View style={[styles.itemContainer]}>
-                <View style={styles.icon}>
-                  {/* <SharedElement
-                    id={item.id}
-                    style={{ width: 50, height: 50, borderRadius: 25 }}
-                  >
-                    <LetterAvatar text={item.name} size={50} />
-                  </SharedElement> */}
-                  <LetterAvatar text={item.name} size={50} />
-                </View>
-                <View style={styles.main}>
-                  {/* <SharedElement
-                    id={`${item.id}payeeName`}
-                    style={{ alignSelf: "flex-start" }}
-                  >
-                    <Text style={styles.header}>{item.name}</Text>
-                  </SharedElement> */}
-                  <Text style={styles.header}>{item.name}</Text>
-                  <View style={{ flexDirection: "row" }}>
-                    {/* <SharedElement
-                      id={`${item.id}code`}
-                      style={{ marginRight: 10 }}
-                    >
-                      <Text style={styles.description}>{item.code}</Text>
-                    </SharedElement> */}
-                    <Text style={styles.description}>{item.code}</Text>
-                    {/* <SharedElement id={`${item.id}accountNumber`}>
-                      <Text style={styles.description}>
-                        {item.accountNumber}
-                      </Text>
-                    </SharedElement> */}
-                    <Text style={styles.description}>{item.accountNumber}</Text>
-                  </View>
-                </View>
-              </View>
-            </RectButton>
+            {renderItem(item, index)}
           </View>
         ))}
     </View>
@@ -173,6 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     minHeight: 60,
     paddingHorizontal: 10
   },

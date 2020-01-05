@@ -1,16 +1,18 @@
 import React from "react";
 import { TransactionSearch } from "../components/accounts/transactions/TransactionSearch";
 import { useTransactionState } from "bank-core";
-import { NavigationStackProp } from "react-navigation-stack";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
+import { HomeParamList } from "../stacks/HomeStack";
+import { RouteProp } from "@react-navigation/native";
+
 export const TransactionSearchContainer = ({
-  navigation
+  route
 }: {
-  navigation: NavigationStackProp<{}>;
+  route: RouteProp<HomeParamList, "Transactions">;
 }) => {
   const { filterTransaction, transactions } = useTransactionState(
-    navigation.state.params.accountId
+    route.params.accountId
   );
 
   const handleSearch = (

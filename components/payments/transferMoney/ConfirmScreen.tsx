@@ -2,7 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { View, Text, StyleSheet, BackHandler } from "react-native";
 import { usePaymentState } from "bank-core";
 import LottieView from "lottie-react-native";
-import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
+import {
+  useTheme,
+  CompositeNavigationProp,
+  useFocusEffect
+} from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
@@ -26,13 +30,18 @@ export const ConfirmScreen = ({ navigation }: props) => {
   });
 
   const ref = useRef<LottieView>();
-  useEffect(() => {
-    clearPaymentState();
-    ref.current.play(0, 21);
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      return navigation.isFocused() ? true : false;
-    });
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      ref.current.play();
+      const handlePress = () => true;
+      BackHandler.addEventListener("hardwareBackPress", handlePress);
+
+      return () => {
+        BackHandler.removeEventListener("hardwareBackPress", handlePress);
+        clearPaymentState();
+      };
+    }, [])
+  );
   const { colors } = useTheme();
   return (
     <View style={styles.animationContainer}>

@@ -13,9 +13,19 @@ const Tab = createMaterialTopTabNavigator<PaymentTopBarParamList>();
 export const PaymentTopBar = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="PaymentDashboard" component={PaymentsOverview} />
+      <Tab.Screen
+        name="PaymentDashboard"
+        component={PaymentsOverview}
+        options={{
+          title: "Payments"
+        }}
+      />
       <Tab.Screen name="Upcoming" component={Upcoming} />
-      <Tab.Screen name="PaymentHistory" component={() => null} />
+      <Tab.Screen
+        name="PaymentHistory"
+        component={() => null}
+        options={{ title: "History" }}
+      />
     </Tab.Navigator>
   );
 };

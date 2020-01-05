@@ -15,6 +15,7 @@ import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { ThemeType } from "../../../App";
 
 export const PayeeDetails = ({
   navigation,
@@ -27,7 +28,7 @@ export const PayeeDetails = ({
   route: RouteProp<PaymentParamList, "PayeeDetails">;
 }) => {
   const payee: IPayee = route.params.payee;
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   const openClearbit = () => {
     Linking.openURL("https://clearbit.com");
   };
@@ -60,7 +61,14 @@ export const PayeeDetails = ({
       >
         <LetterAvatar text={payee.name} size={100} />
       </View>
-      <Card style={{ marginTop: 50, elevation: 0, marginHorizontal: 0 }}>
+      <Card
+        style={{
+          marginTop: 50,
+          marginHorizontal: 0,
+          backgroundColor: colors.surface,
+          shadowColor: colors.shadowColor
+        }}
+      >
         <View style={{ margin: 5 }}>
           {/* <SharedElement
             id={`${payee.id}payeeName`}
@@ -127,7 +135,7 @@ export const PayeeDetails = ({
         <View style={styles.buttonContaioner}>
           <RectButton
             onPress={() =>
-              navigation.navigate("makePayment", {
+              navigation.navigate("AmountScreen", {
                 payee
               })
             }
@@ -228,7 +236,6 @@ export const PayeeDetails = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
     padding: 10
   },
   main: {

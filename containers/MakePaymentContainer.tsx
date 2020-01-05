@@ -9,6 +9,7 @@ import { IAccount } from "bank-core/typescript/types";
 import { PaymentParamList } from "../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../tabs/BottomTabBar";
+import { IPayee } from "bank-core/src/types";
 
 type Props = {
   navigation: CompositeNavigationProp<
@@ -37,11 +38,17 @@ export const MakePaymentContainer = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (route.name === "PayeeSelectionScreen") {
       clearPaymentState();
+      const account = (route.params as { account: IAccount })?.account;
+      if (account) {
+        updatePaymentState({
+          account
+        });
+      }
     }
-    const account = route.params?.account;
-    if (account) {
+    const payee = (route.params as { payee: IPayee })?.payee;
+    if (payee) {
       updatePaymentState({
-        account
+        payee
       });
     }
   }, []);
@@ -69,6 +76,7 @@ export const MakePaymentContainer = ({ navigation, route }: Props) => {
   return (
     <>
       <MakePaymentHeader
+        route={route}
         navigation={navigation}
         filterPayees={filterPayees}
         filters={payees.filters}

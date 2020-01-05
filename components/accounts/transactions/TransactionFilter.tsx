@@ -79,13 +79,13 @@ const FilterContent = ({
   colors,
   stateRef
 }) => (
-  <Card style={styles.card}>
+  <Card style={[styles.card, { backgroundColor: colors.surface }]}>
     <ScrollView
       style={{ width: "100%", marginBottom: 10 }}
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 18 }}>Dates</Text>
+        <Text style={{ fontSize: 18, color: colors.text }}>Dates</Text>
         <View>
           <View
             style={{
@@ -95,21 +95,23 @@ const FilterContent = ({
             }}
           >
             <View>
-              <Text>Start</Text>
+              <Text style={{ color: colors.text, marginBottom: 5 }}>Start</Text>
               <DateTimePicker
                 date={state.startDate}
                 minimumDate={openDate.toDate()}
                 maximumDate={dayjs().toDate()}
                 onConfirm={date => setState({ startDate: date })}
+                displayTextStyle={{ color: colors.text, fontWeight: "600" }}
               />
             </View>
             <View>
-              <Text>End</Text>
+              <Text style={{ color: colors.text, marginBottom: 5 }}>End</Text>
               <DateTimePicker
                 date={state.endDate}
                 minimumDate={openDate.toDate()}
                 maximumDate={dayjs().toDate()}
                 onConfirm={date => setState({ endDate: date })}
+                displayTextStyle={{ color: colors.text, fontWeight: "600" }}
               />
             </View>
           </View>
@@ -158,7 +160,9 @@ const FilterContent = ({
         </View>
       </View>
       <View style={{ flex: 1, marginTop: 10 }}>
-        <Text style={{ fontSize: 18, marginBottom: 10 }}>Type</Text>
+        <Text style={{ fontSize: 18, marginBottom: 10, color: colors.text }}>
+          Type
+        </Text>
         <View>
           <View
             key={"all"}
@@ -172,7 +176,11 @@ const FilterContent = ({
                 true: colors.primary
               }}
             />
-            <Text style={{ marginLeft: 10, marginVertical: 10 }}>All</Text>
+            <Text
+              style={{ marginLeft: 10, marginVertical: 10, color: colors.text }}
+            >
+              All
+            </Text>
           </View>
           {Object.entries(TransactionType).map(([key, value]) => (
             <View
@@ -187,7 +195,13 @@ const FilterContent = ({
                 }}
                 onValueChange={boolValue => onTxnTypeSelected(value, boolValue)}
               />
-              <Text style={{ marginLeft: 10, marginVertical: 10 }}>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginVertical: 10,
+                  color: colors.text
+                }}
+              >
                 {value}
               </Text>
             </View>
@@ -198,10 +212,8 @@ const FilterContent = ({
     <View
       style={{
         width: "100%",
-        borderTopWidth: 1,
-        flexDirection: "row",
-        paddingTop: 5,
-        borderColor: "#ccc"
+        alignItems: "center",
+        flexDirection: "row"
       }}
     >
       <RectButton

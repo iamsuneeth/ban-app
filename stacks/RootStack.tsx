@@ -4,6 +4,7 @@ import { LoginContainer } from "../containers/LoginContainer";
 import { Modal } from "../components/modal/Modal";
 import { BottomTabBarStack } from "../tabs/BottomTabBar";
 import { IAccount } from "bank-core/src/types";
+import { useAuthState } from "bank-core";
 
 export type RootParamsList = {
   Main: undefined;
@@ -21,17 +22,34 @@ export type RootParamsList = {
 };
 const Stack = createStackNavigator<RootParamsList>();
 export const RootStack = () => {
-  const isLoggedIn = false;
+  const { authState } = useAuthState();
   return (
-    <Stack.Navigator>
-      {isLoggedIn ? (
+    <Stack.Navigator
+      initialRouteName={!!authState.user ? "Main" : "Login"}
+      headerMode="none"
+      mode="modal"
+    >
+      {!!authState.user ? (
         <>
           <Stack.Screen name="Main" component={BottomTabBarStack} />
-          <Stack.Screen name="Modal" component={Modal} />
+          <Stack.Screen
+            name="Modal"
+            component={Modal}
+            options={{
+              cardStyle: {
+                backgroundColor: "transparent"
+              },
+              cardStyleInterpolator: ({ current, closing }) => ({
+                cardStyle: {
+                  opacity: current.progress
+                }
+              })
+            }}
+          />
         </>
       ) : (
         <>
-          <Stack.Screen name="Modal" component={LoginContainer} />
+          <Stack.Screen name="Login" component={LoginContainer} />
         </>
       )}
     </Stack.Navigator>

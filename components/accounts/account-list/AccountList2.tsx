@@ -30,15 +30,16 @@ type Props = {
   setAccount: (account: IAccount) => void;
 };
 
-const Account = ({ account, colors, navigation }) => {
+const Account = ({ account, colors, dark, navigation }) => {
   return (
     // <SharedElement key={account.id} id={account.id} style={{ flex: 1 }}>
     <Card
       style={[
         styles.accountCard,
         {
-          backgroundColor: colors.primary
-        }
+          backgroundColor: colors.primaryDark
+        },
+        dark && { shadowColor: "#121212" }
       ]}
     >
       <RectButton
@@ -82,7 +83,7 @@ const Account = ({ account, colors, navigation }) => {
 };
 
 export const AccountList = ({ accounts, setAccount, account }: Props) => {
-  const { colors } = useTheme();
+  const { colors, dark } = useTheme();
   const navigation = useNavigation<AccountListNavigationProp>();
   return (
     <View style={{ flex: 1 }}>
@@ -96,6 +97,7 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
           renderItem={({ item: account }) => (
             <Account
               account={account}
+              dark={dark}
               colors={colors}
               navigation={navigation}
             />

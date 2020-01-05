@@ -3,7 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Options } from "../components/more/Options";
 import { Biometry } from "../components/more/Biometry";
 
-const Stack = createStackNavigator();
+export type MoreParamList = {
+  Options: undefined;
+  Biometry: undefined;
+};
+const Stack = createStackNavigator<MoreParamList>();
 export const MoreStack = () => {
   return (
     <Stack.Navigator>
