@@ -2,17 +2,17 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../../App";
 type TxnItemProps = {
   data: ITransaction;
   index: number;
 };
 
 export const TxnItem = ({ data, index }: TxnItemProps) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   return (
     <View>
       <RectButton>
@@ -27,7 +27,7 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
             {data.description && (
               <Text
                 numberOfLines={2}
-                style={[styles.description, { color: colors.text }]}
+                style={[styles.description, { color: colors.textSecondary }]}
               >
                 {data.description}
               </Text>
@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   recepient: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12)
+    fontSize: 12
   },
   icon: {
     padding: 5,

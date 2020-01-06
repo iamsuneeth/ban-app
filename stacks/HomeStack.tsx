@@ -4,7 +4,7 @@ import { AccountDetailsContainer } from "../containers/AccountDetailsContainer";
 import { HomeContainer } from "../containers/HomeContainer";
 import { TransactionContainer } from "../containers/TransactionContainer";
 import { View, Text } from "react-native";
-import { normalize } from "../utils/normalize";
+;
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TransactionSearchContainer } from "../containers/TransactionSearchContainer";
@@ -37,7 +37,7 @@ export const HomeStack = () => {
             >
               <Text
                 style={{
-                  fontSize: normalize(30),
+                  fontSize: 30,
                   marginLeft: 10,
                   color: colors.text,
                   fontWeight: "bold"
@@ -95,10 +95,8 @@ export const HomeStack = () => {
             display: "none"
           },
           headerTitleContainerStyle: {
-            right: 0,
-            paddingRight: 5
-          },
-          headerRight: null
+            width: "80%"
+          }
         })}
       />
     </Stack.Navigator>

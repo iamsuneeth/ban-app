@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Card } from "../../elements/card/Card";
 import { ScrollView, RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { FavoriteContainer } from "../../../containers/FavoriteContainer";
@@ -55,7 +54,10 @@ export const PaymentsOverview = ({ navigation }: Props) => {
                 <Text style={[styles.header, { color: colors.text }]}>
                   Transfer money
                 </Text>
-                <Text numberOfLines={2} style={styles.description}>
+                <Text
+                  numberOfLines={2}
+                  style={[styles.description, { color: colors.textSecondary }]}
+                >
                   Transfer money to anywhere
                 </Text>
               </View>
@@ -78,7 +80,13 @@ export const PaymentsOverview = ({ navigation }: Props) => {
                   <Text style={[styles.header, { color: colors.text }]}>
                     Payees
                   </Text>
-                  <Text numberOfLines={2} style={styles.description}>
+                  <Text
+                    numberOfLines={2}
+                    style={[
+                      styles.description,
+                      { color: colors.textSecondary }
+                    ]}
+                  >
                     View and manage payees
                   </Text>
                 </View>
@@ -110,19 +118,12 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
-    color: "#888"
+    fontSize: 12
   },
   icon: {
     paddingRight: 10
-  },
-  sectionHeader: {
-    fontSize: normalize(20),
-    margin: 15,
-    fontWeight: "bold",
-    color: "#555"
   }
 });

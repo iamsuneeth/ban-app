@@ -5,7 +5,6 @@ import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import { confirmation } from "./confirmation";
 import { AccountSelection } from "../../containers/AccountSelection";
-import MFAContainer from "../../containers/MFAContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootParamsList } from "../../stacks/RootStack";
 import { RouteProp, useTheme } from "@react-navigation/native";

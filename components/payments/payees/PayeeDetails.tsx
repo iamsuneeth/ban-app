@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { IPayee } from "bank-core/src/types";
-import { normalize } from "../../../utils/normalize";
+;
 import { Card } from "../../elements/card/Card";
 import { useTheme, RouteProp } from "@react-navigation/native";
 import {
@@ -164,7 +164,7 @@ export const PayeeDetails = ({
           </RectButton>
           <RectButton
             onPress={() =>
-              navigation.navigate("modal", {
+              navigation.navigate("Modal", {
                 message: `Do you want to delete ${payee.name}! ?`
               })
             }
@@ -198,7 +198,7 @@ export const PayeeDetails = ({
             style={{ width: 14, height: 14, marginRight: 5 }}
             source={{ uri: "https://logo.clearbit.com/clearbit.com" }}
           />
-          <Text style={{ fontSize: normalize(14), color: colors.text }}>
+          <Text style={{ fontSize: 14, color: colors.text }}>
             Logos provided by Clearbit
           </Text>
         </TouchableWithoutFeedback>
@@ -246,14 +246,14 @@ const styles = StyleSheet.create({
     paddingRight: 10
   },
   header: {
-    fontSize: normalize(25),
+    fontSize: 25,
     textAlign: "right"
   },
   value: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   label: {
-    fontSize: normalize(14)
+    fontSize: 14
   },
   section: {
     flexDirection: "row",
@@ -278,6 +278,6 @@ const styles = StyleSheet.create({
   },
   actionButtontext: {
     textAlign: "center",
-    fontSize: normalize(14)
+    fontSize: 14
   }
 });

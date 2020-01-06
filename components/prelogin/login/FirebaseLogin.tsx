@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Keyboard,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 import Constants from "expo-constants";
 import { WebView } from "react-native-webview";
@@ -17,7 +18,6 @@ import * as SecureStore from "expo-secure-store";
 import { User } from "firebase";
 import { useLoginAnimation } from "../../../hooks/animation/useLoginAnimation";
 import Animated from "react-native-reanimated";
-import { normalize } from "../../../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import BottomSheet from "reanimated-bottom-sheet";
@@ -127,83 +127,9 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
           style={{
             marginTop: Constants.statusBarHeight,
             justifyContent: "flex-end",
-            flex: 1,
-            paddingVertical: 100
+            flex: 1
           }}
         >
-          <View
-            style={{
-              position: "absolute",
-              top: "10%",
-              alignSelf: "center",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            <Ionicons name="ios-unlock" size={200} color={colors.primary} />
-            <Text
-              style={{
-                fontSize: normalize(30),
-                marginLeft: 10,
-                fontWeight: "bold",
-                color: colors.text
-              }}
-            >
-              BitBank
-            </Text>
-          </View>
-          {step === "initial" && (
-            <KeyboardAvoidingView
-              behavior="padding"
-              enabled
-              style={{
-                paddingHorizontal: 10,
-                marginBottom: 50,
-                alignItems: "center"
-              }}
-              keyboardVerticalOffset={50}
-            >
-              <TextInput
-                placeholder="Phone Number"
-                value={phoneNumber}
-                onChangeText={phone => setPhoneNumber(phone)}
-                style={{
-                  padding: 5,
-                  height: 40,
-                  borderBottomWidth: 1,
-                  borderColor: colors.primary,
-                  color: colors.text,
-                  marginBottom: 20,
-                  width: buttonWidth,
-                  fontSize: normalize(16)
-                }}
-                placeholderTextColor={colors.text}
-              />
-
-              <RectButton
-                onPress={() => setStep("phoneSubmitted")}
-                style={{
-                  backgroundColor: colors.primary,
-                  padding: 10,
-                  height: 40,
-                  width: buttonWidth,
-                  justifyContent: "center",
-                  borderRadius: 3
-                }}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "#fff",
-                    fontSize: normalize(16)
-                  }}
-                >
-                  CONTINUE
-                </Text>
-              </RectButton>
-            </KeyboardAvoidingView>
-          )}
-
           {step === "phoneSubmitted" && (
             <WebView
               injectedJavaScript={webViewScript(phoneNumber)}
@@ -212,113 +138,193 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
               style={{ backgroundColor: "transparent" }}
             />
           )}
-
-          {step === "promptSmsCode" && (
+          {step !== "phoneSubmitted" && (
             <KeyboardAvoidingView
-              behavior="padding"
+              behavior="position"
               enabled
               style={{
                 paddingHorizontal: 10,
                 marginBottom: 50,
+                flex: 1,
                 alignItems: "center"
               }}
               keyboardVerticalOffset={50}
             >
-              {!!error && (
-                <View
-                  style={{
-                    backgroundColor: "red",
-                    padding: 5,
-                    marginBottom: 10
-                  }}
-                >
-                  <Text style={{ color: colors.text }}>{error}</Text>
-                </View>
-              )}
-              <Text style={{ color: colors.text, fontSize: normalize(16) }}>
-                We have sent you a verification code.
-              </Text>
-              <Text style={{ color: colors.text, fontSize: normalize(16) }}>
-                Please enter it below.
-              </Text>
-              <TextInput
-                placeholder="Verification code"
-                value={smsCode}
-                onChangeText={sms => setSmsCode(sms)}
-                keyboardType="numeric"
-                secureTextEntry
+              <View
                 style={{
-                  marginTop: 10,
-                  padding: 5,
-                  height: 40,
-                  borderBottomWidth: 1,
-                  borderColor: colors.primary,
-                  color: colors.text,
-                  marginBottom: 20,
-                  width: buttonWidth,
-                  fontSize: normalize(16)
-                }}
-                placeholderTextColor={colors.text}
-              />
-              <Animated.View
-                style={{
-                  width: widthAnimation,
-                  borderRadius: borderRadiusAnimation,
-                  backgroundColor: !!smsCode ? colors.primary : colors.text,
-                  height: 40,
-                  justifyContent: "center",
-                  transform: [
-                    {
-                      scale: scaleAnimation as any
-                    }
-                  ]
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center"
                 }}
               >
-                <RectButton
-                  onPress={onSignIn}
-                  style={{ flex: 1, padding: 10 }}
-                  enabled={!!smsCode}
+                <Ionicons name="ios-unlock" size={200} color={colors.primary} />
+                <Text
+                  style={{
+                    fontSize: 30,
+                    marginLeft: 10,
+                    fontWeight: "bold",
+                    color: colors.text
+                  }}
                 >
-                  {authState === "notStarted" && (
+                  BitBank
+                </Text>
+              </View>
+              {step === "initial" && (
+                <>
+                  <TextInput
+                    placeholder="Phone Number"
+                    value={phoneNumber}
+                    autoCorrect={false}
+                    onChangeText={phone => setPhoneNumber(phone)}
+                    style={{
+                      padding: 5,
+                      height: 40,
+                      borderBottomWidth: 1,
+                      borderColor: colors.primary,
+                      color: colors.text,
+                      marginBottom: 20,
+                      width: buttonWidth,
+                      fontSize: 16
+                    }}
+                    placeholderTextColor={colors.text}
+                  />
+
+                  <RectButton
+                    onPress={() => setStep("phoneSubmitted")}
+                    style={{
+                      backgroundColor: colors.primary,
+                      padding: 10,
+                      height: 40,
+                      width: buttonWidth,
+                      justifyContent: "center",
+                      borderRadius: 3
+                    }}
+                  >
                     <Text
                       style={{
                         textAlign: "center",
                         color: "#fff",
-                        fontSize: normalize(16)
+                        fontSize: 16
                       }}
                     >
-                      VERIFY
+                      CONTINUE
                     </Text>
+                  </RectButton>
+                </>
+              )}
+
+              {step === "promptSmsCode" && (
+                <>
+                  {!!error && (
+                    <View
+                      style={{
+                        backgroundColor: "red",
+                        padding: 5,
+                        marginBottom: 10
+                      }}
+                    >
+                      <Text style={{ color: colors.text }}>{error}</Text>
+                    </View>
                   )}
-                  {authState === "inProgress" && (
-                    <ActivityIndicator color={"#fff"} />
-                  )}
-                </RectButton>
-              </Animated.View>
-              {authState === "notStarted" && (
-                <RectButton
-                  style={{
-                    marginTop: 10,
-                    height: 40,
-                    justifyContent: "center",
-                    width: buttonWidth,
-                    backgroundColor: colors.text
-                  }}
-                  onPress={() => {
-                    setStep("initial");
-                    setSmsCode(null);
-                  }}
-                >
                   <Text
                     style={{
-                      textAlign: "center",
-                      color: "#fff",
-                      fontSize: normalize(16)
+                      color: colors.text,
+                      fontSize: 16,
+                      textAlign: "center"
                     }}
                   >
-                    CANCEL
+                    We have sent you a verification code.
                   </Text>
-                </RectButton>
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 16,
+                      textAlign: "center"
+                    }}
+                  >
+                    Please enter it below.
+                  </Text>
+                  <TextInput
+                    placeholder="Verification code"
+                    value={smsCode}
+                    onChangeText={sms => setSmsCode(sms)}
+                    keyboardType="numeric"
+                    secureTextEntry
+                    style={{
+                      marginTop: 10,
+                      padding: 5,
+                      height: 40,
+                      borderBottomWidth: 1,
+                      borderColor: colors.primary,
+                      color: colors.text,
+                      marginBottom: 20,
+                      width: buttonWidth,
+                      fontSize: 16
+                    }}
+                    placeholderTextColor={colors.text}
+                  />
+                  <Animated.View
+                    style={{
+                      width: widthAnimation,
+                      borderRadius: borderRadiusAnimation,
+                      backgroundColor: !!smsCode ? colors.primary : colors.text,
+                      height: 40,
+                      justifyContent: "center",
+                      alignSelf: "center",
+                      transform: [
+                        {
+                          scale: scaleAnimation as any
+                        }
+                      ]
+                    }}
+                  >
+                    <RectButton
+                      onPress={onSignIn}
+                      style={{ flex: 1, padding: 10 }}
+                      enabled={!!smsCode}
+                    >
+                      {authState === "notStarted" && (
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "#fff",
+                            fontSize: 16
+                          }}
+                        >
+                          VERIFY
+                        </Text>
+                      )}
+                      {authState === "inProgress" && (
+                        <ActivityIndicator color={"#fff"} />
+                      )}
+                    </RectButton>
+                  </Animated.View>
+                  {authState === "notStarted" && (
+                    <RectButton
+                      style={{
+                        marginTop: 10,
+                        height: 40,
+                        justifyContent: "center",
+                        width: buttonWidth,
+                        backgroundColor: colors.text
+                      }}
+                      onPress={() => {
+                        setStep("initial");
+                        setSmsCode(null);
+                      }}
+                    >
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          color: "#fff",
+                          fontSize: 16
+                        }}
+                      >
+                        CANCEL
+                      </Text>
+                    </RectButton>
+                  )}
+                </>
               )}
             </KeyboardAvoidingView>
           )}

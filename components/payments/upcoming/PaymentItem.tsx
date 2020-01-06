@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
+;
 import { Amount } from "../../elements/amount/Amount";
 type PaymentItemProps = {
   data: any;
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   payee: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
+    fontSize: 12,
     color: "#888"
   },
   icon: {

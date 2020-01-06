@@ -34,13 +34,6 @@ export const TransactionSearch = ({ handleSearch, searchString }: Props) => {
         value={searchString}
         onChange={handleSearch}
       />
-      {Platform.OS === "android" && (
-        <Ionicons
-          name="ios-close-circle"
-          size={20}
-          style={{ position: "absolute", right: 0, alignSelf: "center" }}
-        />
-      )}
     </View>
   );
 };

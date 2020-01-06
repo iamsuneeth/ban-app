@@ -3,7 +3,6 @@ import { View, Text } from "react-native";
 import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { ScrollView } from "react-native-gesture-handler";
 import { IPaymentDetails, IPayee } from "bank-core/src/types";
-import { normalize } from "../../../utils/normalize";
 import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
@@ -52,7 +51,7 @@ export const PayeeSelectionScreen = ({
         >
           <Text
             style={{
-              fontSize: normalize(25),
+              fontSize: 25,
               paddingHorizontal: 5,
               marginLeft: 20,
               color: colors.text,

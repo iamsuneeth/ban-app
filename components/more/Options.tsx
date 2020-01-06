@@ -4,7 +4,6 @@ import * as SecureStore from "expo-secure-store";
 import { Card } from "../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
-import { normalize } from "../../utils/normalize";
 import * as firebase from "firebase";
 import { MoreParamList } from "../../stacks/MoreStack";
 import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
@@ -99,10 +98,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
+    fontSize: 12,
     color: "#888"
   },
   icon: {

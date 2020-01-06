@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { normalize } from "../../../utils/normalize";
 import { useTheme } from "@react-navigation/native";
 import { colors } from "../../../theme/constants";
 
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(14),
+    fontSize: 14,
     fontWeight: "500"
   }
 });

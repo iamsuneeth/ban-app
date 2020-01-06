@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import { ISummary } from "bank-core/src/types";
 import { Amount } from "../../elements/amount/Amount";
-import { normalize } from "../../../utils/normalize";
+;
 import Animated from "react-native-reanimated";
 import { timing } from "react-native-redash";
 import { useTheme } from "@react-navigation/native";
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   label: {
-    fontSize: normalize(14),
+    fontSize: 14,
     textAlign: "center",
     textTransform: "capitalize"
   },

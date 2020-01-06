@@ -4,7 +4,6 @@ import { Card } from "../components/elements/card/Card";
 import BottomSheet from "reanimated-bottom-sheet";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { IAccount } from "bank-core/src/types";
-import { normalize } from "../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { Amount } from "../components/elements/amount/Amount";
@@ -20,11 +19,15 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
   const { accounts } = useDashboardState();
   const navigation = useNavigation();
   const { colors } = useTheme() as ThemeType;
+  const handlePress = () => {
+    sheetRef.current.snapTo(0);
+    return navigation.isFocused() ? true : false;
+  };
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      sheetRef.current.snapTo(0);
-      return navigation.isFocused() ? true : false;
-    });
+    BackHandler.addEventListener("hardwareBackPress", handlePress);
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handlePress);
+    };
   }, []);
   return (
     <ScrollView>
@@ -46,7 +49,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
       >
         <Text
           style={{
-            fontSize: normalize(25),
+            fontSize: 25,
             paddingHorizontal: 5,
             marginLeft: 20,
             color: colors.text,
@@ -116,6 +119,6 @@ const styles = StyleSheet.create({
   accountPrimary: {
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) }
+  main: { color: "#fff", fontSize: 16 },
+  secondary: { color: "#fff", fontSize: 12 }
 });

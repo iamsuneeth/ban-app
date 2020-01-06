@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { View, Text, Switch, Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
-import { normalize } from "../../utils/normalize";
 import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../App";
 
 export const Biometry = () => {
   const [biometryEnabled, setBiometryEnabled] = useState(false);
@@ -27,7 +27,7 @@ export const Biometry = () => {
       Alert.alert("Biomerty Disabled");
     }
   };
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   return initialized ? (
     <View style={{ flex: 1 }}>
       <View
@@ -38,11 +38,12 @@ export const Biometry = () => {
           margin: 10
         }}
       >
-        <Text style={{ fontSize: normalize(16), color: colors.text }}>
+        <Text style={{ fontSize: 16, color: colors.text }}>
           Enable biometry
         </Text>
         <Switch
           onValueChange={handleBiometry}
+          thumbColor={colors.textOnPrimary}
           value={biometryEnabled}
           trackColor={{
             false: colors.text,

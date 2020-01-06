@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { BorderlessButton, TextInput } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { IPayeeFilter, IPaymentState, IAccount } from "bank-core/src/types";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
@@ -69,7 +68,7 @@ export const MakePaymentHeader = ({
               <Text
                 style={{
                   color: colors.text,
-                  fontSize: normalize(16),
+                  fontSize: 16,
                   marginLeft: 5,
                   fontWeight: "700"
                 }}
@@ -134,7 +133,7 @@ export const MakePaymentHeader = ({
             <Text
               style={{
                 color: colors.text,
-                fontSize: normalize(14)
+                fontSize: 14
               }}
             >
               {paymentState.details.payee.name}
@@ -142,7 +141,7 @@ export const MakePaymentHeader = ({
             <Text
               style={{
                 color: colors.text,
-                fontSize: normalize(12)
+                fontSize: 12
               }}
             >
               {`${paymentState.details.payee.code} - ${paymentState.details.payee.accountNumber}`}

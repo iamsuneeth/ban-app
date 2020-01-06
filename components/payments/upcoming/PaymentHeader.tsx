@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { normalize } from "../../../utils/normalize";
+;
 
 dayjs.extend(advancedFormat);
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   sectionHeader: {
-    fontSize: normalize(15),
+    fontSize: 15,
     color: "gray",
     fontWeight: "500"
   }

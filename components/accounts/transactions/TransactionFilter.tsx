@@ -130,13 +130,8 @@ const FilterContent = ({
                 <RectButton
                   key={filter.key}
                   style={{
-                    borderColor: colors.primary,
                     margin: 5,
-                    borderWidth: 1,
-                    padding: 10,
-                    minWidth: 100,
-                    borderRadius: 3,
-                    ...(isSelected && { backgroundColor: colors.primary })
+                    minWidth: 100
                   }}
                   onPress={() =>
                     setState({
@@ -145,14 +140,25 @@ const FilterContent = ({
                     })
                   }
                 >
-                  <Text
-                    style={[
-                      { color: colors.primary, textAlign: "center" },
-                      isSelected && { color: "#fff" }
-                    ]}
+                  <View
+                    style={{
+                      borderColor: colors.primary,
+                      flex: 1,
+                      borderWidth: 1,
+                      padding: 10,
+                      borderRadius: 3,
+                      ...(isSelected && { backgroundColor: colors.primary })
+                    }}
                   >
-                    {filter.text}
-                  </Text>
+                    <Text
+                      style={[
+                        { color: colors.primary, textAlign: "center" },
+                        isSelected && { color: "#fff" }
+                      ]}
+                    >
+                      {filter.text}
+                    </Text>
+                  </View>
                 </RectButton>
               );
             })}
@@ -171,6 +177,7 @@ const FilterContent = ({
             <Switch
               value={state.txnTypes.length === 0}
               onValueChange={value => onTxnTypeSelected("all", value)}
+              thumbColor={colors.textOnPrimary}
               trackColor={{
                 false: colors.gray,
                 true: colors.primary
@@ -189,6 +196,7 @@ const FilterContent = ({
             >
               <Switch
                 value={state.txnTypes.includes(value)}
+                thumbColor={colors.textOnPrimary}
                 trackColor={{
                   false: colors.gray,
                   true: colors.primary
@@ -234,20 +242,26 @@ const FilterContent = ({
       </RectButton>
       <RectButton
         style={{
-          borderColor: colors.primary,
-          borderWidth: 1,
-          paddingHorizontal: 5,
-          paddingVertical: 10,
           flex: 1,
           margin: 10,
-          bottom: 10,
-          borderRadius: 3
+          bottom: 10
         }}
         onPress={handleClearFilter}
       >
-        <Text style={{ textAlign: "center", color: colors.primary }}>
-          Clear
-        </Text>
+        <View
+          style={{
+            flex: 1,
+            borderColor: colors.primary,
+            borderWidth: 1,
+            paddingHorizontal: 5,
+            paddingVertical: 10,
+            borderRadius: 3
+          }}
+        >
+          <Text style={{ textAlign: "center", color: colors.primary }}>
+            Clear
+          </Text>
+        </View>
       </RectButton>
     </View>
   </Card>

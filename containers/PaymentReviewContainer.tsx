@@ -23,14 +23,15 @@ export const PaymentReviewContainer = ({ navigation }: props) => {
   const { authState } = useAuthState();
   useEffect(() => {
     if (authState.authRequired) {
-      navigation.navigate("Modal", {
-        type: "auth"
+      navigation.navigate("AuthModal", {
+        type: "confirmation",
+        snapPoints: [0, 300]
       });
     }
   }, [authState.authRequired]);
   useEffect(() => {
     if (paymentState.completed) {
-      navigation.dispatch(CommonActions.replace("ConfirmScreen"));
+      navigation.navigate("ConfirmScreen");
     }
   }, [paymentState.completed]);
   return (

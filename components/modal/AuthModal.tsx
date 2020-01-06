@@ -17,7 +17,6 @@ import { RouteProp, useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
-import { normalize } from "../../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import * as firebase from "firebase/app";
@@ -26,8 +25,8 @@ import { useAuthState } from "bank-core";
 import { RectButton } from "react-native-gesture-handler";
 
 type ModalProps = {
-  navigation: StackNavigationProp<RootParamsList, "Modal">;
-  route: RouteProp<RootParamsList, "Modal">;
+  navigation: StackNavigationProp<RootParamsList, "AuthModal">;
+  route: RouteProp<RootParamsList, "AuthModal">;
 };
 
 const defaultSnapPoints = [0, "100%"];
@@ -44,15 +43,18 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
   const animationRef = useRef(new Animated.Value(1));
   const lottieRef = useRef<LottieView>();
   const [modalVisible, setModalVisible] = useState(false);
-  const { signOutSuccess } = useAuthState();
+  const { signOutSuccess, authSuccess, authFailure } = useAuthState();
   const opacity = animationRef.current.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 0]
   });
-  const type = route.params?.type ?? "confirmation";
+  const type = route.params?.type ?? "lock";
   const onClose = () => {
     // hack due to issue https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/136
     if (allowOnClose.current) {
+      if (type === "confirmation") {
+        authSuccess();
+      }
       navigation.goBack();
     }
   };
@@ -79,12 +81,16 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
             setModalVisible(false);
             lottieRef.current.play();
           } else {
-            sheetRef.current.snapTo(0);
+            if (type === "confirmation") {
+              authSuccess();
+            }
+            navigation.goBack();
           }
         } else {
-          //authFailure();
+          if (type === "confirmation") {
+            authFailure();
+          }
         }
-        //sheetRef.current.snapTo(0);
       } else {
         return;
       }
@@ -139,33 +145,35 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                 backgroundColor: colors.surface
               }}
             >
-              <View
-                style={{
-                  alignSelf: "flex-end"
-                }}
-              >
-                <RectButton
+              {type === "lock" && (
+                <View
                   style={{
-                    width: 200,
-                    height: 40,
-                    paddingRight: 10,
-                    justifyContent: "center"
+                    alignSelf: "flex-end"
                   }}
-                  onPress={signOut}
                 >
-                  <Text
+                  <RectButton
                     style={{
-                      color: colors.primary,
-                      fontWeight: "bold",
-                      textAlign: "right",
-                      fontSize: normalize(16),
-                      textTransform: "uppercase"
+                      width: 200,
+                      height: 40,
+                      paddingRight: 10,
+                      justifyContent: "center"
                     }}
+                    onPress={signOut}
                   >
-                    sign out
-                  </Text>
-                </RectButton>
-              </View>
+                    <Text
+                      style={{
+                        color: colors.primary,
+                        fontWeight: "bold",
+                        textAlign: "right",
+                        fontSize: 16,
+                        textTransform: "uppercase"
+                      }}
+                    >
+                      sign out
+                    </Text>
+                  </RectButton>
+                </View>
+              )}
               <View
                 style={{
                   flex: 1,
@@ -175,7 +183,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
               >
                 <Text
                   style={{
-                    fontSize: normalize(25),
+                    fontSize: 25,
                     fontWeight: "bold",
                     color: colors.text,
                     textAlign: "center",

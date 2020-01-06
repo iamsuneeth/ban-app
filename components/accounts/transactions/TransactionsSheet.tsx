@@ -10,7 +10,7 @@ import BottomSheet from "reanimated-bottom-sheet";
 import { Card } from "../../elements/card/Card";
 import { TxnItem } from "./TxnItem";
 import Animated from "react-native-reanimated";
-import { normalize } from "../../../utils/normalize";
+;
 import { ITransaction, IAccount } from "bank-core/src/types";
 import { TxnHeader } from "./TxnHeader";
 import Constants from "expo-constants";
@@ -141,6 +141,6 @@ const styles = StyleSheet.create({
   },
   txnListHeader: {
     paddingLeft: 10,
-    fontSize: normalize(20)
+    fontSize: 20
   }
 });

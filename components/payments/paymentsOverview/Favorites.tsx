@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   Alert
 } from "react-native";
-import { normalize } from "../../../utils/normalize";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { IFavoriteState } from "bank-core/src/types";
@@ -63,7 +62,9 @@ export const Favorites = ({ favorites, style }: Props) => {
   return (
     <>
       <View style={[{ marginVertical: 10 }, style]}>
-        <Text style={styles.sectionHeader}>Favorites</Text>
+        <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
+          Favorites
+        </Text>
         <View>
           {favoritePayments.map((favorite, index) => (
             <View key={favorite.id}>
@@ -77,7 +78,12 @@ export const Favorites = ({ favorites, style }: Props) => {
                       <Text style={[styles.header, { color: colors.text }]}>
                         {favorite.payeeName}
                       </Text>
-                      <Text style={styles.description}>
+                      <Text
+                        style={[
+                          styles.description,
+                          { color: colors.sectionHeader }
+                        ]}
+                      >
                         Account Number: {favorite.accountNumber}
                       </Text>
                       <Amount
@@ -89,7 +95,12 @@ export const Favorites = ({ favorites, style }: Props) => {
                         }}
                         currency={favorite.amount.currency}
                       />
-                      <Text style={styles.description}>
+                      <Text
+                        style={[
+                          styles.description,
+                          { color: colors.sectionHeader }
+                        ]}
+                      >
                         {favorite.paymentType}
                       </Text>
                     </View>
@@ -97,15 +108,14 @@ export const Favorites = ({ favorites, style }: Props) => {
                       style={{ justifyContent: "flex-end", paddingRight: 10 }}
                       onPress={() =>
                         navigation.navigate("Modal", {
-                          message: `Do you want to delete this favorite ?`,
-                          onSelection: value => Alert.alert("selected " + value)
+                          message: `Do you want to delete this favorite ?`
                         })
                       }
                     >
                       <Text
                         style={{
                           color: colors.primary,
-                          fontSize: normalize(14)
+                          fontSize: 14
                         }}
                       >
                         Delete
@@ -139,10 +149,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(14),
+    fontSize: 14,
     margin: 15,
-    fontWeight: "bold",
-    color: "#555"
+    fontWeight: "bold"
   },
   main: {
     justifyContent: "center",
@@ -154,11 +163,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
-    color: "#888"
+    fontSize: 12
   },
   icon: {
     paddingRight: 10

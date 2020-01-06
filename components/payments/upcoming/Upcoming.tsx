@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { normalize } from "../../../utils/normalize";
+;
 import { Card } from "../../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
@@ -46,7 +46,10 @@ export const Upcoming = ({
               <Text style={[styles.header, { color: colors.text }]}>
                 Future payments
               </Text>
-              <Text numberOfLines={2} style={styles.description}>
+              <Text
+                numberOfLines={2}
+                style={[styles.description, { color: colors.sectionHeader }]}
+              >
                 Manage future dated payments
               </Text>
             </View>
@@ -65,7 +68,10 @@ export const Upcoming = ({
                 <Text style={[styles.header, { color: colors.text }]}>
                   Standing instructions
                 </Text>
-                <Text numberOfLines={2} style={styles.description}>
+                <Text
+                  numberOfLines={2}
+                  style={[styles.description, { color: colors.sectionHeader }]}
+                >
                   Manage standing instructions
                 </Text>
               </View>
@@ -85,7 +91,10 @@ export const Upcoming = ({
                 <Text style={[styles.header, { color: colors.text }]}>
                   Direct debits
                 </Text>
-                <Text numberOfLines={2} style={styles.description}>
+                <Text
+                  numberOfLines={2}
+                  style={[styles.description, { color: colors.sectionHeader }]}
+                >
                   Manage direct debits
                 </Text>
               </View>
@@ -114,17 +123,17 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
+    fontSize: 12,
     color: "#888"
   },
   icon: {
     paddingRight: 10
   },
   sectionHeader: {
-    fontSize: normalize(20),
+    fontSize: 20,
     margin: 15,
     fontWeight: "bold",
     color: "#555"

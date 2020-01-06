@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { IPayeeFilter, IPayee } from "bank-core/src/types";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { AnimatedList } from "react-native-reanimated-list";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { ThemeType } from "../../../App";
 type props = {
   payees: IPayee[];
   loading: boolean;
@@ -20,7 +20,7 @@ type props = {
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 
 export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   const navigation = useNavigation<PayeeNavigationProps>();
   const renderItem = (item, index) => (
     <RectButton
@@ -81,7 +81,9 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
           justifyContent: "space-between"
         }}
       >
-        <Text style={styles.sectionHeader}>All payees</Text>
+        <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
+          All payees
+        </Text>
         <RectButton
           onPress={() => navigation.navigate("AddPayee")}
           style={[styles.actionButton]}
@@ -135,27 +137,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(14),
+    fontSize: 14,
     margin: 15,
-    fontWeight: "bold",
-    color: "#555"
+    fontWeight: "bold"
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   seperator: {
-    backgroundColor: "#eee",
     height: 1,
     width: "90%",
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
-    color: "#888"
+    fontSize: 12
   },
   icon: {
     paddingRight: 10
@@ -173,6 +172,6 @@ const styles = StyleSheet.create({
   actionButtontext: {
     textAlign: "center",
     marginLeft: 5,
-    fontSize: normalize(14)
+    fontSize: 14
   }
 });

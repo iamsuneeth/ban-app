@@ -68,7 +68,7 @@ export const LetterAvatar = ({
           height: size,
           borderRadius: size / 2,
           marginBottom: 10,
-          backgroundColor: colors.surface,
+          backgroundColor: colors.avatarBackground,
           justifyContent: "center",
           alignContent: "center"
         },

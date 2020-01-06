@@ -12,8 +12,6 @@ import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
 import { IAccount } from "bank-core/src/types";
-import { normalize } from "../../../utils/normalize";
-
 import Carousel from "react-native-snap-carousel";
 import { TransactionContainer } from "../../../containers/TransactionContainer";
 import { Ionicons } from "@expo/vector-icons";
@@ -39,7 +37,7 @@ const Account = ({ account, colors, dark, navigation }) => {
         {
           backgroundColor: colors.primaryDark
         },
-        dark && { shadowColor: "#121212" }
+        dark && { shadowColor: colors.shadowColor }
       ]}
     >
       <RectButton
@@ -53,11 +51,7 @@ const Account = ({ account, colors, dark, navigation }) => {
       >
         <View style={styles.accountPrimary}>
           <View style={{ position: "absolute", right: 0 }}>
-            <Ionicons
-              name="ios-arrow-dropright"
-              size={25}
-              color={colors.lightGray}
-            />
+            <Ionicons name="ios-arrow-dropright" size={25} color={"#fff"} />
           </View>
 
           <View>
@@ -116,7 +110,7 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
         >
           <Text
             style={{
-              fontSize: normalize(20),
+              fontSize: 20,
               fontWeight: "bold",
               color: colors.text
             }}
@@ -132,7 +126,7 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
           >
             <Text
               style={{
-                fontSize: normalize(14),
+                fontSize: 14,
                 color: colors.primary
               }}
             >
@@ -160,11 +154,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) },
-  highlight: { color: "#fff", fontSize: normalize(18) },
+  main: { color: "#fff", fontSize: 16 },
+  secondary: { color: "#fff", fontSize: 12 },
+  highlight: { color: "#fff", fontSize: 18 },
   sectionHeader: {
-    fontSize: normalize(20),
+    fontSize: 20,
     margin: 15,
     fontWeight: "bold",
     color: "#555"

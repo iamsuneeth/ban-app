@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { View, Text, KeyboardAvoidingView, Switch, Alert } from "react-native";
-import { normalize } from "../../../utils/normalize";
+;
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
 import dayjs from "dayjs";
@@ -126,7 +126,7 @@ export const AmountScreen = ({
             style={{
               color: colors.text,
               marginVertical: 10,
-              fontSize: normalize(16)
+              fontSize: 16
             }}
           >
             How often should this payment repeat?
@@ -150,7 +150,7 @@ export const AmountScreen = ({
                   <Ionicons name="md-time" size={25} color={colors.primary} />
                   <Text
                     style={{
-                      fontSize: normalize(16),
+                      fontSize: 16,
                       marginLeft: 10,
                       color: colors.text
                     }}
@@ -176,7 +176,7 @@ export const AmountScreen = ({
         <View style={{ marginHorizontal: 10 }}>
           <Text
             style={{
-              fontSize: normalize(14),
+              fontSize: 14,
               color: colors.text,
               fontWeight: "600",
               marginBottom: 10
@@ -191,7 +191,7 @@ export const AmountScreen = ({
                   style={{
                     color: colors.primary,
                     fontWeight: "bold",
-                    fontSize: normalize(18)
+                    fontSize: 18
                   }}
                 >
                   {paymentState.details.account.nickName}
@@ -224,7 +224,7 @@ export const AmountScreen = ({
                   style={{
                     marginLeft: 5,
                     color: colors.primary,
-                    fontSize: normalize(18)
+                    fontSize: 18
                   }}
                 >
                   Select account
@@ -270,7 +270,7 @@ export const AmountScreen = ({
               marginVertical: 10
             }}
           >
-            <Text style={{ fontSize: normalize(14), color: colors.text }}>
+            <Text style={{ fontSize: 14, color: colors.text }}>
               Schedule Payment
             </Text>
             <Switch
@@ -295,14 +295,14 @@ export const AmountScreen = ({
                     }}
                   >
                     <Text
-                      style={{ fontSize: normalize(14), color: colors.text }}
+                      style={{ fontSize: 14, color: colors.text }}
                     >
                       Payment date
                     </Text>
                     <Text
                       style={{
                         textTransform: "uppercase",
-                        fontSize: normalize(14),
+                        fontSize: 14,
                         color: colors.primary,
                         fontWeight: "500"
                       }}
@@ -326,14 +326,14 @@ export const AmountScreen = ({
                     marginVertical: 10
                   }}
                 >
-                  <Text style={{ fontSize: normalize(14), color: colors.text }}>
+                  <Text style={{ fontSize: 14, color: colors.text }}>
                     Repeat
                   </Text>
 
                   <Text
                     style={{
                       textTransform: "uppercase",
-                      fontSize: normalize(14),
+                      fontSize: 14,
                       color: colors.primary,
                       fontWeight: "500"
                     }}
@@ -354,14 +354,14 @@ export const AmountScreen = ({
                       }}
                     >
                       <Text
-                        style={{ fontSize: normalize(14), color: colors.text }}
+                        style={{ fontSize: 14, color: colors.text }}
                       >
                         Stop repeating
                       </Text>
                       <Text
                         style={{
                           textTransform: "uppercase",
-                          fontSize: normalize(14),
+                          fontSize: 14,
                           color: colors.primary,
                           fontWeight: "500"
                         }}
