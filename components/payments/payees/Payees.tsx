@@ -2,13 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { IPayeeFilter, IPayee } from "bank-core/src/types";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { AnimatedList } from "react-native-reanimated-list";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 type props = {
   payees: IPayee[];
   loading: boolean;
@@ -20,11 +21,11 @@ type props = {
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 
 export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   const navigation = useNavigation<PayeeNavigationProps>();
   const renderItem = (item, index) => (
     <RectButton
-      style={{ flex: 1, paddingHorizontal: 10 }}
+      style={{ flex: 1, paddingHorizontal: normalize(10) }}
       onPress={
         onPress
           ? () => onPress(item)
@@ -38,7 +39,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
         <View style={styles.icon}>
           {/* <SharedElement
         id={item.id}
-        style={{ width: 50, height: 50, borderRadius: 25 }}
+        style={{ width: normalize(50), height: normalize(50), borderRadius: 25 }}
       >
         <LetterAvatar text={item.name} size={50} />
       </SharedElement> */}
@@ -57,7 +58,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
           <View style={{ flexDirection: "row" }}>
             {/* <SharedElement
           id={`${item.id}code`}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: normalize(10) }}
         >
           <Text style={styles.description}>{item.code}</Text>
         </SharedElement> */}
@@ -81,7 +82,9 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
           justifyContent: "space-between"
         }}
       >
-        <Text style={styles.sectionHeader}>All payees</Text>
+        <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
+          All payees
+        </Text>
         <RectButton
           onPress={() => navigation.navigate("AddPayee")}
           style={[styles.actionButton]}
@@ -115,7 +118,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
             key={item.id}
             style={{
               flex: 1,
-              paddingVertical: 10
+              paddingVertical: normalize(10)
             }}
           >
             {renderItem(item, index)}
@@ -132,21 +135,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   sectionHeader: {
     fontSize: normalize(14),
-    margin: 15,
-    fontWeight: "bold",
-    color: "#555"
+    margin: normalize(15),
+    fontWeight: "bold"
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   seperator: {
-    backgroundColor: "#eee",
-    height: 1,
+    height: normalize(1),
     width: "90%",
     alignSelf: "center"
   },
@@ -154,16 +155,15 @@ const styles = StyleSheet.create({
     fontSize: normalize(16)
   },
   description: {
-    fontSize: normalize(12),
-    color: "#888"
+    fontSize: normalize(12)
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   actionButton: {
-    paddingVertical: 5,
-    margin: 5,
-    paddingHorizontal: 10,
+    paddingVertical: normalize(5),
+    margin: normalize(5),
+    paddingHorizontal: normalize(10),
     minHeight: 40,
     flexDirection: "row",
     alignItems: "center",
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   actionButtontext: {
     textAlign: "center",
-    marginLeft: 5,
+    marginLeft: normalize(5),
     fontSize: normalize(14)
   }
 });

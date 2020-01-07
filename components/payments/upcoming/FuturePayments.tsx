@@ -2,6 +2,7 @@ import React from "react";
 import { View, TextInput, SectionList } from "react-native";
 import { PaymentItem } from "./PaymentItem";
 import { PaymentHeader } from "./PaymentHeader";
+import { normalize } from "../../../utils/normalize";
 
 export const FuturePayments = () => {
   let payments = [];
@@ -26,11 +27,11 @@ export const FuturePayments = () => {
           autoCorrect={false}
           style={{
             borderColor: "#ccc",
-            borderWidth: 1,
-            height: 40,
+            borderWidth: normalize(1),
+            height: normalize(40),
             borderRadius: 3,
-            paddingHorizontal: 10,
-            margin: 10
+            paddingHorizontal: normalize(10),
+            margin: normalize(10)
           }}
         />
         <SectionList

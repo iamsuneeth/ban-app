@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   Text,
   View,
-  TextInput,
   KeyboardAvoidingView,
   SafeAreaView,
   ActivityIndicator,
   Keyboard,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 import Constants from "expo-constants";
 import { WebView } from "react-native-webview";
@@ -17,11 +17,14 @@ import * as SecureStore from "expo-secure-store";
 import { User } from "firebase";
 import { useLoginAnimation } from "../../../hooks/animation/useLoginAnimation";
 import Animated from "react-native-reanimated";
-import { normalize } from "../../../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
+import { Button } from "../../elements/button/Button";
+import { TextInput } from "../../elements/textInput/TextInput";
+import LottieView from "lottie-react-native";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
@@ -43,6 +46,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
   const [initialized, setInitialized] = useState(false);
   const [smsCode, setSmsCode] = useState();
   const [verificationId, setVerificationId] = useState();
+  const lottieRef = useRef<LottieView>();
   const setAuthenticationState = () => {
     onSuccess(firebase.auth().currentUser);
   };
@@ -66,9 +70,14 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
           "userId",
           firebase.auth().currentUser.phoneNumber
         );
-        stopAnimation();
+        lottieRef.current.play();
       }
     }
+  };
+
+  const onAnimationEnd = () => {
+    setAuthState("completed");
+    stopAnimation();
   };
 
   const fetchStoredUserId = async () => {
@@ -112,14 +121,13 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
     );
     try {
       await firebase.auth().signInWithCredential(credential);
-      setAuthState("completed");
     } catch (e) {
       setAuthState("notStarted");
       setError("Invalid verification code");
       reverseAnimation();
     }
   };
-  const { colors } = useTheme() as ThemeType;
+  const { colors, dark } = useTheme() as ThemeType;
   return (
     <>
       {initialized && (
@@ -127,83 +135,9 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
           style={{
             marginTop: Constants.statusBarHeight,
             justifyContent: "flex-end",
-            flex: 1,
-            paddingVertical: 100
+            flex: 1
           }}
         >
-          <View
-            style={{
-              position: "absolute",
-              top: "10%",
-              alignSelf: "center",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            <Ionicons name="ios-unlock" size={200} color={colors.primary} />
-            <Text
-              style={{
-                fontSize: normalize(30),
-                marginLeft: 10,
-                fontWeight: "bold",
-                color: colors.text
-              }}
-            >
-              BitBank
-            </Text>
-          </View>
-          {step === "initial" && (
-            <KeyboardAvoidingView
-              behavior="padding"
-              enabled
-              style={{
-                paddingHorizontal: 10,
-                marginBottom: 50,
-                alignItems: "center"
-              }}
-              keyboardVerticalOffset={50}
-            >
-              <TextInput
-                placeholder="Phone Number"
-                value={phoneNumber}
-                onChangeText={phone => setPhoneNumber(phone)}
-                style={{
-                  padding: 5,
-                  height: 40,
-                  borderBottomWidth: 1,
-                  borderColor: colors.primary,
-                  color: colors.text,
-                  marginBottom: 20,
-                  width: buttonWidth,
-                  fontSize: normalize(16)
-                }}
-                placeholderTextColor={colors.text}
-              />
-
-              <RectButton
-                onPress={() => setStep("phoneSubmitted")}
-                style={{
-                  backgroundColor: colors.primary,
-                  padding: 10,
-                  height: 40,
-                  width: buttonWidth,
-                  justifyContent: "center",
-                  borderRadius: 3
-                }}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "#fff",
-                    fontSize: normalize(16)
-                  }}
-                >
-                  CONTINUE
-                </Text>
-              </RectButton>
-            </KeyboardAvoidingView>
-          )}
-
           {step === "phoneSubmitted" && (
             <WebView
               injectedJavaScript={webViewScript(phoneNumber)}
@@ -212,113 +146,174 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
               style={{ backgroundColor: "transparent" }}
             />
           )}
-
-          {step === "promptSmsCode" && (
+          {step !== "phoneSubmitted" && (
             <KeyboardAvoidingView
-              behavior="padding"
+              behavior="position"
               enabled
               style={{
-                paddingHorizontal: 10,
-                marginBottom: 50,
+                paddingHorizontal: normalize(10),
+                marginBottom: normalize(50),
+                flex: 1,
                 alignItems: "center"
               }}
               keyboardVerticalOffset={50}
             >
-              {!!error && (
-                <View
-                  style={{
-                    backgroundColor: "red",
-                    padding: 5,
-                    marginBottom: 10
-                  }}
-                >
-                  <Text style={{ color: colors.text }}>{error}</Text>
-                </View>
-              )}
-              <Text style={{ color: colors.text, fontSize: normalize(16) }}>
-                We have sent you a verification code.
-              </Text>
-              <Text style={{ color: colors.text, fontSize: normalize(16) }}>
-                Please enter it below.
-              </Text>
-              <TextInput
-                placeholder="Verification code"
-                value={smsCode}
-                onChangeText={sms => setSmsCode(sms)}
-                keyboardType="numeric"
-                secureTextEntry
+              <View
                 style={{
-                  marginTop: 10,
-                  padding: 5,
-                  height: 40,
-                  borderBottomWidth: 1,
-                  borderColor: colors.primary,
-                  color: colors.text,
-                  marginBottom: 20,
-                  width: buttonWidth,
-                  fontSize: normalize(16)
-                }}
-                placeholderTextColor={colors.text}
-              />
-              <Animated.View
-                style={{
-                  width: widthAnimation,
-                  borderRadius: borderRadiusAnimation,
-                  backgroundColor: !!smsCode ? colors.primary : colors.text,
-                  height: 40,
-                  justifyContent: "center",
-                  transform: [
-                    {
-                      scale: scaleAnimation as any
-                    }
-                  ]
+                  flex: 1,
+                  maxWidth: "95%",
+                  alignItems: "center",
+                  justifyContent: "center"
                 }}
               >
-                <RectButton
-                  onPress={onSignIn}
-                  style={{ flex: 1, padding: 10 }}
-                  enabled={!!smsCode}
+                {dark && (
+                  <LottieView
+                    ref={lottieRef}
+                    loop={false}
+                    resizeMode="cover"
+                    onAnimationFinish={() => onAnimationEnd()}
+                    style={{ width: normalize(300) }}
+                    source={require("../../../assets/logo_dark.json")}
+                  />
+                )}
+                {!dark && (
+                  <LottieView
+                    ref={lottieRef}
+                    loop={false}
+                    speed={1.5}
+                    resizeMode="cover"
+                    onAnimationFinish={() => onAnimationEnd()}
+                    style={{ width: normalize(300) }}
+                    source={require("../../../assets/logo_light.json")}
+                  />
+                )}
+                <Text
+                  style={{
+                    fontSize: normalize(30),
+                    marginLeft: normalize(10),
+                    fontWeight: "bold",
+                    color: colors.text
+                  }}
                 >
-                  {authState === "notStarted" && (
-                    <Text
+                  BitBank
+                </Text>
+              </View>
+              {step === "initial" && (
+                <>
+                  <TextInput
+                    label="Phone Number"
+                    value={phoneNumber}
+                    onChangeText={phone => setPhoneNumber(phone)}
+                    style={{
+                      width: buttonWidth,
+                      alignSelf: "center"
+                    }}
+                  />
+
+                  <Button
+                    primary
+                    onPress={() => setStep("phoneSubmitted")}
+                    disabled={!phoneNumber}
+                    style={{ width: buttonWidth, alignSelf: "center" }}
+                  >
+                    CONTINUE
+                  </Button>
+                </>
+              )}
+
+              {step === "promptSmsCode" && (
+                <>
+                  {!!error && (
+                    <View
                       style={{
-                        textAlign: "center",
-                        color: "#fff",
-                        fontSize: normalize(16)
+                        backgroundColor: "red",
+                        padding: normalize(5),
+                        marginBottom: normalize(10)
                       }}
                     >
-                      VERIFY
-                    </Text>
+                      <Text style={{ color: colors.text }}>{error}</Text>
+                    </View>
                   )}
-                  {authState === "inProgress" && (
-                    <ActivityIndicator color={"#fff"} />
-                  )}
-                </RectButton>
-              </Animated.View>
-              {authState === "notStarted" && (
-                <RectButton
-                  style={{
-                    marginTop: 10,
-                    height: 40,
-                    justifyContent: "center",
-                    width: buttonWidth,
-                    backgroundColor: colors.text
-                  }}
-                  onPress={() => {
-                    setStep("initial");
-                    setSmsCode(null);
-                  }}
-                >
                   <Text
                     style={{
-                      textAlign: "center",
-                      color: "#fff",
-                      fontSize: normalize(16)
+                      color: colors.text,
+                      marginTop: normalize(40),
+                      fontSize: normalize(16),
+                      textAlign: "center"
                     }}
                   >
-                    CANCEL
+                    We have sent you a verification code.
                   </Text>
-                </RectButton>
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: normalize(16),
+                      textAlign: "center"
+                    }}
+                  >
+                    Please enter it below.
+                  </Text>
+                  <TextInput
+                    label="Verification code"
+                    value={smsCode}
+                    onChangeText={sms => setSmsCode(sms)}
+                    keyboardType="numeric"
+                    secureTextEntry
+                    style={{
+                      width: buttonWidth,
+                      alignSelf: "center"
+                    }}
+                  />
+                  <Animated.View
+                    style={{
+                      width: widthAnimation,
+                      borderRadius: borderRadiusAnimation,
+                      backgroundColor: colors.primary,
+                      opacity: !!smsCode ? 1 : 0.6,
+                      height: normalize(40),
+                      justifyContent: "center",
+                      alignSelf: "center",
+                      transform: [
+                        {
+                          scale: scaleAnimation as any
+                        }
+                      ]
+                    }}
+                  >
+                    <RectButton
+                      onPress={onSignIn}
+                      style={{ flex: 1, padding: normalize(10) }}
+                      enabled={!!smsCode}
+                    >
+                      {authState === "notStarted" && (
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "#fff",
+                            fontSize: normalize(16)
+                          }}
+                        >
+                          VERIFY
+                        </Text>
+                      )}
+                      {authState === "inProgress" && (
+                        <ActivityIndicator color={"#fff"} />
+                      )}
+                    </RectButton>
+                  </Animated.View>
+                  {authState === "notStarted" && (
+                    <Button
+                      secondary
+                      onPress={() => {
+                        setStep("initial");
+                        setSmsCode(null);
+                      }}
+                      style={{ width: buttonWidth, alignSelf: "center" }}
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                </>
               )}
             </KeyboardAvoidingView>
           )}

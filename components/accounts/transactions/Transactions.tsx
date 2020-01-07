@@ -21,6 +21,7 @@ import {
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../../../utils/normalize";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
@@ -127,7 +128,7 @@ export const Transaction = memo(
             style={{
               alignItems: "center",
               backgroundColor: colors.primary,
-              paddingVertical: 5
+              paddingVertical: normalize(5)
             }}
           >
             <Text style={{ color: "#fff" }}>
@@ -184,10 +185,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   txnList: {
-    marginTop: 10
+    marginTop: normalize(10)
   },
   txnListHeader: {
-    paddingLeft: 10,
-    fontSize: 20
+    paddingLeft: normalize(10),
+    fontSize: normalize(20)
   }
 });

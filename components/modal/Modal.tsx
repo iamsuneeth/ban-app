@@ -5,11 +5,11 @@ import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import { confirmation } from "./confirmation";
 import { AccountSelection } from "../../containers/AccountSelection";
-import MFAContainer from "../../containers/MFAContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootParamsList } from "../../stacks/RootStack";
 import { RouteProp, useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
+import { normalize } from "../../utils/normalize";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "Modal">;
@@ -89,8 +89,8 @@ export const Modal = ({ navigation, route }: ModalProps) => {
             <Card
               style={{
                 shadowOpacity: 0,
-                marginHorizontal: 0,
-                paddingBottom: 40,
+                marginHorizontal: normalize(0),
+                paddingBottom: normalize(40),
                 height: "100%",
                 backgroundColor: colors.surface,
                 ...extraStyles

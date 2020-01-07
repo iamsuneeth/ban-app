@@ -2,17 +2,18 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 type TxnItemProps = {
   data: ITransaction;
   index: number;
 };
 
 export const TxnItem = ({ data, index }: TxnItemProps) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   return (
     <View>
       <RectButton>
@@ -27,7 +28,7 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
             {data.description && (
               <Text
                 numberOfLines={2}
-                style={[styles.description, { color: colors.text }]}
+                style={[styles.description, { color: colors.textSecondary }]}
               >
                 {data.description}
               </Text>
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10,
-    marginVertical: 5
+    paddingHorizontal: normalize(10),
+    marginVertical: normalize(5)
   },
   main: {
     justifyContent: "center"
@@ -66,12 +67,12 @@ const styles = StyleSheet.create({
     fontSize: normalize(12)
   },
   icon: {
-    padding: 5,
-    marginRight: 5,
+    padding: normalize(5),
+    marginRight: normalize(5),
     alignItems: "center",
     justifyContent: "center",
-    width: 50,
-    height: 50
+    width: normalize(50),
+    height: normalize(50)
   },
   amount: {
     fontWeight: "400",

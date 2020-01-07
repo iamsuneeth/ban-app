@@ -8,12 +8,13 @@ import {
 } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
-import { normalize } from "../../../utils/normalize";
 import { IPayee } from "bank-core/typescript/types";
 import { useNavigation } from "@react-navigation/native/";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 
@@ -24,10 +25,12 @@ type props = {
 };
 export const RecentPayees = ({ payees, loading, onPress }: props) => {
   const navigation = useNavigation<PayeeNavigationProps>();
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   return (
     <View>
-      <Text style={styles.sectionHeader}>Recent</Text>
+      <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
+        Recent
+      </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {payees.map((elem, index) => (
           <BorderlessButton
@@ -35,8 +38,8 @@ export const RecentPayees = ({ payees, loading, onPress }: props) => {
             style={{
               justifyContent: "flex-start",
               alignItems: "center",
-              margin: 5,
-              width: 80
+              margin: normalize(5),
+              width: normalize(80)
             }}
             onPress={
               onPress
@@ -65,8 +68,7 @@ export const RecentPayees = ({ payees, loading, onPress }: props) => {
 const styles = StyleSheet.create({
   sectionHeader: {
     fontSize: normalize(14),
-    margin: 15,
-    fontWeight: "bold",
-    color: "#555"
+    margin: normalize(15),
+    fontWeight: "bold"
   }
 });

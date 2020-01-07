@@ -4,12 +4,12 @@ import { AccountDetailsContainer } from "../containers/AccountDetailsContainer";
 import { HomeContainer } from "../containers/HomeContainer";
 import { TransactionContainer } from "../containers/TransactionContainer";
 import { View, Text } from "react-native";
-import { normalize } from "../utils/normalize";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TransactionSearchContainer } from "../containers/TransactionSearchContainer";
 import { IAccount } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../utils/normalize";
 
 export type HomeParamList = {
   Accounts: undefined;
@@ -38,7 +38,7 @@ export const HomeStack = () => {
               <Text
                 style={{
                   fontSize: normalize(30),
-                  marginLeft: 10,
+                  marginLeft: normalize(10),
                   color: colors.text,
                   fontWeight: "bold"
                 }}
@@ -53,24 +53,24 @@ export const HomeStack = () => {
                 name="bell-o"
                 size={23}
                 color={colors.text}
-                style={{ paddingRight: 10 }}
+                style={{ paddingRight: normalize(10) }}
               />
               <MaterialIcons
                 name="settings"
                 size={25}
                 color={colors.text}
-                style={{ paddingRight: 10 }}
+                style={{ paddingRight: normalize(10) }}
               />
               <FontAwesome
                 name="user-circle"
                 size={25}
                 color={colors.text}
-                style={{ paddingRight: 10 }}
+                style={{ paddingRight: normalize(10) }}
               />
             </View>
           ),
           headerStyle: {
-            borderBottomWidth: 0
+            borderBottomWidth: normalize(0)
           }
         }}
       />
@@ -95,10 +95,8 @@ export const HomeStack = () => {
             display: "none"
           },
           headerTitleContainerStyle: {
-            right: 0,
-            paddingRight: 5
-          },
-          headerRight: null
+            width: "80%"
+          }
         })}
       />
     </Stack.Navigator>

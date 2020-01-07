@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 import { Amount } from "../../elements/amount/Amount";
+import { normalize } from "../../../utils/normalize";
 type PaymentItemProps = {
   data: any;
   index: number;
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   main: {
     justifyContent: "center"
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     color: "#888"
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   amount: {
     fontWeight: "400",

@@ -5,7 +5,8 @@ import LottieView from "lottie-react-native";
 import {
   useTheme,
   CompositeNavigationProp,
-  useFocusEffect
+  useFocusEffect,
+  CommonActions
 } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -13,7 +14,6 @@ import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { normalize } from "../../../utils/normalize";
-
 type props = {
   navigation: CompositeNavigationProp<
     StackNavigationProp<PaymentParamList, "ConfirmScreen">,
@@ -48,7 +48,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
       <Text
         style={{
           fontSize: normalize(20),
-          marginTop: 10,
+          marginTop: normalize(10),
           color: colors.text,
           fontWeight: "bold",
           alignSelf: "center"
@@ -72,7 +72,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
         <Text
           style={{
             fontSize: normalize(14),
-            marginRight: 5,
+            marginRight: normalize(5),
             color: colors.text
           }}
         >
@@ -92,16 +92,27 @@ export const ConfirmScreen = ({ navigation }: props) => {
       <View
         style={{
           flex: 1,
-          marginTop: 20,
-          marginHorizontal: 10,
+          marginTop: normalize(20),
+          marginHorizontal: normalize(10),
           alignItems: "center",
           justifyContent: "flex-end",
-          marginBottom: 20
+          marginBottom: normalize(20)
         }}
       >
         <RectButton
-          style={{ width: "80%", height: 40, marginVertical: 5 }}
-          onPress={() => navigation.popToTop()}
+          style={{
+            width: "80%",
+            height: normalize(40),
+            marginVertical: normalize(5)
+          }}
+          onPress={() =>
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 4,
+                routes: [{ name: "PaymentsOverview" }]
+              })
+            )
+          }
         >
           <View
             style={{
@@ -125,13 +136,28 @@ export const ConfirmScreen = ({ navigation }: props) => {
           </View>
         </RectButton>
         <RectButton
-          style={{ width: "80%", height: 40, marginVertical: 5 }}
-          onPress={() => navigation.replace("PayeeSelectionScreen", {})}
+          style={{
+            width: "80%",
+            height: normalize(40),
+            marginVertical: normalize(5)
+          }}
+          onPress={() =>
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 2,
+                routes: [
+                  { name: "Accounts" },
+                  { name: "PaymentsOverview" },
+                  { name: "PayeeSelectionScreen" }
+                ]
+              })
+            )
+          }
         >
           <View
             style={{
               borderColor: colors.primary,
-              borderWidth: 1,
+              borderWidth: normalize(1),
               borderRadius: 3,
               flex: 1,
               justifyContent: "center"

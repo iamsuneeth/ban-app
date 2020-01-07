@@ -10,13 +10,13 @@ import BottomSheet from "reanimated-bottom-sheet";
 import { Card } from "../../elements/card/Card";
 import { TxnItem } from "./TxnItem";
 import Animated from "react-native-reanimated";
-import { normalize } from "../../../utils/normalize";
 import { ITransaction, IAccount } from "bank-core/src/types";
 import { TxnHeader } from "./TxnHeader";
 import Constants from "expo-constants";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { getTabBarHeight } from "../../common/TabBar";
 import { RectButton } from "react-native-gesture-handler";
+import { normalize } from "../../../utils/normalize";
 
 const renderContent = (
   sections: {
@@ -31,14 +31,14 @@ const renderContent = (
     <View
       style={{
         backgroundColor: "#fff",
-        height: 30,
+        height: normalize(30),
         justifyContent: "center"
       }}
     >
       <View
         style={{
-          width: 50,
-          height: 5,
+          width: normalize(50),
+          height: normalize(5),
           backgroundColor: "#ccc",
           borderRadius: 50,
           alignSelf: "center"
@@ -54,10 +54,10 @@ const renderContent = (
     <RectButton
       style={{
         borderColor: "#039be5",
-        marginVertical: 10,
-        borderWidth: 1,
-        width: 150,
-        height: 40,
+        marginVertical: normalize(10),
+        borderWidth: normalize(1),
+        width: normalize(150),
+        height: normalize(40),
         alignSelf: "center",
         justifyContent: "center",
         borderRadius: 3
@@ -68,7 +68,7 @@ const renderContent = (
           textAlign: "center",
           textAlignVertical: "center",
           color: "#039be5",
-          fontSize: 16
+          fontSize: normalize(16)
         }}
       >
         More transactions
@@ -130,17 +130,17 @@ export const TransactionSheet = memo(
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 0,
-    paddingHorizontal: 0,
+    marginHorizontal: normalize(0),
+    paddingHorizontal: normalize(0),
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     height: "99%"
   },
   txnList: {
-    marginTop: 10
+    marginTop: normalize(10)
   },
   txnListHeader: {
-    paddingLeft: 10,
+    paddingLeft: normalize(10),
     fontSize: normalize(20)
   }
 });

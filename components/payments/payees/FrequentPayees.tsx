@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
-import { normalize } from "../../../utils/normalize";
 import { IPayee } from "bank-core/typescript/types";
 import { useNavigation } from "@react-navigation/native/";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
+import { normalize } from "../../../utils/normalize";
 
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 
@@ -33,8 +33,8 @@ export const FrequentPayees = ({ payees, loading, onPress }: props) => {
             style={{
               justifyContent: "flex-start",
               alignItems: "center",
-              margin: 10,
-              width: 80
+              margin: normalize(10),
+              width: normalize(80)
             }}
             onPress={
               onPress
@@ -60,7 +60,7 @@ export const FrequentPayees = ({ payees, loading, onPress }: props) => {
 const styles = StyleSheet.create({
   sectionHeader: {
     fontSize: normalize(14),
-    margin: 15,
+    margin: normalize(15),
     fontWeight: "bold",
     color: "#555"
   }

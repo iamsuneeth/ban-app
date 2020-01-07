@@ -4,7 +4,6 @@ import * as SecureStore from "expo-secure-store";
 import { Card } from "../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
-import { normalize } from "../../utils/normalize";
 import * as firebase from "firebase";
 import { MoreParamList } from "../../stacks/MoreStack";
 import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
@@ -13,6 +12,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../tabs/BottomTabBar";
 import { useAuthState } from "bank-core";
 import { ThemeType } from "../../App";
+import { normalize } from "../../utils/normalize";
 
 type OptionsProps = {
   navigation: CompositeNavigationProp<
@@ -33,8 +33,8 @@ export const Options = ({ navigation }: OptionsProps) => {
     <View style={styles.container}>
       <Card
         style={{
-          marginTop: 0,
-          marginHorizontal: 0,
+          marginTop: normalize(0),
+          marginHorizontal: normalize(0),
           shadowOpacity: 0.2,
           borderTopRightRadius: 0,
           borderTopLeftRadius: 0,
@@ -62,8 +62,11 @@ export const Options = ({ navigation }: OptionsProps) => {
           </View>
         </RectButton>
       </Card>
-      <View style={{ alignItems: "center", marginBottom: 40 }}>
-        <RectButton style={{ height: 40, width: 200 }} onPress={signOut}>
+      <View style={{ alignItems: "center", marginBottom: normalize(40) }}>
+        <RectButton
+          style={{ height: normalize(40), width: normalize(200) }}
+          onPress={signOut}
+        >
           <View
             style={{
               flex: 1,
@@ -73,7 +76,9 @@ export const Options = ({ navigation }: OptionsProps) => {
               borderRadius: 5
             }}
           >
-            <Text style={{ fontSize: 14, color: "#fff" }}>Sign out</Text>
+            <Text style={{ fontSize: normalize(14), color: "#fff" }}>
+              Sign out
+            </Text>
           </View>
         </RectButton>
       </View>
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   main: {
     justifyContent: "center",
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
   },
   seperator: {
     backgroundColor: "#eee",
-    height: 1,
+    height: normalize(1),
     width: "90%",
     alignSelf: "center"
   },
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
     color: "#888"
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   container: {
     flex: 1,

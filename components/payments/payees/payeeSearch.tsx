@@ -8,6 +8,7 @@ import {
   TextInput,
   StyleSheet
 } from "react-native";
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   handleSearch: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -24,7 +25,7 @@ export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
         autoCorrect={false}
         autoFocus
         style={{
-          padding: 10,
+          padding: normalize(10),
           flex: 1
         }}
         value={searchString}

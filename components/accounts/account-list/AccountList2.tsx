@@ -12,14 +12,13 @@ import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { Amount } from "../../elements/amount/Amount";
 import { Card } from "../../elements/card/Card";
 import { IAccount } from "bank-core/src/types";
-import { normalize } from "../../../utils/normalize";
-
 import Carousel from "react-native-snap-carousel";
 import { TransactionContainer } from "../../../containers/TransactionContainer";
 import { Ionicons } from "@expo/vector-icons";
 import { HomeParamList } from "../../../stacks/HomeStack";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTheme, useNavigation } from "@react-navigation/native";
+import { normalize } from "../../../utils/normalize";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
@@ -39,7 +38,7 @@ const Account = ({ account, colors, dark, navigation }) => {
         {
           backgroundColor: colors.primaryDark
         },
-        dark && { shadowColor: "#121212" }
+        dark && { shadowColor: colors.shadowColor }
       ]}
     >
       <RectButton
@@ -49,15 +48,11 @@ const Account = ({ account, colors, dark, navigation }) => {
           })
         }
         testID="accountClick"
-        style={{ flex: 1, padding: 10 }}
+        style={{ flex: 1, padding: normalize(10) }}
       >
         <View style={styles.accountPrimary}>
-          <View style={{ position: "absolute", right: 0 }}>
-            <Ionicons
-              name="ios-arrow-dropright"
-              size={25}
-              color={colors.lightGray}
-            />
+          <View style={{ position: "absolute", right: normalize(0) }}>
+            <Ionicons name="ios-arrow-dropright" size={25} color={"#fff"} />
           </View>
 
           <View>
@@ -104,12 +99,18 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
           )}
         />
       </View>
-      <View style={{ paddingTop: 10, paddingHorizontal: 10, flex: 1 }}>
+      <View
+        style={{
+          paddingTop: normalize(10),
+          paddingHorizontal: normalize(10),
+          flex: 1
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
-            paddingHorizontal: 10,
-            marginBottom: 10,
+            paddingHorizontal: normalize(10),
+            marginBottom: normalize(10),
             justifyContent: "space-between",
             alignItems: "center"
           }}
@@ -150,10 +151,10 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
 const styles = StyleSheet.create({
   account: {
     maxHeight: screenHeight * 0.2,
-    marginVertical: 10
+    marginVertical: normalize(10)
   },
   accountCard: {
-    padding: 0,
+    padding: normalize(0),
     flex: 1
   },
   accountPrimary: {
@@ -165,14 +166,14 @@ const styles = StyleSheet.create({
   highlight: { color: "#fff", fontSize: normalize(18) },
   sectionHeader: {
     fontSize: normalize(20),
-    margin: 15,
+    margin: normalize(15),
     fontWeight: "bold",
     color: "#555"
   },
   seperator: {
     backgroundColor: "#f5f5f5",
-    height: 1,
-    marginHorizontal: 10
+    height: normalize(1),
+    marginHorizontal: normalize(10)
   },
   section: {}
 });

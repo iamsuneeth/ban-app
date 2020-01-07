@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { IPayee } from "bank-core/src/types";
-import { normalize } from "../../../utils/normalize";
 import { Card } from "../../elements/card/Card";
 import { useTheme, RouteProp } from "@react-navigation/native";
 import {
@@ -16,6 +15,7 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 
 export const PayeeDetails = ({
   navigation,
@@ -37,12 +37,12 @@ export const PayeeDetails = ({
       {/* <SharedElement
         id={payee.id}
         style={{
-          width: 100,
-          height: 100,
+          width: normalize(100),
+          height: normalize(100),
           elevation: 3,
           zIndex: 3,
-          top: 10,
-          left: 20,
+          top: normalize(10),
+          left: normalize(20),
           position: "absolute"
         }}
       >
@@ -50,12 +50,12 @@ export const PayeeDetails = ({
       </SharedElement> */}
       <View
         style={{
-          width: 100,
-          height: 100,
+          width: normalize(100),
+          height: normalize(100),
           elevation: 3,
           zIndex: 3,
-          top: 10,
-          left: 20,
+          top: normalize(10),
+          left: normalize(20),
           position: "absolute"
         }}
       >
@@ -63,27 +63,27 @@ export const PayeeDetails = ({
       </View>
       <Card
         style={{
-          marginTop: 50,
-          marginHorizontal: 0,
+          marginTop: normalize(50),
+          marginHorizontal: normalize(0),
           backgroundColor: colors.surface,
           shadowColor: colors.shadowColor
         }}
       >
-        <View style={{ margin: 5 }}>
+        <View style={{ margin: normalize(5) }}>
           {/* <SharedElement
             id={`${payee.id}payeeName`}
-            style={{ alignSelf: "flex-end", width: 250 }}
+            style={{ alignSelf: "flex-end", width: normalize(250) }}
           >
             <Text style={[styles.header, { color: colors.gray }]}>
               {payee.name}
             </Text>
           </SharedElement> */}
-          <View style={{ alignSelf: "flex-end", width: 250 }}>
+          <View style={{ alignSelf: "flex-end", width: normalize(250) }}>
             <Text style={[styles.header, { color: colors.text }]}>
               {payee.name}
             </Text>
           </View>
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: normalize(20) }}>
             <View style={styles.section}>
               <Text style={[styles.label, { color: colors.text }]}>
                 Account number
@@ -114,7 +114,11 @@ export const PayeeDetails = ({
               <View style={{ flexDirection: "row" }}>
                 <Image
                   source={{ uri: payee.bankLogo }}
-                  style={{ width: 20, height: 20, marginRight: 5 }}
+                  style={{
+                    width: normalize(20),
+                    height: normalize(20),
+                    marginRight: normalize(5)
+                  }}
                 />
                 <Text style={[styles.value, { color: colors.text }]}>
                   {payee.bankName}
@@ -152,7 +156,7 @@ export const PayeeDetails = ({
             <View
               style={[
                 styles.actionButton,
-                { borderColor: colors.primary, borderWidth: 1 }
+                { borderColor: colors.primary, borderWidth: normalize(1) }
               ]}
             >
               <Text
@@ -164,7 +168,7 @@ export const PayeeDetails = ({
           </RectButton>
           <RectButton
             onPress={() =>
-              navigation.navigate("modal", {
+              navigation.navigate("Modal", {
                 message: `Do you want to delete ${payee.name}! ?`
               })
             }
@@ -172,7 +176,7 @@ export const PayeeDetails = ({
             <View
               style={[
                 styles.actionButton,
-                { borderColor: colors.primary, borderWidth: 1 }
+                { borderColor: colors.primary, borderWidth: normalize(1) }
               ]}
             >
               <Text
@@ -188,14 +192,18 @@ export const PayeeDetails = ({
         <TouchableWithoutFeedback
           onPress={openClearbit}
           style={{
-            paddingTop: 5,
+            paddingTop: normalize(5),
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-end"
           }}
         >
           <Image
-            style={{ width: 14, height: 14, marginRight: 5 }}
+            style={{
+              width: normalize(14),
+              height: normalize(14),
+              marginRight: normalize(5)
+            }}
             source={{ uri: "https://logo.clearbit.com/clearbit.com" }}
           />
           <Text style={{ fontSize: normalize(14), color: colors.text }}>
@@ -236,14 +244,14 @@ export const PayeeDetails = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10
+    padding: normalize(10)
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   header: {
     fontSize: normalize(25),
@@ -259,17 +267,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 10
+    marginVertical: normalize(10)
   },
   buttonContaioner: {
-    marginTop: 20,
-    marginBottom: 10,
+    marginTop: normalize(20),
+    marginBottom: normalize(10),
     flexDirection: "row",
     justifyContent: "space-between"
   },
   actionButton: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: normalize(5),
+    paddingHorizontal: normalize(10),
     minWidth: "30%",
     minHeight: 40,
     alignItems: "center",

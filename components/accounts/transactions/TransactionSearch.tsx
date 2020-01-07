@@ -7,6 +7,7 @@ import {
   TextInput
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   handleSearch: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -28,19 +29,12 @@ export const TransactionSearch = ({ handleSearch, searchString }: Props) => {
         clearButtonMode={"always"}
         selectionColor={"tomato"}
         style={{
-          padding: 10,
+          padding: normalize(10),
           flex: 1
         }}
         value={searchString}
         onChange={handleSearch}
       />
-      {Platform.OS === "android" && (
-        <Ionicons
-          name="ios-close-circle"
-          size={20}
-          style={{ position: "absolute", right: 0, alignSelf: "center" }}
-        />
-      )}
     </View>
   );
 };

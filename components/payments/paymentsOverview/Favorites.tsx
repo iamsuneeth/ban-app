@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   Alert
 } from "react-native";
-import { normalize } from "../../../utils/normalize";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { IFavoriteState } from "bank-core/src/types";
@@ -22,6 +21,7 @@ import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   favorites: IFavoriteState;
@@ -62,13 +62,15 @@ export const Favorites = ({ favorites, style }: Props) => {
   const navigation = useNavigation<FavoriteNavigationProps>();
   return (
     <>
-      <View style={[{ marginVertical: 10 }, style]}>
-        <Text style={styles.sectionHeader}>Favorites</Text>
+      <View style={[{ marginVertical: normalize(10) }, style]}>
+        <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
+          Favorites
+        </Text>
         <View>
           {favoritePayments.map((favorite, index) => (
             <View key={favorite.id}>
               <View style={{ flexDirection: "row" }}>
-                <RectButton style={{ flex: 1, paddingVertical: 10 }}>
+                <RectButton style={{ flex: 1, paddingVertical: normalize(10) }}>
                   <View style={[styles.itemContainer]}>
                     <View style={styles.icon}>
                       <LetterAvatar text={favorite.payeeName} size={50} />
@@ -77,7 +79,12 @@ export const Favorites = ({ favorites, style }: Props) => {
                       <Text style={[styles.header, { color: colors.text }]}>
                         {favorite.payeeName}
                       </Text>
-                      <Text style={styles.description}>
+                      <Text
+                        style={[
+                          styles.description,
+                          { color: colors.sectionHeader }
+                        ]}
+                      >
                         Account Number: {favorite.accountNumber}
                       </Text>
                       <Amount
@@ -89,16 +96,23 @@ export const Favorites = ({ favorites, style }: Props) => {
                         }}
                         currency={favorite.amount.currency}
                       />
-                      <Text style={styles.description}>
+                      <Text
+                        style={[
+                          styles.description,
+                          { color: colors.sectionHeader }
+                        ]}
+                      >
                         {favorite.paymentType}
                       </Text>
                     </View>
                     <BorderlessButton
-                      style={{ justifyContent: "flex-end", paddingRight: 10 }}
+                      style={{
+                        justifyContent: "flex-end",
+                        paddingRight: normalize(10)
+                      }}
                       onPress={() =>
                         navigation.navigate("Modal", {
-                          message: `Do you want to delete this favorite ?`,
-                          onSelection: value => Alert.alert("selected " + value)
+                          message: `Do you want to delete this favorite ?`
                         })
                       }
                     >
@@ -136,20 +150,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   sectionHeader: {
     fontSize: normalize(14),
-    margin: 15,
-    fontWeight: "bold",
-    color: "#555"
+    margin: normalize(15),
+    fontWeight: "bold"
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   seperator: {
-    height: 1,
+    height: normalize(1),
     width: "90%",
     alignSelf: "center"
   },
@@ -157,10 +170,9 @@ const styles = StyleSheet.create({
     fontSize: normalize(16)
   },
   description: {
-    fontSize: normalize(12),
-    color: "#888"
+    fontSize: normalize(12)
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   }
 });

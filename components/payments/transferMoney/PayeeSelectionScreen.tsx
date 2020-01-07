@@ -3,12 +3,12 @@ import { View, Text } from "react-native";
 import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { ScrollView } from "react-native-gesture-handler";
 import { IPaymentDetails, IPayee } from "bank-core/src/types";
-import { normalize } from "../../../utils/normalize";
 import { useTheme, CompositeNavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   navigation: CompositeNavigationProp<
@@ -36,25 +36,25 @@ export const PayeeSelectionScreen = ({
       <ScrollView scrollEventThrottle={1}>
         <View
           style={{
-            height: 5,
-            marginHorizontal: 10,
+            height: normalize(5),
+            marginHorizontal: normalize(10),
             borderRadius: 3,
-            top: 35,
+            top: normalize(35),
             backgroundColor: colors.primary
           }}
         />
         <View
           style={{
-            marginHorizontal: 10,
+            marginHorizontal: normalize(10),
             flexDirection: "row",
-            paddingVertical: 10
+            paddingVertical: normalize(10)
           }}
         >
           <Text
             style={{
               fontSize: normalize(25),
-              paddingHorizontal: 5,
-              marginLeft: 20,
+              paddingHorizontal: normalize(5),
+              marginLeft: normalize(20),
               color: colors.text,
               backgroundColor: colors.background
             }}

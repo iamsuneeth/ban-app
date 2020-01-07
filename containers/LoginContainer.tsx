@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import * as SecureStore from "expo-secure-store";
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
-import { Platform, AppState } from "react-native";
 import { FirebaseLogin } from "../components/prelogin/login/FirebaseLogin";
 import * as firebase from "firebase/app";
-import BottomSheet from "reanimated-bottom-sheet";
 import { useAuthState } from "bank-core";
 import { CommonActions } from "@react-navigation/native";
 

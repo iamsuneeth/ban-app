@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { normalize } from "../../../utils/normalize";
-
 dayjs.extend(advancedFormat);
 
 const getContent = (date: string) => {
@@ -32,7 +31,7 @@ export const PaymentHeader = ({ data }: PaymentHeaderProps) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: 10,
+    paddingHorizontal: normalize(10),
     backgroundColor: "#fff"
   },
   sectionHeader: {

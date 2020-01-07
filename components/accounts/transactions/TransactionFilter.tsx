@@ -1,11 +1,7 @@
 import React, { useRef, useReducer } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import { Card } from "../../elements/card/Card";
-import {
-  ScrollView,
-  Switch,
-  BorderlessButton
-} from "react-native-gesture-handler";
+import { ScrollView, BorderlessButton } from "react-native-gesture-handler";
 import { RectButton } from "react-native-gesture-handler";
 
 import BottomSheet from "reanimated-bottom-sheet";
@@ -17,6 +13,9 @@ import dayjs from "dayjs";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../../../utils/normalize";
+import { Switch } from "react-native-paper";
+import { Button } from "../../elements/button/Button";
 
 type FilterProps = {
   lastFetched?: string;
@@ -81,37 +80,63 @@ const FilterContent = ({
 }) => (
   <Card style={[styles.card, { backgroundColor: colors.surface }]}>
     <ScrollView
-      style={{ width: "100%", marginBottom: 10 }}
+      style={{ width: "100%", marginBottom: normalize(10) }}
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 18, color: colors.text }}>Dates</Text>
+        <Text style={{ fontSize: normalize(18), color: colors.text }}>
+          Dates
+        </Text>
         <View>
           <View
             style={{
               flexDirection: "row",
-              marginVertical: 10,
+              marginVertical: normalize(10),
               justifyContent: "space-between"
             }}
           >
             <View>
-              <Text style={{ color: colors.text, marginBottom: 5 }}>Start</Text>
+              <Text
+                style={{
+                  color: colors.text,
+                  marginBottom: normalize(5),
+                  fontSize: normalize(16)
+                }}
+              >
+                Start
+              </Text>
               <DateTimePicker
                 date={state.startDate}
                 minimumDate={openDate.toDate()}
                 maximumDate={dayjs().toDate()}
                 onConfirm={date => setState({ startDate: date })}
-                displayTextStyle={{ color: colors.text, fontWeight: "600" }}
+                displayTextStyle={{
+                  color: colors.text,
+                  fontWeight: "600",
+                  fontSize: normalize(16)
+                }}
               />
             </View>
             <View>
-              <Text style={{ color: colors.text, marginBottom: 5 }}>End</Text>
+              <Text
+                style={{
+                  color: colors.text,
+                  marginBottom: normalize(5),
+                  fontSize: normalize(16)
+                }}
+              >
+                End
+              </Text>
               <DateTimePicker
                 date={state.endDate}
                 minimumDate={openDate.toDate()}
                 maximumDate={dayjs().toDate()}
                 onConfirm={date => setState({ endDate: date })}
-                displayTextStyle={{ color: colors.text, fontWeight: "600" }}
+                displayTextStyle={{
+                  color: colors.text,
+                  fontWeight: "600",
+                  fontSize: normalize(16)
+                }}
               />
             </View>
           </View>
@@ -119,7 +144,7 @@ const FilterContent = ({
             style={{
               flexDirection: "row",
               flexWrap: "wrap",
-              marginTop: 10
+              marginTop: normalize(10)
             }}
           >
             {filters.map(filter => {
@@ -127,40 +152,36 @@ const FilterContent = ({
                 filter.start.isSame(dayjs(state.startDate)) &&
                 filter.end.isSame(dayjs(state.endDate));
               return (
-                <RectButton
+                <Button
                   key={filter.key}
-                  style={{
-                    borderColor: colors.primary,
-                    margin: 5,
-                    borderWidth: 1,
-                    padding: 10,
-                    minWidth: 100,
-                    borderRadius: 3,
-                    ...(isSelected && { backgroundColor: colors.primary })
-                  }}
                   onPress={() =>
                     setState({
                       startDate: filter.start.toDate(),
                       endDate: filter.end.toDate()
                     })
                   }
+                  style={{
+                    margin: normalize(5),
+                    minWidth: normalize(100)
+                  }}
+                  primary={isSelected}
+                  secondary={!isSelected}
                 >
-                  <Text
-                    style={[
-                      { color: colors.primary, textAlign: "center" },
-                      isSelected && { color: "#fff" }
-                    ]}
-                  >
-                    {filter.text}
-                  </Text>
-                </RectButton>
+                  {filter.text}
+                </Button>
               );
             })}
           </View>
         </View>
       </View>
-      <View style={{ flex: 1, marginTop: 10 }}>
-        <Text style={{ fontSize: 18, marginBottom: 10, color: colors.text }}>
+      <View style={{ flex: 1, marginTop: normalize(10) }}>
+        <Text
+          style={{
+            fontSize: normalize(18),
+            marginBottom: normalize(10),
+            color: colors.text
+          }}
+        >
           Type
         </Text>
         <View>
@@ -170,14 +191,21 @@ const FilterContent = ({
           >
             <Switch
               value={state.txnTypes.length === 0}
-              onValueChange={value => onTxnTypeSelected("all", value)}
-              trackColor={{
-                false: colors.gray,
-                true: colors.primary
+              style={{
+                transform: [
+                  { scaleX: Platform.select({ ios: 0.8, android: 1 }) },
+                  { scaleY: Platform.select({ ios: 0.8, android: 1 }) }
+                ]
               }}
+              onValueChange={value => onTxnTypeSelected("all", value)}
             />
             <Text
-              style={{ marginLeft: 10, marginVertical: 10, color: colors.text }}
+              style={{
+                marginLeft: normalize(10),
+                marginVertical: normalize(10),
+                fontSize: normalize(16),
+                color: colors.text
+              }}
             >
               All
             </Text>
@@ -189,16 +217,19 @@ const FilterContent = ({
             >
               <Switch
                 value={state.txnTypes.includes(value)}
-                trackColor={{
-                  false: colors.gray,
-                  true: colors.primary
+                style={{
+                  transform: [
+                    { scaleX: Platform.select({ ios: 0.8, android: 1 }) },
+                    { scaleY: Platform.select({ ios: 0.8, android: 1 }) }
+                  ]
                 }}
                 onValueChange={boolValue => onTxnTypeSelected(value, boolValue)}
               />
               <Text
                 style={{
-                  marginLeft: 10,
-                  marginVertical: 10,
+                  marginLeft: normalize(10),
+                  marginVertical: normalize(10),
+                  fontSize: normalize(16),
                   color: colors.text
                 }}
               >
@@ -219,11 +250,11 @@ const FilterContent = ({
       <RectButton
         style={{
           backgroundColor: colors.primary,
-          paddingHorizontal: 5,
-          paddingVertical: 10,
+          paddingHorizontal: normalize(5),
+          paddingVertical: normalize(10),
           flex: 2,
-          margin: 10,
-          bottom: 10,
+          margin: normalize(10),
+          bottom: normalize(10),
           borderRadius: 3
         }}
         onPress={handleApplyFilter}
@@ -234,20 +265,26 @@ const FilterContent = ({
       </RectButton>
       <RectButton
         style={{
-          borderColor: colors.primary,
-          borderWidth: 1,
-          paddingHorizontal: 5,
-          paddingVertical: 10,
           flex: 1,
-          margin: 10,
-          bottom: 10,
-          borderRadius: 3
+          margin: normalize(10),
+          bottom: normalize(10)
         }}
         onPress={handleClearFilter}
       >
-        <Text style={{ textAlign: "center", color: colors.primary }}>
-          Clear
-        </Text>
+        <View
+          style={{
+            flex: 1,
+            borderColor: colors.primary,
+            borderWidth: normalize(1),
+            paddingHorizontal: normalize(5),
+            paddingVertical: normalize(10),
+            borderRadius: 3
+          }}
+        >
+          <Text style={{ textAlign: "center", color: colors.primary }}>
+            Clear
+          </Text>
+        </View>
       </RectButton>
     </View>
   </Card>
@@ -379,17 +416,17 @@ export const TransactionFilter = ({
                 ? colors.primary
                 : colors.primary,
               position: "absolute",
-              height: 40,
-              width: 40,
-              borderRadius: 20,
-              bottom: 10,
+              height: normalize(40),
+              width: normalize(40),
+              borderRadius: normalize(20),
+              bottom: normalize(10),
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              right: 10,
+              right: normalize(10),
               shadowOffset: {
-                width: 10,
-                height: 10
+                width: normalize(10),
+                height: normalize(10)
               },
               shadowColor: "#ccc",
               shadowRadius: 10,
@@ -432,25 +469,25 @@ export const TransactionFilter = ({
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 0,
+    marginHorizontal: normalize(0),
     alignItems: "center",
     height: "100%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 5
+      width: normalize(0),
+      height: normalize(5)
     },
     shadowRadius: 10,
     shadowOpacity: 1.0,
     elevation: 20
   },
   txnList: {
-    marginTop: 10
+    marginTop: normalize(10)
   },
   txnListHeader: {
-    paddingLeft: 10,
-    fontSize: 20
+    paddingLeft: normalize(10),
+    fontSize: normalize(20)
   }
 });

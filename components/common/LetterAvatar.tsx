@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
+import { normalize } from "../../utils/normalize";
 
 type props = {
   text: string;
@@ -39,7 +40,7 @@ const getLetter = (text: String) => text.substr(0, 1).toUpperCase();
 export const LetterAvatar = ({
   text,
   initials = false,
-  size = 60,
+  size = normalize(60),
   viewStyle,
   textStyle
 }: props) => {
@@ -67,8 +68,8 @@ export const LetterAvatar = ({
           width: size,
           height: size,
           borderRadius: size / 2,
-          marginBottom: 10,
-          backgroundColor: colors.surface,
+          marginBottom: normalize(10),
+          backgroundColor: colors.avatarBackground,
           justifyContent: "center",
           alignContent: "center"
         },

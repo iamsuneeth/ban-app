@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleProp, ViewStyle } from "react-native";
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   content: React.ReactNode;
@@ -20,7 +21,7 @@ export const Divider = ({
         {
           width,
           alignSelf: "center",
-          height: 1,
+          height: normalize(1),
           position: "relative"
         },
         rootStyle
@@ -42,10 +43,10 @@ export const Divider = ({
       >
         <View
           style={{
-            width: 20,
-            height: 10,
+            width: normalize(20),
+            height: normalize(10),
             borderRadius: 5,
-            padding: 2,
+            padding: normalize(2),
             backgroundColor: "#fff",
             justifyContent: "center",
             alignItems: "center"

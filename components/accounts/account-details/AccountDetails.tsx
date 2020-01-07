@@ -12,8 +12,6 @@ import { useState } from "react";
 
 import { Amount } from "../../elements/amount/Amount";
 
-import { normalize } from "../../../utils/normalize";
-
 import { useTransition } from "../../../hooks/animation/useTransition";
 import { IAccount, IAccountDetails } from "bank-core/src/types";
 import {
@@ -27,6 +25,7 @@ import { HomeParamList } from "../../../stacks/HomeStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -73,7 +72,7 @@ export const AccountDetails = ({ account, details }: Props) => {
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: "center", paddingTop: 10 }}>
+        <View style={{ alignItems: "center", paddingTop: normalize(10) }}>
           {/* <SharedElement
             id={account.id}
             style={{
@@ -127,23 +126,24 @@ export const AccountDetails = ({ account, details }: Props) => {
             <View
               style={{
                 backgroundColor: colors.primary,
-                borderRadius: 20,
-                height: 40,
-                width: 40,
-                padding: 10,
-                marginBottom: 5,
+                borderRadius: normalize(25),
+                height: normalize(50),
+                width: normalize(50),
+                padding: normalize(10),
+                marginBottom: normalize(5),
                 alignItems: "center",
                 elevation: 6,
                 shadowOffset: {
-                  width: 1,
-                  height: 1
+                  width: normalize(1),
+                  height: normalize(1)
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
-                shadowColor: colors.shadowColor
+                shadowColor: colors.shadowColor,
+                justifyContent: "center"
               }}
             >
-              <MaterialIcons name="payment" size={20} color="#fff" />
+              <MaterialIcons name="payment" size={25} color="#fff" />
             </View>
             <Text style={[styles.quickLinkText, { color: colors.text }]}>
               Pay
@@ -161,24 +161,27 @@ export const AccountDetails = ({ account, details }: Props) => {
             <View
               style={{
                 borderWidth: 1,
+                backgroundColor: colors.background,
                 borderColor: colors.primary,
-                borderRadius: 20,
-                height: 40,
-                width: 40,
-                padding: 10,
+                borderRadius: normalize(25),
+                height: normalize(50),
+                width: normalize(50),
+                padding: normalize(10),
                 alignItems: "center",
-                marginBottom: 5,
-                elevation: 6,
+                elevation: 1,
+                marginBottom: normalize(5),
+
                 shadowOffset: {
-                  width: 1,
-                  height: 1
+                  width: normalize(1),
+                  height: normalize(1)
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
-                shadowColor: colors.shadowColor
+                shadowColor: colors.shadowColor,
+                justifyContent: "center"
               }}
             >
-              <Ionicons name="ios-document" size={20} color={colors.primary} />
+              <Ionicons name="ios-document" size={25} color={colors.primary} />
             </View>
             <Text style={[styles.quickLinkText, { color: colors.text }]}>
               Statements
@@ -193,23 +196,25 @@ export const AccountDetails = ({ account, details }: Props) => {
               style={{
                 borderWidth: 1,
                 borderColor: colors.primary,
-                borderRadius: 20,
-                height: 40,
-                width: 40,
-                padding: 10,
+                borderRadius: normalize(25),
+                backgroundColor: colors.background,
+                height: normalize(50),
+                width: normalize(50),
+                padding: normalize(10),
                 alignItems: "center",
-                marginBottom: 5,
-                elevation: 6,
+                marginBottom: normalize(5),
+
                 shadowOffset: {
-                  width: 1,
-                  height: 1
+                  width: normalize(1),
+                  height: normalize(1)
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
-                shadowColor: colors.shadowColor
+                shadowColor: colors.shadowColor,
+                justifyContent: "center"
               }}
             >
-              <Ionicons name="ios-card" size={20} color={colors.primary} />
+              <Ionicons name="ios-card" size={25} color={colors.primary} />
             </View>
 
             <Text style={[styles.quickLinkText, { color: colors.text }]}>
@@ -250,7 +255,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     size={25}
                     color={colors.text}
                     style={{
-                      marginRight: 5,
+                      marginRight: normalize(5),
                       transform: [
                         {
                           rotate: Animated.concat(rotation, "deg")
@@ -266,10 +271,12 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10)
                   }}
                 >
-                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                  <Text
+                    style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                  >
                     Available balance
                   </Text>
                   <Amount
@@ -286,10 +293,12 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10)
                   }}
                 >
-                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                  <Text
+                    style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                  >
                     Actual balance
                   </Text>
                   <Amount
@@ -306,10 +315,12 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10)
                   }}
                 >
-                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                  <Text
+                    style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                  >
                     Overdraft
                   </Text>
                   <Amount
@@ -326,10 +337,12 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10)
                   }}
                 >
-                  <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                  <Text
+                    style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                  >
                     Available overdraft
                   </Text>
                   <Amount
@@ -368,82 +381,94 @@ export const AccountDetails = ({ account, details }: Props) => {
                 <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {account.accountNumber}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                <Text
+                  style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                >
                   Account number
                 </Text>
               </View>
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: 1,
-                  marginBottom: 10
+                  height: normalize(1),
+                  marginBottom: normalize(10)
                 }}
               />
               <View style={styles.addnlSection}>
                 <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.code}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                <Text
+                  style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                >
                   Branch code
                 </Text>
               </View>
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: 1,
-                  marginBottom: 10
+                  height: normalize(1),
+                  marginBottom: normalize(10)
                 }}
               />
               <View style={styles.addnlSection}>
                 <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.name}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                <Text
+                  style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                >
                   Branch name
                 </Text>
               </View>
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: 1,
-                  marginBottom: 10
+                  height: normalize(1),
+                  marginBottom: normalize(10)
                 }}
               />
               <View style={styles.addnlSection}>
                 <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.address}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                <Text
+                  style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                >
                   Branch address
                 </Text>
               </View>
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: 1,
-                  marginBottom: 10
+                  height: normalize(1),
+                  marginBottom: normalize(10)
                 }}
               />
               <View style={styles.addnlSection}>
                 <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.branch.bic}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                <Text
+                  style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                >
                   BIC
                 </Text>
               </View>
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: 1,
-                  marginBottom: 10
+                  height: normalize(1),
+                  marginBottom: normalize(10)
                 }}
               />
               <View style={styles.addnlSection}>
                 <Text style={[styles.addnlValue, { color: colors.text }]}>
                   {details.iban}
                 </Text>
-                <Text style={[styles.addnlLabel, { color: colors.text }]}>
+                <Text
+                  style={[styles.addnlLabel, { color: colors.textSecondary }]}
+                >
                   IBAN
                 </Text>
               </View>
@@ -460,17 +485,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   accountCard: {
-    padding: 0,
+    padding: normalize(0),
     flex: 1
   },
   accountPrimary: {
-    padding: 10,
+    padding: normalize(10),
     flex: 1,
     justifyContent: "space-between"
   },
   scrollContainer: {},
   section: {
-    marginBottom: 10
+    marginBottom: normalize(10)
   },
   main: { color: "#fff", fontSize: normalize(16) },
   secondary: { color: "#fff", fontSize: normalize(12) },
@@ -480,7 +505,7 @@ const styles = StyleSheet.create({
     fontSize: normalize(12)
   },
   secondarySeperator: {
-    paddingHorizontal: 5,
+    paddingHorizontal: normalize(5),
     color: "#fff",
     fontSize: normalize(12)
   },
@@ -503,20 +528,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginBottom: 5
+    marginBottom: normalize(5)
   },
   amount: { color: "#fff" },
   quickLinks: {
     flexDirection: "row",
     alignSelf: "center",
     width: screenWidth * 0.8,
-    padding: 5
+    marginVertical: normalize(10)
   },
   quickLinkButton: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    padding: 5
+    padding: normalize(5)
   },
   quickLinkText: {
     fontSize: normalize(12),
@@ -524,24 +549,24 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   addnlContainer: {
-    marginTop: 10
+    marginTop: normalize(10)
   },
   addnlInnerContainer: {
     flex: 1
   },
   addnlHeader: {
     fontSize: normalize(14),
-    marginBottom: 15,
+    marginBottom: normalize(15),
     fontWeight: "bold"
   },
   amountDetailsHeader: {
     fontSize: normalize(14),
     fontWeight: "bold"
   },
-  addnlSection: { marginBottom: 10 },
+  addnlSection: { marginBottom: normalize(10) },
   addnlLabel: {
     fontSize: normalize(14),
-    marginVertical: 5
+    marginVertical: normalize(5)
   },
   addnlValue: {
     fontSize: normalize(14)

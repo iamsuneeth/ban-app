@@ -7,6 +7,7 @@ import { MoreStack } from "../stacks/MoreStack";
 import { StatisticsStack } from "../stacks/StatisticsStack";
 import { Ionicons, MaterialIcons, Foundation } from "@expo/vector-icons";
 import { useAppLock } from "../hooks/auth/useAppLock";
+import { Platform } from "react-native";
 
 export type BottomTabParamList = {
   Home: undefined;
@@ -20,7 +21,9 @@ const Tab = createBottomTabNavigator<BottomTabParamList>();
 export const BottomTabBarStack = () => {
   useAppLock();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{ keyboardHidesTabBar: Platform.OS === "android" }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStack}

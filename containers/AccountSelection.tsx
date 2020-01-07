@@ -4,12 +4,12 @@ import { Card } from "../components/elements/card/Card";
 import BottomSheet from "reanimated-bottom-sheet";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { IAccount } from "bank-core/src/types";
-import { normalize } from "../utils/normalize";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { Amount } from "../components/elements/amount/Amount";
 import { useDashboardState } from "bank-core";
 import { ThemeType } from "../App";
+import { normalize } from "../utils/normalize";
 
 type Props = {
   sheetRef: React.MutableRefObject<BottomSheet>;
@@ -20,35 +20,39 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
   const { accounts } = useDashboardState();
   const navigation = useNavigation();
   const { colors } = useTheme() as ThemeType;
+  const handlePress = () => {
+    sheetRef.current.snapTo(0);
+    return navigation.isFocused() ? true : false;
+  };
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      sheetRef.current.snapTo(0);
-      return navigation.isFocused() ? true : false;
-    });
+    BackHandler.addEventListener("hardwareBackPress", handlePress);
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handlePress);
+    };
   }, []);
   return (
     <ScrollView>
       <View
         style={{
-          height: 5,
-          marginHorizontal: 10,
+          height: normalize(5),
+          marginHorizontal: normalize(10),
           borderRadius: 3,
-          top: 35,
+          top: normalize(35),
           backgroundColor: colors.primary
         }}
       />
       <View
         style={{
-          marginHorizontal: 10,
+          marginHorizontal: normalize(10),
           flexDirection: "row",
-          paddingVertical: 10
+          paddingVertical: normalize(10)
         }}
       >
         <Text
           style={{
             fontSize: normalize(25),
-            paddingHorizontal: 5,
-            marginLeft: 20,
+            paddingHorizontal: normalize(5),
+            marginLeft: normalize(20),
             color: colors.text,
             backgroundColor: colors.surface
           }}
@@ -56,7 +60,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
           Select account
         </Text>
       </View>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: normalize(10) }}>
         {accounts.map(account => (
           <Card
             key={account.id}
@@ -74,10 +78,10 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
                 onSelection(account);
               }}
               testID="accountClick"
-              style={{ padding: 10 }}
+              style={{ padding: normalize(10) }}
             >
               <View style={styles.accountPrimary}>
-                <View style={{ position: "absolute", right: 0 }}>
+                <View style={{ position: "absolute", right: normalize(0) }}>
                   <Ionicons
                     name="ios-arrow-dropright"
                     size={25}
@@ -111,7 +115,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
 
 const styles = StyleSheet.create({
   accountCard: {
-    padding: 0
+    padding: normalize(0)
   },
   accountPrimary: {
     justifyContent: "space-between"

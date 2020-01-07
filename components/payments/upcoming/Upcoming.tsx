@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { normalize } from "../../../utils/normalize";
 import { Card } from "../../elements/card/Card";
 import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
@@ -10,6 +9,7 @@ import { MaterialTopTabNavigationProp } from "@react-navigation/material-top-tab
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 
 type UpcomingNaviagtionProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<PaymentTopBarParamList, "Upcoming">,
@@ -26,8 +26,8 @@ export const Upcoming = ({
     <View style={{ flex: 1 }}>
       <Card
         style={{
-          marginTop: 0,
-          marginHorizontal: 0,
+          marginTop: normalize(0),
+          marginHorizontal: normalize(0),
           shadowOpacity: 0.2,
           shadowColor: colors.shadowColor,
           backgroundColor: colors.surface
@@ -46,7 +46,10 @@ export const Upcoming = ({
               <Text style={[styles.header, { color: colors.text }]}>
                 Future payments
               </Text>
-              <Text numberOfLines={2} style={styles.description}>
+              <Text
+                numberOfLines={2}
+                style={[styles.description, { color: colors.sectionHeader }]}
+              >
                 Manage future dated payments
               </Text>
             </View>
@@ -65,7 +68,10 @@ export const Upcoming = ({
                 <Text style={[styles.header, { color: colors.text }]}>
                   Standing instructions
                 </Text>
-                <Text numberOfLines={2} style={styles.description}>
+                <Text
+                  numberOfLines={2}
+                  style={[styles.description, { color: colors.sectionHeader }]}
+                >
                   Manage standing instructions
                 </Text>
               </View>
@@ -85,7 +91,10 @@ export const Upcoming = ({
                 <Text style={[styles.header, { color: colors.text }]}>
                   Direct debits
                 </Text>
-                <Text numberOfLines={2} style={styles.description}>
+                <Text
+                  numberOfLines={2}
+                  style={[styles.description, { color: colors.sectionHeader }]}
+                >
                   Manage direct debits
                 </Text>
               </View>
@@ -102,14 +111,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   seperator: {
-    height: 1,
+    height: normalize(1),
     width: "90%",
     alignSelf: "center"
   },
@@ -121,11 +130,11 @@ const styles = StyleSheet.create({
     color: "#888"
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   sectionHeader: {
     fontSize: normalize(20),
-    margin: 15,
+    margin: normalize(15),
     fontWeight: "bold",
     color: "#555"
   }

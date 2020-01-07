@@ -6,13 +6,12 @@ import { BottomTabBarStack } from "../tabs/BottomTabBar";
 import { IAccount } from "bank-core/src/types";
 import { useAuthState } from "bank-core";
 import { AuthModal } from "../components/modal/AuthModal";
-import SplashContainer from "../containers/SplashContainer";
 
 export type RootParamsList = {
   Main: undefined;
   Modal:
     | {
-        type?: "confirmation" | "auth" | "account" | "custom";
+        type?: "confirmation" | "account" | "custom";
         snapPoints?: (number | string)[];
         onAccountSelection?: (account: IAccount) => void;
         renderProp?: (onClose: Function) => React.ReactNode;
@@ -21,10 +20,12 @@ export type RootParamsList = {
       }
     | undefined;
   Login: undefined;
-  AuthModal: undefined;
+  AuthModal:
+    | { type?: "confirmation" | "lock"; snapPoints?: (number | string)[] }
+    | undefined;
 };
 const Stack = createStackNavigator<RootParamsList>();
-export const RootStack = () => {
+export const RootStack = React.memo(() => {
   const { authState } = useAuthState();
 
   return (
@@ -67,4 +68,4 @@ export const RootStack = () => {
       )}
     </Stack.Navigator>
   );
-};
+});

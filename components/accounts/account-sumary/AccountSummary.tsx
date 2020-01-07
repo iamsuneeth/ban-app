@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import { ISummary } from "bank-core/src/types";
 import { Amount } from "../../elements/amount/Amount";
-import { normalize } from "../../../utils/normalize";
 import Animated from "react-native-reanimated";
 import { timing } from "react-native-redash";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../../../utils/normalize";
 
 type AccountSummaryProps = {
   summary: ISummary;
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: Dimensions.get("window").width - 20,
-    margin: 10,
-    padding: 10
+    margin: normalize(10),
+    padding: normalize(10)
   },
   label: {
     fontSize: normalize(14),
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
   },
   flexRow: {
     flexDirection: "row",
-    marginVertical: 5,
+    marginVertical: normalize(5),
     justifyContent: "space-between"
   },
   seperator: {
-    height: 5,
+    height: normalize(5),
     borderRadius: 2.5,
     overflow: "hidden"
   }

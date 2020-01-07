@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Animated, { Easing } from "react-native-reanimated";
+import { normalize } from "../../utils/normalize";
 
 const {
   timing,
@@ -69,7 +70,7 @@ export const useLoginAnimation = (
 
   const width = animation2.current.interpolate({
     inputRange: [0, 1],
-    outputRange: [buttonWidth, 40]
+    outputRange: [buttonWidth, normalize(40)]
   });
   const opacity = animation2.current.interpolate({
     inputRange: [0, 1],
