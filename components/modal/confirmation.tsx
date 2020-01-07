@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { useTheme } from "@react-navigation/native";
-import { normalize } from "../../utils/normalize";
 
 export const confirmation = ({ sheetRef, message, onSelection }) => {
   const { colors } = useTheme();

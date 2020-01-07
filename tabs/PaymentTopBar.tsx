@@ -2,8 +2,6 @@ import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { PaymentsOverview } from "../components/payments/paymentsOverview/PaymentsOverview";
 import { Upcoming } from "../components/payments/upcoming/Upcoming";
-import { Options } from "../components/more/Options";
-import { normalize } from "../utils/normalize";
 
 export type PaymentTopBarParamList = {
   PaymentDashboard: undefined;

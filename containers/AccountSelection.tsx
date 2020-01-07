@@ -9,7 +9,6 @@ import { useTheme, useNavigation } from "@react-navigation/native";
 import { Amount } from "../components/elements/amount/Amount";
 import { useDashboardState } from "bank-core";
 import { ThemeType } from "../App";
-import { normalize } from "../utils/normalize";
 
 type Props = {
   sheetRef: React.MutableRefObject<BottomSheet>;

@@ -9,7 +9,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootParamsList } from "../../stacks/RootStack";
 import { RouteProp, useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
-import { normalize } from "../../utils/normalize";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "Modal">;

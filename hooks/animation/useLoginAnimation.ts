@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import Animated, { Easing } from "react-native-reanimated";
-import { normalize } from "../../utils/normalize";
 
 const {
   timing,

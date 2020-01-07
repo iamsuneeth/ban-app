@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
-import { normalize } from "../../utils/normalize";
 
 type props = {
   text: string;

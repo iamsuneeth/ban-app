@@ -2,7 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { BottomTabBar, BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@react-navigation/native";
-import { normalize } from "../../utils/normalize";
 
 let tabBarLayout = {
   x: 0,

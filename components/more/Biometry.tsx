@@ -4,7 +4,7 @@ import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
-import { normalize } from "../../utils/normalize";
+
 import { Switch } from "react-native-paper";
 
 export const Biometry = () => {

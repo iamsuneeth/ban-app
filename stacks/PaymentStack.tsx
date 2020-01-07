@@ -9,7 +9,6 @@ import { PayeeDetails } from "../components/payments/payees/PayeeDetails";
 import { FuturePayments } from "../components/payments/upcoming/FuturePayments";
 import PaymentTopBar from "../tabs/PaymentTopBar";
 import { IAccount, IPayee } from "bank-core/src/types";
-import { normalize } from "../utils/normalize";
 
 export type PaymentParamList = {
   PaymentsOverview: undefined;

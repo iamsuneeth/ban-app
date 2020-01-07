@@ -23,7 +23,6 @@ import * as firebase from "firebase/app";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAuthState } from "bank-core";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../utils/normalize";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "AuthModal">;
@@ -195,9 +194,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                 </Text>
 
                 {modalVisible && (
-                  <View
-                    style={{ marginTop: 40, alignItems: "center" }}
-                  >
+                  <View style={{ marginTop: 40, alignItems: "center" }}>
                     <Ionicons name="ios-finger-print" size={100} />
                   </View>
                 )}

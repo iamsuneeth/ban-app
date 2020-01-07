@@ -12,7 +12,6 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../tabs/BottomTabBar";
 import { useAuthState } from "bank-core";
 import { ThemeType } from "../../App";
-import { normalize } from "../../utils/normalize";
 
 type OptionsProps = {
   navigation: CompositeNavigationProp<
@@ -63,10 +62,7 @@ export const Options = ({ navigation }: OptionsProps) => {
         </RectButton>
       </Card>
       <View style={{ alignItems: "center", marginBottom: 40 }}>
-        <RectButton
-          style={{ height: 40, width: 200 }}
-          onPress={signOut}
-        >
+        <RectButton style={{ height: 40, width: 200 }} onPress={signOut}>
           <View
             style={{
               flex: 1,
@@ -76,9 +72,7 @@ export const Options = ({ navigation }: OptionsProps) => {
               borderRadius: 5
             }}
           >
-            <Text style={{ fontSize: 14, color: "#fff" }}>
-              Sign out
-            </Text>
+            <Text style={{ fontSize: 14, color: "#fff" }}>Sign out</Text>
           </View>
         </RectButton>
       </View>
