@@ -34,25 +34,25 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
     <ScrollView>
       <View
         style={{
-          height: normalize(5),
-          marginHorizontal: normalize(10),
+          height: 5,
+          marginHorizontal: 10,
           borderRadius: 3,
-          top: normalize(35),
+          top: 35,
           backgroundColor: colors.primary
         }}
       />
       <View
         style={{
-          marginHorizontal: normalize(10),
+          marginHorizontal: 10,
           flexDirection: "row",
-          paddingVertical: normalize(10)
+          paddingVertical: 10
         }}
       >
         <Text
           style={{
-            fontSize: normalize(25),
-            paddingHorizontal: normalize(5),
-            marginLeft: normalize(20),
+            fontSize: 25,
+            paddingHorizontal: 5,
+            marginLeft: 20,
             color: colors.text,
             backgroundColor: colors.surface
           }}
@@ -60,7 +60,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
           Select account
         </Text>
       </View>
-      <View style={{ marginTop: normalize(10) }}>
+      <View style={{ marginTop: 10 }}>
         {accounts.map(account => (
           <Card
             key={account.id}
@@ -78,10 +78,10 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
                 onSelection(account);
               }}
               testID="accountClick"
-              style={{ padding: normalize(10) }}
+              style={{ padding: 10 }}
             >
               <View style={styles.accountPrimary}>
-                <View style={{ position: "absolute", right: normalize(0) }}>
+                <View style={{ position: "absolute", right: 0 }}>
                   <Ionicons
                     name="ios-arrow-dropright"
                     size={25}
@@ -115,11 +115,11 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
 
 const styles = StyleSheet.create({
   accountCard: {
-    padding: normalize(0)
+    padding: 0
   },
   accountPrimary: {
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) }
+  main: { color: "#fff", fontSize: 16 },
+  secondary: { color: "#fff", fontSize: 12 }
 });

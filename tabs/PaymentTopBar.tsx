@@ -17,7 +17,7 @@ export const PaymentTopBar = () => {
     <Tab.Navigator
       tabBarOptions={{
         labelStyle: {
-          fontSize: normalize(14)
+          fontSize: 14
         }
       }}
     >

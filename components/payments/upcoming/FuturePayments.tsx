@@ -27,11 +27,11 @@ export const FuturePayments = () => {
           autoCorrect={false}
           style={{
             borderColor: "#ccc",
-            borderWidth: normalize(1),
-            height: normalize(40),
+            borderWidth: 1,
+            height: 40,
             borderRadius: 3,
-            paddingHorizontal: normalize(10),
-            margin: normalize(10)
+            paddingHorizontal: 10,
+            margin: 10
           }}
         />
         <SectionList

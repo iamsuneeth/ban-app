@@ -33,8 +33,8 @@ export const Options = ({ navigation }: OptionsProps) => {
     <View style={styles.container}>
       <Card
         style={{
-          marginTop: normalize(0),
-          marginHorizontal: normalize(0),
+          marginTop: 0,
+          marginHorizontal: 0,
           shadowOpacity: 0.2,
           borderTopRightRadius: 0,
           borderTopLeftRadius: 0,
@@ -62,9 +62,9 @@ export const Options = ({ navigation }: OptionsProps) => {
           </View>
         </RectButton>
       </Card>
-      <View style={{ alignItems: "center", marginBottom: normalize(40) }}>
+      <View style={{ alignItems: "center", marginBottom: 40 }}>
         <RectButton
-          style={{ height: normalize(40), width: normalize(200) }}
+          style={{ height: 40, width: 200 }}
           onPress={signOut}
         >
           <View
@@ -76,7 +76,7 @@ export const Options = ({ navigation }: OptionsProps) => {
               borderRadius: 5
             }}
           >
-            <Text style={{ fontSize: normalize(14), color: "#fff" }}>
+            <Text style={{ fontSize: 14, color: "#fff" }}>
               Sign out
             </Text>
           </View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: normalize(10)
+    paddingHorizontal: 10
   },
   main: {
     justifyContent: "center",
@@ -99,19 +99,19 @@ const styles = StyleSheet.create({
   },
   seperator: {
     backgroundColor: "#eee",
-    height: normalize(1),
+    height: 1,
     width: "90%",
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
+    fontSize: 12,
     color: "#888"
   },
   icon: {
-    paddingRight: normalize(10)
+    paddingRight: 10
   },
   container: {
     flex: 1,

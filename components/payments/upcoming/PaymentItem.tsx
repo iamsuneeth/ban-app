@@ -45,20 +45,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: normalize(10)
+    paddingHorizontal: 10
   },
   main: {
     justifyContent: "center"
   },
   payee: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
+    fontSize: 12,
     color: "#888"
   },
   icon: {
-    paddingRight: normalize(10)
+    paddingRight: 10
   },
   amount: {
     fontWeight: "400",

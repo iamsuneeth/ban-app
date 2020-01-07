@@ -35,7 +35,7 @@ export const PaymentStack = () => {
         component={PaymentTopBar}
         options={{
           headerStyle: {
-            borderBottomWidth: normalize(0)
+            borderBottomWidth: 0
           },
           title: "Payments overview"
         }}

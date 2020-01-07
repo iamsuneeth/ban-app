@@ -25,7 +25,7 @@ export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
         autoCorrect={false}
         autoFocus
         style={{
-          padding: normalize(10),
+          padding: 10,
           flex: 1
         }}
         value={searchString}

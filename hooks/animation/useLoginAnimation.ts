@@ -70,7 +70,7 @@ export const useLoginAnimation = (
 
   const width = animation2.current.interpolate({
     inputRange: [0, 1],
-    outputRange: [buttonWidth, normalize(40)]
+    outputRange: [buttonWidth, 40]
   });
   const opacity = animation2.current.interpolate({
     inputRange: [0, 1],

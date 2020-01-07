@@ -80,18 +80,18 @@ const FilterContent = ({
 }) => (
   <Card style={[styles.card, { backgroundColor: colors.surface }]}>
     <ScrollView
-      style={{ width: "100%", marginBottom: normalize(10) }}
+      style={{ width: "100%", marginBottom: 10 }}
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: normalize(18), color: colors.text }}>
+        <Text style={{ fontSize: 18, color: colors.text }}>
           Dates
         </Text>
         <View>
           <View
             style={{
               flexDirection: "row",
-              marginVertical: normalize(10),
+              marginVertical: 10,
               justifyContent: "space-between"
             }}
           >
@@ -99,8 +99,8 @@ const FilterContent = ({
               <Text
                 style={{
                   color: colors.text,
-                  marginBottom: normalize(5),
-                  fontSize: normalize(16)
+                  marginBottom: 5,
+                  fontSize: 16
                 }}
               >
                 Start
@@ -113,7 +113,7 @@ const FilterContent = ({
                 displayTextStyle={{
                   color: colors.text,
                   fontWeight: "600",
-                  fontSize: normalize(16)
+                  fontSize: 16
                 }}
               />
             </View>
@@ -121,8 +121,8 @@ const FilterContent = ({
               <Text
                 style={{
                   color: colors.text,
-                  marginBottom: normalize(5),
-                  fontSize: normalize(16)
+                  marginBottom: 5,
+                  fontSize: 16
                 }}
               >
                 End
@@ -135,7 +135,7 @@ const FilterContent = ({
                 displayTextStyle={{
                   color: colors.text,
                   fontWeight: "600",
-                  fontSize: normalize(16)
+                  fontSize: 16
                 }}
               />
             </View>
@@ -144,7 +144,7 @@ const FilterContent = ({
             style={{
               flexDirection: "row",
               flexWrap: "wrap",
-              marginTop: normalize(10)
+              marginTop: 10
             }}
           >
             {filters.map(filter => {
@@ -161,8 +161,8 @@ const FilterContent = ({
                     })
                   }
                   style={{
-                    margin: normalize(5),
-                    minWidth: normalize(100)
+                    margin: 5,
+                    minWidth: 100
                   }}
                   primary={isSelected}
                   secondary={!isSelected}
@@ -174,11 +174,11 @@ const FilterContent = ({
           </View>
         </View>
       </View>
-      <View style={{ flex: 1, marginTop: normalize(10) }}>
+      <View style={{ flex: 1, marginTop: 10 }}>
         <Text
           style={{
-            fontSize: normalize(18),
-            marginBottom: normalize(10),
+            fontSize: 18,
+            marginBottom: 10,
             color: colors.text
           }}
         >
@@ -201,9 +201,9 @@ const FilterContent = ({
             />
             <Text
               style={{
-                marginLeft: normalize(10),
-                marginVertical: normalize(10),
-                fontSize: normalize(16),
+                marginLeft: 10,
+                marginVertical: 10,
+                fontSize: 16,
                 color: colors.text
               }}
             >
@@ -227,9 +227,9 @@ const FilterContent = ({
               />
               <Text
                 style={{
-                  marginLeft: normalize(10),
-                  marginVertical: normalize(10),
-                  fontSize: normalize(16),
+                  marginLeft: 10,
+                  marginVertical: 10,
+                  fontSize: 16,
                   color: colors.text
                 }}
               >
@@ -250,11 +250,11 @@ const FilterContent = ({
       <RectButton
         style={{
           backgroundColor: colors.primary,
-          paddingHorizontal: normalize(5),
-          paddingVertical: normalize(10),
+          paddingHorizontal: 5,
+          paddingVertical: 10,
           flex: 2,
-          margin: normalize(10),
-          bottom: normalize(10),
+          margin: 10,
+          bottom: 10,
           borderRadius: 3
         }}
         onPress={handleApplyFilter}
@@ -266,8 +266,8 @@ const FilterContent = ({
       <RectButton
         style={{
           flex: 1,
-          margin: normalize(10),
-          bottom: normalize(10)
+          margin: 10,
+          bottom: 10
         }}
         onPress={handleClearFilter}
       >
@@ -275,9 +275,9 @@ const FilterContent = ({
           style={{
             flex: 1,
             borderColor: colors.primary,
-            borderWidth: normalize(1),
-            paddingHorizontal: normalize(5),
-            paddingVertical: normalize(10),
+            borderWidth: 1,
+            paddingHorizontal: 5,
+            paddingVertical: 10,
             borderRadius: 3
           }}
         >
@@ -416,17 +416,17 @@ export const TransactionFilter = ({
                 ? colors.primary
                 : colors.primary,
               position: "absolute",
-              height: normalize(40),
-              width: normalize(40),
-              borderRadius: normalize(20),
-              bottom: normalize(10),
+              height: 40,
+              width: 40,
+              borderRadius: 20,
+              bottom: 10,
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              right: normalize(10),
+              right: 10,
               shadowOffset: {
-                width: normalize(10),
-                height: normalize(10)
+                width: 10,
+                height: 10
               },
               shadowColor: "#ccc",
               shadowRadius: 10,
@@ -469,25 +469,25 @@ export const TransactionFilter = ({
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: normalize(0),
+    marginHorizontal: 0,
     alignItems: "center",
     height: "100%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
-      width: normalize(0),
-      height: normalize(5)
+      width: 0,
+      height: 5
     },
     shadowRadius: 10,
     shadowOpacity: 1.0,
     elevation: 20
   },
   txnList: {
-    marginTop: normalize(10)
+    marginTop: 10
   },
   txnListHeader: {
-    paddingLeft: normalize(10),
-    fontSize: normalize(20)
+    paddingLeft: 10,
+    fontSize: 20
   }
 });

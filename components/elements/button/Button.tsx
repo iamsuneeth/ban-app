@@ -32,15 +32,15 @@ export const Button = ({
         mode: "outlined"
       })}
       style={{
-        marginVertical: normalize(5),
+        marginVertical: 5,
         ...style,
         ...(secondary && {
           borderColor: colors.primary,
-          borderWidth: normalize(1)
+          borderWidth: 1
         })
       }}
-      contentStyle={{ borderRadius: 0, height: normalize(40), ...contentStyle }}
-      labelStyle={{ fontSize: normalize(14), ...labelStyle }}
+      contentStyle={{ borderRadius: 0, height: 40, ...contentStyle }}
+      labelStyle={{ fontSize: 14, ...labelStyle }}
     >
       {children}
     </RNButton>

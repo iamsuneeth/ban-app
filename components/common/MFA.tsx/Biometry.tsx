@@ -9,8 +9,8 @@ export const Biometry = ({ animationRef }) => {
       <LottieView
         ref={animationRef}
         style={{
-          width: normalize(400),
-          height: normalize(400),
+          width: 400,
+          height: 400,
           backgroundColor: "#eee"
         }}
         source={require("../../../assets/fingerprint.json")}

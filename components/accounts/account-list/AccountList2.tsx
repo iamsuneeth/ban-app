@@ -48,10 +48,10 @@ const Account = ({ account, colors, dark, navigation }) => {
           })
         }
         testID="accountClick"
-        style={{ flex: 1, padding: normalize(10) }}
+        style={{ flex: 1, padding: 10 }}
       >
         <View style={styles.accountPrimary}>
-          <View style={{ position: "absolute", right: normalize(0) }}>
+          <View style={{ position: "absolute", right: 0 }}>
             <Ionicons name="ios-arrow-dropright" size={25} color={"#fff"} />
           </View>
 
@@ -101,23 +101,23 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
       </View>
       <View
         style={{
-          paddingTop: normalize(10),
-          paddingHorizontal: normalize(10),
+          paddingTop: 10,
+          paddingHorizontal: 10,
           flex: 1
         }}
       >
         <View
           style={{
             flexDirection: "row",
-            paddingHorizontal: normalize(10),
-            marginBottom: normalize(10),
+            paddingHorizontal: 10,
+            marginBottom: 10,
             justifyContent: "space-between",
             alignItems: "center"
           }}
         >
           <Text
             style={{
-              fontSize: normalize(20),
+              fontSize: 20,
               fontWeight: "bold",
               color: colors.text
             }}
@@ -133,7 +133,7 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
           >
             <Text
               style={{
-                fontSize: normalize(14),
+                fontSize: 14,
                 color: colors.primary
               }}
             >
@@ -151,29 +151,29 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
 const styles = StyleSheet.create({
   account: {
     maxHeight: screenHeight * 0.2,
-    marginVertical: normalize(10)
+    marginVertical: 10
   },
   accountCard: {
-    padding: normalize(0),
+    padding: 0,
     flex: 1
   },
   accountPrimary: {
     flex: 1,
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) },
-  highlight: { color: "#fff", fontSize: normalize(18) },
+  main: { color: "#fff", fontSize: 16 },
+  secondary: { color: "#fff", fontSize: 12 },
+  highlight: { color: "#fff", fontSize: 18 },
   sectionHeader: {
-    fontSize: normalize(20),
-    margin: normalize(15),
+    fontSize: 20,
+    margin: 15,
     fontWeight: "bold",
     color: "#555"
   },
   seperator: {
     backgroundColor: "#f5f5f5",
-    height: normalize(1),
-    marginHorizontal: normalize(10)
+    height: 1,
+    marginHorizontal: 10
   },
   section: {}
 });

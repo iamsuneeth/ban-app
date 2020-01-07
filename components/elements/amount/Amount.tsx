@@ -32,7 +32,7 @@ export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
           <Text
             style={{
               fontSize: Math.round(size * 0.8),
-              paddingBottom: normalize(1),
+              paddingBottom: 1,
               ...style.content
             }}
           >
@@ -51,7 +51,7 @@ export const Amount = ({ amount, currency, size = 16, style = {} }: Props) => {
             testID="decimal"
             style={{
               fontSize: Math.round(size * 0.8),
-              paddingBottom: normalize(1),
+              paddingBottom: 1,
               ...style.content
             }}
           >

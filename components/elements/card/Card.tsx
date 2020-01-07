@@ -11,17 +11,17 @@ export const Card: React.FC<ViewProps> = ({ children, style, ...rest }) => (
 const styles = StyleSheet.create({
   card: {
     borderRadius: 5,
-    padding: normalize(10),
-    marginHorizontal: normalize(10),
+    padding: 10,
+    marginHorizontal: 10,
     backgroundColor: "#fff",
     shadowColor: "#ccc",
     shadowOffset: {
-      width: normalize(0),
-      height: normalize(3)
+      width: 0,
+      height: 3
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
     elevation: 2,
-    marginVertical: normalize(5)
+    marginVertical: 5
   }
 });

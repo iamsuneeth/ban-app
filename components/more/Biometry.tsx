@@ -37,10 +37,10 @@ export const Biometry = () => {
           flexDirection: "row",
           justifyContent: "space-around",
           alignItems: "center",
-          margin: normalize(10)
+          margin: 10
         }}
       >
-        <Text style={{ fontSize: normalize(16), color: colors.text }}>
+        <Text style={{ fontSize: 16, color: colors.text }}>
           Enable biometry
         </Text>
         <Switch onValueChange={handleBiometry} value={biometryEnabled} />

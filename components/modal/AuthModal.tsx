@@ -140,8 +140,8 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
             <Card
               style={{
                 shadowOpacity: 0,
-                marginHorizontal: normalize(0),
-                paddingBottom: normalize(40),
+                marginHorizontal: 0,
+                paddingBottom: 40,
                 height: "100%",
                 backgroundColor: colors.surface
               }}
@@ -154,9 +154,9 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                 >
                   <RectButton
                     style={{
-                      width: normalize(200),
-                      height: normalize(40),
-                      paddingRight: normalize(10),
+                      width: 200,
+                      height: 40,
+                      paddingRight: 10,
                       justifyContent: "center"
                     }}
                     onPress={signOut}
@@ -166,7 +166,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                         color: colors.primary,
                         fontWeight: "bold",
                         textAlign: "right",
-                        fontSize: normalize(16),
+                        fontSize: 16,
                         textTransform: "uppercase"
                       }}
                     >
@@ -184,11 +184,11 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
               >
                 <Text
                   style={{
-                    fontSize: normalize(25),
+                    fontSize: 25,
                     fontWeight: "bold",
                     color: colors.text,
                     textAlign: "center",
-                    paddingHorizontal: normalize(40)
+                    paddingHorizontal: 40
                   }}
                 >
                   Confirm fingerprint to unlock the app
@@ -196,7 +196,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
 
                 {modalVisible && (
                   <View
-                    style={{ marginTop: normalize(40), alignItems: "center" }}
+                    style={{ marginTop: 40, alignItems: "center" }}
                   >
                     <Ionicons name="ios-finger-print" size={100} />
                   </View>
@@ -205,7 +205,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                   <LottieView
                     ref={lottieRef}
                     loop={false}
-                    style={{ width: normalize(400) }}
+                    style={{ width: 400 }}
                     onAnimationFinish={() => sheetRef.current.snapTo(0)}
                     autoSize
                     source={require("../../assets/fingerprint.json")}

@@ -72,7 +72,7 @@ export const AccountDetails = ({ account, details }: Props) => {
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: "center", paddingTop: normalize(10) }}>
+        <View style={{ alignItems: "center", paddingTop: 10 }}>
           {/* <SharedElement
             id={account.id}
             style={{
@@ -126,16 +126,16 @@ export const AccountDetails = ({ account, details }: Props) => {
             <View
               style={{
                 backgroundColor: colors.primary,
-                borderRadius: normalize(25),
-                height: normalize(50),
-                width: normalize(50),
-                padding: normalize(10),
-                marginBottom: normalize(5),
+                borderRadius: 25,
+                height: 50,
+                width: 50,
+                padding: 10,
+                marginBottom: 5,
                 alignItems: "center",
                 elevation: 6,
                 shadowOffset: {
-                  width: normalize(1),
-                  height: normalize(1)
+                  width: 1,
+                  height: 1
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
@@ -163,17 +163,17 @@ export const AccountDetails = ({ account, details }: Props) => {
                 borderWidth: 1,
                 backgroundColor: colors.background,
                 borderColor: colors.primary,
-                borderRadius: normalize(25),
-                height: normalize(50),
-                width: normalize(50),
-                padding: normalize(10),
+                borderRadius: 25,
+                height: 50,
+                width: 50,
+                padding: 10,
                 alignItems: "center",
                 elevation: 1,
-                marginBottom: normalize(5),
+                marginBottom: 5,
 
                 shadowOffset: {
-                  width: normalize(1),
-                  height: normalize(1)
+                  width: 1,
+                  height: 1
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
@@ -196,17 +196,17 @@ export const AccountDetails = ({ account, details }: Props) => {
               style={{
                 borderWidth: 1,
                 borderColor: colors.primary,
-                borderRadius: normalize(25),
+                borderRadius: 25,
                 backgroundColor: colors.background,
-                height: normalize(50),
-                width: normalize(50),
-                padding: normalize(10),
+                height: 50,
+                width: 50,
+                padding: 10,
                 alignItems: "center",
-                marginBottom: normalize(5),
+                marginBottom: 5,
 
                 shadowOffset: {
-                  width: normalize(1),
-                  height: normalize(1)
+                  width: 1,
+                  height: 1
                 },
                 shadowRadius: 3,
                 shadowOpacity: 1,
@@ -255,7 +255,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     size={25}
                     color={colors.text}
                     style={{
-                      marginRight: normalize(5),
+                      marginRight: 5,
                       transform: [
                         {
                           rotate: Animated.concat(rotation, "deg")
@@ -271,7 +271,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: normalize(10)
+                    marginVertical: 10
                   }}
                 >
                   <Text
@@ -293,7 +293,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: normalize(10)
+                    marginVertical: 10
                   }}
                 >
                   <Text
@@ -315,7 +315,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: normalize(10)
+                    marginVertical: 10
                   }}
                 >
                   <Text
@@ -337,7 +337,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: normalize(10)
+                    marginVertical: 10
                   }}
                 >
                   <Text
@@ -390,8 +390,8 @@ export const AccountDetails = ({ account, details }: Props) => {
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: normalize(1),
-                  marginBottom: normalize(10)
+                  height: 1,
+                  marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
@@ -407,8 +407,8 @@ export const AccountDetails = ({ account, details }: Props) => {
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: normalize(1),
-                  marginBottom: normalize(10)
+                  height: 1,
+                  marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
@@ -424,8 +424,8 @@ export const AccountDetails = ({ account, details }: Props) => {
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: normalize(1),
-                  marginBottom: normalize(10)
+                  height: 1,
+                  marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
@@ -441,8 +441,8 @@ export const AccountDetails = ({ account, details }: Props) => {
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: normalize(1),
-                  marginBottom: normalize(10)
+                  height: 1,
+                  marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
@@ -458,8 +458,8 @@ export const AccountDetails = ({ account, details }: Props) => {
               <View
                 style={{
                   backgroundColor: colors.seperator,
-                  height: normalize(1),
-                  marginBottom: normalize(10)
+                  height: 1,
+                  marginBottom: 10
                 }}
               />
               <View style={styles.addnlSection}>
@@ -485,29 +485,29 @@ const styles = StyleSheet.create({
     flex: 1
   },
   accountCard: {
-    padding: normalize(0),
+    padding: 0,
     flex: 1
   },
   accountPrimary: {
-    padding: normalize(10),
+    padding: 10,
     flex: 1,
     justifyContent: "space-between"
   },
   scrollContainer: {},
   section: {
-    marginBottom: normalize(10)
+    marginBottom: 10
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) },
-  highlight: { color: "#fff", fontSize: normalize(18) },
+  main: { color: "#fff", fontSize: 16 },
+  secondary: { color: "#fff", fontSize: 12 },
+  highlight: { color: "#fff", fontSize: 18 },
   secondaryText: {
     color: "#fff",
-    fontSize: normalize(12)
+    fontSize: 12
   },
   secondarySeperator: {
-    paddingHorizontal: normalize(5),
+    paddingHorizontal: 5,
     color: "#fff",
-    fontSize: normalize(12)
+    fontSize: 12
   },
   expandButton: {
     position: "absolute",
@@ -521,54 +521,54 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#fff",
-    fontSize: normalize(14),
+    fontSize: 14,
     textTransform: "capitalize"
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginBottom: normalize(5)
+    marginBottom: 5
   },
   amount: { color: "#fff" },
   quickLinks: {
     flexDirection: "row",
     alignSelf: "center",
     width: screenWidth * 0.8,
-    marginVertical: normalize(10)
+    marginVertical: 10
   },
   quickLinkButton: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    padding: normalize(5)
+    padding: 5
   },
   quickLinkText: {
-    fontSize: normalize(12),
+    fontSize: 12,
     alignSelf: "center",
     textAlign: "center"
   },
   addnlContainer: {
-    marginTop: normalize(10)
+    marginTop: 10
   },
   addnlInnerContainer: {
     flex: 1
   },
   addnlHeader: {
-    fontSize: normalize(14),
-    marginBottom: normalize(15),
+    fontSize: 14,
+    marginBottom: 15,
     fontWeight: "bold"
   },
   amountDetailsHeader: {
-    fontSize: normalize(14),
+    fontSize: 14,
     fontWeight: "bold"
   },
-  addnlSection: { marginBottom: normalize(10) },
+  addnlSection: { marginBottom: 10 },
   addnlLabel: {
-    fontSize: normalize(14),
-    marginVertical: normalize(5)
+    fontSize: 14,
+    marginVertical: 5
   },
   addnlValue: {
-    fontSize: normalize(14)
+    fontSize: 14
   }
 });

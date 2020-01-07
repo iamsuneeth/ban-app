@@ -36,25 +36,25 @@ export const PayeeSelectionScreen = ({
       <ScrollView scrollEventThrottle={1}>
         <View
           style={{
-            height: normalize(5),
-            marginHorizontal: normalize(10),
+            height: 5,
+            marginHorizontal: 10,
             borderRadius: 3,
-            top: normalize(35),
+            top: 35,
             backgroundColor: colors.primary
           }}
         />
         <View
           style={{
-            marginHorizontal: normalize(10),
+            marginHorizontal: 10,
             flexDirection: "row",
-            paddingVertical: normalize(10)
+            paddingVertical: 10
           }}
         >
           <Text
             style={{
-              fontSize: normalize(25),
-              paddingHorizontal: normalize(5),
-              marginLeft: normalize(20),
+              fontSize: 25,
+              paddingHorizontal: 5,
+              marginLeft: 20,
               color: colors.text,
               backgroundColor: colors.background
             }}

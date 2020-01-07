@@ -37,12 +37,12 @@ export const PayeeDetails = ({
       {/* <SharedElement
         id={payee.id}
         style={{
-          width: normalize(100),
-          height: normalize(100),
+          width: 100,
+          height: 100,
           elevation: 3,
           zIndex: 3,
-          top: normalize(10),
-          left: normalize(20),
+          top: 10,
+          left: 20,
           position: "absolute"
         }}
       >
@@ -50,12 +50,12 @@ export const PayeeDetails = ({
       </SharedElement> */}
       <View
         style={{
-          width: normalize(100),
-          height: normalize(100),
+          width: 100,
+          height: 100,
           elevation: 3,
           zIndex: 3,
-          top: normalize(10),
-          left: normalize(20),
+          top: 10,
+          left: 20,
           position: "absolute"
         }}
       >
@@ -63,27 +63,27 @@ export const PayeeDetails = ({
       </View>
       <Card
         style={{
-          marginTop: normalize(50),
-          marginHorizontal: normalize(0),
+          marginTop: 50,
+          marginHorizontal: 0,
           backgroundColor: colors.surface,
           shadowColor: colors.shadowColor
         }}
       >
-        <View style={{ margin: normalize(5) }}>
+        <View style={{ margin: 5 }}>
           {/* <SharedElement
             id={`${payee.id}payeeName`}
-            style={{ alignSelf: "flex-end", width: normalize(250) }}
+            style={{ alignSelf: "flex-end", width: 250 }}
           >
             <Text style={[styles.header, { color: colors.gray }]}>
               {payee.name}
             </Text>
           </SharedElement> */}
-          <View style={{ alignSelf: "flex-end", width: normalize(250) }}>
+          <View style={{ alignSelf: "flex-end", width: 250 }}>
             <Text style={[styles.header, { color: colors.text }]}>
               {payee.name}
             </Text>
           </View>
-          <View style={{ marginTop: normalize(20) }}>
+          <View style={{ marginTop: 20 }}>
             <View style={styles.section}>
               <Text style={[styles.label, { color: colors.text }]}>
                 Account number
@@ -115,9 +115,9 @@ export const PayeeDetails = ({
                 <Image
                   source={{ uri: payee.bankLogo }}
                   style={{
-                    width: normalize(20),
-                    height: normalize(20),
-                    marginRight: normalize(5)
+                    width: 20,
+                    height: 20,
+                    marginRight: 5
                   }}
                 />
                 <Text style={[styles.value, { color: colors.text }]}>
@@ -156,7 +156,7 @@ export const PayeeDetails = ({
             <View
               style={[
                 styles.actionButton,
-                { borderColor: colors.primary, borderWidth: normalize(1) }
+                { borderColor: colors.primary, borderWidth: 1 }
               ]}
             >
               <Text
@@ -176,7 +176,7 @@ export const PayeeDetails = ({
             <View
               style={[
                 styles.actionButton,
-                { borderColor: colors.primary, borderWidth: normalize(1) }
+                { borderColor: colors.primary, borderWidth: 1 }
               ]}
             >
               <Text
@@ -192,7 +192,7 @@ export const PayeeDetails = ({
         <TouchableWithoutFeedback
           onPress={openClearbit}
           style={{
-            paddingTop: normalize(5),
+            paddingTop: 5,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-end"
@@ -200,13 +200,13 @@ export const PayeeDetails = ({
         >
           <Image
             style={{
-              width: normalize(14),
-              height: normalize(14),
-              marginRight: normalize(5)
+              width: 14,
+              height: 14,
+              marginRight: 5
             }}
             source={{ uri: "https://logo.clearbit.com/clearbit.com" }}
           />
-          <Text style={{ fontSize: normalize(14), color: colors.text }}>
+          <Text style={{ fontSize: 14, color: colors.text }}>
             Logos provided by Clearbit
           </Text>
         </TouchableWithoutFeedback>
@@ -244,40 +244,40 @@ export const PayeeDetails = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: normalize(10)
+    padding: 10
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   icon: {
-    paddingRight: normalize(10)
+    paddingRight: 10
   },
   header: {
-    fontSize: normalize(25),
+    fontSize: 25,
     textAlign: "right"
   },
   value: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   label: {
-    fontSize: normalize(14)
+    fontSize: 14
   },
   section: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: normalize(10)
+    marginVertical: 10
   },
   buttonContaioner: {
-    marginTop: normalize(20),
-    marginBottom: normalize(10),
+    marginTop: 20,
+    marginBottom: 10,
     flexDirection: "row",
     justifyContent: "space-between"
   },
   actionButton: {
-    paddingVertical: normalize(5),
-    paddingHorizontal: normalize(10),
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     minWidth: "30%",
     minHeight: 40,
     alignItems: "center",
@@ -286,6 +286,6 @@ const styles = StyleSheet.create({
   },
   actionButtontext: {
     textAlign: "center",
-    fontSize: normalize(14)
+    fontSize: 14
   }
 });

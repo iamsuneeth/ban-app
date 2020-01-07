@@ -29,7 +29,7 @@ export const TransactionSearch = ({ handleSearch, searchString }: Props) => {
         clearButtonMode={"always"}
         selectionColor={"tomato"}
         style={{
-          padding: normalize(10),
+          padding: 10,
           flex: 1
         }}
         value={searchString}

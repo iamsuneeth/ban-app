@@ -31,11 +31,11 @@ export const PaymentHeader = ({ data }: PaymentHeaderProps) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: normalize(10),
+    paddingHorizontal: 10,
     backgroundColor: "#fff"
   },
   sectionHeader: {
-    fontSize: normalize(15),
+    fontSize: 15,
     color: "gray",
     fontWeight: "500"
   }

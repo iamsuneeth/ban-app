@@ -128,7 +128,7 @@ export const Transaction = memo(
             style={{
               alignItems: "center",
               backgroundColor: colors.primary,
-              paddingVertical: normalize(5)
+              paddingVertical: 5
             }}
           >
             <Text style={{ color: "#fff" }}>
@@ -185,10 +185,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   txnList: {
-    marginTop: normalize(10)
+    marginTop: 10
   },
   txnListHeader: {
-    paddingLeft: normalize(10),
-    fontSize: normalize(20)
+    paddingLeft: 10,
+    fontSize: 20
   }
 });

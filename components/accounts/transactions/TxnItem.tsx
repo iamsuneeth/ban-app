@@ -54,25 +54,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: normalize(10),
-    marginVertical: normalize(5)
+    paddingHorizontal: 10,
+    marginVertical: 5
   },
   main: {
     justifyContent: "center"
   },
   recepient: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12)
+    marginTop: 5,
+    fontSize: 12
   },
   icon: {
-    padding: normalize(5),
-    marginRight: normalize(5),
+    padding: 5,
+    marginRight: 5,
     alignItems: "center",
     justifyContent: "center",
-    width: normalize(50),
-    height: normalize(50)
+    width: 50,
+    height: 50
   },
   amount: {
     fontWeight: "400",

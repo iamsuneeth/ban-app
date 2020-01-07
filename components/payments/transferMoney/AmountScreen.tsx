@@ -125,8 +125,8 @@ export const AmountScreen = ({
           <Text
             style={{
               color: colors.text,
-              marginVertical: normalize(10),
-              fontSize: normalize(16)
+              marginVertical: 10,
+              fontSize: 16
             }}
           >
             How often should this payment repeat?
@@ -143,15 +143,15 @@ export const AmountScreen = ({
                   style={{
                     alignItems: "center",
                     flexDirection: "row",
-                    paddingVertical: normalize(15),
-                    paddingHorizontal: normalize(10)
+                    paddingVertical: 15,
+                    paddingHorizontal: 10
                   }}
                 >
                   <Ionicons name="md-time" size={25} color={colors.primary} />
                   <Text
                     style={{
-                      fontSize: normalize(16),
-                      marginLeft: normalize(10),
+                      fontSize: 16,
+                      marginLeft: 10,
                       color: colors.text
                     }}
                   >
@@ -173,25 +173,25 @@ export const AmountScreen = ({
           flex: 1
         }}
       >
-        <View style={{ marginHorizontal: normalize(10) }}>
+        <View style={{ marginHorizontal: 10 }}>
           <Text
             style={{
-              fontSize: normalize(14),
+              fontSize: 14,
               color: colors.text,
               fontWeight: "600",
-              marginBottom: normalize(10)
+              marginBottom: 10
             }}
           >
             Account
           </Text>
-          <RectButton onPress={openAccountSelection} style={{ height: normalize(40) }}>
+          <RectButton onPress={openAccountSelection} style={{ height: 40 }}>
             {paymentState.details.account && (
               <View>
                 <Text
                   style={{
                     color: colors.primary,
                     fontWeight: "bold",
-                    fontSize: normalize(18)
+                    fontSize: 18
                   }}
                 >
                   {paymentState.details.account.nickName}
@@ -222,9 +222,9 @@ export const AmountScreen = ({
                 <Ionicons name="ios-add" size={24} color={colors.primary} />
                 <Text
                   style={{
-                    marginLeft: normalize(5),
+                    marginLeft: 5,
                     color: colors.primary,
-                    fontSize: normalize(18)
+                    fontSize: 18
                   }}
                 >
                   Select account
@@ -236,7 +236,7 @@ export const AmountScreen = ({
         <View>
           <TextInput
             label="Amount (£)"
-            style={{ margin: normalize(5) }}
+            style={{ margin: 5 }}
             theme={{
               colors: {
                 background: "transparent"
@@ -249,7 +249,7 @@ export const AmountScreen = ({
           />
           <TextInput
             label="Reference"
-            style={{ margin: normalize(5) }}
+            style={{ margin: 5 }}
             autoCapitalize="none"
             autoCorrect={false}
             theme={{
@@ -261,16 +261,16 @@ export const AmountScreen = ({
             onChangeText={text => setState({ reference: text })}
           />
         </View>
-        <View style={{ margin: normalize(10) }}>
+        <View style={{ margin: 10 }}>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              marginVertical: normalize(10)
+              marginVertical: 10
             }}
           >
-            <Text style={{ fontSize: normalize(14), color: colors.text }}>
+            <Text style={{ fontSize: 14, color: colors.text }}>
               Schedule Payment
             </Text>
             <Switch
@@ -291,18 +291,18 @@ export const AmountScreen = ({
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginVertical: normalize(10)
+                      marginVertical: 10
                     }}
                   >
                     <Text
-                      style={{ fontSize: normalize(14), color: colors.text }}
+                      style={{ fontSize: 14, color: colors.text }}
                     >
                       Payment date
                     </Text>
                     <Text
                       style={{
                         textTransform: "uppercase",
-                        fontSize: normalize(14),
+                        fontSize: 14,
                         color: colors.primary,
                         fontWeight: "500"
                       }}
@@ -323,17 +323,17 @@ export const AmountScreen = ({
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: normalize(10)
+                    marginVertical: 10
                   }}
                 >
-                  <Text style={{ fontSize: normalize(14), color: colors.text }}>
+                  <Text style={{ fontSize: 14, color: colors.text }}>
                     Repeat
                   </Text>
 
                   <Text
                     style={{
                       textTransform: "uppercase",
-                      fontSize: normalize(14),
+                      fontSize: 14,
                       color: colors.primary,
                       fontWeight: "500"
                     }}
@@ -350,18 +350,18 @@ export const AmountScreen = ({
                         flexDirection: "row",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        marginVertical: normalize(10)
+                        marginVertical: 10
                       }}
                     >
                       <Text
-                        style={{ fontSize: normalize(14), color: colors.text }}
+                        style={{ fontSize: 14, color: colors.text }}
                       >
                         Stop repeating
                       </Text>
                       <Text
                         style={{
                           textTransform: "uppercase",
-                          fontSize: normalize(14),
+                          fontSize: 14,
                           color: colors.primary,
                           fontWeight: "500"
                         }}
@@ -385,12 +385,12 @@ export const AmountScreen = ({
       <View
         style={{
           flex: 1,
-          paddingTop: normalize(20),
-          marginBottom: normalize(40)
+          paddingTop: 20,
+          marginBottom: 40
         }}
       >
         <RectButton
-          style={{ height: normalize(40), marginHorizontal: normalize(10) }}
+          style={{ height: 40, marginHorizontal: 10 }}
           enabled={!!state.amount}
           onPress={nextStep}
         >

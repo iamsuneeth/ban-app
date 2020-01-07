@@ -86,11 +86,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: Dimensions.get("window").width - 20,
-    margin: normalize(10),
-    padding: normalize(10)
+    margin: 10,
+    padding: 10
   },
   label: {
-    fontSize: normalize(14),
+    fontSize: 14,
     textAlign: "center",
     textTransform: "capitalize"
   },
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
   },
   flexRow: {
     flexDirection: "row",
-    marginVertical: normalize(5),
+    marginVertical: 5,
     justifyContent: "space-between"
   },
   seperator: {
-    height: normalize(5),
+    height: 5,
     borderRadius: 2.5,
     overflow: "hidden"
   }

@@ -89,8 +89,8 @@ export const Modal = ({ navigation, route }: ModalProps) => {
             <Card
               style={{
                 shadowOpacity: 0,
-                marginHorizontal: normalize(0),
-                paddingBottom: normalize(40),
+                marginHorizontal: 0,
+                paddingBottom: 40,
                 height: "100%",
                 backgroundColor: colors.surface,
                 ...extraStyles

@@ -31,14 +31,14 @@ const renderContent = (
     <View
       style={{
         backgroundColor: "#fff",
-        height: normalize(30),
+        height: 30,
         justifyContent: "center"
       }}
     >
       <View
         style={{
-          width: normalize(50),
-          height: normalize(5),
+          width: 50,
+          height: 5,
           backgroundColor: "#ccc",
           borderRadius: 50,
           alignSelf: "center"
@@ -54,10 +54,10 @@ const renderContent = (
     <RectButton
       style={{
         borderColor: "#039be5",
-        marginVertical: normalize(10),
-        borderWidth: normalize(1),
-        width: normalize(150),
-        height: normalize(40),
+        marginVertical: 10,
+        borderWidth: 1,
+        width: 150,
+        height: 40,
         alignSelf: "center",
         justifyContent: "center",
         borderRadius: 3
@@ -68,7 +68,7 @@ const renderContent = (
           textAlign: "center",
           textAlignVertical: "center",
           color: "#039be5",
-          fontSize: normalize(16)
+          fontSize: 16
         }}
       >
         More transactions
@@ -130,17 +130,17 @@ export const TransactionSheet = memo(
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: normalize(0),
-    paddingHorizontal: normalize(0),
+    marginHorizontal: 0,
+    paddingHorizontal: 0,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     height: "99%"
   },
   txnList: {
-    marginTop: normalize(10)
+    marginTop: 10
   },
   txnListHeader: {
-    paddingLeft: normalize(10),
-    fontSize: normalize(20)
+    paddingLeft: 10,
+    fontSize: 20
   }
 });

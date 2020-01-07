@@ -26,8 +26,8 @@ export const Upcoming = ({
     <View style={{ flex: 1 }}>
       <Card
         style={{
-          marginTop: normalize(0),
-          marginHorizontal: normalize(0),
+          marginTop: 0,
+          marginHorizontal: 0,
           shadowOpacity: 0.2,
           shadowColor: colors.shadowColor,
           backgroundColor: colors.surface
@@ -111,30 +111,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: normalize(10)
+    paddingHorizontal: 10
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   seperator: {
-    height: normalize(1),
+    height: 1,
     width: "90%",
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12),
+    fontSize: 12,
     color: "#888"
   },
   icon: {
-    paddingRight: normalize(10)
+    paddingRight: 10
   },
   sectionHeader: {
-    fontSize: normalize(20),
-    margin: normalize(15),
+    fontSize: 20,
+    margin: 15,
     fontWeight: "bold",
     color: "#555"
   }

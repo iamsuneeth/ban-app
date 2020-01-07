@@ -21,7 +21,7 @@ export const Divider = ({
         {
           width,
           alignSelf: "center",
-          height: normalize(1),
+          height: 1,
           position: "relative"
         },
         rootStyle
@@ -43,10 +43,10 @@ export const Divider = ({
       >
         <View
           style={{
-            width: normalize(20),
-            height: normalize(10),
+            width: 20,
+            height: 10,
             borderRadius: 5,
-            padding: normalize(2),
+            padding: 2,
             backgroundColor: "#fff",
             justifyContent: "center",
             alignItems: "center"

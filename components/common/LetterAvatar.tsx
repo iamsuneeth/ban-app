@@ -40,7 +40,7 @@ const getLetter = (text: String) => text.substr(0, 1).toUpperCase();
 export const LetterAvatar = ({
   text,
   initials = false,
-  size = normalize(60),
+  size = 60,
   viewStyle,
   textStyle
 }: props) => {
@@ -68,7 +68,7 @@ export const LetterAvatar = ({
           width: size,
           height: size,
           borderRadius: size / 2,
-          marginBottom: normalize(10),
+          marginBottom: 10,
           backgroundColor: colors.avatarBackground,
           justifyContent: "center",
           alignContent: "center"

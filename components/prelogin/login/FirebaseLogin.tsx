@@ -151,8 +151,8 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
               behavior="position"
               enabled
               style={{
-                paddingHorizontal: normalize(10),
-                marginBottom: normalize(50),
+                paddingHorizontal: 10,
+                marginBottom: 50,
                 flex: 1,
                 alignItems: "center"
               }}
@@ -172,7 +172,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     loop={false}
                     resizeMode="cover"
                     onAnimationFinish={() => onAnimationEnd()}
-                    style={{ width: normalize(300) }}
+                    style={{ width: 300 }}
                     source={require("../../../assets/logo_dark.json")}
                   />
                 )}
@@ -183,14 +183,14 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     speed={1.5}
                     resizeMode="cover"
                     onAnimationFinish={() => onAnimationEnd()}
-                    style={{ width: normalize(300) }}
+                    style={{ width: 300 }}
                     source={require("../../../assets/logo_light.json")}
                   />
                 )}
                 <Text
                   style={{
-                    fontSize: normalize(30),
-                    marginLeft: normalize(10),
+                    fontSize: 30,
+                    marginLeft: 10,
                     fontWeight: "bold",
                     color: colors.text
                   }}
@@ -227,8 +227,8 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     <View
                       style={{
                         backgroundColor: "red",
-                        padding: normalize(5),
-                        marginBottom: normalize(10)
+                        padding: 5,
+                        marginBottom: 10
                       }}
                     >
                       <Text style={{ color: colors.text }}>{error}</Text>
@@ -237,8 +237,8 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   <Text
                     style={{
                       color: colors.text,
-                      marginTop: normalize(40),
-                      fontSize: normalize(16),
+                      marginTop: 40,
+                      fontSize: 16,
                       textAlign: "center"
                     }}
                   >
@@ -247,7 +247,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   <Text
                     style={{
                       color: colors.text,
-                      fontSize: normalize(16),
+                      fontSize: 16,
                       textAlign: "center"
                     }}
                   >
@@ -270,7 +270,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                       borderRadius: borderRadiusAnimation,
                       backgroundColor: colors.primary,
                       opacity: !!smsCode ? 1 : 0.6,
-                      height: normalize(40),
+                      height: 40,
                       justifyContent: "center",
                       alignSelf: "center",
                       transform: [
@@ -282,7 +282,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   >
                     <RectButton
                       onPress={onSignIn}
-                      style={{ flex: 1, padding: normalize(10) }}
+                      style={{ flex: 1, padding: 10 }}
                       enabled={!!smsCode}
                     >
                       {authState === "notStarted" && (
@@ -290,7 +290,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                           style={{
                             textAlign: "center",
                             color: "#fff",
-                            fontSize: normalize(16)
+                            fontSize: 16
                           }}
                         >
                           VERIFY

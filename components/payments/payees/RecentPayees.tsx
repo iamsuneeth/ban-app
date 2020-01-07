@@ -38,8 +38,8 @@ export const RecentPayees = ({ payees, loading, onPress }: props) => {
             style={{
               justifyContent: "flex-start",
               alignItems: "center",
-              margin: normalize(5),
-              width: normalize(80)
+              margin: 5,
+              width: 80
             }}
             onPress={
               onPress
@@ -67,8 +67,8 @@ export const RecentPayees = ({ payees, loading, onPress }: props) => {
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    fontSize: normalize(14),
-    margin: normalize(15),
+    fontSize: 14,
+    margin: 15,
     fontWeight: "bold"
   }
 });

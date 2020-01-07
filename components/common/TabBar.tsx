@@ -7,8 +7,8 @@ import { normalize } from "../../utils/normalize";
 let tabBarLayout = {
   x: 0,
   y: 0,
-  width: normalize(0),
-  height: normalize(0)
+  width: 0,
+  height: 0
 };
 
 export const getTabBarHeight = () => tabBarLayout.height;

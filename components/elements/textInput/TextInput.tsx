@@ -13,7 +13,7 @@ export const TextInput = ({ style, ...props }) => {
       }}
       autoCorrect={false}
       style={{
-        marginVertical: normalize(10),
+        marginVertical: 10,
         width: "100%",
         ...style
       }}

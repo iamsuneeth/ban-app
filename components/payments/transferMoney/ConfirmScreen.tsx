@@ -47,8 +47,8 @@ export const ConfirmScreen = ({ navigation }: props) => {
     <View style={styles.animationContainer}>
       <Text
         style={{
-          fontSize: normalize(20),
-          marginTop: normalize(10),
+          fontSize: 20,
+          marginTop: 10,
           color: colors.text,
           fontWeight: "bold",
           alignSelf: "center"
@@ -71,8 +71,8 @@ export const ConfirmScreen = ({ navigation }: props) => {
       >
         <Text
           style={{
-            fontSize: normalize(14),
-            marginRight: normalize(5),
+            fontSize: 14,
+            marginRight: 5,
             color: colors.text
           }}
         >
@@ -80,7 +80,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
         </Text>
         <Text
           style={{
-            fontSize: normalize(14),
+            fontSize: 14,
             textTransform: "uppercase",
             fontWeight: "bold",
             color: colors.text
@@ -92,18 +92,18 @@ export const ConfirmScreen = ({ navigation }: props) => {
       <View
         style={{
           flex: 1,
-          marginTop: normalize(20),
-          marginHorizontal: normalize(10),
+          marginTop: 20,
+          marginHorizontal: 10,
           alignItems: "center",
           justifyContent: "flex-end",
-          marginBottom: normalize(20)
+          marginBottom: 20
         }}
       >
         <RectButton
           style={{
             width: "80%",
-            height: normalize(40),
-            marginVertical: normalize(5)
+            height: 40,
+            marginVertical: 5
           }}
           onPress={() =>
             navigation.dispatch(
@@ -124,7 +124,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
           >
             <Text
               style={{
-                fontSize: normalize(14),
+                fontSize: 14,
                 fontWeight: "bold",
                 color: "#fff",
                 textAlign: "center",
@@ -138,8 +138,8 @@ export const ConfirmScreen = ({ navigation }: props) => {
         <RectButton
           style={{
             width: "80%",
-            height: normalize(40),
-            marginVertical: normalize(5)
+            height: 40,
+            marginVertical: 5
           }}
           onPress={() =>
             navigation.dispatch(
@@ -157,7 +157,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
           <View
             style={{
               borderColor: colors.primary,
-              borderWidth: normalize(1),
+              borderWidth: 1,
               borderRadius: 3,
               flex: 1,
               justifyContent: "center"
@@ -165,7 +165,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
           >
             <Text
               style={{
-                fontSize: normalize(14),
+                fontSize: 14,
                 fontWeight: "bold",
                 color: colors.primary,
                 textAlign: "center",

@@ -11,7 +11,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
       <Text
         style={{
           textAlign: "center",
-          fontSize: normalize(16),
+          fontSize: 16,
           color: colors.text
         }}
       >
@@ -21,8 +21,8 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
         <RectButton
           style={{
             backgroundColor: colors.primary,
-            height: normalize(40),
-            margin: normalize(10),
+            height: 40,
+            margin: 10,
             flex: 1,
             alignSelf: "center",
             justifyContent: "center",
@@ -38,7 +38,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
               textAlign: "center",
               textAlignVertical: "center",
               color: "#fff",
-              fontSize: normalize(16)
+              fontSize: 16
             }}
           >
             Confirm
@@ -46,9 +46,9 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
         </RectButton>
         <RectButton
           style={{
-            margin: normalize(10),
+            margin: 10,
             flex: 1,
-            height: normalize(40),
+            height: 40,
             alignSelf: "center"
           }}
           onPress={() => {
@@ -60,7 +60,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
             style={{
               flex: 1,
               borderColor: colors.primary,
-              borderWidth: normalize(1),
+              borderWidth: 1,
               justifyContent: "center",
               borderRadius: 3
             }}
@@ -70,7 +70,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
                 textAlign: "center",
                 textAlignVertical: "center",
                 color: colors.primary,
-                fontSize: normalize(16)
+                fontSize: 16
               }}
             >
               Cancel

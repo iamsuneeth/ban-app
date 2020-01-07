@@ -62,7 +62,7 @@ export const Favorites = ({ favorites, style }: Props) => {
   const navigation = useNavigation<FavoriteNavigationProps>();
   return (
     <>
-      <View style={[{ marginVertical: normalize(10) }, style]}>
+      <View style={[{ marginVertical: 10 }, style]}>
         <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
           Favorites
         </Text>
@@ -70,7 +70,7 @@ export const Favorites = ({ favorites, style }: Props) => {
           {favoritePayments.map((favorite, index) => (
             <View key={favorite.id}>
               <View style={{ flexDirection: "row" }}>
-                <RectButton style={{ flex: 1, paddingVertical: normalize(10) }}>
+                <RectButton style={{ flex: 1, paddingVertical: 10 }}>
                   <View style={[styles.itemContainer]}>
                     <View style={styles.icon}>
                       <LetterAvatar text={favorite.payeeName} size={50} />
@@ -108,7 +108,7 @@ export const Favorites = ({ favorites, style }: Props) => {
                     <BorderlessButton
                       style={{
                         justifyContent: "flex-end",
-                        paddingRight: normalize(10)
+                        paddingRight: 10
                       }}
                       onPress={() =>
                         navigation.navigate("Modal", {
@@ -119,7 +119,7 @@ export const Favorites = ({ favorites, style }: Props) => {
                       <Text
                         style={{
                           color: colors.primary,
-                          fontSize: normalize(14)
+                          fontSize: 14
                         }}
                       >
                         Delete
@@ -150,11 +150,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: normalize(10)
+    paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(14),
-    margin: normalize(15),
+    fontSize: 14,
+    margin: 15,
     fontWeight: "bold"
   },
   main: {
@@ -162,17 +162,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   seperator: {
-    height: normalize(1),
+    height: 1,
     width: "90%",
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12)
+    fontSize: 12
   },
   icon: {
-    paddingRight: normalize(10)
+    paddingRight: 10
   }
 });

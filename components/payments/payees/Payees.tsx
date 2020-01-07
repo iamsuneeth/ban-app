@@ -25,7 +25,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
   const navigation = useNavigation<PayeeNavigationProps>();
   const renderItem = (item, index) => (
     <RectButton
-      style={{ flex: 1, paddingHorizontal: normalize(10) }}
+      style={{ flex: 1, paddingHorizontal: 10 }}
       onPress={
         onPress
           ? () => onPress(item)
@@ -39,7 +39,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
         <View style={styles.icon}>
           {/* <SharedElement
         id={item.id}
-        style={{ width: normalize(50), height: normalize(50), borderRadius: 25 }}
+        style={{ width: 50, height: 50, borderRadius: 25 }}
       >
         <LetterAvatar text={item.name} size={50} />
       </SharedElement> */}
@@ -58,7 +58,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
           <View style={{ flexDirection: "row" }}>
             {/* <SharedElement
           id={`${item.id}code`}
-          style={{ marginRight: normalize(10) }}
+          style={{ marginRight: 10 }}
         >
           <Text style={styles.description}>{item.code}</Text>
         </SharedElement> */}
@@ -118,7 +118,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
             key={item.id}
             style={{
               flex: 1,
-              paddingVertical: normalize(10)
+              paddingVertical: 10
             }}
           >
             {renderItem(item, index)}
@@ -135,11 +135,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     minHeight: 60,
-    paddingHorizontal: normalize(10)
+    paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: normalize(14),
-    margin: normalize(15),
+    fontSize: 14,
+    margin: 15,
     fontWeight: "bold"
   },
   main: {
@@ -147,23 +147,23 @@ const styles = StyleSheet.create({
     flex: 1
   },
   seperator: {
-    height: normalize(1),
+    height: 1,
     width: "90%",
     alignSelf: "center"
   },
   header: {
-    fontSize: normalize(16)
+    fontSize: 16
   },
   description: {
-    fontSize: normalize(12)
+    fontSize: 12
   },
   icon: {
-    paddingRight: normalize(10)
+    paddingRight: 10
   },
   actionButton: {
-    paddingVertical: normalize(5),
-    margin: normalize(5),
-    paddingHorizontal: normalize(10),
+    paddingVertical: 5,
+    margin: 5,
+    paddingHorizontal: 10,
     minHeight: 40,
     flexDirection: "row",
     alignItems: "center",
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   actionButtontext: {
     textAlign: "center",
-    marginLeft: normalize(5),
-    fontSize: normalize(14)
+    marginLeft: 5,
+    fontSize: 14
   }
 });
