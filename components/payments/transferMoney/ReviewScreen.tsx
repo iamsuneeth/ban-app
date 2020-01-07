@@ -7,7 +7,7 @@ import { LetterAvatar } from "../../common/LetterAvatar";
 import { Ionicons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 
 type Props = {
   paymentState: IPaymentState;
@@ -79,9 +79,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               >
                 {paymentState.details.payee.name}
               </Text>
-              <Text
-                style={{ color: colors.textSecondary, fontSize: 12 }}
-              >
+              <Text style={{ color: colors.textSecondary, fontSize: 12 }}>
                 {`${paymentState.details.payee.code} - ${paymentState.details.payee.accountNumber}`}
               </Text>
             </View>
@@ -143,9 +141,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                     >
                       Date
                     </Text>
-                    <Text
-                      style={{ fontSize: 14, color: colors.text }}
-                    >
+                    <Text style={{ fontSize: 14, color: colors.text }}>
                       {paymentState.details.txnStartDate.format(
                         "ddd MMM DD YYYY"
                       )}
@@ -178,9 +174,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                     >
                       Repeats
                     </Text>
-                    <Text
-                      style={{ fontSize: 14, color: colors.text }}
-                    >
+                    <Text style={{ fontSize: 14, color: colors.text }}>
                       {paymentState.details.frequency.text}
                     </Text>
                   </View>
@@ -211,9 +205,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                     >
                       Stop repeating
                     </Text>
-                    <Text
-                      style={{ fontSize: 14, color: colors.text }}
-                    >
+                    <Text style={{ fontSize: 14, color: colors.text }}>
                       {paymentState.details.txnEndDate.format(
                         "ddd MMM DD YYYY"
                       )}

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Button as RNButton } from "react-native-paper";
-import { normalize } from "../../../utils/normalize";
+
 import { useTheme } from "@react-navigation/native";
 
 type ButtonProp = {

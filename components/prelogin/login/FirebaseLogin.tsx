@@ -21,7 +21,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 import { Button } from "../../elements/button/Button";
 import { TextInput } from "../../elements/textInput/TextInput";
 import LottieView from "lottie-react-native";

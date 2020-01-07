@@ -9,7 +9,7 @@ import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 
 type PaymentsNavigationProps = StackNavigationProp<
   PaymentParamList,

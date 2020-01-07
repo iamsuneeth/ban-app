@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ViewProps } from "react-native";
-import { normalize } from "../../../utils/normalize";
+
 
 export const Card: React.FC<ViewProps> = ({ children, style, ...rest }) => (
   <View style={[styles.card, style]} {...rest}>

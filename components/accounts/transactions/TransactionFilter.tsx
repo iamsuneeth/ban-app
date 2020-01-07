@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
 import { useTheme } from "@react-navigation/native";
-import { normalize } from "../../../utils/normalize";
+
 import { Switch } from "react-native-paper";
 import { Button } from "../../elements/button/Button";
 
@@ -84,9 +84,7 @@ const FilterContent = ({
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 18, color: colors.text }}>
-          Dates
-        </Text>
+        <Text style={{ fontSize: 18, color: colors.text }}>Dates</Text>
         <View>
           <View
             style={{

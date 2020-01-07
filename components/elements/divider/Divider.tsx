@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleProp, ViewStyle } from "react-native";
-import { normalize } from "../../../utils/normalize";
+
 
 type Props = {
   content: React.ReactNode;

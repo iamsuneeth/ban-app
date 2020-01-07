@@ -8,7 +8,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
-import { normalize } from "../../../utils/normalize";
+
 
 type Props = {
   navigation: CompositeNavigationProp<

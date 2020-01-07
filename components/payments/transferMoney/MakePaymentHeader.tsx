@@ -8,7 +8,7 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { RouteProp, useTheme } from "@react-navigation/native";
-import { normalize } from "../../../utils/normalize";
+
 
 type Props = {
   filterPayees: (filter: IPayeeFilter) => void;

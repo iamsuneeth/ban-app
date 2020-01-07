@@ -21,7 +21,7 @@ import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 
 type Props = {
   favorites: IFavoriteState;

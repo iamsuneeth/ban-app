@@ -6,7 +6,6 @@ import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
 type TxnItemProps = {
   data: ITransaction;
   index: number;

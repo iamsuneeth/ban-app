@@ -16,7 +16,6 @@ import Constants from "expo-constants";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { getTabBarHeight } from "../../common/TabBar";
 import { RectButton } from "react-native-gesture-handler";
-import { normalize } from "../../../utils/normalize";
 
 const renderContent = (
   sections: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { TextInput as RNTextInput } from "react-native-paper";
-import { normalize } from "../../../utils/normalize";
+
 
 export const TextInput = ({ style, ...props }) => {
   return (

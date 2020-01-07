@@ -9,7 +9,7 @@ import { useTheme, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 type props = {
   payees: IPayee[];
   loading: boolean;

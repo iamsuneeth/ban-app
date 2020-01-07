@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { normalize } from "../../../utils/normalize";
+
 dayjs.extend(advancedFormat);
 
 const getContent = (date: string) => {

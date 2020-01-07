@@ -9,7 +9,7 @@ import { MaterialTopTabNavigationProp } from "@react-navigation/material-top-tab
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 
 type UpcomingNaviagtionProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<PaymentTopBarParamList, "Upcoming">,

@@ -15,7 +15,7 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 
 export const PayeeDetails = ({
   navigation,

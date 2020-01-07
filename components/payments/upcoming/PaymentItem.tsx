@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons as Icons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { Amount } from "../../elements/amount/Amount";
-import { normalize } from "../../../utils/normalize";
+
 type PaymentItemProps = {
   data: any;
   index: number;

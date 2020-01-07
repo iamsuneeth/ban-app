@@ -12,7 +12,7 @@ import { IPayee } from "bank-core/typescript/types";
 import { useNavigation } from "@react-navigation/native/";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
-import { normalize } from "../../../utils/normalize";
+
 
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 

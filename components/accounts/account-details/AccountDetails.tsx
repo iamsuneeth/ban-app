@@ -25,7 +25,7 @@ import { HomeParamList } from "../../../stacks/HomeStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");

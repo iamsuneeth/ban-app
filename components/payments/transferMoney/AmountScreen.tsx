@@ -15,7 +15,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { TextInput } from "react-native-paper";
 import { TrackingState } from "expo/build/AR";
-import { normalize } from "../../../utils/normalize";
+
 
 const frequencies = [
   {
@@ -294,9 +294,7 @@ export const AmountScreen = ({
                       marginVertical: 10
                     }}
                   >
-                    <Text
-                      style={{ fontSize: 14, color: colors.text }}
-                    >
+                    <Text style={{ fontSize: 14, color: colors.text }}>
                       Payment date
                     </Text>
                     <Text
@@ -353,9 +351,7 @@ export const AmountScreen = ({
                         marginVertical: 10
                       }}
                     >
-                      <Text
-                        style={{ fontSize: 14, color: colors.text }}
-                      >
+                      <Text style={{ fontSize: 14, color: colors.text }}>
                         Stop repeating
                       </Text>
                       <Text

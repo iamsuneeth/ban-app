@@ -8,7 +8,7 @@ import {
   TextInput,
   StyleSheet
 } from "react-native";
-import { normalize } from "../../../utils/normalize";
+
 
 type Props = {
   handleSearch: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;

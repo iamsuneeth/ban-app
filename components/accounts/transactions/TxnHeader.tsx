@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { useTheme } from "@react-navigation/native";
 import { colors } from "../../../theme/constants";
-import { normalize } from "../../../utils/normalize";
+
 
 dayjs.extend(advancedFormat);
 

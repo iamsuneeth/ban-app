@@ -18,7 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { HomeParamList } from "../../../stacks/HomeStack";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTheme, useNavigation } from "@react-navigation/native";
-import { normalize } from "../../../utils/normalize";
+
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 

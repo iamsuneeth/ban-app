@@ -2,7 +2,7 @@ import React from "react";
 import { View, TextInput, SectionList } from "react-native";
 import { PaymentItem } from "./PaymentItem";
 import { PaymentHeader } from "./PaymentHeader";
-import { normalize } from "../../../utils/normalize";
+
 
 export const FuturePayments = () => {
   let payments = [];

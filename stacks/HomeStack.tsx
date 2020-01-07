@@ -9,7 +9,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TransactionSearchContainer } from "../containers/TransactionSearchContainer";
 import { IAccount } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
-import { normalize } from "../utils/normalize";
 
 export type HomeParamList = {
   Accounts: undefined;
