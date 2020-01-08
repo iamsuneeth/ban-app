@@ -8,7 +8,7 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { RouteProp, useTheme } from "@react-navigation/native";
-
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   filterPayees: (filter: IPayeeFilter) => void;
@@ -69,7 +69,7 @@ export const MakePaymentHeader = ({
               <Text
                 style={{
                   color: colors.text,
-                  fontSize: 16,
+                  fontSize: normalize(16),
                   marginLeft: 5,
                   fontWeight: "700"
                 }}
@@ -134,7 +134,7 @@ export const MakePaymentHeader = ({
             <Text
               style={{
                 color: colors.text,
-                fontSize: 14
+                fontSize: normalize(14)
               }}
             >
               {paymentState.details.payee.name}
@@ -142,7 +142,7 @@ export const MakePaymentHeader = ({
             <Text
               style={{
                 color: colors.text,
-                fontSize: 12
+                fontSize: normalize(12)
               }}
             >
               {`${paymentState.details.payee.code} - ${paymentState.details.payee.accountNumber}`}

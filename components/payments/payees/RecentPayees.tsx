@@ -14,7 +14,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 type PayeeNavigationProps = StackNavigationProp<PaymentParamList, "Payees">;
 
@@ -67,7 +67,7 @@ export const RecentPayees = ({ payees, loading, onPress }: props) => {
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    fontSize: 14,
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold"
   }

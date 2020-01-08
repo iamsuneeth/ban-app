@@ -21,7 +21,7 @@ import {
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
 import { useTheme } from "@react-navigation/native";
-
+import { normalize } from "../../../utils/normalize";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
@@ -189,6 +189,6 @@ const styles = StyleSheet.create({
   },
   txnListHeader: {
     paddingLeft: 10,
-    fontSize: 20
+    fontSize: normalize(20)
   }
 });

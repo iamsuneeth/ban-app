@@ -9,6 +9,7 @@ import { useTheme, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 
 type props = {
   payees: IPayee[];
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: 14,
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold"
   },
@@ -152,10 +153,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
-    fontSize: 12
+    fontSize: normalize(12)
   },
   icon: {
     paddingRight: 10
@@ -173,6 +174,6 @@ const styles = StyleSheet.create({
   actionButtontext: {
     textAlign: "center",
     marginLeft: 5,
-    fontSize: 14
+    fontSize: normalize(14)
   }
 });

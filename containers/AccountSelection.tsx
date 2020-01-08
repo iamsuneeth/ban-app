@@ -9,6 +9,7 @@ import { useTheme, useNavigation } from "@react-navigation/native";
 import { Amount } from "../components/elements/amount/Amount";
 import { useDashboardState } from "bank-core";
 import { ThemeType } from "../App";
+import { normalize } from "../utils/normalize";
 
 type Props = {
   sheetRef: React.MutableRefObject<BottomSheet>;
@@ -49,7 +50,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
       >
         <Text
           style={{
-            fontSize: 25,
+            fontSize: normalize(25),
             paddingHorizontal: 5,
             marginLeft: 20,
             color: colors.text,
@@ -119,6 +120,6 @@ const styles = StyleSheet.create({
   accountPrimary: {
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: 16 },
-  secondary: { color: "#fff", fontSize: 12 }
+  main: { color: "#fff", fontSize: normalize(16) },
+  secondary: { color: "#fff", fontSize: normalize(12) }
 });

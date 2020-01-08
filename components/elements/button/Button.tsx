@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { Button as RNButton } from "react-native-paper";
 
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../../../utils/normalize";
 
 type ButtonProp = {
   children: ReactNode;
@@ -40,7 +41,7 @@ export const Button = ({
         })
       }}
       contentStyle={{ borderRadius: 0, height: 40, ...contentStyle }}
-      labelStyle={{ fontSize: 14, ...labelStyle }}
+      labelStyle={{ fontSize: normalize(14), ...labelStyle }}
     >
       {children}
     </RNButton>

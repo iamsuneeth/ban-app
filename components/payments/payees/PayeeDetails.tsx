@@ -15,7 +15,7 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 export const PayeeDetails = ({
   navigation,
@@ -206,7 +206,7 @@ export const PayeeDetails = ({
             }}
             source={{ uri: "https://logo.clearbit.com/clearbit.com" }}
           />
-          <Text style={{ fontSize: 14, color: colors.text }}>
+          <Text style={{ fontSize: normalize(14), color: colors.text }}>
             Logos provided by Clearbit
           </Text>
         </TouchableWithoutFeedback>
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     paddingRight: 10
   },
   header: {
-    fontSize: 25,
+    fontSize: normalize(25),
     textAlign: "right"
   },
   value: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   label: {
-    fontSize: 14
+    fontSize: normalize(14)
   },
   section: {
     flexDirection: "row",
@@ -286,6 +286,6 @@ const styles = StyleSheet.create({
   },
   actionButtontext: {
     textAlign: "center",
-    fontSize: 14
+    fontSize: normalize(14)
   }
 });

@@ -6,6 +6,7 @@ import { Amount } from "../../elements/amount/Amount";
 import Animated from "react-native-reanimated";
 import { timing } from "react-native-redash";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../../../utils/normalize";
 
 type AccountSummaryProps = {
   summary: ISummary;
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   label: {
-    fontSize: 14,
+    fontSize: normalize(14),
     textAlign: "center",
     textTransform: "capitalize"
   },

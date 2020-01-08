@@ -25,6 +25,7 @@ import { ThemeType } from "../../../App";
 import { Button } from "../../elements/button/Button";
 import { TextInput } from "../../elements/textInput/TextInput";
 import LottieView from "lottie-react-native";
+import { normalize } from "../../../utils/normalize";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
@@ -189,7 +190,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                 )}
                 <Text
                   style={{
-                    fontSize: 30,
+                    fontSize: normalize(30),
                     marginLeft: 10,
                     fontWeight: "bold",
                     color: colors.text
@@ -238,7 +239,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     style={{
                       color: colors.text,
                       marginTop: 40,
-                      fontSize: 16,
+                      fontSize: normalize(16),
                       textAlign: "center"
                     }}
                   >
@@ -247,7 +248,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   <Text
                     style={{
                       color: colors.text,
-                      fontSize: 16,
+                      fontSize: normalize(16),
                       textAlign: "center"
                     }}
                   >
@@ -290,7 +291,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                           style={{
                             textAlign: "center",
                             color: "#fff",
-                            fontSize: 16
+                            fontSize: normalize(16)
                           }}
                         >
                           VERIFY

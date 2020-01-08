@@ -16,6 +16,7 @@ import Constants from "expo-constants";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { getTabBarHeight } from "../../common/TabBar";
 import { RectButton } from "react-native-gesture-handler";
+import { normalize } from "../../../utils/normalize";
 
 const renderContent = (
   sections: {
@@ -67,7 +68,7 @@ const renderContent = (
           textAlign: "center",
           textAlignVertical: "center",
           color: "#039be5",
-          fontSize: 16
+          fontSize: normalize(16)
         }}
       >
         More transactions
@@ -140,6 +141,6 @@ const styles = StyleSheet.create({
   },
   txnListHeader: {
     paddingLeft: 10,
-    fontSize: 20
+    fontSize: normalize(20)
   }
 });

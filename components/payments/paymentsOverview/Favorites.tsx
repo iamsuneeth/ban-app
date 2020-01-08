@@ -21,7 +21,7 @@ import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   favorites: IFavoriteState;
@@ -119,7 +119,7 @@ export const Favorites = ({ favorites, style }: Props) => {
                       <Text
                         style={{
                           color: colors.primary,
-                          fontSize: 14
+                          fontSize: normalize(14)
                         }}
                       >
                         Delete
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   sectionHeader: {
-    fontSize: 14,
+    fontSize: normalize(14),
     margin: 15,
     fontWeight: "bold"
   },
@@ -167,10 +167,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
-    fontSize: 12
+    fontSize: normalize(12)
   },
   icon: {
     paddingRight: 10

@@ -9,7 +9,7 @@ import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 type PaymentsNavigationProps = StackNavigationProp<
   PaymentParamList,
@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
-    fontSize: 12
+    fontSize: normalize(12)
   },
   icon: {
     paddingRight: 10

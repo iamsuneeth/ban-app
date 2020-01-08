@@ -6,6 +6,7 @@ import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
 
 import { Switch } from "react-native-paper";
+import { normalize } from "../../utils/normalize";
 
 export const Biometry = () => {
   const [biometryEnabled, setBiometryEnabled] = useState(false);
@@ -40,7 +41,7 @@ export const Biometry = () => {
           margin: 10
         }}
       >
-        <Text style={{ fontSize: 16, color: colors.text }}>
+        <Text style={{ fontSize: normalize(16), color: colors.text }}>
           Enable biometry
         </Text>
         <Switch onValueChange={handleBiometry} value={biometryEnabled} />

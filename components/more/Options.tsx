@@ -12,6 +12,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../tabs/BottomTabBar";
 import { useAuthState } from "bank-core";
 import { ThemeType } from "../../App";
+import { normalize } from "../../utils/normalize";
 
 type OptionsProps = {
   navigation: CompositeNavigationProp<
@@ -72,7 +73,9 @@ export const Options = ({ navigation }: OptionsProps) => {
               borderRadius: 5
             }}
           >
-            <Text style={{ fontSize: 14, color: "#fff" }}>Sign out</Text>
+            <Text style={{ fontSize: normalize(14), color: "#fff" }}>
+              Sign out
+            </Text>
           </View>
         </RectButton>
       </View>
@@ -98,10 +101,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
-    fontSize: 12,
+    fontSize: normalize(12),
     color: "#888"
   },
   icon: {

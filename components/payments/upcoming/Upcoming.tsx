@@ -9,7 +9,7 @@ import { MaterialTopTabNavigationProp } from "@react-navigation/material-top-tab
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 type UpcomingNaviagtionProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<PaymentTopBarParamList, "Upcoming">,
@@ -123,17 +123,17 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   header: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
-    fontSize: 12,
+    fontSize: normalize(12),
     color: "#888"
   },
   icon: {
     paddingRight: 10
   },
   sectionHeader: {
-    fontSize: 20,
+    fontSize: normalize(20),
     margin: 15,
     fontWeight: "bold",
     color: "#555"

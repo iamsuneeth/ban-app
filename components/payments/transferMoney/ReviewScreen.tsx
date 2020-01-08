@@ -7,7 +7,7 @@ import { LetterAvatar } from "../../common/LetterAvatar";
 import { Ionicons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 type Props = {
   paymentState: IPaymentState;
@@ -45,7 +45,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                 style={{
                   color: colors.text,
                   textAlign: "center",
-                  fontSize: 14
+                  fontSize: normalize(14)
                 }}
               >
                 {paymentState.details.account.nickName}
@@ -53,7 +53,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               <Text
                 style={{
                   color: colors.textSecondary,
-                  fontSize: 12,
+                  fontSize: normalize(12),
                   marginTop: 5
                 }}
               >
@@ -72,14 +72,16 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               <Text
                 style={{
                   color: colors.text,
-                  fontSize: 14,
+                  fontSize: normalize(14),
                   marginTop: 10,
                   marginBottom: 5
                 }}
               >
                 {paymentState.details.payee.name}
               </Text>
-              <Text style={{ color: colors.textSecondary, fontSize: 12 }}>
+              <Text
+                style={{ color: colors.textSecondary, fontSize: normalize(12) }}
+              >
                 {`${paymentState.details.payee.code} - ${paymentState.details.payee.accountNumber}`}
               </Text>
             </View>
@@ -90,7 +92,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               <Text
                 style={{
                   color: colors.text,
-                  fontSize: 18,
+                  fontSize: normalize(18),
                   marginBottom: 10
                 }}
               >
@@ -106,13 +108,13 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
               >
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: normalize(14),
                     color: colors.textSecondary
                   }}
                 >
                   Reference
                 </Text>
-                <Text style={{ fontSize: 14, color: colors.text }}>
+                <Text style={{ fontSize: normalize(14), color: colors.text }}>
                   {paymentState.details.reference}
                 </Text>
               </View>
@@ -135,13 +137,15 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   >
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: normalize(14),
                         color: colors.textSecondary
                       }}
                     >
                       Date
                     </Text>
-                    <Text style={{ fontSize: 14, color: colors.text }}>
+                    <Text
+                      style={{ fontSize: normalize(14), color: colors.text }}
+                    >
                       {paymentState.details.txnStartDate.format(
                         "ddd MMM DD YYYY"
                       )}
@@ -168,13 +172,15 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   >
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: normalize(14),
                         color: colors.textSecondary
                       }}
                     >
                       Repeats
                     </Text>
-                    <Text style={{ fontSize: 14, color: colors.text }}>
+                    <Text
+                      style={{ fontSize: normalize(14), color: colors.text }}
+                    >
                       {paymentState.details.frequency.text}
                     </Text>
                   </View>
@@ -199,13 +205,15 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   >
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: normalize(14),
                         color: colors.textSecondary
                       }}
                     >
                       Stop repeating
                     </Text>
-                    <Text style={{ fontSize: 14, color: colors.text }}>
+                    <Text
+                      style={{ fontSize: normalize(14), color: colors.text }}
+                    >
                       {paymentState.details.txnEndDate.format(
                         "ddd MMM DD YYYY"
                       )}

@@ -16,6 +16,7 @@ import { useTheme } from "@react-navigation/native";
 
 import { Switch } from "react-native-paper";
 import { Button } from "../../elements/button/Button";
+import { normalize } from "../../../utils/normalize";
 
 type FilterProps = {
   lastFetched?: string;
@@ -84,7 +85,9 @@ const FilterContent = ({
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 18, color: colors.text }}>Dates</Text>
+        <Text style={{ fontSize: normalize(18), color: colors.text }}>
+          Dates
+        </Text>
         <View>
           <View
             style={{
@@ -98,7 +101,7 @@ const FilterContent = ({
                 style={{
                   color: colors.text,
                   marginBottom: 5,
-                  fontSize: 16
+                  fontSize: normalize(16)
                 }}
               >
                 Start
@@ -111,7 +114,7 @@ const FilterContent = ({
                 displayTextStyle={{
                   color: colors.text,
                   fontWeight: "600",
-                  fontSize: 16
+                  fontSize: normalize(16)
                 }}
               />
             </View>
@@ -120,7 +123,7 @@ const FilterContent = ({
                 style={{
                   color: colors.text,
                   marginBottom: 5,
-                  fontSize: 16
+                  fontSize: normalize(16)
                 }}
               >
                 End
@@ -133,7 +136,7 @@ const FilterContent = ({
                 displayTextStyle={{
                   color: colors.text,
                   fontWeight: "600",
-                  fontSize: 16
+                  fontSize: normalize(16)
                 }}
               />
             </View>
@@ -175,7 +178,7 @@ const FilterContent = ({
       <View style={{ flex: 1, marginTop: 10 }}>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: normalize(18),
             marginBottom: 10,
             color: colors.text
           }}
@@ -201,7 +204,7 @@ const FilterContent = ({
               style={{
                 marginLeft: 10,
                 marginVertical: 10,
-                fontSize: 16,
+                fontSize: normalize(16),
                 color: colors.text
               }}
             >
@@ -227,7 +230,7 @@ const FilterContent = ({
                 style={{
                   marginLeft: 10,
                   marginVertical: 10,
-                  fontSize: 16,
+                  fontSize: normalize(16),
                   color: colors.text
                 }}
               >
@@ -486,6 +489,6 @@ const styles = StyleSheet.create({
   },
   txnListHeader: {
     paddingLeft: 10,
-    fontSize: 20
+    fontSize: normalize(20)
   }
 });

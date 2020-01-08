@@ -6,6 +6,7 @@ import { Amount } from "../../elements/amount/Amount";
 import { ITransaction } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../../App";
+import { normalize } from "../../../utils/normalize";
 type TxnItemProps = {
   data: ITransaction;
   index: number;
@@ -60,11 +61,11 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   recepient: {
-    fontSize: 16
+    fontSize: normalize(16)
   },
   description: {
     marginTop: 5,
-    fontSize: 12
+    fontSize: normalize(12)
   },
   icon: {
     padding: 5,

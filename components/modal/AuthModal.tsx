@@ -23,6 +23,7 @@ import * as firebase from "firebase/app";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAuthState } from "bank-core";
 import { RectButton } from "react-native-gesture-handler";
+import { normalize } from "../../utils/normalize";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "AuthModal">;
@@ -169,7 +170,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                         color: colors.primary,
                         fontWeight: "bold",
                         textAlign: "right",
-                        fontSize: 16,
+                        fontSize: normalize(16),
                         textTransform: "uppercase"
                       }}
                     >
@@ -187,7 +188,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
               >
                 <Text
                   style={{
-                    fontSize: 25,
+                    fontSize: normalize(25),
                     fontWeight: "bold",
                     color: colors.text,
                     textAlign: "center",

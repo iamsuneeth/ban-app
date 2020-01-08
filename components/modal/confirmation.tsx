@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../../utils/normalize";
 
 export const confirmation = ({ sheetRef, message, onSelection }) => {
   const { colors } = useTheme();
@@ -10,7 +11,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
       <Text
         style={{
           textAlign: "center",
-          fontSize: 16,
+          fontSize: normalize(16),
           color: colors.text
         }}
       >
@@ -37,7 +38,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
               textAlign: "center",
               textAlignVertical: "center",
               color: "#fff",
-              fontSize: 16
+              fontSize: normalize(16)
             }}
           >
             Confirm
@@ -69,7 +70,7 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
                 textAlign: "center",
                 textAlignVertical: "center",
                 color: colors.primary,
-                fontSize: 16
+                fontSize: normalize(16)
               }}
             >
               Cancel

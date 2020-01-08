@@ -497,17 +497,17 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 10
   },
-  main: { color: "#fff", fontSize: 16 },
-  secondary: { color: "#fff", fontSize: 12 },
-  highlight: { color: "#fff", fontSize: 18 },
+  main: { color: "#fff", fontSize: normalize(16) },
+  secondary: { color: "#fff", fontSize: normalize(12) },
+  highlight: { color: "#fff", fontSize: normalize(18) },
   secondaryText: {
     color: "#fff",
-    fontSize: 12
+    fontSize: normalize(12)
   },
   secondarySeperator: {
     paddingHorizontal: 5,
     color: "#fff",
-    fontSize: 12
+    fontSize: normalize(12)
   },
   expandButton: {
     position: "absolute",
@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: normalize(14),
     textTransform: "capitalize"
   },
   row: {
@@ -544,7 +544,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   quickLinkText: {
-    fontSize: 12,
+    fontSize: normalize(12),
     alignSelf: "center",
     textAlign: "center"
   },
@@ -555,20 +555,20 @@ const styles = StyleSheet.create({
     flex: 1
   },
   addnlHeader: {
-    fontSize: 14,
+    fontSize: normalize(14),
     marginBottom: 15,
     fontWeight: "bold"
   },
   amountDetailsHeader: {
-    fontSize: 14,
+    fontSize: normalize(14),
     fontWeight: "bold"
   },
   addnlSection: { marginBottom: 10 },
   addnlLabel: {
-    fontSize: 14,
+    fontSize: normalize(14),
     marginVertical: 5
   },
   addnlValue: {
-    fontSize: 14
+    fontSize: normalize(14)
   }
 });

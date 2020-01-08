@@ -13,6 +13,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
+import { normalize } from "../../../utils/normalize";
 
 type props = {
   navigation: CompositeNavigationProp<
@@ -47,7 +48,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
     <View style={styles.animationContainer}>
       <Text
         style={{
-          fontSize: 20,
+          fontSize: normalize(20),
           marginTop: 10,
           color: colors.text,
           fontWeight: "bold",
@@ -71,7 +72,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
       >
         <Text
           style={{
-            fontSize: 14,
+            fontSize: normalize(14),
             marginRight: 5,
             color: colors.text
           }}
@@ -80,7 +81,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
         </Text>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: normalize(14),
             textTransform: "uppercase",
             fontWeight: "bold",
             color: colors.text
@@ -124,7 +125,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
           >
             <Text
               style={{
-                fontSize: 14,
+                fontSize: normalize(14),
                 fontWeight: "bold",
                 color: "#fff",
                 textAlign: "center",
@@ -165,7 +166,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
           >
             <Text
               style={{
-                fontSize: 14,
+                fontSize: normalize(14),
                 fontWeight: "bold",
                 color: colors.primary,
                 textAlign: "center",

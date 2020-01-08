@@ -2,6 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { PaymentsOverview } from "../components/payments/paymentsOverview/PaymentsOverview";
 import { Upcoming } from "../components/payments/upcoming/Upcoming";
+import { normalize } from "../utils/normalize";
 
 export type PaymentTopBarParamList = {
   PaymentDashboard: undefined;
@@ -15,7 +16,7 @@ export const PaymentTopBar = () => {
     <Tab.Navigator
       tabBarOptions={{
         labelStyle: {
-          fontSize: 14
+          fontSize: normalize(14)
         }
       }}
     >

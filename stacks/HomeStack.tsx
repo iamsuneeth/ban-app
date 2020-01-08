@@ -9,6 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TransactionSearchContainer } from "../containers/TransactionSearchContainer";
 import { IAccount } from "bank-core/src/types";
 import { useTheme } from "@react-navigation/native";
+import { normalize } from "../utils/normalize";
 
 export type HomeParamList = {
   Accounts: undefined;
@@ -36,7 +37,7 @@ export const HomeStack = () => {
             >
               <Text
                 style={{
-                  fontSize: 30,
+                  fontSize: normalize(30),
                   marginLeft: 10,
                   color: colors.text,
                   fontWeight: "bold"
