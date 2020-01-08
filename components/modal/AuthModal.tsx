@@ -49,6 +49,10 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
     outputRange: [1, 0]
   });
   const type = route.params?.type ?? "lock";
+  const message =
+    type === "lock"
+      ? " Confirm fingerprint to unlock the app"
+      : "Confirm fingerprint to authorize";
   const onClose = () => {
     // hack due to issue https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/136
     if (allowOnClose.current) {
@@ -190,7 +194,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                     paddingHorizontal: 40
                   }}
                 >
-                  Confirm fingerprint to unlock the app
+                  {message}
                 </Text>
 
                 {modalVisible && (
