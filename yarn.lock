@@ -2196,7 +2196,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-"bank-core@ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#RN5_migration":
+"bank-core@ssh://git@bitbucket.org:suneeth_lenin/bank-core.git":
   version "1.0.0"
   resolved "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#0f4237e9211650009ce0b1da887ef883963d46f5"
   dependencies:

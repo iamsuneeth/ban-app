@@ -17,7 +17,7 @@
     "@react-navigation/material-top-tabs": "^5.0.0-alpha.27",
     "@react-navigation/native": "^5.0.0-alpha.22",
     "@react-navigation/stack": "^5.0.0-alpha.55",
-    "bank-core": "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git#RN5_migration",
+    "bank-core": "ssh://git@bitbucket.org:suneeth_lenin/bank-core.git",
     "dayjs": "^1.8.17",
     "expo": "^36.0.0",
     "expo-local-authentication": "~8.0.0",
