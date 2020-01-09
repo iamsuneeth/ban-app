@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
-
+import { normalize } from "../../../utils/normalize";
 
 export const Biometry = ({ animationRef }) => {
   return (
@@ -9,8 +9,8 @@ export const Biometry = ({ animationRef }) => {
       <LottieView
         ref={animationRef}
         style={{
-          width: 400,
-          height: 400,
+          width: normalize(400),
+          height: normalize(400, "height"),
           backgroundColor: "#eee"
         }}
         source={require("../../../assets/fingerprint.json")}

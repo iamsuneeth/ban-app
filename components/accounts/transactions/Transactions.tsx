@@ -131,8 +131,23 @@ export const Transaction = memo(
               paddingVertical: 5
             }}
           >
-            <Text style={{ color: "#fff" }}>
-              Showing transactions from{" "}
+            <Text
+              style={{
+                color: colors.background,
+                textAlign: "center",
+                fontSize: normalize(15)
+              }}
+            >
+              Showing transactions from
+            </Text>
+            <Text
+              style={{
+                color: colors.background,
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: normalize(15)
+              }}
+            >
               {`${state.startDate.format(
                 "DD/MM/YYYY"
               )} - ${state.endDate.format("DD/MM/YYYY")}`}
@@ -185,10 +200,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   txnList: {
-    marginTop: 10
+    marginTop: normalize(10, "height")
   },
   txnListHeader: {
-    paddingLeft: 10,
+    paddingLeft: normalize(10),
     fontSize: normalize(20)
   }
 });

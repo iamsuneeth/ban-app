@@ -25,7 +25,7 @@ import { HomeParamList } from "../../../stacks/HomeStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
-
+import { normalize } from "../../../utils/normalize";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -72,7 +72,9 @@ export const AccountDetails = ({ account, details }: Props) => {
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: "center", paddingTop: 10 }}>
+        <View
+          style={{ alignItems: "center", paddingTop: normalize(10, "height") }}
+        >
           {/* <SharedElement
             id={account.id}
             style={{
@@ -126,15 +128,15 @@ export const AccountDetails = ({ account, details }: Props) => {
             <View
               style={{
                 backgroundColor: colors.primary,
-                borderRadius: 25,
-                height: 50,
-                width: 50,
-                padding: 10,
-                marginBottom: 5,
+                borderRadius: normalize(25),
+                height: normalize(50),
+                width: normalize(50),
+                padding: normalize(10),
+                marginBottom: normalize(5, "height"),
                 alignItems: "center",
                 elevation: 6,
                 shadowOffset: {
-                  width: 1,
+                  width: normalize(1),
                   height: 1
                 },
                 shadowRadius: 3,
@@ -163,16 +165,16 @@ export const AccountDetails = ({ account, details }: Props) => {
                 borderWidth: 1,
                 backgroundColor: colors.background,
                 borderColor: colors.primary,
-                borderRadius: 25,
-                height: 50,
-                width: 50,
-                padding: 10,
+                borderRadius: normalize(25),
+                height: normalize(50),
+                width: normalize(50),
+                padding: normalize(10),
                 alignItems: "center",
                 elevation: 1,
-                marginBottom: 5,
+                marginBottom: normalize(5, "height"),
 
                 shadowOffset: {
-                  width: 1,
+                  width: normalize(1),
                   height: 1
                 },
                 shadowRadius: 3,
@@ -196,16 +198,16 @@ export const AccountDetails = ({ account, details }: Props) => {
               style={{
                 borderWidth: 1,
                 borderColor: colors.primary,
-                borderRadius: 25,
+                borderRadius: normalize(25),
                 backgroundColor: colors.background,
-                height: 50,
-                width: 50,
-                padding: 10,
+                height: normalize(50),
+                width: normalize(50),
+                padding: normalize(10),
                 alignItems: "center",
-                marginBottom: 5,
+                marginBottom: normalize(5, "height"),
 
                 shadowOffset: {
-                  width: 1,
+                  width: normalize(1),
                   height: 1
                 },
                 shadowRadius: 3,
@@ -255,7 +257,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     size={25}
                     color={colors.text}
                     style={{
-                      marginRight: 5,
+                      marginRight: normalize(5),
                       transform: [
                         {
                           rotate: Animated.concat(rotation, "deg")
@@ -271,7 +273,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10, "height")
                   }}
                 >
                   <Text
@@ -293,7 +295,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10, "height")
                   }}
                 >
                   <Text
@@ -315,7 +317,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10, "height")
                   }}
                 >
                   <Text
@@ -337,7 +339,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10, "height")
                   }}
                 >
                   <Text
@@ -391,7 +393,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                 style={{
                   backgroundColor: colors.seperator,
                   height: 1,
-                  marginBottom: 10
+                  marginBottom: normalize(10, "height")
                 }}
               />
               <View style={styles.addnlSection}>
@@ -408,7 +410,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                 style={{
                   backgroundColor: colors.seperator,
                   height: 1,
-                  marginBottom: 10
+                  marginBottom: normalize(10, "height")
                 }}
               />
               <View style={styles.addnlSection}>
@@ -425,7 +427,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                 style={{
                   backgroundColor: colors.seperator,
                   height: 1,
-                  marginBottom: 10
+                  marginBottom: normalize(10, "height")
                 }}
               />
               <View style={styles.addnlSection}>
@@ -442,7 +444,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                 style={{
                   backgroundColor: colors.seperator,
                   height: 1,
-                  marginBottom: 10
+                  marginBottom: normalize(10, "height")
                 }}
               />
               <View style={styles.addnlSection}>
@@ -459,7 +461,7 @@ export const AccountDetails = ({ account, details }: Props) => {
                 style={{
                   backgroundColor: colors.seperator,
                   height: 1,
-                  marginBottom: 10
+                  marginBottom: normalize(10, "height")
                 }}
               />
               <View style={styles.addnlSection}>
@@ -485,17 +487,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   accountCard: {
-    padding: 0,
+    padding: normalize(0),
     flex: 1
   },
   accountPrimary: {
-    padding: 10,
+    padding: normalize(10),
     flex: 1,
     justifyContent: "space-between"
   },
   scrollContainer: {},
   section: {
-    marginBottom: 10
+    marginBottom: normalize(10, "height")
   },
   main: { color: "#fff", fontSize: normalize(16) },
   secondary: { color: "#fff", fontSize: normalize(12) },
@@ -505,7 +507,7 @@ const styles = StyleSheet.create({
     fontSize: normalize(12)
   },
   secondarySeperator: {
-    paddingHorizontal: 5,
+    paddingHorizontal: normalize(5),
     color: "#fff",
     fontSize: normalize(12)
   },
@@ -528,20 +530,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginBottom: 5
+    marginBottom: normalize(5, "height")
   },
   amount: { color: "#fff" },
   quickLinks: {
     flexDirection: "row",
     alignSelf: "center",
     width: screenWidth * 0.8,
-    marginVertical: 10
+    marginVertical: normalize(10, "height")
   },
   quickLinkButton: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    padding: 5
+    padding: normalize(5)
   },
   quickLinkText: {
     fontSize: normalize(12),
@@ -549,24 +551,24 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   addnlContainer: {
-    marginTop: 10
+    marginTop: normalize(10, "height")
   },
   addnlInnerContainer: {
     flex: 1
   },
   addnlHeader: {
     fontSize: normalize(14),
-    marginBottom: 15,
+    marginBottom: normalize(15, "height"),
     fontWeight: "bold"
   },
   amountDetailsHeader: {
     fontSize: normalize(14),
     fontWeight: "bold"
   },
-  addnlSection: { marginBottom: 10 },
+  addnlSection: { marginBottom: normalize(10, "height") },
   addnlLabel: {
     fontSize: normalize(14),
-    marginVertical: 5
+    marginVertical: normalize(5, "height")
   },
   addnlValue: {
     fontSize: normalize(14)

@@ -40,7 +40,7 @@ export const TxnHeader = ({ data }: TxnHeaderProps) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   sectionHeader: {
     fontSize: normalize(14),

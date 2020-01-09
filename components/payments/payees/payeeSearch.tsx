@@ -8,7 +8,9 @@ import {
   TextInput,
   StyleSheet
 } from "react-native";
-
+import { normalize } from "../../../utils/normalize";
+import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../../App";
 
 type Props = {
   handleSearch: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -16,6 +18,7 @@ type Props = {
 };
 
 export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
+  const { colors } = useTheme() as ThemeType;
   return (
     <View style={{ flex: 1 }}>
       <TextInput
@@ -25,7 +28,8 @@ export const PayeeSearch = ({ handleSearch, searchString }: Props) => {
         autoCorrect={false}
         autoFocus
         style={{
-          padding: 10,
+          padding: normalize(10),
+          color: colors.text,
           flex: 1
         }}
         value={searchString}

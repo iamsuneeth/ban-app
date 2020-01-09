@@ -9,6 +9,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootParamsList } from "../../stacks/RootStack";
 import { RouteProp, useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
+import { normalize } from "../../utils/normalize";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "Modal">;
@@ -44,6 +45,7 @@ export const Modal = ({ navigation, route }: ModalProps) => {
   let renderData = null;
   const snapPoints = route.params?.snapPoints ?? defaultSnapPoints;
   let extraStyles = null;
+  let dismissable = route.params?.dismissable ?? false;
   switch (type) {
     case "confirmation":
       renderData = confirmation({
@@ -78,8 +80,8 @@ export const Modal = ({ navigation, route }: ModalProps) => {
         ref={sheetRef}
         callbackNode={animationRef.current}
         enabledContentTapInteraction={false}
-        enabledGestureInteraction={false}
-        enabledContentGestureInteraction={false}
+        enabledGestureInteraction={dismissable}
+        enabledContentGestureInteraction={dismissable}
         onCloseEnd={onClose}
         onOpenStart={onOpenStart}
         enabledBottomClamp
@@ -88,8 +90,8 @@ export const Modal = ({ navigation, route }: ModalProps) => {
             <Card
               style={{
                 shadowOpacity: 0,
-                marginHorizontal: 0,
-                paddingBottom: 40,
+                marginHorizontal: normalize(0),
+                paddingBottom: normalize(40, "height"),
                 height: "100%",
                 backgroundColor: colors.surface,
                 ...extraStyles

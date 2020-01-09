@@ -21,8 +21,8 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
         <RectButton
           style={{
             backgroundColor: colors.primary,
-            height: 40,
-            margin: 10,
+            height: normalize(40, "height"),
+            margin: normalize(10),
             flex: 1,
             alignSelf: "center",
             justifyContent: "center",
@@ -46,9 +46,9 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
         </RectButton>
         <RectButton
           style={{
-            margin: 10,
+            margin: normalize(10),
             flex: 1,
-            height: 40,
+            height: normalize(40, "height"),
             alignSelf: "center"
           }}
           onPress={() => {

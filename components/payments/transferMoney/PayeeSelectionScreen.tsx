@@ -36,8 +36,8 @@ export const PayeeSelectionScreen = ({
       <ScrollView scrollEventThrottle={1}>
         <View
           style={{
-            height: 5,
-            marginHorizontal: 10,
+            height: normalize(5, "height"),
+            marginHorizontal: normalize(10),
             borderRadius: 3,
             top: 35,
             backgroundColor: colors.primary
@@ -45,7 +45,7 @@ export const PayeeSelectionScreen = ({
         />
         <View
           style={{
-            marginHorizontal: 10,
+            marginHorizontal: normalize(10),
             flexDirection: "row",
             paddingVertical: 10
           }}
@@ -53,8 +53,8 @@ export const PayeeSelectionScreen = ({
           <Text
             style={{
               fontSize: normalize(25),
-              paddingHorizontal: 5,
-              marginLeft: 20,
+              paddingHorizontal: normalize(5),
+              marginLeft: normalize(20),
               color: colors.text,
               backgroundColor: colors.background
             }}

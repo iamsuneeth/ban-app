@@ -119,13 +119,14 @@ export const AmountScreen = ({
   const renderFrequencyList = () => {
     navigation.navigate("Modal", {
       type: "custom",
-      snapPoints: [0, "60%"],
+      snapPoints: [0, "60%", "90%"],
+      dismissable: true,
       renderProp: close => (
         <View style={{ flex: 1 }}>
           <Text
             style={{
               color: colors.text,
-              marginVertical: 10,
+              marginVertical: normalize(10, "height"),
               fontSize: normalize(16)
             }}
           >
@@ -143,15 +144,15 @@ export const AmountScreen = ({
                   style={{
                     alignItems: "center",
                     flexDirection: "row",
-                    paddingVertical: 15,
-                    paddingHorizontal: 10
+                    paddingVertical: normalize(12, "height"),
+                    paddingHorizontal: normalize(10)
                   }}
                 >
                   <Ionicons name="md-time" size={25} color={colors.primary} />
                   <Text
                     style={{
                       fontSize: normalize(16),
-                      marginLeft: 10,
+                      marginLeft: normalize(10),
                       color: colors.text
                     }}
                   >
@@ -173,18 +174,21 @@ export const AmountScreen = ({
           flex: 1
         }}
       >
-        <View style={{ marginHorizontal: 10 }}>
+        <View style={{ marginHorizontal: normalize(10) }}>
           <Text
             style={{
               fontSize: normalize(14),
               color: colors.text,
               fontWeight: "600",
-              marginBottom: 10
+              marginBottom: normalize(10, "height")
             }}
           >
             Account
           </Text>
-          <RectButton onPress={openAccountSelection} style={{ height: 40 }}>
+          <RectButton
+            onPress={openAccountSelection}
+            style={{ height: normalize(40, "height") }}
+          >
             {paymentState.details.account && (
               <View>
                 <Text
@@ -222,7 +226,7 @@ export const AmountScreen = ({
                 <Ionicons name="ios-add" size={24} color={colors.primary} />
                 <Text
                   style={{
-                    marginLeft: 5,
+                    marginLeft: normalize(5),
                     color: colors.primary,
                     fontSize: normalize(18)
                   }}
@@ -236,7 +240,7 @@ export const AmountScreen = ({
         <View>
           <TextInput
             label="Amount (£)"
-            style={{ margin: 5 }}
+            style={{ margin: normalize(5) }}
             theme={{
               colors: {
                 background: "transparent"
@@ -249,7 +253,7 @@ export const AmountScreen = ({
           />
           <TextInput
             label="Reference"
-            style={{ margin: 5 }}
+            style={{ margin: normalize(5) }}
             autoCapitalize="none"
             autoCorrect={false}
             theme={{
@@ -261,13 +265,13 @@ export const AmountScreen = ({
             onChangeText={text => setState({ reference: text })}
           />
         </View>
-        <View style={{ margin: 10 }}>
+        <View style={{ margin: normalize(10) }}>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              marginVertical: 10
+              marginVertical: normalize(10, "height")
             }}
           >
             <Text style={{ fontSize: normalize(14), color: colors.text }}>
@@ -291,7 +295,7 @@ export const AmountScreen = ({
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginVertical: 10
+                      marginVertical: normalize(10, "height")
                     }}
                   >
                     <Text
@@ -323,7 +327,7 @@ export const AmountScreen = ({
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginVertical: 10
+                    marginVertical: normalize(10, "height")
                   }}
                 >
                   <Text style={{ fontSize: normalize(14), color: colors.text }}>
@@ -350,7 +354,7 @@ export const AmountScreen = ({
                         flexDirection: "row",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        marginVertical: 10
+                        marginVertical: normalize(10, "height")
                       }}
                     >
                       <Text
@@ -385,12 +389,15 @@ export const AmountScreen = ({
       <View
         style={{
           flex: 1,
-          paddingTop: 20,
-          marginBottom: 40
+          paddingTop: normalize(20, "height"),
+          marginBottom: normalize(40, "height")
         }}
       >
         <RectButton
-          style={{ height: 40, marginHorizontal: 10 }}
+          style={{
+            height: normalize(40, "height"),
+            marginHorizontal: normalize(10)
+          }}
           enabled={!!state.amount}
           onPress={nextStep}
         >

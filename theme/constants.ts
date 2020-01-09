@@ -18,13 +18,13 @@ export const colors = {
     primaryLight: "#dcf7f5",
     accent: "#06cccc",
     background: "#171F24",
-    seperator: "#ccc",
+    seperator: "#888",
     card: "#171F24",
     surface: "#374045",
     shadowColor: "#121212",
     textOnPrimary: "#fff",
     textSecondary: "#888",
-    sectionHeader: "#555",
+    sectionHeader: "#888",
     avatarBackground: "#374045"
   }
 };

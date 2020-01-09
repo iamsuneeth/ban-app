@@ -34,8 +34,8 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
     <ScrollView>
       <View
         style={{
-          height: 5,
-          marginHorizontal: 10,
+          height: normalize(5, "height"),
+          marginHorizontal: normalize(10),
           borderRadius: 3,
           top: 35,
           backgroundColor: colors.primary
@@ -43,7 +43,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
       />
       <View
         style={{
-          marginHorizontal: 10,
+          marginHorizontal: normalize(10),
           flexDirection: "row",
           paddingVertical: 10
         }}
@@ -51,8 +51,8 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
         <Text
           style={{
             fontSize: normalize(25),
-            paddingHorizontal: 5,
-            marginLeft: 20,
+            paddingHorizontal: normalize(5),
+            marginLeft: normalize(20),
             color: colors.text,
             backgroundColor: colors.surface
           }}
@@ -60,7 +60,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
           Select account
         </Text>
       </View>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: normalize(10, "height") }}>
         {accounts.map(account => (
           <Card
             key={account.id}
@@ -78,7 +78,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
                 onSelection(account);
               }}
               testID="accountClick"
-              style={{ padding: 10 }}
+              style={{ padding: normalize(10) }}
             >
               <View style={styles.accountPrimary}>
                 <View style={{ position: "absolute", right: 0 }}>
@@ -115,7 +115,7 @@ export const AccountSelection = ({ onSelection, sheetRef }: Props) => {
 
 const styles = StyleSheet.create({
   accountCard: {
-    padding: 0
+    padding: normalize(0)
   },
   accountPrimary: {
     justifyContent: "space-between"

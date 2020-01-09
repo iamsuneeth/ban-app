@@ -49,7 +49,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
       <Text
         style={{
           fontSize: normalize(20),
-          marginTop: 10,
+          marginTop: normalize(10, "height"),
           color: colors.text,
           fontWeight: "bold",
           alignSelf: "center"
@@ -73,7 +73,7 @@ export const ConfirmScreen = ({ navigation }: props) => {
         <Text
           style={{
             fontSize: normalize(14),
-            marginRight: 5,
+            marginRight: normalize(5),
             color: colors.text
           }}
         >
@@ -93,18 +93,18 @@ export const ConfirmScreen = ({ navigation }: props) => {
       <View
         style={{
           flex: 1,
-          marginTop: 20,
-          marginHorizontal: 10,
+          marginTop: normalize(20, "height"),
+          marginHorizontal: normalize(10),
           alignItems: "center",
           justifyContent: "flex-end",
-          marginBottom: 20
+          marginBottom: normalize(20, "height")
         }}
       >
         <RectButton
           style={{
             width: "80%",
-            height: 40,
-            marginVertical: 5
+            height: normalize(40, "height"),
+            marginVertical: normalize(5, "height")
           }}
           onPress={() =>
             navigation.dispatch(
@@ -139,8 +139,8 @@ export const ConfirmScreen = ({ navigation }: props) => {
         <RectButton
           style={{
             width: "80%",
-            height: 40,
-            marginVertical: 5
+            height: normalize(40, "height"),
+            marginVertical: normalize(5, "height")
           }}
           onPress={() =>
             navigation.dispatch(

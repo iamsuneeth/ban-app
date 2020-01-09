@@ -31,8 +31,8 @@ export const PaymentsOverview = ({ navigation }: Props) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Card
           style={{
-            marginTop: 0,
-            marginHorizontal: 0,
+            marginTop: normalize(0, "height"),
+            marginHorizontal: normalize(0),
             shadowOpacity: 0.2,
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    minHeight: 60,
-    paddingHorizontal: 10
+    minHeight: normalize(50, "height"),
+    paddingHorizontal: normalize(10)
   },
   main: {
     justifyContent: "center",
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(12)
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   }
 });

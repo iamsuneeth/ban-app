@@ -152,8 +152,8 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
               behavior="position"
               enabled
               style={{
-                paddingHorizontal: 10,
-                marginBottom: 50,
+                paddingHorizontal: normalize(10),
+                marginBottom: normalize(50, "height"),
                 flex: 1,
                 alignItems: "center"
               }}
@@ -173,7 +173,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     loop={false}
                     resizeMode="cover"
                     onAnimationFinish={() => onAnimationEnd()}
-                    style={{ width: 300 }}
+                    style={{ width: normalize(300) }}
                     source={require("../../../assets/logo_dark.json")}
                   />
                 )}
@@ -184,14 +184,14 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     speed={1.5}
                     resizeMode="cover"
                     onAnimationFinish={() => onAnimationEnd()}
-                    style={{ width: 300 }}
+                    style={{ width: normalize(300) }}
                     source={require("../../../assets/logo_light.json")}
                   />
                 )}
                 <Text
                   style={{
                     fontSize: normalize(30),
-                    marginLeft: 10,
+                    marginLeft: normalize(10),
                     fontWeight: "bold",
                     color: colors.text
                   }}
@@ -228,8 +228,8 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     <View
                       style={{
                         backgroundColor: "red",
-                        padding: 5,
-                        marginBottom: 10
+                        padding: normalize(5),
+                        marginBottom: normalize(10, "height")
                       }}
                     >
                       <Text style={{ color: colors.text }}>{error}</Text>
@@ -238,7 +238,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   <Text
                     style={{
                       color: colors.text,
-                      marginTop: 40,
+                      marginTop: normalize(40, "height"),
                       fontSize: normalize(16),
                       textAlign: "center"
                     }}
@@ -271,7 +271,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                       borderRadius: borderRadiusAnimation,
                       backgroundColor: colors.primary,
                       opacity: !!smsCode ? 1 : 0.6,
-                      height: 40,
+                      height: normalize(40),
                       justifyContent: "center",
                       alignSelf: "center",
                       transform: [
@@ -283,22 +283,28 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   >
                     <RectButton
                       onPress={onSignIn}
-                      style={{ flex: 1, padding: 10 }}
+                      style={{
+                        flex: 1,
+                        padding: normalize(10),
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
                       enabled={!!smsCode}
                     >
                       {authState === "notStarted" && (
                         <Text
                           style={{
                             textAlign: "center",
-                            color: "#fff",
-                            fontSize: normalize(16)
+                            color: colors.background,
+                            fontWeight: "bold",
+                            fontSize: normalize(14)
                           }}
                         >
                           VERIFY
                         </Text>
                       )}
                       {authState === "inProgress" && (
-                        <ActivityIndicator color={"#fff"} />
+                        <ActivityIndicator color={colors.background} />
                       )}
                     </RectButton>
                   </Animated.View>

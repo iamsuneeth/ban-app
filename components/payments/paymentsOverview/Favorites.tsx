@@ -62,7 +62,7 @@ export const Favorites = ({ favorites, style }: Props) => {
   const navigation = useNavigation<FavoriteNavigationProps>();
   return (
     <>
-      <View style={[{ marginVertical: 10 }, style]}>
+      <View style={[{ marginVertical: normalize(10, "height") }, style]}>
         <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
           Favorites
         </Text>
@@ -108,7 +108,7 @@ export const Favorites = ({ favorites, style }: Props) => {
                     <BorderlessButton
                       style={{
                         justifyContent: "flex-end",
-                        paddingRight: 10
+                        paddingRight: normalize(10)
                       }}
                       onPress={() =>
                         navigation.navigate("Modal", {
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    minHeight: 60,
-    paddingHorizontal: 10
+    minHeight: normalize(60, "height"),
+    paddingHorizontal: normalize(10)
   },
   sectionHeader: {
     fontSize: normalize(14),
-    margin: 15,
+    margin: normalize(15),
     fontWeight: "bold"
   },
   main: {
@@ -173,6 +173,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(12)
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   }
 });

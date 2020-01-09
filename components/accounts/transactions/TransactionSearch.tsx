@@ -1,13 +1,14 @@
 import React, { useRef, useEffect } from "react";
 import {
   View,
-  Platform,
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TextInput
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { normalize } from "../../../utils/normalize";
+import { useTheme } from "@react-navigation/native";
+import { ThemeType } from "../../../App";
 
 type Props = {
   handleSearch: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -21,6 +22,7 @@ export const TransactionSearch = ({ handleSearch, searchString }: Props) => {
       inputRef.current.focus();
     }
   }, []);
+  const { colors } = useTheme() as ThemeType;
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <TextInput
@@ -29,8 +31,9 @@ export const TransactionSearch = ({ handleSearch, searchString }: Props) => {
         clearButtonMode={"always"}
         selectionColor={"tomato"}
         style={{
-          padding: 10,
-          flex: 1
+          padding: normalize(10),
+          flex: 1,
+          color: colors.text
         }}
         value={searchString}
         onChange={handleSearch}

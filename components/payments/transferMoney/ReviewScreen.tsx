@@ -20,7 +20,9 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
     <View style={{ flex: 1, justifyContent: "space-between" }}>
       {paymentState.details && (
         <View>
-          <View style={{ alignItems: "center", marginTop: 10 }}>
+          <View
+            style={{ alignItems: "center", marginTop: normalize(10, "height") }}
+          >
             <Amount
               amount={paymentState.details.txnAmount.amount}
               style={{
@@ -35,12 +37,12 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
           </View>
           <View
             style={{
-              padding: 10,
+              padding: normalize(10),
               justifyContent: "space-around",
               alignItems: "center"
             }}
           >
-            <View style={{ marginVertical: 10 }}>
+            <View style={{ marginVertical: normalize(10, "height") }}>
               <Text
                 style={{
                   color: colors.text,
@@ -54,27 +56,27 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                 style={{
                   color: colors.textSecondary,
                   fontSize: normalize(12),
-                  marginTop: 5
+                  marginTop: normalize(5, "height")
                 }}
               >
                 {`${paymentState.details.account.code} - ${paymentState.details.account.accountNumber}`}
               </Text>
             </View>
-            <View style={{ marginVertical: 10 }}>
+            <View style={{ marginVertical: normalize(10, "height") }}>
               <Ionicons name="md-arrow-down" size={40} color={colors.text} />
             </View>
             <View style={{ alignItems: "center" }}>
               <LetterAvatar
                 text={paymentState.details.payee.name}
                 size={80}
-                viewStyle={{ marginBottom: 0 }}
+                viewStyle={{ marginBottom: normalize(0, "height") }}
               />
               <Text
                 style={{
                   color: colors.text,
                   fontSize: normalize(14),
-                  marginTop: 10,
-                  marginBottom: 5
+                  marginTop: normalize(10, "height"),
+                  marginBottom: normalize(5, "height")
                 }}
               >
                 {paymentState.details.payee.name}
@@ -88,12 +90,12 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
           </View>
           {(paymentState.details.reference ||
             paymentState.details.txnStartDate) && (
-            <View style={{ padding: 10 }}>
+            <View style={{ padding: normalize(10) }}>
               <Text
                 style={{
                   color: colors.text,
                   fontSize: normalize(18),
-                  marginBottom: 10
+                  marginBottom: normalize(10, "height")
                 }}
               >
                 Payment details
@@ -103,7 +105,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  marginVertical: 10
+                  marginVertical: normalize(10, "height")
                 }}
               >
                 <Text
@@ -123,8 +125,8 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   <View
                     style={{
                       backgroundColor: colors.seperator,
-                      height: 1,
-                      marginVertical: 10
+                      height: normalize(1, "height"),
+                      marginVertical: normalize(10, "height")
                     }}
                   />
                   <View
@@ -132,7 +134,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginVertical: 10
+                      marginVertical: normalize(10, "height")
                     }}
                   >
                     <Text
@@ -158,8 +160,8 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   <View
                     style={{
                       backgroundColor: colors.seperator,
-                      height: 1,
-                      marginVertical: 10
+                      height: normalize(1, "height"),
+                      marginVertical: normalize(10, "height")
                     }}
                   />
                   <View
@@ -167,7 +169,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginVertical: 10
+                      marginVertical: normalize(10, "height")
                     }}
                   >
                     <Text
@@ -191,8 +193,8 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                   <View
                     style={{
                       backgroundColor: colors.seperator,
-                      height: 1,
-                      marginVertical: 10
+                      height: normalize(1, "height"),
+                      marginVertical: normalize(10, "height")
                     }}
                   />
                   <View
@@ -200,7 +202,7 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginVertical: 10
+                      marginVertical: normalize(10, "height")
                     }}
                   >
                     <Text
@@ -227,9 +229,9 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
       )}
       <RectButton
         style={{
-          height: 40,
-          marginHorizontal: 10,
-          marginBottom: 10
+          height: normalize(40, "height"),
+          marginHorizontal: normalize(10),
+          marginBottom: normalize(10, "height")
         }}
         onPress={() => initiatePayment(true)}
       >

@@ -19,7 +19,11 @@ export const TxnItem = ({ data, index }: TxnItemProps) => {
       <RectButton>
         <View style={[styles.itemContainer]}>
           <View style={styles.icon}>
-            <Icons name="bank-transfer" size={40} color={colors.primary} />
+            <Icons
+              name="bank-transfer"
+              size={normalize(40)}
+              color={colors.primary}
+            />
           </View>
           <View style={styles.main}>
             <Text style={[styles.recepient, { color: colors.text }]}>
@@ -53,9 +57,9 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    minHeight: 60,
-    paddingHorizontal: 10,
-    marginVertical: 5
+    minHeight: normalize(50, "height"),
+    paddingHorizontal: normalize(10),
+    marginVertical: normalize(5, "height")
   },
   main: {
     justifyContent: "center"
@@ -64,16 +68,16 @@ const styles = StyleSheet.create({
     fontSize: normalize(16)
   },
   description: {
-    marginTop: 5,
+    marginTop: normalize(5, "height"),
     fontSize: normalize(12)
   },
   icon: {
-    padding: 5,
-    marginRight: 5,
+    padding: normalize(5),
+    marginRight: normalize(5),
     alignItems: "center",
     justifyContent: "center",
-    width: 50,
-    height: 50
+    width: normalize(50),
+    height: normalize(50, "height")
   },
   amount: {
     fontWeight: "400",

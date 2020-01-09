@@ -144,8 +144,8 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
             <Card
               style={{
                 shadowOpacity: 0,
-                marginHorizontal: 0,
-                paddingBottom: 40,
+                marginHorizontal: normalize(0),
+                paddingBottom: normalize(40, "height"),
                 height: "100%",
                 backgroundColor: colors.surface
               }}
@@ -158,9 +158,9 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                 >
                   <RectButton
                     style={{
-                      width: 200,
-                      height: 40,
-                      paddingRight: 10,
+                      width: normalize(200),
+                      height: normalize(40, "height"),
+                      paddingRight: normalize(10),
                       justifyContent: "center"
                     }}
                     onPress={signOut}
@@ -192,14 +192,19 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                     fontWeight: "bold",
                     color: colors.text,
                     textAlign: "center",
-                    paddingHorizontal: 40
+                    paddingHorizontal: normalize(40)
                   }}
                 >
                   {message}
                 </Text>
 
                 {modalVisible && (
-                  <View style={{ marginTop: 40, alignItems: "center" }}>
+                  <View
+                    style={{
+                      marginTop: normalize(40, "height"),
+                      alignItems: "center"
+                    }}
+                  >
                     <Ionicons name="ios-finger-print" size={100} />
                   </View>
                 )}
@@ -207,7 +212,7 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
                   <LottieView
                     ref={lottieRef}
                     loop={false}
-                    style={{ width: 400 }}
+                    style={{ width: normalize(400) }}
                     onAnimationFinish={() => sheetRef.current.snapTo(0)}
                     autoSize
                     source={require("../../assets/fingerprint.json")}

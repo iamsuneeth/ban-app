@@ -166,13 +166,13 @@ const styles = StyleSheet.create({
   highlight: { color: "#fff", fontSize: normalize(18) },
   sectionHeader: {
     fontSize: normalize(20),
-    margin: 15,
+    margin: normalize(15),
     fontWeight: "bold",
     color: "#555"
   },
   seperator: {
     backgroundColor: "#f5f5f5",
-    height: 1,
+    height: normalize(1, "height"),
     marginHorizontal: normalize(10)
   },
   section: {}

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   main: {
     justifyContent: "center"
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     color: "#888"
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   amount: {
     fontWeight: "400",

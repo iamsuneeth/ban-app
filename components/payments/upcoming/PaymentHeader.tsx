@@ -32,7 +32,7 @@ export const PaymentHeader = ({ data }: PaymentHeaderProps) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: 10,
+    paddingHorizontal: normalize(10),
     backgroundColor: "#fff"
   },
   sectionHeader: {

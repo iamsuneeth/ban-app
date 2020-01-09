@@ -52,13 +52,13 @@ export const MakePaymentHeader = ({
       <View
         style={{
           flexDirection: "row",
-          marginBottom: 5,
+          marginBottom: normalize(5, "height"),
           alignItems: "flex-start"
         }}
       >
         <View
           style={{
-            paddingLeft: 10,
+            paddingLeft: normalize(10),
             flex: 1,
             alignItems: "flex-start"
           }}
@@ -70,7 +70,7 @@ export const MakePaymentHeader = ({
                 style={{
                   color: colors.text,
                   fontSize: normalize(16),
-                  marginLeft: 5,
+                  marginLeft: normalize(5),
                   fontWeight: "700"
                 }}
               >
@@ -99,7 +99,7 @@ export const MakePaymentHeader = ({
                 value={filters.searchString}
                 onBlur={() => setVisible(false)}
                 style={{
-                  padding: 5,
+                  padding: normalize(5),
                   flex: 1,
                   color: colors.text,
                   height: "100%",
@@ -110,7 +110,7 @@ export const MakePaymentHeader = ({
             {!visible && (
               <BorderlessButton
                 onPress={() => setVisible(true)}
-                style={{ marginRight: 10 }}
+                style={{ marginRight: normalize(10) }}
               >
                 <Ionicons color={colors.text} name="ios-search" size={30} />
               </BorderlessButton>
@@ -118,18 +118,18 @@ export const MakePaymentHeader = ({
           </View>
         )}
         {payeeVisible && paymentState.details.payee && (
-          <View style={{ alignItems: "flex-end", marginRight: 10 }}>
+          <View style={{ alignItems: "flex-end", marginRight: normalize(10) }}>
             {/* <SharedElement id={paymentState.details.payee.id}>
               <LetterAvatar
                 text={paymentState.details.payee.name}
                 size={40}
-                viewStyle={{ marginBottom: 0 }}
+                viewStyle={{ marginBottom: normalize(0,'height') }}
               />
             </SharedElement> */}
             <LetterAvatar
               text={paymentState.details.payee.name}
               size={40}
-              viewStyle={{ marginBottom: 0 }}
+              viewStyle={{ marginBottom: normalize(0, "height") }}
             />
             <Text
               style={{

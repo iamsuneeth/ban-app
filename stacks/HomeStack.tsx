@@ -38,7 +38,7 @@ export const HomeStack = () => {
               <Text
                 style={{
                   fontSize: normalize(30),
-                  marginLeft: 10,
+                  marginLeft: normalize(10),
                   color: colors.text,
                   fontWeight: "bold"
                 }}
@@ -53,19 +53,19 @@ export const HomeStack = () => {
                 name="bell-o"
                 size={23}
                 color={colors.text}
-                style={{ paddingRight: 10 }}
+                style={{ paddingRight: normalize(10) }}
               />
               <MaterialIcons
                 name="settings"
                 size={25}
                 color={colors.text}
-                style={{ paddingRight: 10 }}
+                style={{ paddingRight: normalize(10) }}
               />
               <FontAwesome
                 name="user-circle"
                 size={25}
                 color={colors.text}
-                style={{ paddingRight: 10 }}
+                style={{ paddingRight: normalize(10) }}
               />
             </View>
           ),

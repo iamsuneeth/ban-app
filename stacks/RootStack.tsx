@@ -17,6 +17,7 @@ export type RootParamsList = {
         renderProp?: (onClose: Function) => React.ReactNode;
         message?: string;
         onSelection?: (value: boolean) => void;
+        dismissable?: boolean;
       }
     | undefined;
   Login: undefined;

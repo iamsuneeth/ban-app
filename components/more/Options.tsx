@@ -33,8 +33,8 @@ export const Options = ({ navigation }: OptionsProps) => {
     <View style={styles.container}>
       <Card
         style={{
-          marginTop: 0,
-          marginHorizontal: 0,
+          marginTop: normalize(0, "height"),
+          marginHorizontal: normalize(0),
           shadowOpacity: 0.2,
           borderTopRightRadius: 0,
           borderTopLeftRadius: 0,
@@ -62,8 +62,13 @@ export const Options = ({ navigation }: OptionsProps) => {
           </View>
         </RectButton>
       </Card>
-      <View style={{ alignItems: "center", marginBottom: 40 }}>
-        <RectButton style={{ height: 40, width: 200 }} onPress={signOut}>
+      <View
+        style={{ alignItems: "center", marginBottom: normalize(40, "height") }}
+      >
+        <RectButton
+          style={{ height: normalize(40, "height"), width: normalize(200) }}
+          onPress={signOut}
+        >
           <View
             style={{
               flex: 1,
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     minHeight: 60,
-    paddingHorizontal: 10
+    paddingHorizontal: normalize(10)
   },
   main: {
     justifyContent: "center",
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
   },
   seperator: {
     backgroundColor: "#eee",
-    height: 1,
+    height: normalize(1, "height"),
     width: "90%",
     alignSelf: "center"
   },
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     color: "#888"
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   container: {
     flex: 1,

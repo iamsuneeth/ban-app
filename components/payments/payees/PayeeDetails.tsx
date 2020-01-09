@@ -37,8 +37,8 @@ export const PayeeDetails = ({
       {/* <SharedElement
         id={payee.id}
         style={{
-          width: 100,
-          height: 100,
+          width: normalize(100),
+          height: normalize(100,'height'),
           elevation: 3,
           zIndex: 3,
           top: 10,
@@ -50,8 +50,8 @@ export const PayeeDetails = ({
       </SharedElement> */}
       <View
         style={{
-          width: 100,
-          height: 100,
+          width: normalize(100),
+          height: normalize(100, "height"),
           elevation: 3,
           zIndex: 3,
           top: 10,
@@ -63,27 +63,27 @@ export const PayeeDetails = ({
       </View>
       <Card
         style={{
-          marginTop: 50,
-          marginHorizontal: 0,
+          marginTop: normalize(50, "height"),
+          marginHorizontal: normalize(0),
           backgroundColor: colors.surface,
           shadowColor: colors.shadowColor
         }}
       >
-        <View style={{ margin: 5 }}>
+        <View style={{ margin: normalize(5) }}>
           {/* <SharedElement
             id={`${payee.id}payeeName`}
-            style={{ alignSelf: "flex-end", width: 250 }}
+            style={{ alignSelf: "flex-end", width: normalize(250) }}
           >
             <Text style={[styles.header, { color: colors.gray }]}>
               {payee.name}
             </Text>
           </SharedElement> */}
-          <View style={{ alignSelf: "flex-end", width: 250 }}>
+          <View style={{ alignSelf: "flex-end", width: normalize(250) }}>
             <Text style={[styles.header, { color: colors.text }]}>
               {payee.name}
             </Text>
           </View>
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: normalize(20, "height") }}>
             <View style={styles.section}>
               <Text style={[styles.label, { color: colors.text }]}>
                 Account number
@@ -115,9 +115,9 @@ export const PayeeDetails = ({
                 <Image
                   source={{ uri: payee.bankLogo }}
                   style={{
-                    width: 20,
-                    height: 20,
-                    marginRight: 5
+                    width: normalize(20),
+                    height: normalize(20, "height"),
+                    marginRight: normalize(5)
                   }}
                 />
                 <Text style={[styles.value, { color: colors.text }]}>
@@ -192,7 +192,7 @@ export const PayeeDetails = ({
         <TouchableWithoutFeedback
           onPress={openClearbit}
           style={{
-            paddingTop: 5,
+            paddingTop: normalize(5, "height"),
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-end"
@@ -200,9 +200,9 @@ export const PayeeDetails = ({
         >
           <Image
             style={{
-              width: 14,
-              height: 14,
-              marginRight: 5
+              width: normalize(14),
+              height: normalize(14, "height"),
+              marginRight: normalize(5)
             }}
             source={{ uri: "https://logo.clearbit.com/clearbit.com" }}
           />
@@ -244,14 +244,14 @@ export const PayeeDetails = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10
+    padding: normalize(10)
   },
   main: {
     justifyContent: "center",
     flex: 1
   },
   icon: {
-    paddingRight: 10
+    paddingRight: normalize(10)
   },
   header: {
     fontSize: normalize(25),
@@ -267,17 +267,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 10
+    marginVertical: normalize(10, "height")
   },
   buttonContaioner: {
-    marginTop: 20,
-    marginBottom: 10,
+    marginTop: normalize(20, "height"),
+    marginBottom: normalize(10, "height"),
     flexDirection: "row",
     justifyContent: "space-between"
   },
   actionButton: {
     paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: normalize(10),
     minWidth: "30%",
     minHeight: 40,
     alignItems: "center",

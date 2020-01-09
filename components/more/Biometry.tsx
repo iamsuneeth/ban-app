@@ -38,7 +38,7 @@ export const Biometry = () => {
           flexDirection: "row",
           justifyContent: "space-around",
           alignItems: "center",
-          margin: 10
+          margin: normalize(10)
         }}
       >
         <Text style={{ fontSize: normalize(16), color: colors.text }}>
