@@ -16,6 +16,7 @@ import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { TextInput } from "react-native-paper";
 import { normalize } from "../../../utils/normalize";
 import Switch from "../../elements/switch/Switch";
+import { Button } from "../../elements/button/Button";
 
 const frequencies = [
   {
@@ -389,34 +390,16 @@ export const AmountScreen = ({
           marginBottom: normalize(40, "height")
         }}
       >
-        <RectButton
+        <Button
+          primary
           style={{
-            height: normalize(40, "height"),
             marginHorizontal: normalize(10)
           }}
-          enabled={!!state.amount}
+          disabled={!state.amount}
           onPress={nextStep}
         >
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 2,
-              backgroundColor: !!state.amount ? colors.primary : colors.text
-            }}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                textTransform: "uppercase",
-                fontWeight: "bold"
-              }}
-            >
-              Continue
-            </Text>
-          </View>
-        </RectButton>
+          Continue
+        </Button>
       </View>
     </ScrollView>
   );

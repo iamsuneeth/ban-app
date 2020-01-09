@@ -4,9 +4,8 @@ import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
-
-import { Switch } from "react-native-paper";
 import { normalize } from "../../utils/normalize";
+import Switch from "../elements/switch/Switch";
 
 export const Biometry = () => {
   const [biometryEnabled, setBiometryEnabled] = useState(false);

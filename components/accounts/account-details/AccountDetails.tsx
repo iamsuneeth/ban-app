@@ -499,8 +499,8 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: normalize(10, "height")
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) },
+  main: { color: "#fff", fontSize: normalize(18) },
+  secondary: { color: "#fff", fontSize: normalize(13) },
   highlight: { color: "#fff", fontSize: normalize(18) },
   secondaryText: {
     color: "#fff",

@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { useTheme } from "@react-navigation/native";
 import { normalize } from "../../utils/normalize";
+import { Button } from "../elements/button/Button";
 
 export const confirmation = ({ sheetRef, message, onSelection }) => {
   const { colors } = useTheme();
@@ -18,65 +19,26 @@ export const confirmation = ({ sheetRef, message, onSelection }) => {
         {message}
       </Text>
       <View style={{ flexDirection: "row" }}>
-        <RectButton
-          style={{
-            backgroundColor: colors.primary,
-            height: normalize(40, "height"),
-            margin: normalize(10),
-            flex: 1,
-            alignSelf: "center",
-            justifyContent: "center",
-            borderRadius: 3
-          }}
+        <Button
+          primary
+          style={{ margin: normalize(10), flex: 1, alignSelf: "center" }}
           onPress={() => {
             sheetRef.current.snapTo(0);
             onSelection && onSelection(true);
           }}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              textAlignVertical: "center",
-              color: "#fff",
-              fontSize: normalize(16)
-            }}
-          >
-            Confirm
-          </Text>
-        </RectButton>
-        <RectButton
-          style={{
-            margin: normalize(10),
-            flex: 1,
-            height: normalize(40, "height"),
-            alignSelf: "center"
-          }}
+          Confirm
+        </Button>
+        <Button
+          secondary
+          style={{ margin: normalize(10), flex: 1, alignSelf: "center" }}
           onPress={() => {
             sheetRef.current.snapTo(0);
-            onSelection && onSelection(false);
+            onSelection && onSelection(true);
           }}
         >
-          <View
-            style={{
-              flex: 1,
-              borderColor: colors.primary,
-              borderWidth: 1,
-              justifyContent: "center",
-              borderRadius: 3
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                textAlignVertical: "center",
-                color: colors.primary,
-                fontSize: normalize(16)
-              }}
-            >
-              Cancel
-            </Text>
-          </View>
-        </RectButton>
+          Cancel
+        </Button>
       </View>
     </>
   );

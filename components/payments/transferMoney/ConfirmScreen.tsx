@@ -14,6 +14,7 @@ import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { normalize } from "../../../utils/normalize";
+import { Button } from "../../elements/button/Button";
 
 type props = {
   navigation: CompositeNavigationProp<
@@ -103,11 +104,10 @@ export const ConfirmScreen = ({ navigation }: props) => {
           marginBottom: normalize(20, "height")
         }}
       >
-        <RectButton
+        <Button
+          primary
           style={{
-            width: "80%",
-            height: normalize(40, "height"),
-            marginVertical: normalize(5, "height")
+            width: "80%"
           }}
           onPress={() =>
             navigation.dispatch(
@@ -118,32 +118,12 @@ export const ConfirmScreen = ({ navigation }: props) => {
             )
           }
         >
-          <View
-            style={{
-              backgroundColor: colors.primary,
-              borderRadius: 3,
-              flex: 1,
-              justifyContent: "center"
-            }}
-          >
-            <Text
-              style={{
-                fontSize: normalize(14),
-                fontWeight: "bold",
-                color: "#fff",
-                textAlign: "center",
-                textTransform: "uppercase"
-              }}
-            >
-              Done
-            </Text>
-          </View>
-        </RectButton>
-        <RectButton
+          Done
+        </Button>
+        <Button
+          secondary
           style={{
-            width: "80%",
-            height: normalize(40, "height"),
-            marginVertical: normalize(5, "height")
+            width: "80%"
           }}
           onPress={() =>
             navigation.dispatch(
@@ -158,28 +138,8 @@ export const ConfirmScreen = ({ navigation }: props) => {
             )
           }
         >
-          <View
-            style={{
-              borderColor: colors.primary,
-              borderWidth: 1,
-              borderRadius: 3,
-              flex: 1,
-              justifyContent: "center"
-            }}
-          >
-            <Text
-              style={{
-                fontSize: normalize(14),
-                fontWeight: "bold",
-                color: colors.primary,
-                textAlign: "center",
-                textTransform: "uppercase"
-              }}
-            >
-              Make another payment
-            </Text>
-          </View>
-        </RectButton>
+          Make another payment
+        </Button>
       </View>
     </View>
   );

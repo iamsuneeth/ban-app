@@ -5,9 +5,10 @@ import { IPaymentState } from "bank-core/typescript/types";
 import { Amount } from "../../elements/amount/Amount";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { Ionicons } from "@expo/vector-icons";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { ThemeType } from "../../../App";
 import { normalize } from "../../../utils/normalize";
+import { Button } from "../../elements/button/Button";
 
 type Props = {
   paymentState: IPaymentState;
@@ -229,34 +230,16 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
           )}
         </View>
       )}
-      <RectButton
+      <Button
+        primary
         style={{
-          height: normalize(40, "height"),
           marginHorizontal: normalize(10),
           marginBottom: normalize(10, "height")
         }}
         onPress={() => initiatePayment(true)}
       >
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 2,
-            backgroundColor: colors.primary
-          }}
-        >
-          <Text
-            style={{
-              color: colors.textOnPrimary,
-              textTransform: "uppercase",
-              fontWeight: "bold"
-            }}
-          >
-            Confirm
-          </Text>
-        </View>
-      </RectButton>
+        Confirm
+      </Button>
     </ScrollView>
   );
 };

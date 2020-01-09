@@ -13,6 +13,7 @@ import { BottomTabParamList } from "../../tabs/BottomTabBar";
 import { useAuthState } from "bank-core";
 import { ThemeType } from "../../App";
 import { normalize } from "../../utils/normalize";
+import { Button } from "../elements/button/Button";
 
 type OptionsProps = {
   navigation: CompositeNavigationProp<
@@ -65,24 +66,9 @@ export const Options = ({ navigation }: OptionsProps) => {
       <View
         style={{ alignItems: "center", marginBottom: normalize(40, "height") }}
       >
-        <RectButton
-          style={{ height: normalize(40, "height"), width: normalize(200) }}
-          onPress={signOut}
-        >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: colors.primary,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 5
-            }}
-          >
-            <Text style={{ fontSize: normalize(14), color: "#fff" }}>
-              Sign out
-            </Text>
-          </View>
-        </RectButton>
+        <Button onPress={signOut} style={{ width: "80%" }} primary>
+          Sign out
+        </Button>
       </View>
     </View>
   );

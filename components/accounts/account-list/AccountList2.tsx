@@ -150,7 +150,7 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
 
 const styles = StyleSheet.create({
   account: {
-    maxHeight: normalize(150, "height"),
+    maxHeight: normalize(150),
     marginVertical: normalize(10, "height")
   },
   accountCard: {
@@ -161,9 +161,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: normalize(16) },
-  secondary: { color: "#fff", fontSize: normalize(12) },
-  highlight: { color: "#fff", fontSize: normalize(18) },
+  main: { color: "#fff", fontSize: normalize(18) },
+  secondary: { color: "#fff", fontSize: normalize(13) },
   sectionHeader: {
     fontSize: normalize(20),
     margin: normalize(15),
