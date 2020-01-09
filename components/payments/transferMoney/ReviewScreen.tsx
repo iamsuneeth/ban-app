@@ -5,7 +5,7 @@ import { IPaymentState } from "bank-core/typescript/types";
 import { Amount } from "../../elements/amount/Amount";
 import { LetterAvatar } from "../../common/LetterAvatar";
 import { Ionicons } from "@expo/vector-icons";
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { ThemeType } from "../../../App";
 import { normalize } from "../../../utils/normalize";
 
@@ -17,7 +17,9 @@ type Props = {
 export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
   const { colors } = useTheme() as ThemeType;
   return (
-    <View style={{ flex: 1, justifyContent: "space-between" }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
+    >
       {paymentState.details && (
         <View>
           <View
@@ -255,6 +257,6 @@ export const ReviewScreen = ({ paymentState, initiatePayment }: Props) => {
           </Text>
         </View>
       </RectButton>
-    </View>
+    </ScrollView>
   );
 };

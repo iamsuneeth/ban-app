@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { View, Text, KeyboardAvoidingView, Switch, Alert } from "react-native";
+import { View, Text } from "react-native";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
 import dayjs from "dayjs";
@@ -14,8 +14,8 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { TextInput } from "react-native-paper";
-import { TrackingState } from "expo/build/AR";
 import { normalize } from "../../../utils/normalize";
+import Switch from "../../elements/switch/Switch";
 
 const frequencies = [
   {
@@ -278,10 +278,6 @@ export const AmountScreen = ({
               Schedule Payment
             </Text>
             <Switch
-              trackColor={{
-                true: colors.primary,
-                false: colors.text
-              }}
               value={state.schedule}
               onValueChange={value => setState({ schedule: value })}
             />

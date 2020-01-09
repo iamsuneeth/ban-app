@@ -2,7 +2,6 @@ import React, { useRef, useReducer } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { Card } from "../../elements/card/Card";
 import { ScrollView, BorderlessButton } from "react-native-gesture-handler";
-//import { RectButton } from "react-native-gesture-handler";
 
 import BottomSheet from "reanimated-bottom-sheet";
 import {
@@ -13,10 +12,9 @@ import dayjs from "dayjs";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { DateTimePicker } from "../../elements/date-picker/DateTimePicker";
 import { useTheme } from "@react-navigation/native";
-
-import { Switch } from "react-native-paper";
 import { Button } from "../../elements/button/Button";
 import { normalize } from "../../../utils/normalize";
+import Switch from "../../elements/switch/Switch";
 
 type FilterProps = {
   lastFetched?: string;
@@ -92,7 +90,7 @@ const FilterContent = ({
           <View
             style={{
               flexDirection: "row",
-              marginVertical: normalize(10,"height"),
+              marginVertical: normalize(10, "height"),
               justifyContent: "space-between"
             }}
           >
@@ -192,18 +190,12 @@ const FilterContent = ({
           >
             <Switch
               value={state.txnTypes.length === 0}
-              style={{
-                transform: [
-                  { scaleX: Platform.select({ ios: 0.8, android: 1 }) },
-                  { scaleY: Platform.select({ ios: 0.8, android: 1 }) }
-                ]
-              }}
               onValueChange={value => onTxnTypeSelected("all", value)}
             />
             <Text
               style={{
                 marginLeft: normalize(10),
-                marginVertical: normalize(10,"height"),
+                marginVertical: normalize(10, "height"),
                 fontSize: normalize(16),
                 color: colors.text
               }}
@@ -218,18 +210,12 @@ const FilterContent = ({
             >
               <Switch
                 value={state.txnTypes.includes(value)}
-                style={{
-                  transform: [
-                    { scaleX: Platform.select({ ios: 0.8, android: 1 }) },
-                    { scaleY: Platform.select({ ios: 0.8, android: 1 }) }
-                  ]
-                }}
                 onValueChange={boolValue => onTxnTypeSelected(value, boolValue)}
               />
               <Text
                 style={{
                   marginLeft: normalize(10),
-                  marginVertical: normalize(10,"height"),
+                  marginVertical: normalize(10, "height"),
                   fontSize: normalize(16),
                   color: colors.text
                 }}

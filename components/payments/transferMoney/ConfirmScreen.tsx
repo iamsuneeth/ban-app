@@ -57,13 +57,6 @@ export const ConfirmScreen = ({ navigation }: props) => {
       >
         Payment done!!!
       </Text>
-      <LottieView
-        style={{ alignSelf: "center" }}
-        autoSize={true}
-        ref={ref}
-        loop={false}
-        source={require("../../../assets/success.json")}
-      />
       <View
         style={{
           flexDirection: "row",
@@ -90,6 +83,16 @@ export const ConfirmScreen = ({ navigation }: props) => {
           {state.reference}
         </Text>
       </View>
+      <LottieView
+        style={{
+          alignSelf: "center",
+          width: normalize(400)
+        }}
+        ref={ref}
+        loop={false}
+        source={require("../../../assets/success.json")}
+      />
+
       <View
         style={{
           flex: 1,
