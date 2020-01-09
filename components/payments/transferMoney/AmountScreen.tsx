@@ -395,7 +395,7 @@ export const AmountScreen = ({
           style={{
             marginHorizontal: normalize(10)
           }}
-          disabled={!state.amount}
+          disabled={!state.amount || !paymentState.details.account}
           onPress={nextStep}
         >
           Continue
