@@ -21,7 +21,18 @@ const Stack = createStackNavigator<HomeParamList>();
 export const HomeStack = () => {
   const { colors } = useTheme();
   return (
-    <Stack.Navigator initialRouteName="Accounts">
+    <Stack.Navigator
+      initialRouteName="Accounts"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "transparent",
+          borderBottomWidth: 0
+        },
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }}
+    >
       <Stack.Screen
         name="Accounts"
         component={HomeContainer}
@@ -68,22 +79,14 @@ export const HomeStack = () => {
                 style={{ paddingRight: normalize(10) }}
               />
             </View>
-          ),
-          headerStyle: {
-            borderBottomWidth: 0
-          }
+          )
         }}
       />
       <Stack.Screen
         name="AccountDetails"
         component={AccountDetailsContainer}
         options={({ route }) => ({
-          title: route.params?.account.nickName,
-          headerTitleStyle: {
-            fontWeight: "bold",
-            flex: 1,
-            textAlign: "center"
-          }
+          title: route.params?.account.nickName
         })}
       />
       <Stack.Screen

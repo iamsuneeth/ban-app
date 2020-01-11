@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Dimensions,
-  StyleSheet,
-  Platform
-} from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 
 import { Amount } from "../../elements/amount/Amount";
@@ -19,6 +12,9 @@ import { HomeParamList } from "../../../stacks/HomeStack";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { normalize } from "../../../utils/normalize";
+import { Text } from "../../elements/text/Text";
+import { ThemeType } from "../../../App";
+import { PaddedView } from "../../elements/view/PaddedView";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
@@ -31,58 +27,64 @@ type Props = {
 
 const Account = ({ account, colors, dark, navigation }) => {
   return (
-    // <SharedElement key={account.id} id={account.id} style={{ flex: 1 }}>
-    <Card
-      style={[
-        styles.accountCard,
-        {
-          backgroundColor: colors.primaryDark
-        },
-        dark && { shadowColor: colors.shadowColor }
-      ]}
+    <RectButton
+      onPress={() =>
+        navigation.navigate("AccountDetails", {
+          account
+        })
+      }
+      testID="accountClick"
+      style={{ flex: 1 }}
     >
-      <RectButton
-        onPress={() =>
-          navigation.navigate("AccountDetails", {
-            account
-          })
-        }
-        testID="accountClick"
-        style={{ flex: 1, padding: normalize(10) }}
+      <Card
+        style={[
+          styles.accountPrimary,
+          {
+            backgroundColor: dark ? colors.primaryDark : colors.primary
+          }
+        ]}
       >
-        <View style={styles.accountPrimary}>
-          <View style={{ position: "absolute", right: 0 }}>
-            <Ionicons name="ios-arrow-dropright" size={25} color={"#fff"} />
-          </View>
-
-          <View>
-            <Text style={styles.main}>{account.nickName}</Text>
-            <Text style={styles.secondary}>
-              {account.code + " " + account.accountNumber}
-            </Text>
-            <Text style={styles.secondary}>{account.type}</Text>
-          </View>
-          <View style={{ alignSelf: "flex-end" }}>
-            <Amount
-              amount={account.balance.amount}
-              currency={account.balance.currency}
-              style={{ content: { color: "#fff" } }}
-              size={25}
-            />
-          </View>
+        <View style={{ position: "absolute", right: 10, top: 10 }}>
+          <Ionicons
+            name="ios-arrow-dropright"
+            size={25}
+            color={colors.textOnPrimary}
+          />
         </View>
-      </RectButton>
-    </Card>
-    // </SharedElement>
+
+        <View>
+          <Text
+            type="main"
+            style={{
+              color: colors.textOnPrimary
+            }}
+          >
+            {account.nickName}
+          </Text>
+          <Text type="caption" style={{ color: colors.textOnPrimary }}>
+            {account.code + " " + account.accountNumber}
+          </Text>
+          <Text style={{ color: colors.textOnPrimary }}>{account.type}</Text>
+        </View>
+        <View style={{ alignSelf: "flex-end" }}>
+          <Amount
+            amount={account.balance.amount}
+            currency={account.balance.currency}
+            style={{ content: { color: colors.textOnPrimary } }}
+            size={25}
+          />
+        </View>
+      </Card>
+    </RectButton>
   );
 };
 
 export const AccountList = ({ accounts, setAccount, account }: Props) => {
-  const { colors, dark } = useTheme();
+  const { colors, dark } = useTheme() as ThemeType;
   const navigation = useNavigation<AccountListNavigationProp>();
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.account}>
+      <PaddedView margin vertical size="large" style={styles.account}>
         <Carousel
           data={accounts}
           onSnapToItem={index => setAccount(accounts[index])}
@@ -98,28 +100,20 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
             />
           )}
         />
-      </View>
-      <View
-        style={{
-          paddingTop: normalize(10, "height"),
-          paddingHorizontal: normalize(10),
-          flex: 1
-        }}
-      >
-        <View
+      </PaddedView>
+      <View>
+        <PaddedView
+          size="medium"
           style={{
             flexDirection: "row",
-            paddingHorizontal: normalize(10),
-            marginBottom: normalize(10, "height"),
             justifyContent: "space-between",
             alignItems: "center"
           }}
         >
           <Text
+            type="header"
             style={{
-              fontSize: normalize(20),
-              fontWeight: "bold",
-              color: colors.text
+              fontWeight: "bold"
             }}
           >
             Recent Transactions
@@ -131,16 +125,9 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
               })
             }
           >
-            <Text
-              style={{
-                fontSize: normalize(14),
-                color: colors.primary
-              }}
-            >
-              See all
-            </Text>
+            <Text type="link">See all</Text>
           </BorderlessButton>
-        </View>
+        </PaddedView>
 
         {account && <TransactionContainer accountId={account.id} type="mini" />}
       </View>
@@ -150,19 +137,17 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
 
 const styles = StyleSheet.create({
   account: {
-    maxHeight: normalize(150),
-    marginVertical: normalize(10, "height")
+    maxHeight: normalize(150)
   },
   accountCard: {
-    padding: normalize(0),
     flex: 1
   },
   accountPrimary: {
     flex: 1,
     justifyContent: "space-between"
   },
-  main: { color: "#fff", fontSize: normalize(18) },
-  secondary: { color: "#fff", fontSize: normalize(13) },
+  main: { fontSize: normalize(18) },
+  secondary: { fontSize: normalize(13) },
   sectionHeader: {
     fontSize: normalize(20),
     margin: normalize(15),

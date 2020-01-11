@@ -2,7 +2,6 @@ import React, { memo, useReducer } from "react";
 import {
   SectionList,
   View,
-  Text,
   StyleSheet,
   ActivityIndicator,
   RefreshControl
@@ -22,6 +21,9 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TransactionFilter } from "./TransactionFilter";
 import { useTheme } from "@react-navigation/native";
 import { normalize } from "../../../utils/normalize";
+import { PaddedView } from "../../elements/view/PaddedView";
+import { Text } from "../../elements/text/Text";
+import { ThemeType } from "../../../App";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
@@ -69,7 +71,7 @@ export const Transaction = memo(
             .subtract(1, "month")
             .startOf("date")
     });
-    const { colors } = useTheme();
+    const { colors } = useTheme() as ThemeType;
     let groupedTransactions: { [key: string]: any } = {};
     transactions.forEach(txn => {
       const key = txn.date.toString();
@@ -124,35 +126,33 @@ export const Transaction = memo(
     return (
       <View style={[styles.listContainer]}>
         {type === "full" && (
-          <View
+          <PaddedView
+            vertical
             style={{
               alignItems: "center",
-              backgroundColor: colors.primary,
-              paddingVertical: 5
+              backgroundColor: colors.primary
             }}
           >
             <Text
+              center
               style={{
-                color: colors.background,
-                textAlign: "center",
-                fontSize: normalize(15)
+                color: colors.textOnPrimary
               }}
             >
               Showing transactions from
             </Text>
             <Text
+              center
               style={{
-                color: colors.background,
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: normalize(15)
+                color: colors.textOnPrimary,
+                fontWeight: "bold"
               }}
             >
               {`${state.startDate.format(
                 "DD/MM/YYYY"
               )} - ${state.endDate.format("DD/MM/YYYY")}`}
             </Text>
-          </View>
+          </PaddedView>
         )}
         <SectionList
           scrollEventThrottle={16}

@@ -5,7 +5,6 @@ import {
   TextInputChangeEventData,
   TextInput
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { normalize } from "../../../utils/normalize";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../../App";

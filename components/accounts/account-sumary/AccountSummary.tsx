@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 
 import { ISummary } from "bank-core/src/types";
 import { Amount } from "../../elements/amount/Amount";
@@ -7,6 +7,8 @@ import Animated from "react-native-reanimated";
 import { timing } from "react-native-redash";
 import { useTheme } from "@react-navigation/native";
 import { normalize } from "../../../utils/normalize";
+import { Text } from "../../elements/text/Text";
+import { PaddedView } from "../../elements/view/PaddedView";
 
 type AccountSummaryProps = {
   summary: ISummary;
@@ -29,15 +31,13 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
   }, [progressAnimation]);
 
   return (
-    <View style={styles.summary}>
+    <PaddedView style={styles.summary}>
       <View>
-        <Text style={[styles.label, { color: colors.text }]}>
-          available balance
-        </Text>
+        <Text center>Available balance</Text>
 
         <Amount
           style={{
-            content: { ...styles.totalAmount, color: colors.text }
+            content: { ...styles.totalAmount }
           }}
           amount={summary.availableBalance.amount}
           currency={summary.availableBalance.currency}
@@ -45,11 +45,11 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
         />
       </View>
       <View style={styles.additionalInfo}>
-        <View style={styles.flexRow}>
-          <Text style={[styles.label, { color: colors.text }]}>current</Text>
-          <Text style={[styles.label, { color: colors.text }]}>overdraft</Text>
-        </View>
-        <View style={[styles.seperator, { backgroundColor: colors.primary }]}>
+        <PaddedView style={styles.flexRow}>
+          <Text>Current</Text>
+          <Text>Overdraft</Text>
+        </PaddedView>
+        <View style={[styles.seperator, { backgroundColor: "red" }]}>
           <Animated.View
             style={{
               height: "100%",
@@ -62,22 +62,16 @@ export const AccountSummary = React.memo(({ summary }: AccountSummaryProps) => {
           <Amount
             amount={summary.balance.amount}
             currency={summary.balance.currency}
-            style={{
-              content: { ...styles.otherAmount, color: colors.text }
-            }}
             size={14}
           />
           <Amount
             amount={summary.usedOverdraft.amount}
             currency={summary.usedOverdraft.currency}
-            style={{
-              content: { ...styles.otherAmount, color: colors.text }
-            }}
             size={14}
           />
         </View>
       </View>
-    </View>
+    </PaddedView>
   );
 });
 
@@ -85,9 +79,7 @@ const styles = StyleSheet.create({
   summary: {
     justifyContent: "center",
     alignItems: "center",
-    width: Dimensions.get("window").width - 20,
-    margin: normalize(10),
-    padding: normalize(10)
+    width: Dimensions.get("window").width - 20
   },
   label: {
     fontSize: normalize(14),
@@ -103,7 +95,6 @@ const styles = StyleSheet.create({
   },
   flexRow: {
     flexDirection: "row",
-    marginVertical: normalize(5, "height"),
     justifyContent: "space-between"
   },
   seperator: {

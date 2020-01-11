@@ -1,5 +1,5 @@
 import React, { useRef, useReducer } from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Card } from "../../elements/card/Card";
 import { ScrollView, BorderlessButton } from "react-native-gesture-handler";
 
@@ -15,6 +15,10 @@ import { useTheme } from "@react-navigation/native";
 import { Button } from "../../elements/button/Button";
 import { normalize } from "../../../utils/normalize";
 import Switch from "../../elements/switch/Switch";
+import { Spacer } from "../../elements/utils/Spacer";
+import { Text } from "../../elements/text/Text";
+import { PaddedView } from "../../elements/view/PaddedView";
+import { ThemeType } from "../../../App";
 
 type FilterProps = {
   lastFetched?: string;
@@ -74,76 +78,55 @@ const FilterContent = ({
   handleClearFilter,
   handleApplyFilter,
   openDate,
-  colors,
-  stateRef
+  colors
 }) => (
-  <Card style={[styles.card, { backgroundColor: colors.surface }]}>
-    <ScrollView
-      style={{ width: "100%", marginBottom: normalize(10, "height") }}
-      showsVerticalScrollIndicator={false}
-    >
+  <Card style={styles.card}>
+    <ScrollView style={{ width: "100%" }} showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: normalize(18), color: colors.text }}>
-          Dates
-        </Text>
+        <Text type="main">Dates</Text>
         <View>
-          <View
+          <PaddedView
+            vertical
+            margin
+            size="medium"
             style={{
               flexDirection: "row",
-              marginVertical: normalize(10, "height"),
               justifyContent: "space-between"
             }}
           >
             <View>
-              <Text
-                style={{
-                  color: colors.text,
-                  marginBottom: normalize(5, "height"),
-                  fontSize: normalize(16)
-                }}
-              >
-                Start
-              </Text>
+              <Text>Start</Text>
+              <Spacer />
               <DateTimePicker
                 date={state.startDate}
                 minimumDate={openDate.toDate()}
                 maximumDate={dayjs().toDate()}
                 onConfirm={date => setState({ startDate: date })}
                 displayTextStyle={{
-                  color: colors.text,
                   fontWeight: "600",
                   fontSize: normalize(16)
                 }}
               />
             </View>
             <View>
-              <Text
-                style={{
-                  color: colors.text,
-                  marginBottom: normalize(5, "height"),
-                  fontSize: normalize(16)
-                }}
-              >
-                End
-              </Text>
+              <Text>End</Text>
+              <Spacer />
               <DateTimePicker
                 date={state.endDate}
                 minimumDate={openDate.toDate()}
                 maximumDate={dayjs().toDate()}
                 onConfirm={date => setState({ endDate: date })}
                 displayTextStyle={{
-                  color: colors.text,
                   fontWeight: "600",
                   fontSize: normalize(16)
                 }}
               />
             </View>
-          </View>
+          </PaddedView>
           <View
             style={{
               flexDirection: "row",
-              flexWrap: "wrap",
-              marginTop: normalize(10, "height")
+              flexWrap: "wrap"
             }}
           >
             {filters.map(filter => {
@@ -151,40 +134,33 @@ const FilterContent = ({
                 filter.start.isSame(dayjs(state.startDate)) &&
                 filter.end.isSame(dayjs(state.endDate));
               return (
-                <Button
-                  key={filter.key}
-                  onPress={() =>
-                    setState({
-                      startDate: filter.start.toDate(),
-                      endDate: filter.end.toDate()
-                    })
-                  }
-                  style={{
-                    margin: normalize(5),
-                    minWidth: 100
-                  }}
-                  primary={isSelected}
-                  secondary={!isSelected}
-                >
-                  {filter.text}
-                </Button>
+                <PaddedView horizontal>
+                  <Button
+                    key={filter.key}
+                    onPress={() =>
+                      setState({
+                        startDate: filter.start.toDate(),
+                        endDate: filter.end.toDate()
+                      })
+                    }
+                    primary={isSelected}
+                    secondary={!isSelected}
+                  >
+                    {filter.text}
+                  </Button>
+                </PaddedView>
               );
             })}
           </View>
         </View>
       </View>
-      <View style={{ flex: 1, marginTop: normalize(10, "height") }}>
-        <Text
-          style={{
-            fontSize: normalize(18),
-            marginBottom: normalize(10, "height"),
-            color: colors.text
-          }}
-        >
-          Type
-        </Text>
+      <Spacer type="medium" />
+      <View style={{ flex: 1 }}>
+        <Text type="main">Type</Text>
+        <Spacer type="medium" />
         <View>
-          <View
+          <PaddedView
+            vertical
             key={"all"}
             style={{ flexDirection: "row", alignItems: "center" }}
           >
@@ -192,19 +168,12 @@ const FilterContent = ({
               value={state.txnTypes.length === 0}
               onValueChange={value => onTxnTypeSelected("all", value)}
             />
-            <Text
-              style={{
-                marginLeft: normalize(10),
-                marginVertical: normalize(10, "height"),
-                fontSize: normalize(16),
-                color: colors.text
-              }}
-            >
-              All
-            </Text>
-          </View>
+            <Spacer vertical />
+            <Text>All</Text>
+          </PaddedView>
           {Object.entries(TransactionType).map(([key, value]) => (
-            <View
+            <PaddedView
+              vertical
               key={key}
               style={{ flexDirection: "row", alignItems: "center" }}
             >
@@ -212,45 +181,34 @@ const FilterContent = ({
                 value={state.txnTypes.includes(value)}
                 onValueChange={boolValue => onTxnTypeSelected(value, boolValue)}
               />
-              <Text
-                style={{
-                  marginLeft: normalize(10),
-                  marginVertical: normalize(10, "height"),
-                  fontSize: normalize(16),
-                  color: colors.text
-                }}
-              >
-                {value}
-              </Text>
-            </View>
+              <Spacer vertical />
+              <Text>{value}</Text>
+            </PaddedView>
           ))}
         </View>
       </View>
+      <Spacer />
     </ScrollView>
     <View
       style={{
         width: "100%",
-        paddingVertical: normalize(5, "height"),
         alignItems: "center",
         flexDirection: "row"
       }}
     >
       <Button
         style={{
-          flex: 2,
-          margin: normalize(10),
-          bottom: normalize(15, "height")
+          flex: 2
         }}
         primary
         onPress={handleApplyFilter}
       >
         Apply filters
       </Button>
+      <Spacer vertical />
       <Button
         style={{
-          flex: 1,
-          margin: normalize(10),
-          bottom: normalize(15, "height")
+          flex: 1
         }}
         secondary
         onPress={handleClearFilter}
@@ -280,7 +238,7 @@ export const TransactionFilter = ({
 }: FilterProps) => {
   const filterRef: React.LegacyRef<BottomSheet> = useRef();
   const stateRef = useRef("initial");
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ThemeType;
   const [state, setState]: [
     ITransactionFilterState,
     React.Dispatch<any>
@@ -380,7 +338,7 @@ export const TransactionFilter = ({
     <BottomSheet
       ref={filterRef}
       renderHeader={() => (
-        <View style={{ backgroundColor: "#fff" }}>
+        <View>
           <BorderlessButton
             style={{
               backgroundColor: state.filterOpen
@@ -399,7 +357,7 @@ export const TransactionFilter = ({
                 width: normalize(10),
                 height: normalize(10, "height")
               },
-              shadowColor: "#ccc",
+              shadowColor: colors.shadowColor,
               shadowRadius: 10,
               shadowOpacity: 1.0
             }}
@@ -440,19 +398,13 @@ export const TransactionFilter = ({
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: normalize(0),
     alignItems: "center",
+    paddingBottom: 0,
     height: "100%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: normalize(0),
-      height: normalize(5, "height")
-    },
-    shadowRadius: 10,
-    shadowOpacity: 1.0,
-    elevation: 20
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0
   },
   txnList: {
     marginTop: normalize(10, "height")

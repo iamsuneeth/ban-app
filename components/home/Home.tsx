@@ -1,4 +1,4 @@
-import { AccountList } from "../accounts/account-list/AccountList2";
+import { AccountList } from "../accounts/account-list/AccountList";
 import { AccountSummary } from "../accounts/account-sumary/AccountSummary";
 import { StyleSheet, View } from "react-native";
 import React, { useState, useEffect } from "react";

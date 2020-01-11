@@ -20,28 +20,6 @@ import { YellowBox } from "react-native";
 
 YellowBox.ignoreWarnings(["Setting a timer"]);
 
-function springyFadeIn() {
-  const transitionSpec = {
-    timing: Animated.spring,
-    tension: 10,
-    useNativeDriver: true
-  };
-
-  return {
-    transitionSpec,
-    screenInterpolator: ({ position, scene }) => {
-      const { index } = scene;
-
-      const opacity = position.interpolate({
-        inputRange: [index - 1, index],
-        outputRange: [0, 1]
-      });
-
-      return { opacity };
-    }
-  };
-}
-
 const provider = initExtConfig({
   API_URL: "",
   interfaceId: ExtInterfaceType.FIREBASE
@@ -69,7 +47,7 @@ const PaperTheme = {
     ...PaperDefaultTheme,
     colors: {
       ...PaperDefaultTheme.colors,
-      ...colors.light,
+      ...Theme.light.colors,
       surface: PaperDefaultTheme.colors.surface
     }
   },
@@ -77,7 +55,7 @@ const PaperTheme = {
     ...PaperDarkTheme,
     colors: {
       ...PaperDarkTheme.colors,
-      ...colors.dark,
+      ...Theme.dark.colors,
       surface: PaperDarkTheme.colors.surface
     }
   }

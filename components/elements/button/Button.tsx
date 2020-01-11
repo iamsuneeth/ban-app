@@ -3,6 +3,9 @@ import { Button as RNButton } from "react-native-paper";
 
 import { useTheme } from "@react-navigation/native";
 import { normalize } from "../../../utils/normalize";
+import Animated from "react-native-reanimated";
+
+const AnimatedButton = Animated.createAnimatedComponent(RNButton);
 
 type ButtonProp = {
   children: ReactNode;
@@ -26,7 +29,7 @@ export const Button = ({
 }: ButtonProp) => {
   const { colors } = useTheme();
   return (
-    <RNButton
+    <AnimatedButton
       {...rest}
       {...(primary && { mode: "contained" })}
       {...(secondary && {
@@ -34,13 +37,14 @@ export const Button = ({
       })}
       style={{
         marginVertical: normalize(5, "height"),
+        height: normalize(40),
         ...style,
         ...(secondary && {
           borderColor: colors.primary,
           borderWidth: 1
         })
       }}
-      contentStyle={{ borderRadius: 0, height: normalize(40), ...contentStyle }}
+      contentStyle={{ borderRadius: 0, height: "100%", ...contentStyle }}
       labelStyle={{
         fontSize: normalize(12),
         fontWeight: "bold",
@@ -48,6 +52,6 @@ export const Button = ({
       }}
     >
       {children}
-    </RNButton>
+    </AnimatedButton>
   );
 };

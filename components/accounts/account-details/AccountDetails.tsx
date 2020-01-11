@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
 import { Card } from "../../elements/card/Card";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
@@ -26,6 +26,8 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
 import { ThemeType } from "../../../App";
 import { normalize } from "../../../utils/normalize";
+import { Spacer } from "../../elements/utils/Spacer";
+import { Text } from "../../elements/text/Text";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -68,20 +70,9 @@ export const AccountDetails = ({ account, details }: Props) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <View
-          style={{ alignItems: "center", paddingTop: normalize(10, "height") }}
-        >
-          {/* <SharedElement
-            id={account.id}
-            style={{
-              height: screenHeight * 0.2,
-              width: screenWidth * 0.8
-            }}
-          > */}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ alignItems: "center" }}>
+          <Spacer type="medium" />
           <Card
             style={[
               styles.accountCard,
@@ -89,29 +80,45 @@ export const AccountDetails = ({ account, details }: Props) => {
                 backgroundColor: colors.primaryDark,
                 height: screenHeight * 0.2,
                 width: screenWidth * 0.8
-              },
-              dark && { shadowColor: colors.shadowColor }
+              }
             ]}
           >
             <View style={styles.accountPrimary}>
               <View>
-                <Text style={styles.main}>{account.nickName}</Text>
-                <Text style={styles.secondary}>
+                <Text
+                  type="main"
+                  style={{
+                    color: colors.textOnPrimary
+                  }}
+                >
+                  {account.nickName}
+                </Text>
+                <Text
+                  type="caption"
+                  style={{
+                    color: colors.textOnPrimary
+                  }}
+                >
                   {account.code + " " + account.accountNumber}
                 </Text>
-                <Text style={styles.secondary}>{account.type}</Text>
+                <Text
+                  style={{
+                    color: colors.textOnPrimary
+                  }}
+                >
+                  {account.type}
+                </Text>
               </View>
               <View style={{ alignSelf: "flex-end" }}>
                 <Amount
                   amount={account.balance.amount}
                   currency={account.balance.currency}
-                  style={{ content: { color: "#fff" } }}
+                  style={{ content: { color: colors.textOnPrimary } }}
                   size={25}
                 />
               </View>
             </View>
           </Card>
-          {/* </SharedElement> */}
         </View>
         <View style={styles.quickLinks}>
           <BorderlessButton
@@ -487,11 +494,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   accountCard: {
-    padding: normalize(0),
     flex: 1
   },
   accountPrimary: {
-    padding: normalize(10),
     flex: 1,
     justifyContent: "space-between"
   },

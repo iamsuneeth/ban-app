@@ -13,7 +13,7 @@ import { useTheme } from "@react-navigation/native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../../tabs/BottomTabBar";
-import { TextInput } from "react-native-paper";
+import { TextInput } from "../../elements/textInput/TextInput";
 import { normalize } from "../../../utils/normalize";
 import Switch from "../../elements/switch/Switch";
 import { Button } from "../../elements/button/Button";

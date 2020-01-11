@@ -22,8 +22,8 @@ export const BottomTabBarStack = () => {
   useAppLock();
   return (
     <Tab.Navigator
-    // below not working correctly in production mode
-    //tabBarOptions={{ keyboardHidesTabBar: Platform.OS === "android" }}
+      // below not working correctly in production mode
+      tabBarOptions={{ keyboardHidesTabBar: Platform.OS === "android" }}
     >
       <Tab.Screen
         name="Home"

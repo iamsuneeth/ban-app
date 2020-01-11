@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  Text,
   View,
   KeyboardAvoidingView,
   SafeAreaView,
@@ -12,20 +11,18 @@ import {
 import Constants from "expo-constants";
 import { WebView } from "react-native-webview";
 import * as firebase from "firebase";
-import { RectButton } from "react-native-gesture-handler";
 import * as SecureStore from "expo-secure-store";
 import { User } from "firebase";
 import { useLoginAnimation } from "../../../hooks/animation/useLoginAnimation";
-import Animated from "react-native-reanimated";
-import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
-import BottomSheet from "reanimated-bottom-sheet";
 import { ThemeType } from "../../../App";
 
 import { Button } from "../../elements/button/Button";
 import { TextInput } from "../../elements/textInput/TextInput";
 import LottieView from "lottie-react-native";
 import { normalize } from "../../../utils/normalize";
+import { Spacer } from "../../elements/utils/Spacer";
+import { Text } from "../../elements/text/Text";
 
 const captchaUrl = "https://bank-d7ad7.firebaseapp.com";
 const { width: screenWidth } = Dimensions.get("window");
@@ -152,8 +149,6 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
               behavior="position"
               enabled
               style={{
-                paddingHorizontal: normalize(10),
-                marginBottom: normalize(50, "height"),
                 flex: 1,
                 alignItems: "center"
               }}
@@ -188,14 +183,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                     source={require("../../../assets/logo_light.json")}
                   />
                 )}
-                <Text
-                  style={{
-                    fontSize: normalize(30),
-                    marginLeft: normalize(10),
-                    fontWeight: "bold",
-                    color: colors.text
-                  }}
-                >
+                <Text type="header" style={{ fontSize: normalize(30) }}>
                   BitBank
                 </Text>
               </View>
@@ -224,22 +212,8 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
 
               {step === "promptSmsCode" && (
                 <>
-                  {!!error && (
-                    <View
-                      style={{
-                        backgroundColor: "red",
-                        padding: normalize(5),
-                        marginBottom: normalize(10, "height")
-                      }}
-                    >
-                      <Text style={{ color: colors.text }}>{error}</Text>
-                    </View>
-                  )}
                   <Text
                     style={{
-                      color: colors.text,
-                      marginTop: normalize(40, "height"),
-                      fontSize: normalize(16),
                       textAlign: "center"
                     }}
                   >
@@ -247,14 +221,13 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   </Text>
                   <Text
                     style={{
-                      color: colors.text,
-                      fontSize: normalize(16),
                       textAlign: "center"
                     }}
                   >
                     Please enter it below.
                   </Text>
                   <TextInput
+                    error={!error}
                     label="Verification code"
                     value={smsCode}
                     onChangeText={sms => setSmsCode(sms)}
@@ -265,49 +238,34 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                       alignSelf: "center"
                     }}
                   />
-                  <Animated.View
+                  <Text type="error">{error}</Text>
+                  <View
                     style={{
-                      width: widthAnimation,
-                      borderRadius: borderRadiusAnimation,
-                      backgroundColor: colors.primary,
-                      opacity: !!smsCode ? 1 : 0.6,
-                      height: normalize(40),
                       justifyContent: "center",
-                      alignSelf: "center",
-                      transform: [
-                        {
-                          scale: scaleAnimation as any
-                        }
-                      ]
+                      alignSelf: "center"
                     }}
                   >
-                    <RectButton
-                      onPress={onSignIn}
+                    <Button
+                      primary
                       style={{
-                        flex: 1,
-                        padding: normalize(10),
-                        alignItems: "center",
-                        justifyContent: "center"
+                        width: widthAnimation,
+                        minWidth: normalize(40),
+                        borderRadius: borderRadiusAnimation,
+                        transform: [
+                          {
+                            scale: scaleAnimation as any
+                          }
+                        ]
                       }}
-                      enabled={!!smsCode}
+                      onPress={onSignIn}
+                      disabled={!smsCode}
                     >
-                      {authState === "notStarted" && (
-                        <Text
-                          style={{
-                            textAlign: "center",
-                            color: colors.background,
-                            fontWeight: "bold",
-                            fontSize: normalize(14)
-                          }}
-                        >
-                          VERIFY
-                        </Text>
-                      )}
+                      {authState === "notStarted" && "VERIFY"}
                       {authState === "inProgress" && (
                         <ActivityIndicator color={colors.background} />
                       )}
-                    </RectButton>
-                  </Animated.View>
+                    </Button>
+                  </View>
                   {authState === "notStarted" && (
                     <Button
                       secondary
@@ -322,6 +280,7 @@ export const FirebaseLogin = ({ onSuccess }: LoginProps) => {
                   )}
                 </>
               )}
+              <Spacer type="xxLarge" />
             </KeyboardAvoidingView>
           )}
         </SafeAreaView>

@@ -1,11 +1,12 @@
 import React, { useState, ReactNode } from "react";
-import { View, Text, TextStyle, ViewStyle } from "react-native";
+import { View, TextStyle, ViewStyle } from "react-native";
 import DateTimePickerModal, {
   DateTimePickerProps
 } from "react-native-modal-datetime-picker";
 import { RectButton } from "react-native-gesture-handler";
 import { useTheme } from "@react-navigation/native";
 import dayjs from "dayjs";
+import { Text } from "../text/Text";
 
 type Props = Omit<DateTimePickerProps, "onCancel"> & {
   onCancel?: (date: Date) => void;
