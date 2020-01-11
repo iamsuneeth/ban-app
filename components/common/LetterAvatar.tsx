@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
+import { View, StyleProp, ViewStyle, TextStyle } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../App";
 import { normalize } from "../../utils/normalize";
+import { Text } from "../elements/text/Text";
 
 type props = {
   text: string;
@@ -77,9 +78,9 @@ export const LetterAvatar = ({
       ]}
     >
       <Text
+        center
         style={[
           {
-            textAlign: "center",
             textAlignVertical: "center",
             fontSize: size / 2,
             fontWeight: "bold",

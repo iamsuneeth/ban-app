@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Card } from "../../elements/card/Card";
-import { ScrollView, RectButton } from "react-native-gesture-handler";
+import { View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons as Icons, Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { FavoriteContainer } from "../../../containers/FavoriteContainer";
@@ -9,7 +8,9 @@ import { PayeeContainer } from "../../../containers/PayeeContainer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
-import { normalize } from "../../../utils/normalize";
+import { ListContainer } from "../../elements/list/ListContainer";
+import { List } from "react-native-paper";
+import { Seperator } from "../../elements/view/Seperator";
 
 type PaymentsNavigationProps = StackNavigationProp<
   PaymentParamList,
@@ -29,102 +30,32 @@ export const PaymentsOverview = ({ navigation }: Props) => {
       }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Card
-          style={{
-            marginTop: normalize(0, "height"),
-            marginHorizontal: normalize(0),
-            shadowOpacity: 0.2,
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            shadowColor: colors.shadowColor,
-            backgroundColor: colors.surface
-          }}
-        >
-          <RectButton
+        <ListContainer>
+          <List.Item
+            title="Transfer money"
             onPress={() => navigation.navigate("PayeeSelectionScreen")}
-          >
-            <View style={[styles.itemContainer]}>
-              <View style={styles.icon}>
-                <Icons
-                  name="bank-transfer-out"
-                  size={40}
-                  color={colors.primary}
-                />
-              </View>
-              <View style={styles.main}>
-                <Text style={[styles.header, { color: colors.text }]}>
-                  Transfer money
-                </Text>
-                <Text
-                  numberOfLines={2}
-                  style={[styles.description, { color: colors.textSecondary }]}
-                >
-                  Transfer money to anywhere
-                </Text>
-              </View>
-            </View>
-          </RectButton>
-          <View
-            style={[styles.seperator, { backgroundColor: colors.seperator }]}
-          ></View>
-          <View>
-            <RectButton onPress={() => navigation.navigate("Payees")}>
-              <View style={[styles.itemContainer]}>
-                <View style={styles.icon}>
-                  <Ionicons
-                    name="ios-people"
-                    size={40}
-                    color={colors.primary}
-                  />
-                </View>
-                <View style={styles.main}>
-                  <Text style={[styles.header, { color: colors.text }]}>
-                    Payees
-                  </Text>
-                  <Text
-                    numberOfLines={2}
-                    style={[
-                      styles.description,
-                      { color: colors.textSecondary }
-                    ]}
-                  >
-                    View and manage payees
-                  </Text>
-                </View>
-              </View>
-            </RectButton>
-          </View>
-        </Card>
+            description="Transfer money to anywhere"
+            left={() => (
+              <Icons
+                name="bank-transfer-out"
+                size={40}
+                color={colors.primary}
+              />
+            )}
+          />
+          <Seperator />
+          <List.Item
+            title="Payees"
+            onPress={() => navigation.navigate("Payees")}
+            description="View and manage payees"
+            left={() => (
+              <Ionicons name="ios-people" size={40} color={colors.primary} />
+            )}
+          />
+        </ListContainer>
         <PayeeContainer type="recent" />
         <FavoriteContainer />
       </ScrollView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    minHeight: normalize(50, "height"),
-    paddingHorizontal: normalize(10)
-  },
-  main: {
-    justifyContent: "center",
-    flex: 1
-  },
-  seperator: {
-    height: 1,
-    width: "90%",
-    alignSelf: "center"
-  },
-  header: {
-    fontSize: normalize(16)
-  },
-  description: {
-    fontSize: normalize(12)
-  },
-  icon: {
-    paddingRight: normalize(10)
-  }
-});

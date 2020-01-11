@@ -3,27 +3,44 @@ import { View, StyleSheet, ViewProps } from "react-native";
 import { normalize } from "../../../utils/normalize";
 import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../../App";
+import { PaddedView, PaddedViewProps } from "../view/PaddedView";
 
-export const Card: React.FC<ViewProps> = ({ children, style, ...rest }) => {
+type CardProps = PaddedViewProps & {
+  fluid?: boolean;
+  nopad?: boolean;
+};
+
+export const Card: React.FC<CardProps> = ({
+  children,
+  style,
+  fluid,
+  nopad = false,
+  ...rest
+}) => {
   const { colors } = useTheme() as ThemeType;
   return (
-    <View
+    <PaddedView
+      size="medium"
       style={[
         styles.card,
-        { backgroundColor: colors.surface, shadowColor: colors.shadowColor },
+        {
+          flex: fluid ? 1 : 0,
+          ...(nopad && { padding: 0 }),
+          backgroundColor: colors.surface,
+          shadowColor: colors.shadowColor
+        },
         style
       ]}
       {...rest}
     >
       {children}
-    </View>
+    </PaddedView>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
     borderRadius: 5,
-    padding: normalize(10),
     shadowOffset: {
       width: normalize(0),
       height: normalize(3, "height")

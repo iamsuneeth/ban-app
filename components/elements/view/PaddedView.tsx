@@ -13,21 +13,25 @@ const SIZES = {
 
 type Sizes = "small" | "medium" | "large" | "xLarge" | "xxLarge";
 
-type PaddedViewProps = ViewProps & {
+export type PaddedViewProps = ViewProps & {
   margin?: boolean;
+  padding?: boolean;
   vertical?: boolean;
   horizontal?: boolean;
   size?: Sizes;
   children: any;
+  viewRef?: React.LegacyRef<View>;
 };
 
 const calculateStyle = ({
   margin,
+  padding,
   vertical,
   horizontal,
   size
 }: {
   margin: boolean;
+  padding: boolean;
   vertical: boolean;
   horizontal: boolean;
   size: Sizes;
@@ -39,12 +43,14 @@ const calculateStyle = ({
     style = { marginHorizontal: SIZES[size] };
   } else if (margin) {
     style = { margin: SIZES[size] };
-  } else if (vertical) {
-    style = { paddingVertical: SIZES[size] };
-  } else if (horizontal) {
-    style = { paddingHorizontal: SIZES[size] };
-  } else {
-    style = { padding: SIZES[size] };
+  }
+
+  if (padding && vertical) {
+    style = { ...style, paddingVertical: SIZES[size] };
+  } else if (padding && horizontal) {
+    style = { ...style, paddingHorizontal: SIZES[size] };
+  } else if (padding) {
+    style = { ...style, padding: SIZES[size] };
   }
   return style;
 };
@@ -52,18 +58,24 @@ const calculateStyle = ({
 export const PaddedView = ({
   children,
   margin = false,
+  padding = true,
   size = "small",
   style,
   vertical,
   horizontal,
+  viewRef,
   ...rest
 }: PaddedViewProps) => {
   return (
     <View
-      style={{
-        ...calculateStyle({ margin, vertical, horizontal, size }),
-        ...(style as any)
-      }}
+      ref={viewRef}
+      style={[
+        {
+          ...calculateStyle({ margin, padding, vertical, horizontal, size })
+        },
+        style
+      ]}
+      {...rest}
     >
       {children}
     </View>

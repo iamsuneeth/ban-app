@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, TextStyle, ViewStyle } from "react-native";
+import { View, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import NumberFormat from "react-number-format";
 import { normalize } from "../../../utils/normalize";
+import { Text } from "../text/Text";
 
 const CURRENCY_SYMBOL_MAP: { [k: string]: string } = {
   GBP: "£",

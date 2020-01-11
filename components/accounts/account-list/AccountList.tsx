@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Dimensions, StyleSheet } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Dimensions, StyleSheet, LayoutChangeEvent } from "react-native";
 import { RectButton, BorderlessButton } from "react-native-gesture-handler";
 
 import { Amount } from "../../elements/amount/Amount";
@@ -81,10 +81,25 @@ const Account = ({ account, colors, dark, navigation }) => {
 
 export const AccountList = ({ accounts, setAccount, account }: Props) => {
   const { colors, dark } = useTheme() as ThemeType;
+  const [height, setHeight] = useState(0);
+  const viewRef = useRef<View>();
   const navigation = useNavigation<AccountListNavigationProp>();
+  const onLayout = () => {
+    viewRef.current.measureInWindow((x, y, width, height) => {
+      setHeight(y + height);
+    });
+  };
   return (
     <View style={{ flex: 1 }}>
-      <PaddedView margin vertical size="large" style={styles.account}>
+      <PaddedView
+        margin
+        padding={false}
+        vertical
+        size="large"
+        style={styles.account}
+        viewRef={viewRef}
+        onLayout={onLayout}
+      >
         <Carousel
           data={accounts}
           onSnapToItem={index => setAccount(accounts[index])}
@@ -101,35 +116,14 @@ export const AccountList = ({ accounts, setAccount, account }: Props) => {
           )}
         />
       </PaddedView>
-      <View>
-        <PaddedView
-          size="medium"
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center"
-          }}
-        >
-          <Text
-            type="header"
-            style={{
-              fontWeight: "bold"
-            }}
-          >
-            Recent Transactions
-          </Text>
-          <BorderlessButton
-            onPress={() =>
-              navigation.navigate("Transactions", {
-                accountId: account.id
-              })
-            }
-          >
-            <Text type="link">See all</Text>
-          </BorderlessButton>
-        </PaddedView>
-
-        {account && <TransactionContainer accountId={account.id} type="mini" />}
+      <View style={{ flex: 1 }}>
+        {account && height > 0 && (
+          <TransactionContainer
+            accountId={account.id}
+            type="sheet"
+            height={height}
+          />
+        )}
       </View>
     </View>
   );

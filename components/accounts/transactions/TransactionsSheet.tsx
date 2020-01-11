@@ -1,11 +1,5 @@
-import React, { memo } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ActivityIndicator
-} from "react-native";
+import React, { memo, useRef } from "react";
+import { View, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { Card } from "../../elements/card/Card";
 import { TxnItem } from "./TxnItem";
@@ -13,9 +7,14 @@ import Animated from "react-native-reanimated";
 import { ITransaction, IAccount } from "bank-core/src/types";
 import { TxnHeader } from "./TxnHeader";
 import Constants from "expo-constants";
-import { getBottomSpace } from "react-native-iphone-x-helper";
-import { RectButton } from "react-native-gesture-handler";
+import { BorderlessButton } from "react-native-gesture-handler";
 import { normalize } from "../../../utils/normalize";
+import { Text } from "../../elements/text/Text";
+import { useNavigation, useTheme } from "@react-navigation/native";
+import { Row } from "../../elements/view/Row";
+import { ThemeType } from "../../../App";
+import { Spacer } from "../../elements/utils/Spacer";
+import { useHeaderHeight } from "@react-navigation/stack";
 
 const renderContent = (
   sections: {
@@ -24,55 +23,20 @@ const renderContent = (
       transactions: any[];
     };
   },
-  loading: boolean
+  loading: boolean,
+  colors
 ) => (
   <Card style={styles.card}>
-    <View
-      style={{
-        backgroundColor: "#fff",
-        height: normalize(30, "height"),
-        justifyContent: "center"
-      }}
-    >
-      <View
-        style={{
-          width: normalize(50),
-          height: normalize(5, "height"),
-          backgroundColor: "#ccc",
-          borderRadius: 50,
-          alignSelf: "center"
-        }}
-      ></View>
-    </View>
     {Object.keys(sections).map(sectionKey => [
-      <TxnHeader key={sections[sectionKey].name} data={sections[sectionKey]} />,
+      <TxnHeader
+        key={sections[sectionKey].name}
+        data={sections[sectionKey]}
+        background={colors.surface}
+      />,
       ...sections[sectionKey].transactions.map((item, index) => (
         <TxnItem key={item.id} data={item} index={index} />
       ))
     ])}
-    <RectButton
-      style={{
-        borderColor: "#039be5",
-        marginVertical: normalize(10, "height"),
-        borderWidth: 1,
-        width: normalize(150),
-        height: normalize(40, "height"),
-        alignSelf: "center",
-        justifyContent: "center",
-        borderRadius: 3
-      }}
-    >
-      <Text
-        style={{
-          textAlign: "center",
-          textAlignVertical: "center",
-          color: "#039be5",
-          fontSize: normalize(16)
-        }}
-      >
-        More transactions
-      </Text>
-    </RectButton>
     <ActivityIndicator animating={loading} />
   </Card>
 );
@@ -86,12 +50,10 @@ type Props = {
 };
 
 const topPosition =
-  Dimensions.get("window").height -
-  Constants.statusBarHeight -
-  getBottomSpace();
+  Dimensions.get("window").height - Constants.statusBarHeight - 50;
 
 export const TransactionSheet = memo(
-  ({ sheetRef, transactions, loading, height }: Props) => {
+  ({ sheetRef, transactions, loading, height, account }: Props) => {
     const sections: {
       [key: string]: {
         name: string;
@@ -108,17 +70,54 @@ export const TransactionSheet = memo(
       }
       sections[txn.date.toString()].transactions.push(txn);
     });
-    const finalTopPosition = topPosition;
+    const navigation = useNavigation();
+    const { colors } = useTheme() as ThemeType;
+    const headerHeight = useHeaderHeight();
     return (
       <Animated.View style={{ flex: 1, elevation: 5 }}>
         <BottomSheet
-          snapPoints={[
-            finalTopPosition,
-            finalTopPosition - height / 2,
-            finalTopPosition - height
-          ]}
-          renderContent={() => renderContent(sections, loading)}
-          initialSnap={2}
+          snapPoints={[topPosition - headerHeight, height - 50]}
+          renderHeader={() => (
+            <View
+              style={{
+                backgroundColor: colors.surface,
+                borderTopRightRadius: 20,
+                borderTopLeftRadius: 20
+              }}
+            >
+              <Spacer type="medium" />
+              <View
+                style={{
+                  width: normalize(50),
+                  height: normalize(5, "height"),
+                  backgroundColor: "#ccc",
+                  borderRadius: 50,
+                  alignSelf: "center"
+                }}
+              />
+              <Row padding size="medium">
+                <Text
+                  type="header"
+                  style={{
+                    fontWeight: "bold"
+                  }}
+                >
+                  Recent Transactions
+                </Text>
+                <BorderlessButton
+                  onPress={() =>
+                    navigation.navigate("Transactions", {
+                      accountId: account.id
+                    })
+                  }
+                >
+                  <Text type="link">See all</Text>
+                </BorderlessButton>
+              </Row>
+            </View>
+          )}
+          renderContent={() => renderContent(sections, loading, colors)}
+          initialSnap={1}
           ref={sheetRef}
           enabledContentTapInteraction={false}
         />
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: normalize(0),
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: "99%"
+    height: "100%"
   },
   txnList: {
     marginTop: normalize(10, "height")

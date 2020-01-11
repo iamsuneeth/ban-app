@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { IPayeeFilter, IPayee } from "bank-core/src/types";
 import { RectButton } from "react-native-gesture-handler";
 import { LetterAvatar } from "../../common/LetterAvatar";
@@ -10,6 +10,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { PaymentParamList } from "../../../stacks/PaymentStack";
 import { ThemeType } from "../../../App";
 import { normalize } from "../../../utils/normalize";
+import { List } from "react-native-paper";
+import { Row } from "../../elements/view/Row";
+import { Text } from "../../elements/text/Text";
+import { Button } from "../../elements/button/Button";
 
 type props = {
   payees: IPayee[];
@@ -25,8 +29,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
   const { colors } = useTheme() as ThemeType;
   const navigation = useNavigation<PayeeNavigationProps>();
   const renderItem = (item, index) => (
-    <RectButton
-      style={{ flex: 1, paddingHorizontal: normalize(10) }}
+    <List.Item
       onPress={
         onPress
           ? () => onPress(item)
@@ -35,61 +38,19 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
                 payee: item
               })
       }
-    >
-      <View style={[styles.itemContainer]}>
+      title={item.name}
+      description={`${item.code} - ${item.accountNumber}`}
+      left={({ style }) => (
         <View style={styles.icon}>
-          {/* <SharedElement
-        id={item.id}
-        style={{ width: normalize(50), height: normalize(50,'height'), borderRadius: 25 }}
-      >
-        <LetterAvatar text={item.name} size={50} />
-      </SharedElement> */}
           <LetterAvatar text={item.name} size={50} />
         </View>
-        <View style={styles.main}>
-          {/* <SharedElement
-        id={`${item.id}payeeName`}
-        style={{ alignSelf: "flex-start" }}
-      >
-        <Text style={styles.header}>{item.name}</Text>
-      </SharedElement> */}
-          <Text style={[styles.header, { color: colors.text }]}>
-            {item.name}
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            {/* <SharedElement
-          id={`${item.id}code`}
-          style={{ marginRight: normalize(10) }}
-        >
-          <Text style={styles.description}>{item.code}</Text>
-        </SharedElement> */}
-            <Text style={[styles.description, { color: colors.textSecondary }]}>
-              {item.code}
-            </Text>
-            {/* <SharedElement id={`${item.id}accountNumber`}>
-          <Text style={styles.description}>
-            {item.accountNumber}
-          </Text>
-        </SharedElement> */}
-            <Text style={[styles.description, { color: colors.textSecondary }]}>
-              {item.accountNumber}
-            </Text>
-          </View>
-        </View>
-      </View>
-    </RectButton>
+      )}
+    />
   );
   return (
     <View style={{ flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between"
-        }}
-      >
-        <Text style={[styles.sectionHeader, { color: colors.sectionHeader }]}>
-          All payees
-        </Text>
+      <Row padding size="medium">
+        <Text type="section">All payees</Text>
         <RectButton
           onPress={() => navigation.navigate("AddPayee")}
           style={[styles.actionButton]}
@@ -99,11 +60,11 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
             Add payee
           </Text>
         </RectButton>
-      </View>
+      </Row>
       {useFlatList && (
         <AnimatedList
           data={payees}
-          listItemHeight={normalize(80, "height")}
+          listItemHeight={normalize(60, "height")}
           keyExtractor={(item, index) => item.id}
           renderItem={({ item, index }) => (
             <View
@@ -122,8 +83,7 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
           <View
             key={item.id}
             style={{
-              flex: 1,
-              paddingVertical: normalize(10, "height")
+              flex: 1
             }}
           >
             {renderItem(item, index)}
@@ -134,53 +94,18 @@ export const Payees = ({ payees, loading, useFlatList, onPress }: props) => {
 };
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: normalize(50, "height"),
-    paddingHorizontal: normalize(10)
-  },
-  sectionHeader: {
-    fontSize: normalize(14),
-    margin: normalize(15),
-    fontWeight: "bold"
-  },
-  main: {
-    justifyContent: "center",
-    flex: 1
-  },
-  seperator: {
-    height: normalize(1, "height"),
-    width: "90%",
-    alignSelf: "center"
-  },
-  header: {
-    fontSize: normalize(16),
-    marginHorizontal: normalize(5)
-  },
-  description: {
-    fontSize: normalize(14),
-    marginHorizontal: normalize(5)
-  },
   icon: {
     paddingRight: normalize(10),
     alignItems: "center"
   },
   actionButton: {
-    paddingVertical: normalize(5, "height"),
-    margin: normalize(5),
-    paddingHorizontal: normalize(10),
-    minHeight: normalize(40, "height"),
+    height: normalize(40, "height"),
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 3
+    justifyContent: "center"
   },
   actionButtontext: {
     textAlign: "center",
-    marginLeft: normalize(5),
-    fontSize: normalize(14)
+    marginLeft: normalize(5)
   }
 });

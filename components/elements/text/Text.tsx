@@ -12,7 +12,7 @@ import { useTheme } from "@react-navigation/native";
 import { ThemeType } from "../../../App";
 
 type TextProps = TextProperties & {
-  type?: "header" | "sub" | "caption" | "main" | "error" | "link";
+  type?: "header" | "sub" | "caption" | "main" | "error" | "link" | "section";
   children: any;
   center?: boolean;
   right?: boolean;
@@ -50,6 +50,13 @@ export const Text = ({
       break;
     case "link":
       styles = { fontSize: normalize(14), color: colors.primaryDark };
+      break;
+    case "section":
+      styles = {
+        fontSize: normalize(16),
+        fontWeight: "600",
+        color: colors.sectionHeader
+      };
       break;
     default:
       styles = { fontSize: normalize(14) };

@@ -65,7 +65,6 @@ export const TransactionContainer = (
         />
       );
       break;
-    case "mini":
     default:
       ComponentToRender = (
         <Transaction

@@ -8,8 +8,7 @@ import { AccountSelection } from "../../containers/AccountSelection";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootParamsList } from "../../stacks/RootStack";
 import { RouteProp, useTheme } from "@react-navigation/native";
-import { ThemeType } from "../../App";
-import { normalize } from "../../utils/normalize";
+import { Spacer } from "../elements/utils/Spacer";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "Modal">;
@@ -72,7 +71,6 @@ export const Modal = ({ navigation, route }: ModalProps) => {
   useEffect(() => {
     sheetRef.current.snapTo(1);
   }, []);
-  const { colors } = useTheme() as ThemeType;
   return (
     <View style={{ flex: 1 }}>
       <BottomSheet
@@ -90,14 +88,13 @@ export const Modal = ({ navigation, route }: ModalProps) => {
             <Card
               style={{
                 shadowOpacity: 0,
-                marginHorizontal: normalize(0),
-                paddingBottom: normalize(40, "height"),
                 height: "100%",
-                backgroundColor: colors.surface,
                 ...extraStyles
               }}
             >
               {renderData}
+              <Spacer type="xLarge" />
+              <Spacer type="xLarge" />
             </Card>
           </View>
         )}

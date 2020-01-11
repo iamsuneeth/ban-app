@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
-import { useTheme } from "@react-navigation/native";
-import { ThemeType } from "../../App";
-import { normalize } from "../../utils/normalize";
 import Switch from "../elements/switch/Switch";
+import { Row } from "../elements/view/Row";
+import { Card } from "../elements/card/Card";
+import { Text } from "../elements/text/Text";
+import { ListContainer } from "../elements/list/ListContainer";
+import { List } from "react-native-paper";
 
 export const Biometry = () => {
   const [biometryEnabled, setBiometryEnabled] = useState(false);
@@ -22,29 +23,19 @@ export const Biometry = () => {
     if (value) {
       await SecureStore.setItemAsync("biometryEnabled", "true");
       setBiometryEnabled(true);
-      Alert.alert("Biomerty Enabled");
     } else {
       await SecureStore.deleteItemAsync("biometryEnabled");
       setBiometryEnabled(false);
-      Alert.alert("Biomerty Disabled");
     }
   };
-  const { colors } = useTheme() as ThemeType;
   return initialized ? (
-    <View style={{ flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          margin: normalize(10)
-        }}
-      >
-        <Text style={{ fontSize: normalize(16), color: colors.text }}>
-          Enable biometry
-        </Text>
-        <Switch onValueChange={handleBiometry} value={biometryEnabled} />
-      </View>
-    </View>
+    <ListContainer>
+      <List.Item
+        title="Enable biometry"
+        right={() => (
+          <Switch onValueChange={handleBiometry} value={biometryEnabled} />
+        )}
+      />
+    </ListContainer>
   ) : null;
 };

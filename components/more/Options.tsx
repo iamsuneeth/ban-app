@@ -14,6 +14,9 @@ import { useAuthState } from "bank-core";
 import { ThemeType } from "../../App";
 import { normalize } from "../../utils/normalize";
 import { Button } from "../elements/button/Button";
+import { Spacer } from "../elements/utils/Spacer";
+import { List } from "react-native-paper";
+import { ListContainer } from "../elements/list/ListContainer";
 
 type OptionsProps = {
   navigation: CompositeNavigationProp<
@@ -32,55 +35,28 @@ export const Options = ({ navigation }: OptionsProps) => {
   const { colors } = useTheme() as ThemeType;
   return (
     <View style={styles.container}>
-      <Card
-        style={{
-          marginTop: normalize(0, "height"),
-          marginHorizontal: normalize(0),
-          shadowOpacity: 0.2,
-          borderTopRightRadius: 0,
-          borderTopLeftRadius: 0,
-          shadowColor: colors.shadowColor,
-          backgroundColor: colors.surface
-        }}
-      >
-        <RectButton onPress={() => navigation.navigate("Biometry")}>
-          <View style={[styles.itemContainer]}>
-            <View style={styles.icon}>
-              <Icons
-                name="bank-transfer-out"
-                size={40}
-                color={colors.primary}
-              />
-            </View>
-            <View style={styles.main}>
-              <Text style={[styles.header, { color: colors.text }]}>
-                Manage biometry
-              </Text>
-              <Text numberOfLines={2} style={styles.description}>
-                Configure biometric authentication
-              </Text>
-            </View>
-          </View>
-        </RectButton>
-      </Card>
-      <View
-        style={{ alignItems: "center", marginBottom: normalize(40, "height") }}
-      >
+      <ListContainer>
+        <List.Item
+          title="Manage biometry"
+          onPress={() => navigation.navigate("Biometry")}
+          description="Configure biometric authentication"
+          left={() => (
+            <Icons name="bank-transfer-out" size={40} color={colors.primary} />
+          )}
+        />
+      </ListContainer>
+      <View style={{ alignItems: "center" }}>
         <Button onPress={signOut} style={{ width: "80%" }} primary>
           Sign out
         </Button>
+        <Spacer type="xLarge" />
+        <Spacer type="xLarge" />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    minHeight: 60,
-    paddingHorizontal: normalize(10)
-  },
   main: {
     justifyContent: "center",
     flex: 1

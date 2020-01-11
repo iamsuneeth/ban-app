@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   Platform,
-  Text,
   BackHandler,
   AppState,
   AppStateStatus
@@ -24,6 +23,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useAuthState } from "bank-core";
 import { RectButton } from "react-native-gesture-handler";
 import { normalize } from "../../utils/normalize";
+import { Spacer } from "../elements/utils/Spacer";
+import { Text } from "../elements/text/Text";
 
 type ModalProps = {
   navigation: StackNavigationProp<RootParamsList, "AuthModal">;
@@ -140,87 +141,87 @@ export const AuthModal = ({ navigation, route }: ModalProps) => {
         onOpenStart={onOpenStart}
         enabledBottomClamp
         renderContent={() => (
-          <View>
-            <Card
-              style={{
-                shadowOpacity: 0,
-                marginHorizontal: normalize(0),
-                paddingBottom: normalize(40, "height"),
-                height: "100%",
-                backgroundColor: colors.surface
-              }}
-            >
-              {type === "lock" && (
-                <View
-                  style={{
-                    alignSelf: "flex-end"
-                  }}
-                >
-                  <RectButton
-                    style={{
-                      width: normalize(200),
-                      height: normalize(40, "height"),
-                      paddingRight: normalize(10),
-                      justifyContent: "center"
-                    }}
-                    onPress={signOut}
-                  >
-                    <Text
-                      style={{
-                        color: colors.primary,
-                        fontWeight: "bold",
-                        textAlign: "right",
-                        fontSize: normalize(16),
-                        textTransform: "uppercase"
-                      }}
-                    >
-                      sign out
-                    </Text>
-                  </RectButton>
-                </View>
-              )}
+          <Card
+            style={{
+              shadowOpacity: 0,
+              height: "100%"
+            }}
+          >
+            {type === "lock" && (
               <View
                 style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
+                  alignSelf: "flex-end"
                 }}
               >
-                <Text
+                <RectButton
                   style={{
-                    fontSize: normalize(25),
-                    fontWeight: "bold",
-                    color: colors.text,
-                    textAlign: "center",
-                    paddingHorizontal: normalize(40)
+                    width: normalize(200),
+                    height: normalize(40, "height"),
+                    paddingRight: normalize(10),
+                    justifyContent: "center"
                   }}
+                  onPress={signOut}
                 >
-                  {message}
-                </Text>
-
-                {modalVisible && (
+                  <Text
+                    type="main"
+                    style={{
+                      color: colors.primary,
+                      textAlign: "right",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    sign out
+                  </Text>
+                </RectButton>
+              </View>
+            )}
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Spacer vertical type="xLarge" />
+              <Spacer vertical type="xLarge" />
+              <Text
+                center
+                style={{
+                  fontSize: normalize(25),
+                  fontWeight: "bold"
+                }}
+              >
+                {message}
+              </Text>
+              <Spacer vertical type="xLarge" />
+              <Spacer vertical type="xLarge" />
+              {modalVisible && (
+                <>
+                  <Spacer type="xLarge" />
+                  <Spacer type="xLarge" />
                   <View
                     style={{
-                      marginTop: normalize(40, "height"),
                       alignItems: "center"
                     }}
                   >
                     <Ionicons name="ios-finger-print" size={100} />
                   </View>
-                )}
-                {!modalVisible && (
-                  <LottieView
-                    ref={lottieRef}
-                    loop={false}
-                    style={{ width: normalize(400) }}
-                    onAnimationFinish={() => sheetRef.current.snapTo(0)}
-                    autoSize
-                    source={require("../../assets/fingerprint.json")}
-                  />
-                )}
-              </View>
-            </Card>
-          </View>
+                </>
+              )}
+              {!modalVisible && (
+                <LottieView
+                  ref={lottieRef}
+                  loop={false}
+                  style={{ width: normalize(400) }}
+                  onAnimationFinish={() => sheetRef.current.snapTo(0)}
+                  autoSize
+                  source={require("../../assets/fingerprint.json")}
+                />
+              )}
+            </View>
+            <Spacer type="xLarge" />
+            <Spacer type="xLarge" />
+          </Card>
         )}
       />
       <Animated.View

@@ -5,6 +5,7 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import { useTheme } from "@react-navigation/native";
 import { normalize } from "../../../utils/normalize";
 import { Text } from "../../elements/text/Text";
+import { ThemeType } from "../../../App";
 
 dayjs.extend(advancedFormat);
 
@@ -23,13 +24,17 @@ type TxnHeaderProps = {
     name: string;
     transactions: any[];
   };
+  background?: string;
 };
 
-export const TxnHeader = ({ data }: TxnHeaderProps) => {
-  const { colors } = useTheme();
+export const TxnHeader = ({ data, background }: TxnHeaderProps) => {
+  const { colors } = useTheme() as ThemeType;
   return (
     <View
-      style={[styles.headerContainer, { backgroundColor: colors.background }]}
+      style={[
+        styles.headerContainer,
+        { backgroundColor: background || colors.background }
+      ]}
     >
       <Text style={[styles.sectionHeader]}>{getContent(data.name)}</Text>
     </View>
